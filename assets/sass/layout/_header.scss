@@ -1,0 +1,82 @@
+.header {
+    background: $base-module-bg;
+    position: fixed;
+    max-width: 1201px;
+    top: 0;
+    height: 70px;
+    z-index: 1010;
+    border: 1px solid #d7d7d7;
+    clear: both;
+}
+
+.logo {
+    width: 200px;
+    background: $logo-bg;
+    float: left;
+    height: 100%;
+    margin: 0 25px 0 0;
+
+    img {
+        margin: 20px 15px 20px 15px;
+    }
+}
+
+.header-menu {
+    padding: 17px 0 0 20px;
+}
+
+.header-search {
+    float: left;
+
+    .text-input {
+        input {
+            width: 250px;
+            height: 35px;
+            font-size: $base-font-size;
+        }
+    }
+
+    .search-btn {
+        height: 35px;
+        border-left: none;
+        width: 40px;
+    }
+
+    .text-input, .search-btn {
+        float: left;
+    }
+}
+
+.header-navigation {
+    float: right;
+    margin: 5px 15px 0 0;
+
+    .user {
+        margin: 0 10px 0 0;
+
+        a {
+            margin: 3px 0 0 8px;
+        }
+
+        img {
+            border: 1px solid #a7a1a1;
+        }
+
+        a, img {
+            float: left;
+        }
+    }
+
+    .settings {
+        color: $base-font-color;
+        margin: 3px 13px 0 0;
+
+        &:hover {
+            color: $base-link-hover;
+        }
+    }
+
+    .user, .settings {
+        float: left;
+    }
+}

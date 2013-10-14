@@ -1,0 +1,16 @@
+#radio-side-module {
+    .radio-thumb {
+        float: left;
+    }
+
+    .radio-meta {
+        float: left;
+        margin: 10px 0 0 12px;
+
+
+        .radio-title { margin: 0 0 3px 0; }
+        .radio-title, .radio-artist {
+            display: block;
+        }
+    }
+}

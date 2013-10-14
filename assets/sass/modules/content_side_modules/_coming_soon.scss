@@ -1,0 +1,16 @@
+#coming-soon-side-module {
+
+    .meta {
+        float: left;
+
+        .track-title { margin: 0 0 3px 0; }
+        .track-title, .track-artist {
+            display: block;
+        }
+    }
+
+    .track-date {
+        float: right;
+        margin: 8px 0 0 0;
+    }
+}

@@ -1,0 +1,35 @@
+.content-container {
+    .options {
+        .view-types {
+            float: right;
+            padding-right: 13px;
+
+            a {
+                font-size: 14px;
+            }
+
+            .selected.button {
+                background-color: $base-light-blue;
+                border: 1px solid $base-dark-blue;
+                color: #FFFFFF;
+            }
+        }
+
+        .filter a {
+            border-left: 0;
+        }
+
+        .filter input, .filter a {
+            height: 32px;
+            font-size: 14px;
+        }
+    }
+}
+
+#sort-dropdown, #order-dropdown {
+    font-size: 14px;
+
+    ul {
+        min-width: 100%;
+    }
+}

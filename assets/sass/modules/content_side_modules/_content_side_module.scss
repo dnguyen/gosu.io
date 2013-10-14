@@ -1,0 +1,17 @@
+.side-module {
+    background: $base-content-side-module-bg;
+    padding: 10px;
+
+    .module-item {
+        background: #FFF;
+        margin: 0 0 10px 0;
+        padding: 10px;
+        overflow: hidden;
+        clear: both;
+        border-bottom: 1px solid #d1d1d1;
+
+        &:last-child {
+            margin: 0;
+        }
+    }
+}

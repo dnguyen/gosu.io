@@ -1,0 +1,22 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    color: $base-font-color;
+    cursor: auto;
+}
+
+a {
+    color: $base-font-color;
+
+    &:hover {
+        color: $base-link-hover;
+    }
+}

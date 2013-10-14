@@ -1,0 +1,52 @@
+.sidebar {
+    position: fixed;
+    width: 200px;
+    top: 70px;
+    z-index: 1000;
+    height: 100%;
+    border-right: 1px solid #d7d7d7;
+    border-left: 1px solid #d7d7d7;
+
+    .heading {
+        background: $base-module-bg;
+        height: 50px;
+        padding: 15px;
+
+        h3 {
+            font-size: $sidebar-heading-font-size;
+            color: $base-font-color;
+        }
+    }
+
+    .navigation {
+        li {
+            height: 40px;
+            padding: 12px 15px 12px 15px;
+            border-bottom: 1px solid $seperator-color;
+
+            &.selected {
+                background: url("img/selected_navigation_item.png") repeat-y scroll left center transparent;
+            }
+
+            a {
+                color: $base-font-color;
+
+                &:hover {
+                    color: $base-link-hover;
+                }
+            }
+        }
+
+        .playlists {
+            li {
+                height: 30px;
+                margin: 0 0 0 30px;
+                padding: 9px 0 9px 15px;
+                font-size: $base-small-font;
+                background: url("img/selected_navigation_item.png") repeat-y scroll left center transparent;
+            }
+        }
+    }
+}
+
+

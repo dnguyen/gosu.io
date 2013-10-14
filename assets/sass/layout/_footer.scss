@@ -1,0 +1,29 @@
+@include sticky-footer (70px, ".container", ".push", ".footer");
+
+.footer {
+    position: relative;
+    background: $base-module-bg;
+    z-index: 9999;
+    height: 70px;
+    clear: both;
+    max-width: 1201px;
+    margin: 0 auto 0 auto;
+    border-right: 1px solid #d7d7d7;
+    padding: 20px 15px 15px 15px;
+
+    .footer-logo {
+        float: left;
+        font-size: $heading-content-size;
+        font-family: $heading-font-family;
+        color: $base-font-color;
+    }
+
+    .social-links {
+        float: right;
+        margin: 7px 0 0 0;
+        li {
+            float: left;
+            margin: 0 0 0 5px;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+
+.tracks-group {
+
+    .item {
+        .thumb img {
+            border: 5px solid $base-module-bg;
+        }
+        .meta {
+            float: left;
+
+            .title { margin: 0 0 3px 0; }
+            .artist { color: $base-light-font-color; }
+            .title, .artist {
+                display: block;
+            }
+        }
+    }
+}
+
+.tracks-group-row {
+    margin: 15px 0 0 0;
+}

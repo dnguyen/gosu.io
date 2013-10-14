@@ -1,0 +1,49 @@
+
+.row {
+    margin: 0;
+}
+.container {
+    max-width: 1201px;
+    margin: 0 auto 0 auto;
+    border-right: 1px solid #d7d7d7;
+}
+.content-container {
+    margin-left: 200px;
+    padding-top: 70px;
+
+    h3, h4, h5 {
+        color: $base-font-color;
+        font-family: $base-font-family;
+        font-size: $heading-content-size;
+        margin: 10px 0 10px 0;
+    }
+    /* H4's used for side modules */
+    h4 {
+        margin: 10px 0 10px 0;
+    }
+
+    h5 {
+        margin: 10px 0 10px 15px;
+    }
+
+
+}
+
+.featured {
+    img {
+        float: left;
+    }
+}
+
+.content-footer {
+    margin: 15px 0 15px 0;
+
+    .pagination {
+        li {
+            font-size: 14px;
+        }
+        .current a {
+            background: $base-light-blue;
+        }
+    }
+}
