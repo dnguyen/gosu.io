@@ -3,13 +3,19 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "handlebars",
     "../views/HomePageView",
-    "../views/TrackGroupCollectionView"
-], function(namespace, $, Backbone, Marionette, HomePageView, TrackGroupCollectionView) {
+    "../views/TrackGroupCollectionView",
+    "../views/side_modules/SOTWSideModuleView",
+    "../views/side_modules/RadioSideModuleView",
+    "../views/side_modules/ModuleListCompositeView",
+    "../layouts/SideModulesLayout"
+], function(namespace, $, Backbone, Marionette, Handlebars, HomePageView, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout) {
 
     var GosuApp = namespace.app;
 
     return {
+        // TODO: put rendering in views
         mainPage : function() {
 
             /*
@@ -40,10 +46,36 @@ define([
                 collection : newReleasesCollection
             });
 
+            var comingSoonCollection = new Backbone.Collection();
+            comingSoonCollection.url = "http://localhost/gosukpop-api/public/ComingSoonTracks";
+            comingSoonCollection.fetch({
+                data : { count : 5 }
+            });
+            console.log(comingSoonCollection);
+            /*
+                Render content layout
+             */
             GosuApp.content.show(GosuApp.contentLayout);
             GosuApp.contentLayout.popular.show(popularTracksCompositeView);
             GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
-            //GosuApp.content.show(new HomePageView());
+
+            /*
+                Render side bar modules
+             */
+            var sideModulesLayout = new SideModulesLayout();
+            var sotwView = new SOTWSideModuleView();
+            var radioView = new RadioSideModuleView();
+            var moduleListView = new ModuleListCompositeView({
+                collection : comingSoonCollection,
+                itemViewOptions: {
+                    moduleType : "coming-soon"
+                }
+            });
+
+            GosuApp.contentLayout.sideModules.show(sideModulesLayout);
+            sideModulesLayout.sotw.show(sotwView);
+            sideModulesLayout.radio.show(radioView);
+            sideModulesLayout.comingSoon.show(moduleListView);
         },
 
         tracksPage : function() {
