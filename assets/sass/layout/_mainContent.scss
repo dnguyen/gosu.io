@@ -31,23 +31,20 @@
 
 /* Transition effect for changing pages */
 .app-region {
+    -moz-animation-duration:2s;
     -webkit-animation-duration: 2s;
+    -o-animation-duration: 2s;
+    animation-duration: 2s;
     -webkit-animation-name: contentSlideIn;
+    -moz-animation-name: contentSlideIn;
+    -o-animation-name: contentSlideIn;
+    animation-name: contentSlideIn;
 }
 
-@-webkit-keyframes contentSlideIn {
-    from {
-        //margin-top: 100%;
-        //height: 300%;
-        opacity: 0;
-    }
-
-    to {
-        //margin-top: 0%;
-        //height: 100%;
-        opacity: 1;
-    }
-}
+@-webkit-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
+@-moz-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
+@-o-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
 
 .featured {
     img {

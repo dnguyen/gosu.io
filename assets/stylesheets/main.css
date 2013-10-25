@@ -263,12 +263,30 @@ a:hover {
 /* Transition effect for changing pages */
 /* line 33, ../sass/layout/_mainContent.scss */
 .app-region {
+  -moz-animation-duration: 2s;
   -webkit-animation-duration: 2s;
+  -o-animation-duration: 2s;
+  animation-duration: 2s;
   -webkit-animation-name: contentSlideIn;
+  -moz-animation-name: contentSlideIn;
+  -o-animation-name: contentSlideIn;
+  animation-name: contentSlideIn;
 }
 
 @-webkit-keyframes contentSlideIn {
-  /* line 39, ../sass/layout/_mainContent.scss */
+  /* line 44, ../sass/layout/_mainContent.scss */
+  from {
+    opacity: 0;
+  }
+
+  /* line 44, ../sass/layout/_mainContent.scss */
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes contentSlideIn {
+  /* line 45, ../sass/layout/_mainContent.scss */
   from {
     opacity: 0;
   }
@@ -279,20 +297,44 @@ a:hover {
   }
 }
 
-/* line 53, ../sass/layout/_mainContent.scss */
+@-o-keyframes contentSlideIn {
+  /* line 46, ../sass/layout/_mainContent.scss */
+  from {
+    opacity: 0;
+  }
+
+  /* line 46, ../sass/layout/_mainContent.scss */
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentSlideIn {
+  /* line 47, ../sass/layout/_mainContent.scss */
+  from {
+    opacity: 0;
+  }
+
+  /* line 47, ../sass/layout/_mainContent.scss */
+  to {
+    opacity: 1;
+  }
+}
+
+/* line 50, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 58, ../sass/layout/_mainContent.scss */
+/* line 55, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 62, ../sass/layout/_mainContent.scss */
+/* line 59, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 65, ../sass/layout/_mainContent.scss */
+/* line 62, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
