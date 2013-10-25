@@ -9,7 +9,7 @@ define([
     "controllers/MainController",
     "views/common/HeaderView",
     "views/common/SidebarView"
-], function($,Backbone, Marionette, namespace, ExploreApp, Handlebars, MainPageLayout, MainController, HeaderView, SidebarView, HomePageView) {
+], function($,Backbone, Marionette, namespace, ExploreApp, Handlebars, MainPageLayout, MainController, HeaderView, SidebarView) {
     "use strict";
 
     var gosuApp = namespace.app;
