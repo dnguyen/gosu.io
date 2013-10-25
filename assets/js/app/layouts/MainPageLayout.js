@@ -7,7 +7,7 @@ define([
 
     var MainPageLayout = Backbone.Marionette.Layout.extend({
         template: Handlebars.compile(MainPageLayoutTemplate),
-
+        className : "app-region",
         regions : {
             featured : ".featured",
             content : ".content",

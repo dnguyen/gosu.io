@@ -21,6 +21,7 @@ define([
             var newReleasesCollection = new Backbone.Collection();
             var comingSoonCollection = new Backbone.Collection();
 
+            $("#content").append('<div class="row"><div class="small-3 small-centered columns"><div class="loading-icon"><div id="circularG"><div id="circularG_1" class="circularG"></div><div id="circularG_2" class="circularG"></div><div id="circularG_3" class="circularG"></div><div id="circularG_4" class="circularG"></div><div id="circularG_5" class="circularG"></div><div id="circularG_6" class="circularG"></div><div id="circularG_7" class="circularG"></div><div id="circularG_8" class="circularG"></div></div></div></div></div>');
             /*
                 Only start rendering page once all of the data is ready.
              */
