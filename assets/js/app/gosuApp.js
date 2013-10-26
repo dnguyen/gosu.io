@@ -5,11 +5,11 @@ define([
     "namespace",
     "apps/explore/explore_app",
     "handlebars",
+    "controllers/HeaderController",
     "layouts/MainPageLayout",
     "controllers/MainController",
-    "views/common/HeaderView",
     "views/common/SidebarView"
-], function($,Backbone, Marionette, namespace, ExploreApp, Handlebars, MainPageLayout, MainController, HeaderView, SidebarView) {
+], function($,Backbone, Marionette, namespace, ExploreApp, Handlebars, HeaderController, MainPageLayout, MainController, SidebarView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -42,10 +42,11 @@ define([
     gosuApp.addInitializer(function() {
         console.log("initialize");
 
-
         gosuApp.contentLayout = new MainPageLayout();
 
-        gosuApp.header.show(new HeaderView());
+        var headerController = new HeaderController();
+        headerController.render();
+
         gosuApp.sidebar.show(new SidebarView());
 
         new gosuApp.Router({

@@ -79,4 +79,13 @@
     .user, .settings {
         float: left;
     }
+
+    .user-nav {
+        margin: 3px 0 0 0;
+
+        li {
+            float: left;
+            margin: 0 0 0 10px;
+        }
+    }
 }

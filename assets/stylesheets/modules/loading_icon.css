@@ -138,55 +138,55 @@
     -moz-transform: scale(1);
   }
 
-  /* line 127, ../../sass/modules/loading_icon.scss */
+  /* line 126, ../../sass/modules/loading_icon.scss */
   100% {
     -moz-transform: scale(0.3);
   }
 }
 
 @-webkit-keyframes bounce_circularG {
-  /* line 133, ../../sass/modules/loading_icon.scss */
+  /* line 130, ../../sass/modules/loading_icon.scss */
   0% {
     -webkit-transform: scale(1);
   }
 
-  /* line 136, ../../sass/modules/loading_icon.scss */
+  /* line 132, ../../sass/modules/loading_icon.scss */
   100% {
     -webkit-transform: scale(0.3);
   }
 }
 
 @-ms-keyframes bounce_circularG {
-  /* line 142, ../../sass/modules/loading_icon.scss */
+  /* line 136, ../../sass/modules/loading_icon.scss */
   0% {
     -ms-transform: scale(1);
   }
 
-  /* line 145, ../../sass/modules/loading_icon.scss */
+  /* line 138, ../../sass/modules/loading_icon.scss */
   100% {
     -ms-transform: scale(0.3);
   }
 }
 
 @-o-keyframes bounce_circularG {
-  /* line 151, ../../sass/modules/loading_icon.scss */
+  /* line 142, ../../sass/modules/loading_icon.scss */
   0% {
     -o-transform: scale(1);
   }
 
-  /* line 154, ../../sass/modules/loading_icon.scss */
+  /* line 144, ../../sass/modules/loading_icon.scss */
   100% {
     -o-transform: scale(0.3);
   }
 }
 
 @keyframes bounce_circularG {
-  /* line 160, ../../sass/modules/loading_icon.scss */
+  /* line 148, ../../sass/modules/loading_icon.scss */
   0% {
     transform: scale(1);
   }
 
-  /* line 163, ../../sass/modules/loading_icon.scss */
+  /* line 150, ../../sass/modules/loading_icon.scss */
   100% {
     transform: scale(0.3);
   }
