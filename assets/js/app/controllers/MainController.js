@@ -8,8 +8,9 @@ define([
     "backbone",
     "marionette",
     "controllers/HomePageController",
+    "controllers/TracksPageController",
     "views/common/LoadingIcon"
-], function(namespace, $, Backbone, Marionette, HomePageController, LoadingIconView) {
+], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoadingIconView) {
 
     var GosuApp = namespace.app;
 
@@ -52,8 +53,8 @@ define([
                     newReleasesCollection : newReleasesCollection,
                     comingSoonCollection : comingSoonCollection
                 };
-                var pagecontroler = new HomePageController(options);
-                pagecontroler.render();
+                var pageController = new HomePageController(options);
+                pageController.render();
             });
 
         },
@@ -63,6 +64,8 @@ define([
          */
         tracksPage : function() {
             console.log("tracks route");
+            var tracksPage = new TracksPageController();
+            tracksPage.render();
         }
     };
 

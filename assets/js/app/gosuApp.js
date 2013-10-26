@@ -3,13 +3,14 @@ define([
     "backbone",
     "marionette",
     "namespace",
+    "foundation",
     "apps/explore/explore_app",
     "handlebars",
     "controllers/HeaderController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView"
-], function($,Backbone, Marionette, namespace, ExploreApp, Handlebars, HeaderController, MainPageLayout, MainController, SidebarView) {
+], function($, Backbone, Marionette, namespace, foundation, ExploreApp, Handlebars, HeaderController, MainPageLayout, MainController, SidebarView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -52,6 +53,8 @@ define([
         new gosuApp.Router({
             controller : MainController
         });
+
+        $(document).foundation();
 
     });
 

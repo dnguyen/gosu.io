@@ -1,13 +1,14 @@
 require.config({
     paths : {
-        backbone : '../lib/backbone',
-        underscore : '../lib/underscore',
-        jquery : '../lib/jquery',
-        marionette : "../lib/backbone.marionette",
-        "backbone.wreqr" : "../lib/backbone.wreqr",
-        "backbone.babysitter" : "../lib/backbone.babysitter",
-        handlebars : "../lib/handlebars",
-        text : "../lib/text"
+        backbone : '../../../bower_components/backbone/backbone-min',
+        underscore : '../../../bower_components/underscore/underscore-min',
+        jquery : '../../../bower_components/jquery/jquery.min',
+        marionette : "../../../bower_components/backbone.marionette/lib/core/amd/backbone.marionette",
+        "backbone.wreqr" : "../../../bower_components/backbone.wreqr/lib/backbone.wreqr.min",
+        "backbone.babysitter" : "../../../bower_components/backbone.babysitter/lib/backbone.babysitter.min",
+        handlebars : "../../../bower_components/handlebars/handlebars",
+        text : "../../../bower_components/requirejs-text/text",
+        foundation : "../../../bower_components/foundation/js/foundation/foundation.min"
     },
     shim : {
         jquery : {
@@ -42,6 +43,11 @@ require.config({
 
         handlebars : {
             exports: 'Handlebars'
+        },
+
+        foundation : {
+            deps: ['jquery'],
+            exports: 'foundation'
         }
     }
 }, require(["gosuApp"], function(GosuApp) {

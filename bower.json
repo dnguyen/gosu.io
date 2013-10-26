@@ -1,0 +1,31 @@
+{
+    "name": "gosu_io",
+    "version": "0.0.1",
+    "homepage": "gosukpop.com",
+    "authors": [
+        "Dylan Nguyen"
+    ],
+    "description": "gosu.io application",
+    "main": "assets/js/app/gosu-io.js",
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies" : {
+        "jquery" : "latest",
+        "backbone" : "latest",
+        "backbone.marionette" : "latest",
+        "backbone.babysitter" : "latest",
+        "backbone.wreqr" : "latest",
+        "underscore" : "latest",
+        "handlebars" : "latest",
+        "requirejs" : "latest",
+        "requirejs-text" : "latest",
+        "foundation" : "latest"
+    }
+}

@@ -23,12 +23,14 @@ define([
 
         // Render popular tracks
         var popularTracksCompositeView = new TrackGroupCollectionView({
-            collection : this.popularTracksCollection
+            collection : this.popularTracksCollection,
+            size : 4
         });
 
         // Render new releases
         var newReleasesCollectionView = new TrackGroupCollectionView({
-            collection : this.newReleasesCollection
+            collection : this.newReleasesCollection,
+            size : 4
         });
 
         // Start rendering content region
