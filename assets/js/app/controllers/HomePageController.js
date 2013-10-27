@@ -7,8 +7,9 @@ define([
     "../views/side_modules/SOTWSideModuleView",
     "../views/side_modules/RadioSideModuleView",
     "../views/side_modules/ModuleListCompositeView",
-    "../layouts/SideModulesLayout"
-], function(namespace, $, Backbone, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout) {
+    "../layouts/SideModulesLayout",
+    "../layouts/MainPageLayout"
+], function(namespace, $, Backbone, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
     var GosuApp = namespace.app;
 
@@ -33,7 +34,8 @@ define([
             size : 4
         });
 
-        // Start rendering content region
+        // Start rendering content region with our home page layout
+        GosuApp.contentLayout = new MainPageLayout();
         GosuApp.content.show(GosuApp.contentLayout);
         GosuApp.contentLayout.popular.show(popularTracksCompositeView);
         GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);

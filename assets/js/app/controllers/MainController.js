@@ -15,13 +15,29 @@ define([
     var GosuApp = namespace.app;
 
     /*
-        Fetches meta data from API and stores it in a collection.
+        Make request to server to get data for any kind of simple meta data (most viewed tracks, new releaes, coming soon, etc).
+        Also stores the data that was fetched into a cache for faster loading.
+        Thanks to http://stackoverflow.com/a/8960587 for the caching :)
      */
-    function LoadMetaCollection(collection, url, count) {
-        collection.url = url;
-        return collection.fetch({
-            data : { count : count }
-        });
+    function getMetaData(url, type, count) {
+
+        // Store the cache into a promise
+        var promise = GosuApp.GlobalCache.get(type);
+
+        // If the promise doesn't exist, get it from the server
+        if (!promise) {
+            promise = $.ajax(url, {
+                type : 'GET',
+                data : { count : count },
+                dataType : 'json'
+            });
+
+            // Set the cache to the data that was retrieved.
+            GosuApp.GlobalCache.set(type, promise);
+        }
+
+        // return the promise
+        return promise;
     }
 
     return {
@@ -35,16 +51,20 @@ define([
 
             // Display the loading icon
             var loadingIconView = new LoadingIconView();
+            $("#content").html("");
             $("#content").append(loadingIconView.render().el);
 
             /*
                 Only start rendering page once all of the data is ready.
              */
             $.when(
-                LoadMetaCollection(popularTracksCollection, "http://localhost/gosukpop-api/public/MostViewedTracks", 8),
-                LoadMetaCollection(newReleasesCollection, "http://localhost/gosukpop-api/public/NewTrackReleases", 8),
-                LoadMetaCollection(comingSoonCollection, "http://localhost/gosukpop-api/public/ComingSoonTracks", 5)
-            ).then(function() {
+                getMetaData("http://localhost/gosukpop-api/public/MostViewedTracks", "mostViewedTracksMainPage", 8),
+                getMetaData("http://localhost/gosukpop-api/public/NewTrackReleases", "newReleaesMainPage", 8),
+                getMetaData("http://localhost/gosukpop-api/public/ComingSoonTracks", "comingSoonMainPage", 5)
+            ).then(function(mostViewed, newTracks, comingSoon) {
+                popularTracksCollection.add(mostViewed[0]);
+                newReleasesCollection.add(newTracks[0]);
+                comingSoonCollection.add(comingSoon[0]);
                 // Properly remove the loading icon.
                 loadingIconView.close();
                 // Pass all our collections to the home page controller, which will render all the views
