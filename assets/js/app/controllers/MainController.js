@@ -13,36 +13,11 @@ define([
 ], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoadingIconView) {
 
     var GosuApp = namespace.app;
-
-    /*
-        Make request to server to get data for any kind of simple meta data (most viewed tracks, new releaes, coming soon, etc).
-        Also stores the data that was fetched into a cache for faster loading.
-        Thanks to http://stackoverflow.com/a/8960587 for the caching :)
-     */
-    function getMetaData(url, type, count) {
-
-        // Store the cache into a promise
-        var promise = GosuApp.GlobalCache.get(type);
-
-        // If the promise doesn't exist, get it from the server
-        if (!promise) {
-            promise = $.ajax(url, {
-                type : 'GET',
-                data : { count : count },
-                dataType : 'json'
-            });
-
-            // Set the cache to the data that was retrieved.
-            GosuApp.GlobalCache.set(type, promise);
-        }
-
-        // return the promise
-        return promise;
-    }
+    var ApiHelper = namespace.ApiHelper;
 
     return {
-        /*
-         * Home Page
+        /**
+         *  Home Page
          */
         mainPage : function() {
             var popularTracksCollection = new Backbone.Collection();
@@ -54,19 +29,25 @@ define([
             $("#content").html("");
             $("#content").append(loadingIconView.render().el);
 
-            /*
-                Only start rendering page once all of the data is ready.
+            /**
+             *  Only start rendering page once all of the data is ready.
+             *  TODO: Move to HomePageController?
              */
             $.when(
-                getMetaData("http://localhost/gosukpop-api/public/MostViewedTracks", "mostViewedTracksMainPage", 8),
-                getMetaData("http://localhost/gosukpop-api/public/NewTrackReleases", "newReleaesMainPage", 8),
-                getMetaData("http://localhost/gosukpop-api/public/ComingSoonTracks", "comingSoonMainPage", 5)
+                ApiHelper.get("http://localhost/gosukpop-api/public/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.get("http://localhost/gosukpop-api/public/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
+                ApiHelper.get("http://localhost/gosukpop-api/public/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
+                // Array of models should always be at 0th index..so just add those to the collections.
+                // TODO: status code check...make sure the requests were actually completed successfully
+                //       before trying to render the collection.
                 popularTracksCollection.add(mostViewed[0]);
                 newReleasesCollection.add(newTracks[0]);
                 comingSoonCollection.add(comingSoon[0]);
+
                 // Properly remove the loading icon.
                 loadingIconView.close();
+
                 // Pass all our collections to the home page controller, which will render all the views
                 var options = {
                     popularTracksCollection : popularTracksCollection,
@@ -79,8 +60,8 @@ define([
 
         },
 
-        /*
-         * Tracks page
+        /**
+         *  Tracks page
          */
         tracksPage : function() {
             console.log("tracks route");
