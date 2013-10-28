@@ -14,6 +14,7 @@ define([
 
     var GosuApp = namespace.app;
     var ApiHelper = namespace.ApiHelper;
+    var URLHelper = namespace.URLHelper;
 
     return {
         /**
@@ -25,6 +26,7 @@ define([
             var comingSoonCollection = new Backbone.Collection();
 
             // Display the loading icon
+            // TODO: Move to a function in GosuApp that switches main view
             var loadingIconView = new LoadingIconView();
             $("#content").html("");
             $("#content").append(loadingIconView.render().el);
@@ -63,9 +65,9 @@ define([
         /**
          *  Tracks page
          */
-        tracksPage : function() {
+        tracksPage : function(page, query) {
             console.log("tracks route");
-            var tracksPage = new TracksPageController();
+            var tracksPage = new TracksPageController(page, URLHelper.getQueryObj(query));
             tracksPage.render();
         }
     };

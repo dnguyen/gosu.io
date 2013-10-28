@@ -22,9 +22,13 @@ define([
     // Cache any data that was fetched from the server.
     gosuApp.GlobalCache = new Backbone.Model();
 
+    gosuApp.switchPage = function() {};
+
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
             "" : "mainPage",
+            "tracks/:page?*query" : "tracksPage",
+            "tracks/:page" : "tracksPage",
             "tracks" : "tracksPage"
         }
     });
