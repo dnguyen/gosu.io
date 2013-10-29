@@ -3,18 +3,22 @@
                 <div class="options row">
                     <form class="custom">
                         <div class="large-2 columns">
-                            <select id="sort" class="medium hidden-field">
-                                <option value="uploaded">Date</option>
-                                <option value="popular">Popularity</option>
-                                <option value="artistName">Arist</option>
-                                <option value="title">Title</option>
-                            </select>
                             <div id="sort-dropdown" class="custom dropdown medium">
-                                <a class="current" href="#">Date</a>
+                                <a class="current" href="#">
+                                    <% if (sortType == "uploaded") { %>
+                                        Date
+                                    <% } else if (sortType == "popularity") { %>
+                                        Popular
+                                    <% } else if (sortType == "artistName") { %>
+                                        Artist
+                                    <% } else if (sortType == "title") { %>
+                                        Title
+                                    <% } %>
+                                </a>
                                 <a class="selector" href="#"></a>
                                 <ul class="sort-selectors">
-                                    <li class="">Date</li>
-                                    <li class="">Popularity</li>
+                                    <li>Date</li>
+                                    <li>Popularity</li>
                                     <li>Artist</li>
                                     <li>Title</li>
                                 </ul>
@@ -65,27 +69,27 @@
                 <div class="content-footer row">
                     <div class="large-4 large-centered columns">
                         <ul class="pagination">
-                            {{#ifCond page '>' 2}}
+                            <% if (page > 2) { %>
                                 <li class="arrow unavailable"><a>&laquo;</a></li>
-                                <li><a href="#/tracks/{{math page '-' 2}}">{{math page '-' 2}}</a></li>
-                                <li><a href="#/tracks/{{math page '-' 1}}">{{math page '-' 1}}</a></li>
-                                <li class="current"><a>{{page}}</a></li>
-                                <li><a href="#/tracks/{{math page '+' 1}}">{{math page '+' 1}}</a></li>
+                                <li><a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a></li>
+                                <li><a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 1 %></a></li>
+                                <li class="current"><a><%= page %></a></li>
+                                <li><a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a></li>
                                 <li class="unavailable"><a href="">&hellip;</a></li>
-                                <li><a href="#/tracks/{{math pageCount '-' 1}}">{{math pageCount '-' 1}}</a></li>
-                                <li><a href="#/tracks/{{pageCount}}">{{pageCount}}</a></li>
+                                <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
+                                <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
                                 <li class="arrow"><a href="">&raquo;</a></li>
-                            {{else}}
+                            <% } else { %>
                                 <li class="arrow unavailable"><a>&laquo;</a></li>
                                 <li class="current"><a href="#/tracks/1">1</a></li>
                                 <li><a href="#/tracks/2">2</a></li>
                                 <li><a href="#/tracks/3">3</a></li>
                                 <li><a href="#/tracks/4">4</a></li>
                                 <li class="unavailable"><a href="">&hellip;</a></li>
-                                <li><a href="#/tracks/{{math pageCount '-' 1}}">{{math pageCount '-' 1}}</a></li>
-                                <li><a href="#/tracks/{{pageCount}}">{{pageCount}}</a></li>
+                                <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
+                                <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
                                 <li class="arrow"><a href="">&raquo;</a></li>
-                            {{/ifCond}}
+                            <% } %>
                         </ul>
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 define([
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../../templates/ModuleItemTemplate.html",
     "text!../../templates/ComingSoonModuleItemTemplate.html"
-], function(Backbone, Marionette, Handlebars, ModuleItemTemplate, ComingSoonModuleItemTemplate) {
+], function(_, Backbone, Marionette, ModuleItemTemplate, ComingSoonModuleItemTemplate) {
 
     var ModuleItemView = Backbone.Marionette.ItemView.extend({
 
@@ -21,9 +21,9 @@ define([
         getTemplate : function() {
             var moduleType = this.model.get("moduleType");
             if (moduleType === "coming-soon") {
-                return Handlebars.compile(ComingSoonModuleItemTemplate);
+                return _.template(ComingSoonModuleItemTemplate);
             } else {
-                return Handlebars.compile(ModuleItemTemplate);
+                return _.template(ModuleItemTemplate);
             }
         }
 

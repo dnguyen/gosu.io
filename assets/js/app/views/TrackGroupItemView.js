@@ -1,16 +1,16 @@
 define([
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../templates/TrackGroupItemTemplate.html"
-], function(Backbone, Marionette, Handlebars, TrackGroupItemTemplate) {
+], function(_, Backbone, Marionette, TrackGroupItemTemplate) {
 
     var TrackGroupItemView = Backbone.Marionette.ItemView.extend({
 
         tagName : 'li',
         className : 'item',
 
-        template: Handlebars.compile(TrackGroupItemTemplate)
+        template: _.template(TrackGroupItemTemplate)
 
     });
 

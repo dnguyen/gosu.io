@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="header-navigation">
-                        {{#if loggedin}}
+                        <% if (loggedin) { %>
                             <div class="user">
                                 <img src="assets/img/header-profile-img.png" />
                                 <a href="#">Lithica</a>
@@ -24,11 +24,11 @@
                                 <li><a href="#">Settings</a></li>
                                 <li><a href="#">Log out</a></li>
                             </ul>
-                        {{else}}
+                        <% } else { %>
                             <ul class="user-nav">
                                 <li><a href="#">Sign In</a></li>
                                 <li><a href="#">Register</a></li>
                             </ul>
-                        {{/if}}
+                        <% } %>
                     </div>
                 </div>

@@ -1,22 +1,23 @@
 define([
     "jquery",
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "../TrackGroupCollectionView",
     "text!../../templates/TracksPageLayoutTemplate.html"
-], function($, Backbone, Marionette, Handlebars, TrackGroupCollectionView, TracksPageTemplate) {
+], function($, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
         className : "app-region",
-        template : Handlebars.compile(TracksPageTemplate),
+        template : _.template(TracksPageTemplate),
 
         initialize : function() {
 
         },
 
         onRender : function() {
+            // After rendering entire layout, start rendering the tracks
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
                 size : 6

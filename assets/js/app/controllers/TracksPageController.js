@@ -12,7 +12,7 @@ define([
 
     var TracksPageController = function(page, queryObj) {
         this.model = new Backbone.Model();
-        this.model.set("page", page);
+        this.model.set("page", parseInt(page, 10));
 
         // TODO: Move to its own model to handle
         if (typeof queryObj == 'undefined') {
@@ -22,7 +22,7 @@ define([
         }
 
         if (typeof page != 'undefined')
-            this.model.set("page", page);
+            this.model.set("page", parseInt(page, 10));
         else
             this.model.set("page", 1);
 
@@ -35,8 +35,6 @@ define([
             this.model.set("orderBy", queryObj.order);
         else
             this.model.set("orderBy", "desc");
-
-        console.log(this.model);
     };
 
     TracksPageController.prototype.render = function() {
