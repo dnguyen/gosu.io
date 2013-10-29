@@ -19,6 +19,55 @@ define([
         return Handlebars.compile(rawTemplate);
     };
 
+    Handlebars.registerHelper('ifCond', function (v1, operator, v2, opts) {
+        var isTrue = false;
+        switch (operator) {
+            case '===':
+                isTrue = v1 === v2;
+                break;
+            case '!==':
+                isTrue = v1 !== v2;
+                break;
+            case '<':
+                isTrue = v1 < v2;
+                break;
+            case '<=':
+                isTrue = v1 <= v2;
+                break;
+            case '>':
+                isTrue = v1 > v2;
+                break;
+            case '>=':
+                isTrue = v1 >= v2;
+                break;
+            case '||':
+                isTrue = v1 || v2;
+                break;
+            case '&&':
+                isTrue = v1 && v2;
+                break;
+        }
+        return isTrue ? opts.fn(this) : opts.inverse(this);
+    });
+
+    Handlebars.registerHelper('math', function(v1, operator, v2) {
+        var returnVal;
+        v1 = parseInt(v1, 10);
+        v2 = parseInt(v2, 10);
+
+        switch (operator) {
+            case '-':
+                returnVal = v1 - v2;
+                break;
+            case '+':
+                returnVal = v1 + v2;
+                break;
+        }
+
+        return returnVal;
+
+    });
+
     // Cache any data that was fetched from the server.
     gosuApp.GlobalCache = new Backbone.Model();
 

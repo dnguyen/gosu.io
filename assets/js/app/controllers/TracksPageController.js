@@ -12,6 +12,7 @@ define([
 
     var TracksPageController = function(page, queryObj) {
         this.model = new Backbone.Model();
+        this.model.set("page", page);
 
         // TODO: Move to its own model to handle
         if (typeof queryObj == 'undefined') {
@@ -53,7 +54,7 @@ define([
             "tracks_p" + this.model.get("page")
         )).then(function(data) {
             that.model.get("tracksCollection").add(data.tracks);
-            this.model.set("pageCount", data.pageCount);
+            that.model.set("pageCount", data.pageCount);
 
             var tracksPageView = new TracksPageView({ model : that.model });
             GosuApp.content.show(tracksPageView);
