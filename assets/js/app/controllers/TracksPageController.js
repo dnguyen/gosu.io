@@ -43,6 +43,8 @@ define([
         this.model.set("tracksCollection", new Backbone.Collection());
         var that = this;
 
+        GosuApp.vent.trigger("StartLoadingNewPage");
+
         $.when(ApiHelper.get(
             "http://localhost/gosukpop-api/public/tracks",
             {
@@ -55,6 +57,8 @@ define([
         )).then(function(data) {
             that.model.get("tracksCollection").add(data.tracks);
             that.model.set("pageCount", data.pageCount);
+
+            GosuApp.vent.trigger("FinishedLoadingNewPage");
 
             var tracksPageView = new TracksPageView({ model : that.model });
             GosuApp.content.show(tracksPageView);

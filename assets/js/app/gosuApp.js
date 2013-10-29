@@ -9,8 +9,9 @@ define([
     "controllers/HeaderController",
     "layouts/MainPageLayout",
     "controllers/MainController",
-    "views/common/SidebarView"
-], function($, Backbone, Marionette, namespace, foundation, ExploreApp, Handlebars, HeaderController, MainPageLayout, MainController, SidebarView) {
+    "views/common/SidebarView",
+    "views/common/LoadingIcon"
+], function($, Backbone, Marionette, namespace, foundation, ExploreApp, Handlebars, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -19,6 +20,7 @@ define([
         return Handlebars.compile(rawTemplate);
     };
 
+    // TODO: Move handlebars helpers somewhere else...
     Handlebars.registerHelper('ifCond', function (v1, operator, v2, opts) {
         var isTrue = false;
         switch (operator) {
@@ -71,7 +73,15 @@ define([
     // Cache any data that was fetched from the server.
     gosuApp.GlobalCache = new Backbone.Model();
 
-    gosuApp.switchPage = function() {};
+    gosuApp.vent.on("StartLoadingNewPage", function() {
+        gosuApp.loadingIconView = new LoadingIconView();
+        $("#content").html("");
+        $("#content").append(gosuApp.loadingIconView.render().el);
+    });
+
+    gosuApp.vent.on("FinishedLoadingNewPage", function() {
+        gosuApp.loadingIconView.close();
+    });
 
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {

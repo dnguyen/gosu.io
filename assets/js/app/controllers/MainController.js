@@ -8,9 +8,8 @@ define([
     "backbone",
     "marionette",
     "controllers/HomePageController",
-    "controllers/TracksPageController",
-    "views/common/LoadingIcon"
-], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoadingIconView) {
+    "controllers/TracksPageController"
+], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController) {
 
     var GosuApp = namespace.app;
     var ApiHelper = namespace.ApiHelper;
@@ -26,10 +25,7 @@ define([
             var comingSoonCollection = new Backbone.Collection();
 
             // Display the loading icon
-            // TODO: Move to a function in GosuApp that switches main view
-            var loadingIconView = new LoadingIconView();
-            $("#content").html("");
-            $("#content").append(loadingIconView.render().el);
+            GosuApp.vent.trigger("StartLoadingNewPage");
 
             /**
              *  Only start rendering page once all of the data is ready.
@@ -47,8 +43,7 @@ define([
                 newReleasesCollection.add(newTracks[0]);
                 comingSoonCollection.add(comingSoon[0]);
 
-                // Properly remove the loading icon.
-                loadingIconView.close();
+                GosuApp.vent.trigger("FinishedLoadingNewPage");
 
                 // Pass all our collections to the home page controller, which will render all the views
                 var options = {
