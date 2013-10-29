@@ -3,13 +3,12 @@ define([
     "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../../templates/SOTWSideModuleTemplate.html"
-], function($, _, Backbone, Marionette, Handlebars, SOTWSideModuleTemplate) {
+], function($, _, Backbone, Marionette, SOTWSideModuleTemplate) {
 
     var SOTWSideModuleView = Backbone.Marionette.ItemView.extend({
 
-        template : Handlebars.compile(SOTWSideModuleTemplate)
+        template : _.template(SOTWSideModuleTemplate)
 
     });
 

@@ -1,12 +1,12 @@
 define([
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../templates/MainPageSideModulesTemplate.html"
-], function(Backbone, Marionette, Handlebars, MainPageSideModulesTemplate) {
+], function(_, Backbone, Marionette, MainPageSideModulesTemplate) {
 
     var SideModulesLayout = Backbone.Marionette.Layout.extend({
-        template: Handlebars.compile(MainPageSideModulesTemplate),
+        template: _.template(MainPageSideModulesTemplate),
 
         regions : {
             sotw : "#sotw",

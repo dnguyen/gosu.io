@@ -23,7 +23,6 @@
         "backbone.babysitter" : "latest",
         "backbone.wreqr" : "latest",
         "underscore" : "latest",
-        "handlebars" : "latest",
         "requirejs" : "latest",
         "requirejs-text" : "latest",
         "foundation" : "latest"

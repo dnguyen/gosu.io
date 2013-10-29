@@ -4,10 +4,9 @@ define([
     "marionette",
     "jquery",
     "underscore",
-    "handlebars",
     "../../views/common/HeaderView",
     "../../views/common/SidebarView"
-], function(namespace, Backbone, Marionette, $, _, Handlebars, HeaderView, SidebarView) {
+], function(namespace, Backbone, Marionette, $, _, HeaderView, SidebarView) {
 
     var GosuApp = namespace.app;
 

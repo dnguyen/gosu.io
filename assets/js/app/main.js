@@ -6,7 +6,6 @@ require.config({
         marionette : "../../../bower_components/backbone.marionette/lib/core/amd/backbone.marionette",
         "backbone.wreqr" : "../../../bower_components/backbone.wreqr/lib/backbone.wreqr.min",
         "backbone.babysitter" : "../../../bower_components/backbone.babysitter/lib/backbone.babysitter.min",
-        handlebars : "../../../bower_components/handlebars/handlebars",
         text : "../../../bower_components/requirejs-text/text",
         foundation : "../../../bower_components/foundation/js/foundation/foundation.min"
     },
@@ -39,10 +38,6 @@ require.config({
         marionette : {
             deps : ['backbone.wreqr', 'backbone.babysitter'],
             exports : 'Marionette'
-        },
-
-        handlebars : {
-            exports: 'Handlebars'
         },
 
         foundation : {

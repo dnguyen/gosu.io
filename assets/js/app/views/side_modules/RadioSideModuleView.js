@@ -3,13 +3,12 @@ define([
     "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../../templates/RadioSideModuleTemplate.html"
-], function($, _, Backbone, Marionette, Handlebars, RadioSideModuleTemplate) {
+], function($, _, Backbone, Marionette, RadioSideModuleTemplate) {
 
     var RadioSideModuleView = Backbone.Marionette.ItemView.extend({
 
-        template : Handlebars.compile(RadioSideModuleTemplate)
+        template : _.template(RadioSideModuleTemplate)
 
     });
 

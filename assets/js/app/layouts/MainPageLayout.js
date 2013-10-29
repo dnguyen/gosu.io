@@ -1,12 +1,12 @@
 define([
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../templates/MainPageLayoutTemplate.html"
-], function(Backbone, Marionette, Handlebars, MainPageLayoutTemplate) {
+], function(_, Backbone, Marionette, MainPageLayoutTemplate) {
 
     var MainPageLayout = Backbone.Marionette.Layout.extend({
-        template: Handlebars.compile(MainPageLayoutTemplate),
+        template: _.template(MainPageLayoutTemplate),
         className : "app-region",
         regions : {
             featured : ".featured",

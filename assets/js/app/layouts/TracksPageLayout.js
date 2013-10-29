@@ -1,12 +1,12 @@
 define([
+    "underscore",
     "backbone",
     "marionette",
-    "handlebars",
     "text!../templates/TracksPageLayoutTemplate.html"
-], function(Backbone, Marionette, Handlebars, TracksPageLayoutTemplate) {
+], function(_, Backbone, Marionette, TracksPageLayoutTemplate) {
 
     var TracksPageLayout = Backbone.Marionette.Layout.extend({
-        template : Handlebars.compile(TracksPageLayoutTemplate),
+        template : _.template(TracksPageLayoutTemplate),
         className : "app-region",
         regions : {
             content : ".content"
