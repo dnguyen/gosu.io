@@ -25,7 +25,7 @@ define([
             var comingSoonCollection = new Backbone.Collection();
 
             // Display the loading icon
-            GosuApp.vent.trigger("StartLoadingNewPage");
+            GosuApp.vent.trigger("StartLoadingNewPage", { page : "explore" });
 
             /**
              *  Only start rendering page once all of the data is ready.

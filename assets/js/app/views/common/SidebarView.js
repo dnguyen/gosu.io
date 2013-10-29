@@ -1,17 +1,22 @@
 define([
+    "namespace",
     "jquery",
     "underscore",
     "backbone",
     "marionette",
     "handlebars",
     "text!../../templates/SidebarTemplate.html"
-], function($, _, Backbone, Marionette, Handlebars, SidebarTemplate) {
+], function(namespace, $, _, Backbone, Marionette, Handlebars, SidebarTemplate) {
+
+    var GosuApp = namespace.app;
 
     var SidebarView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.compile(SidebarTemplate),
 
         initialize : function() {
-            console.log("sidebar view init");
+        },
+
+        onRender : function() {
         }
 
     });

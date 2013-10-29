@@ -43,7 +43,7 @@ define([
         this.model.set("tracksCollection", new Backbone.Collection());
         var that = this;
 
-        GosuApp.vent.trigger("StartLoadingNewPage");
+        GosuApp.vent.trigger("StartLoadingNewPage", { page : "tracks" });
 
         $.when(ApiHelper.get(
             "http://localhost/gosukpop-api/public/tracks",

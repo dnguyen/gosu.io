@@ -73,13 +73,18 @@ define([
     // Cache any data that was fetched from the server.
     gosuApp.GlobalCache = new Backbone.Model();
 
-    gosuApp.vent.on("StartLoadingNewPage", function() {
+    gosuApp.vent.on("StartLoadingNewPage", function(data) {
+        // Add blue indicator to sidebar link for current page
+        $(".navigation").children().removeClass("selected");
+        $("#" + data.page +"-nav-item").addClass("selected");
+
+        // Show the loading icon
         gosuApp.loadingIconView = new LoadingIconView();
         $("#content").html("");
         $("#content").append(gosuApp.loadingIconView.render().el);
     });
 
-    gosuApp.vent.on("FinishedLoadingNewPage", function() {
+    gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
         gosuApp.loadingIconView.close();
     });
 
@@ -109,12 +114,12 @@ define([
     gosuApp.addInitializer(function() {
         console.log("initialize");
 
-        gosuApp.contentLayout = new MainPageLayout();
-
         var headerController = new HeaderController();
         headerController.render();
 
         gosuApp.sidebar.show(new SidebarView());
+
+        gosuApp.contentLayout = new MainPageLayout();
 
         new gosuApp.Router({
             controller : MainController
