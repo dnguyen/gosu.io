@@ -1,10 +1,11 @@
                 <h5>Tracks</h5>
 
                 <div class="options row">
-                    <form class="custom">
+                    <form>
                         <div class="large-2 columns">
-                            <div id="sort-dropdown" class="custom dropdown medium">
-                                <a class="current" href="#">
+                            <div id="sort-dropdown" class="ui dropdown selection">
+                                <input type="hidden" name="sort">
+                                <div class="default text">
                                     <% if (sortType == "uploaded") { %>
                                         Date
                                     <% } else if (sortType == "popularity") { %>
@@ -14,48 +15,49 @@
                                     <% } else if (sortType == "title") { %>
                                         Title
                                     <% } %>
-                                </a>
-                                <a class="selector" href="#"></a>
-                                <ul class="sort-selectors">
-                                    <li>Date</li>
-                                    <li>Popularity</li>
-                                    <li>Artist</li>
-                                    <li>Title</li>
-                                </ul>
+                                </div>
+                                <i class="dropdown triangle down icon"></i>
+                                <div class="menu ui transition hidden">
+                                    <div class="item" data-value="uploaded">Date</div>
+                                    <div class="item" data-value="popular">Popular</div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="large-2 columns">
-                            <select id="order" class="medium hidden-field">
-                                <option>Descending</option>
-                                <option>Ascending</option>
-                            </select>
-                            <div id="order-dropdown" class="custom dropdown medium">
-                                <a class="current" href="#">Descending</a>
-                                <a class="selector" href="#"></a>
-                                <ul class="order-selectors">
-                                    <li class="">Descending</li>
-                                    <li class="">Ascending</li>
-                                </ul>
+                            <div id="order-dropdown" class="ui dropdown selection">
+                                <input type="hidden" name="order">
+                                <div class="default text">
+                                    <% if (orderBy == "desc") { %>
+                                        Descending
+                                    <% } else { %>
+                                        Ascending
+                                    <% } %>
+                                </div>
+                                <i class="dropdown triangle down icon"></i>
+                                <div class="menu ui transition hidden">
+                                    <div class="item" data-value="desc">Descending</div>
+                                    <div class="item" data-value="ascd">Ascending</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="filter large-3 columns">
-                            <div class="row collapse">
-                                <div class="small-10 columns">
-                                    <input type="text" placeholder="Filter"></input>
-                                </div>
-                                <div class="small-2 columns">
-                                    <a class="button prefix secondary" href="#"><i class="icon-search"></i></a>
-                                </div>
+                        <div class="large-3 columns">
+                            <div class="ui small icon input">
+                                <input type="text" placeholder="Filter...">
+                                <i class="search icon icon-search"></i>
                             </div>
                         </div>
 
                         <div class="large-2 large-offset-3 columns">
-                            <ul class="view-types button-group">
+                            <div class="view-types ui icon buttons">
+                                <a title="Thumbnail view"><div class="small blue ui button"><i class="grid layout icon"></i></div></a>
+                                <a title="List view"><div class="small ui button"><i class="list layout icon"></i></div></a>
+                            </div>
+                            <!--<ul class="view-types button-group">
                                 <li><a title="List view" class="tiny button secondary"><i class="icon-list"></i></a></li>
                                 <li><a title="Thumbnail view" class="tiny selected button secondary"><i class="icon-th"></i></a></li>
-                            </ul>
+                            </ul>-->
                         </div>
                     </form>
 
@@ -81,10 +83,10 @@
                                 <li class="arrow"><a href="">&raquo;</a></li>
                             <% } else { %>
                                 <li class="arrow unavailable"><a>&laquo;</a></li>
-                                <li class="current"><a href="#/tracks/1">1</a></li>
-                                <li><a href="#/tracks/2">2</a></li>
-                                <li><a href="#/tracks/3">3</a></li>
-                                <li><a href="#/tracks/4">4</a></li>
+                                <li class="current"><a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>">1</a></li>
+                                <li><a href="#/tracks/2?sort=<%= sortType %>&order=<%= orderBy %>">2</a></li>
+                                <li><a href="#/tracks/3?sort=<%= sortType %>&order=<%= orderBy %>">3</a></li>
+                                <li><a href="#/tracks/4?sort=<%= sortType %>&order=<%= orderBy %>">4</a></li>
                                 <li class="unavailable"><a href="">&hellip;</a></li>
                                 <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
                                 <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>

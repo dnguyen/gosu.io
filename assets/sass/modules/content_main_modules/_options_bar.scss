@@ -1,5 +1,7 @@
 .content-container {
     .options {
+        margin: 0 0 15px 0;
+
         .view-types {
             float: right;
             padding-right: 13px;
@@ -8,20 +10,15 @@
                 font-size: 14px;
             }
 
+            .ui.small.button {
+                height: 34px;
+            }
+
             .selected.button {
                 background-color: $base-light-blue;
                 border: 1px solid $base-dark-blue;
                 color: #FFFFFF;
             }
-        }
-
-        .filter a {
-            border-left: 0;
-        }
-
-        .filter input, .filter a {
-            height: 32px;
-            font-size: 14px;
         }
     }
 }

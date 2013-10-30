@@ -92,6 +92,29 @@ a:hover {
   color: #00b4ff;
 }
 
+/**
+ * Overrides for Semantic UI and Foundation
+ */
+/* line 42, ../sass/layout/_base.scss */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+  box-shadow: none;
+  webkit-box-shadow: none;
+  height: 34px;
+}
+
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
@@ -683,36 +706,35 @@ html, body {
   margin: 8px 0 0 0;
 }
 
-/* line 3, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 2, ../sass/modules/content_main_modules/_options_bar.scss */
+.content-container .options {
+  margin: 0 0 15px 0;
+}
+/* line 5, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types {
   float: right;
   padding-right: 13px;
 }
-/* line 7, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 9, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types a {
   font-size: 14px;
 }
-/* line 11, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 13, ../sass/modules/content_main_modules/_options_bar.scss */
+.content-container .options .view-types .ui.small.button {
+  height: 34px;
+}
+/* line 17, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types .selected.button {
   background-color: #00b4ff;
   border: 1px solid #0079ab;
   color: #FFFFFF;
 }
-/* line 18, ../sass/modules/content_main_modules/_options_bar.scss */
-.content-container .options .filter a {
-  border-left: 0;
-}
-/* line 22, ../sass/modules/content_main_modules/_options_bar.scss */
-.content-container .options .filter input, .content-container .options .filter a {
-  height: 32px;
-  font-size: 14px;
-}
 
-/* line 29, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 26, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown, #order-dropdown {
   font-size: 14px;
 }
-/* line 32, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 29, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown ul, #order-dropdown ul {
   min-width: 100%;
 }

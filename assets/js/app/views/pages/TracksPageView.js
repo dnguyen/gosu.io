@@ -4,8 +4,9 @@ define([
     "backbone",
     "marionette",
     "../TrackGroupCollectionView",
-    "text!../../templates/TracksPageLayoutTemplate.html"
-], function($, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
+    "text!../../templates/TracksPageLayoutTemplate.html",
+    "semantic.dropdown"
+], function($, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate, SemanticDropdown) {
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
@@ -24,6 +25,8 @@ define([
             });
 
             this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
+            this.$el.find("#sort-dropdown").dropdown();
+            this.$el.find("#order-dropdown").dropdown();
         }
 
     });

@@ -3,13 +3,14 @@ define([
     "backbone",
     "marionette",
     "namespace",
+    "modernizr",
     "foundation",
     "controllers/HeaderController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, foundation, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function($, Backbone, Marionette, namespace, modernizr, foundation, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -69,7 +70,9 @@ define([
             controller : MainController
         });
 
-        $(document).foundation();
+        $(document).foundation(function(response) {
+            console.log(response.errors);
+        });
 
     });
 
