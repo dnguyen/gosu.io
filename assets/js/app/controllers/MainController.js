@@ -62,7 +62,7 @@ define([
          */
         tracksPage : function(page, query) {
             console.log("tracks route");
-            var tracksPage = new TracksPageController(page, URLHelper.getQueryObj(query));
+            var tracksPage = new TracksPageController({ page : page }, URLHelper.getQueryObj(query));
             tracksPage.render();
         }
     };

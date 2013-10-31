@@ -1,7 +1,7 @@
                 <h5>Tracks</h5>
 
                 <div class="options row">
-                    <form>
+                    <form onsubmit="return false;">
                         <div class="large-2 columns">
                             <div id="sort-dropdown" class="ui dropdown selection">
                                 <input type="hidden" name="sort">
@@ -45,10 +45,16 @@
                         </div>
 
                         <div class="large-3 columns">
-                            <div class="ui small icon input">
-                                <input type="text" placeholder="Filter...">
+                            <div class="filter-input-container ui small icon input">
+                                <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">
                                 <i class="search icon icon-search"></i>
                             </div>
+
+                            <% if (isFiltering) { %>
+                                <div class="filter-remove small red ui icon button">
+                                    <i class="remove icon"></i>
+                                </div>
+                            <% } %>
                         </div>
 
                         <div class="large-2 large-offset-3 columns">
@@ -68,29 +74,31 @@
 
                 <div class="content-footer row">
                     <div class="large-4 large-centered columns">
-                        <ul class="pagination">
-                            <% if (page > 2) { %>
-                                <li class="arrow unavailable"><a>&laquo;</a></li>
-                                <li><a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a></li>
-                                <li><a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 1 %></a></li>
-                                <li class="current"><a><%= page %></a></li>
-                                <li><a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a></li>
-                                <li class="unavailable"><a href="">&hellip;</a></li>
-                                <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
-                                <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
-                                <li class="arrow"><a href="">&raquo;</a></li>
-                            <% } else { %>
-                                <li class="arrow unavailable"><a>&laquo;</a></li>
-                                <li class="current"><a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>">1</a></li>
-                                <li><a href="#/tracks/2?sort=<%= sortType %>&order=<%= orderBy %>">2</a></li>
-                                <li><a href="#/tracks/3?sort=<%= sortType %>&order=<%= orderBy %>">3</a></li>
-                                <li><a href="#/tracks/4?sort=<%= sortType %>&order=<%= orderBy %>">4</a></li>
-                                <li class="unavailable"><a href="">&hellip;</a></li>
-                                <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
-                                <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
-                                <li class="arrow"><a href="">&raquo;</a></li>
-                            <% } %>
-                        </ul>
+                        <% if (!isFiltering) { %>
+                            <ul class="pagination">
+                                <% if (page > 2) { %>
+                                    <li class="arrow unavailable"><a>&laquo;</a></li>
+                                    <li><a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a></li>
+                                    <li><a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 1 %></a></li>
+                                    <li class="current"><a><%= page %></a></li>
+                                    <li><a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a></li>
+                                    <li class="unavailable"><a href="">&hellip;</a></li>
+                                    <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
+                                    <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
+                                    <li class="arrow"><a href="">&raquo;</a></li>
+                                <% } else { %>
+                                    <li class="arrow unavailable"><a>&laquo;</a></li>
+                                    <li class="current"><a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>">1</a></li>
+                                    <li><a href="#/tracks/2?sort=<%= sortType %>&order=<%= orderBy %>">2</a></li>
+                                    <li><a href="#/tracks/3?sort=<%= sortType %>&order=<%= orderBy %>">3</a></li>
+                                    <li><a href="#/tracks/4?sort=<%= sortType %>&order=<%= orderBy %>">4</a></li>
+                                    <li class="unavailable"><a href="">&hellip;</a></li>
+                                    <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
+                                    <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
+                                    <li class="arrow"><a href="">&raquo;</a></li>
+                                <% } %>
+                            </ul>
+                        <% } %>
                     </div>
                 </div>
 

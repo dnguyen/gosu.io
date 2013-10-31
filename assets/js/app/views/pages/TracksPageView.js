@@ -1,4 +1,5 @@
 define([
+    "namespace",
     "jquery",
     "underscore",
     "backbone",
@@ -6,15 +7,21 @@ define([
     "../TrackGroupCollectionView",
     "text!../../templates/TracksPageLayoutTemplate.html",
     "semantic.dropdown"
-], function($, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate, SemanticDropdown) {
+], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate, SemanticDropdown) {
+
+    var GosuApp = namespace.app;
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
         className : "app-region",
         template : _.template(TracksPageTemplate),
 
-        initialize : function() {
+        events : {
+            "keypress #filter-input" : "filterKeyPress",
+            "click .filter-remove" : "filterRemove"
+        },
 
+        initialize : function() {
         },
 
         onRender : function() {
@@ -30,7 +37,6 @@ define([
 
             this.$el.find("#sort-dropdown").dropdown({
                 onChange : function(value, text) {
-                    console.log("sort dropdown changed");
                     that.applySort(value);
                 }
             });
@@ -48,6 +54,18 @@ define([
 
         applyOrder : function(value) {
             window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + value;
+        },
+
+        filterKeyPress : function(e) {
+            // If enter key is entered while filter input box is focused, do a filter.
+            if (e.which === 13) {
+                var searchTerms = $("#filter-input").val();
+                GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+            }
+        },
+
+        filterRemove : function(e) {
+            GosuApp.vent.trigger("tracks:removeFilter");
         }
 
     });

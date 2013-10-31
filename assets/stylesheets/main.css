@@ -719,22 +719,31 @@ html, body {
 .content-container .options .view-types a {
   font-size: 14px;
 }
-/* line 13, ../sass/modules/content_main_modules/_options_bar.scss */
-.content-container .options .view-types .ui.small.button {
-  height: 34px;
-}
-/* line 17, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 12, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types .selected.button {
   background-color: #00b4ff;
   border: 1px solid #0079ab;
   color: #FFFFFF;
 }
+/* line 19, ../sass/modules/content_main_modules/_options_bar.scss */
+.content-container .options .ui.small.button {
+  height: 34px;
+}
+/* line 23, ../sass/modules/content_main_modules/_options_bar.scss */
+.content-container .options .filter-input-container {
+  float: left;
+}
+/* line 27, ../sass/modules/content_main_modules/_options_bar.scss */
+.content-container .options .filter-remove {
+  float: left;
+  margin: 0 0 0 3px;
+}
 
-/* line 26, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 35, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown, #order-dropdown {
   font-size: 14px;
 }
-/* line 29, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 38, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown ul, #order-dropdown ul {
   min-width: 100%;
 }
