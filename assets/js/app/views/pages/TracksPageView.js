@@ -25,8 +25,29 @@ define([
             });
 
             this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
-            this.$el.find("#sort-dropdown").dropdown();
-            this.$el.find("#order-dropdown").dropdown();
+
+            var that = this;
+
+            this.$el.find("#sort-dropdown").dropdown({
+                onChange : function(value, text) {
+                    console.log("sort dropdown changed");
+                    that.applySort(value);
+                }
+            });
+
+            this.$el.find("#order-dropdown").dropdown({
+                onChange : function(value, text) {
+                    that.applyOrder(value);
+                }
+            });
+        },
+
+        applySort : function(value) {
+            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + value + "&order=" + this.model.get("orderBy");
+        },
+
+        applyOrder : function(value) {
+            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + value;
         }
 
     });

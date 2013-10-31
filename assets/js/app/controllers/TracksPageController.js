@@ -51,7 +51,7 @@ define([
                 order : this.model.get("orderBy")
             },
             GosuApp.GlobalCache,
-            "tracks_p" + this.model.get("page")
+            "tracks_p" + this.model.get("page") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy")
         )).then(function(data) {
             that.model.get("tracksCollection").add(data.tracks);
             that.model.set("pageCount", data.pageCount);
