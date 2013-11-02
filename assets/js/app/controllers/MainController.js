@@ -32,9 +32,9 @@ define([
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.get("http://localhost/gosukpop-api/public/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.get("http://localhost/gosukpop-api/public/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
-                ApiHelper.get("http://localhost/gosukpop-api/public/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
+                ApiHelper.get("http://api.gosukpop.com/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.get("http://api.gosukpop.com/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
+                ApiHelper.get("http://api.gosukpop.com/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.
                 // TODO: status code check...make sure the requests were actually completed successfully

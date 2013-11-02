@@ -12,7 +12,7 @@ define([
      * Get's login status from API
      */
     function getLoginStatus(model) {
-        model.url = "http://localhost/gosukpop-api/public/session";
+        model.url = "http://api.gosukpop.com/session";
 
         return model.fetch();
     }

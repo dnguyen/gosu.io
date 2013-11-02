@@ -80,7 +80,7 @@ define([
     TracksPageController.prototype.getTrackCollection = function(type, data) {
         if (type === "filter") {
             return ApiHelper.get(
-                        "http://localhost/gosukpop-api/public/tracks/search/" + this.model.get("searchTerms"),
+                        "http://api.gosukpop.com/tracks/search/" + this.model.get("searchTerms"),
                         {
                             sort : this.model.get("sortType"),
                             order : this.model.get("orderBy")
@@ -89,7 +89,7 @@ define([
                         "tracks_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
         } else {
             return ApiHelper.get(
-                        "http://localhost/gosukpop-api/public/tracks",
+                        "http://api.gosukpop.com/tracks",
                         {
                             page : this.model.get("page"),
                             sort : this.model.get("sortType"),
