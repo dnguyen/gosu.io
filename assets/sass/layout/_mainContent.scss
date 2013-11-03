@@ -31,20 +31,20 @@
 
 /* Transition effect for changing pages */
 .app-region {
-    -moz-animation-duration:2s;
-    -webkit-animation-duration: 2s;
-    -o-animation-duration: 2s;
-    animation-duration: 2s;
+    -moz-animation-duration: 0.75s;
+    -webkit-animation-duration: 0.75s;
+    -o-animation-duration: 0.75s;
+    animation-duration: 0.75s;
     -webkit-animation-name: contentSlideIn;
     -moz-animation-name: contentSlideIn;
     -o-animation-name: contentSlideIn;
     animation-name: contentSlideIn;
 }
 
-@-webkit-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
-@-moz-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
-@-o-keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes contentSlideIn { from { opacity: 0; } to { opacity: 1; } }
+@-webkit-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-moz-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 
 .featured {
     img {
