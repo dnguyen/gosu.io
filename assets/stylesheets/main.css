@@ -295,10 +295,10 @@ textarea {
 /* Transition effect for changing pages */
 /* line 33, ../sass/layout/_mainContent.scss */
 .app-region {
-  -moz-animation-duration: 2s;
-  -webkit-animation-duration: 2s;
-  -o-animation-duration: 2s;
-  animation-duration: 2s;
+  -moz-animation-duration: 0.75s;
+  -webkit-animation-duration: 0.75s;
+  -o-animation-duration: 0.75s;
+  animation-duration: 0.75s;
   -webkit-animation-name: contentSlideIn;
   -moz-animation-name: contentSlideIn;
   -o-animation-name: contentSlideIn;
@@ -308,48 +308,48 @@ textarea {
 @-webkit-keyframes contentSlideIn {
   /* line 44, ../sass/layout/_mainContent.scss */
   from {
-    opacity: 0;
+    margin-top: 2000px;
   }
 
   /* line 44, ../sass/layout/_mainContent.scss */
   to {
-    opacity: 1;
+    margin-top: 0;
   }
 }
 
 @-moz-keyframes contentSlideIn {
   /* line 45, ../sass/layout/_mainContent.scss */
   from {
-    opacity: 0;
+    margin-top: 2000px;
   }
 
   /* line 45, ../sass/layout/_mainContent.scss */
   to {
-    opacity: 1;
+    margin-top: 0;
   }
 }
 
 @-o-keyframes contentSlideIn {
   /* line 46, ../sass/layout/_mainContent.scss */
   from {
-    opacity: 0;
+    margin-top: 2000px;
   }
 
   /* line 46, ../sass/layout/_mainContent.scss */
   to {
-    opacity: 1;
+    margin-top: 0;
   }
 }
 
 @keyframes contentSlideIn {
   /* line 47, ../sass/layout/_mainContent.scss */
   from {
-    opacity: 0;
+    margin-top: 2000px;
   }
 
   /* line 47, ../sass/layout/_mainContent.scss */
   to {
-    opacity: 1;
+    margin-top: 0;
   }
 }
 
