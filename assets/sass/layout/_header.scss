@@ -52,8 +52,6 @@
     margin: 5px 15px 0 0;
 
     .user {
-        margin: 0 10px 0 0;
-
         a {
             margin: 3px 0 0 8px;
         }
@@ -67,16 +65,7 @@
         }
     }
 
-    .settings {
-        color: $base-font-color;
-        margin: 3px 13px 0 0;
-
-        &:hover {
-            color: $base-link-hover;
-        }
-    }
-
-    .user, .settings {
+    .user{
         float: left;
     }
 

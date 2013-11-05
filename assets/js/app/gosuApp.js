@@ -36,6 +36,7 @@ define([
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
             "" : "mainPage",
+            "signin" : "login",
             "tracks/:page?*query" : "tracksPage",
             "tracks/:page" : "tracksPage",
             "tracks" : "tracksPage"

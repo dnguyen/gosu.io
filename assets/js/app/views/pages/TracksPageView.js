@@ -35,12 +35,14 @@ define([
 
             var that = this;
 
+            // Create sort dropdown
             this.$el.find("#sort-dropdown").dropdown({
                 onChange : function(value, text) {
                     that.applySort(value);
                 }
             });
 
+            // Create order dropdown
             this.$el.find("#order-dropdown").dropdown({
                 onChange : function(value, text) {
                     that.applyOrder(value);

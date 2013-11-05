@@ -63,6 +63,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/* line 18, ../sass/partials/_colors.scss */
+.grey {
+  background: #f6f6f6;
+}
+
 /* line 1, ../sass/layout/_base.scss */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -78,7 +83,7 @@ html, body {
 /* line 9, ../sass/layout/_base.scss */
 body {
   font-family: "PT Sans", Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 0.875em;
   color: #515151;
   cursor: auto;
 }
@@ -112,6 +117,11 @@ input[type="url"],
 textarea {
   box-shadow: none;
   webkit-box-shadow: none;
+  height: 34px;
+}
+
+/* line 48, ../sass/layout/_base.scss */
+.ui.small.button {
   height: 34px;
 }
 
@@ -153,7 +163,7 @@ textarea {
 .header-search .text-input input {
   width: 250px;
   height: 35px;
-  font-size: 14px;
+  font-size: 0.875em;
 }
 /* line 39, ../sass/layout/_header.scss */
 .header-search .search-btn {
@@ -171,40 +181,27 @@ textarea {
   float: right;
   margin: 5px 15px 0 0;
 }
-/* line 54, ../sass/layout/_header.scss */
-.header-navigation .user {
-  margin: 0 10px 0 0;
-}
-/* line 57, ../sass/layout/_header.scss */
+/* line 55, ../sass/layout/_header.scss */
 .header-navigation .user a {
   margin: 3px 0 0 8px;
 }
-/* line 61, ../sass/layout/_header.scss */
+/* line 59, ../sass/layout/_header.scss */
 .header-navigation .user img {
   border: 1px solid #a7a1a1;
 }
-/* line 65, ../sass/layout/_header.scss */
+/* line 63, ../sass/layout/_header.scss */
 .header-navigation .user a, .header-navigation .user img {
   float: left;
 }
-/* line 70, ../sass/layout/_header.scss */
-.header-navigation .settings {
-  color: #515151;
-  margin: 3px 13px 0 0;
-}
-/* line 74, ../sass/layout/_header.scss */
-.header-navigation .settings:hover {
-  color: #00b4ff;
-}
-/* line 79, ../sass/layout/_header.scss */
-.header-navigation .user, .header-navigation .settings {
+/* line 68, ../sass/layout/_header.scss */
+.header-navigation .user {
   float: left;
 }
-/* line 83, ../sass/layout/_header.scss */
+/* line 72, ../sass/layout/_header.scss */
 .header-navigation .user-nav {
   margin: 3px 0 0 0;
 }
-/* line 86, ../sass/layout/_header.scss */
+/* line 75, ../sass/layout/_header.scss */
 .header-navigation .user-nav li {
   float: left;
   margin: 0 0 0 10px;
@@ -228,7 +225,7 @@ textarea {
 }
 /* line 15, ../sass/layout/_sidebar.scss */
 .sidebar .heading h3 {
-  font-size: 18px;
+  font-size: 1.125em;
   color: #515151;
 }
 /* line 22, ../sass/layout/_sidebar.scss */
@@ -254,7 +251,7 @@ textarea {
   height: 30px;
   margin: 0 0 0 30px;
   padding: 9px 0 9px 15px;
-  font-size: 12px;
+  font-size: 0.75em;
   background: url("../img/selected_navigation_item.png") repeat-y scroll left center transparent;
 }
 
@@ -280,7 +277,7 @@ textarea {
 .content-container h3, .content-container h4, .content-container h5 {
   color: #515151;
   font-family: "PT Sans", Helvetica, sans-serif;
-  font-size: 24px;
+  font-size: 1.5em;
   margin: 10px 0 10px 0;
 }
 /* line 21, ../sass/layout/_mainContent.scss */
@@ -293,7 +290,7 @@ textarea {
 }
 
 /* Transition effect for changing pages */
-/* line 33, ../sass/layout/_mainContent.scss */
+/* line 31, ../sass/layout/_mainContent.scss */
 .app-region {
   -moz-animation-duration: 0.75s;
   -webkit-animation-duration: 0.75s;
@@ -306,67 +303,67 @@ textarea {
 }
 
 @-webkit-keyframes contentSlideIn {
-  /* line 44, ../sass/layout/_mainContent.scss */
+  /* line 42, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 44, ../sass/layout/_mainContent.scss */
+  /* line 42, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @-moz-keyframes contentSlideIn {
-  /* line 45, ../sass/layout/_mainContent.scss */
+  /* line 43, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 45, ../sass/layout/_mainContent.scss */
+  /* line 43, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @-o-keyframes contentSlideIn {
-  /* line 46, ../sass/layout/_mainContent.scss */
+  /* line 44, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 46, ../sass/layout/_mainContent.scss */
+  /* line 44, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @keyframes contentSlideIn {
-  /* line 47, ../sass/layout/_mainContent.scss */
+  /* line 45, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 47, ../sass/layout/_mainContent.scss */
+  /* line 45, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
-/* line 50, ../sass/layout/_mainContent.scss */
+/* line 48, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 55, ../sass/layout/_mainContent.scss */
+/* line 53, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 59, ../sass/layout/_mainContent.scss */
+/* line 57, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 62, ../sass/layout/_mainContent.scss */
+/* line 60, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -416,7 +413,7 @@ html, body {
 /* line 14, ../sass/layout/_footer.scss */
 .footer .footer-logo {
   float: left;
-  font-size: 24px;
+  font-size: 1.5em;
   font-family: "PT Sans Narrow", Helvetica, sans-serif;
   color: #515151;
 }
@@ -651,6 +648,18 @@ html, body {
   margin: 15px 0 0 0;
 }
 
+/* line 1, ../sass/modules/_login_page.scss */
+.login-container {
+  margin: 10px 15px 10px 15px;
+  padding: 15px 5px 15px 5px;
+  border: 1px solid #d7d7d7;
+}
+
+/* line 7, ../sass/modules/_login_page.scss */
+#errors {
+  margin: 0 0 15px 0;
+}
+
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */
 .side-module {
   background: #f6f6f6;
@@ -726,24 +735,20 @@ html, body {
   color: #FFFFFF;
 }
 /* line 19, ../sass/modules/content_main_modules/_options_bar.scss */
-.content-container .options .ui.small.button {
-  height: 34px;
-}
-/* line 23, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-input-container {
   float: left;
 }
-/* line 27, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 23, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-remove {
   float: left;
   margin: 0 0 0 3px;
 }
 
-/* line 35, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 31, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown, #order-dropdown {
   font-size: 14px;
 }
-/* line 38, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 34, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown ul, #order-dropdown ul {
   min-width: 100%;
 }

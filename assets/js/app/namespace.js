@@ -16,30 +16,37 @@ define([
          */
         ApiHelper : {
             /**
-             *  Simple GET request
+             *  AJAX Request
              *      Also stores the data that was fetched into a cache for faster loading.
              *      Thanks to http://stackoverflow.com/a/8960587 for the caching :)
-             *
+             *  @param {string} type - request type (GET, POST, DELETE, etc)
              *  @param {string} url - url to make ajax request
              *  @param {object} data - data to pass to ajaa request
-             *  @param {model} cache - where to get cached data from
-             *  @param {string} cacheName - name of the data in cache
+             *  @param {model} cache (OPTIONAL) - where to get cached data from
+             *  @param {string} cacheName (OPTIONAL) - name of the data in cache
              *  @return {jXHR object} Returns either the cached data or data from server.
              */
-            get : function(url, data, cache, cacheName) {
-                // Store the cache into a promise
-                var promise = cache.get(cacheName);
+            request : function(type, url, data, cache, cacheName) {
+                // If no cache argument was passed in, don't aquire or store data in cache.
+                var useCache = typeof cache != 'undefined' ? true : false;
+                var promise;
+                // Get the data from cache if it exists
+                if (useCache)
+                    promise = cache.get(cacheName);
+                else
+                    promise = false;
 
                 // If the promise doesn't exist, get it from the server
                 if (!promise) {
                     promise = $.ajax(url, {
-                        type : 'GET',
+                        type : type,
                         data : data,
                         dataType : 'json'
                     });
 
                     // Set the cache to the data that was retrieved.
-                    cache.set(cacheName, promise);
+                    if (useCache)
+                        cache.set(cacheName, promise);
                 }
 
                 // return the promise

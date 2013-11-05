@@ -3,9 +3,8 @@ define([
     "jquery",
     "backbone",
     "marionette",
-    "../layouts/TracksPageLayout",
     "../views/pages/TracksPageView"
-], function(namespace, $, Backbone, Marionette, TracksPageLayout, TracksPageView) {
+], function(namespace, $, Backbone, Marionette, TracksPageView) {
 
     var GosuApp = namespace.app;
     var ApiHelper = namespace.ApiHelper;
@@ -22,7 +21,7 @@ define([
         this.model.set("isFiltering", false);
         this.model.set("searchTerms", "");
 
-        // TODO: Move to its own model to handle
+        // Set up our model
         if (typeof queryObj == 'undefined') {
             queryObj = { };
             queryObj.sort = "uploaded";
@@ -79,7 +78,8 @@ define([
 
     TracksPageController.prototype.getTrackCollection = function(type, data) {
         if (type === "filter") {
-            return ApiHelper.get(
+            return ApiHelper.request(
+                        "GET",
                         "http://localhost/gosukpop-api/public/tracks/search/" + this.model.get("searchTerms"),
                         {
                             sort : this.model.get("sortType"),
@@ -88,7 +88,8 @@ define([
                         GosuApp.GlobalCache,
                         "tracks_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
         } else {
-            return ApiHelper.get(
+            return ApiHelper.request(
+                        "GET",
                         "http://localhost/gosukpop-api/public/tracks",
                         {
                             page : this.model.get("page"),

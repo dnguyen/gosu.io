@@ -15,18 +15,19 @@
 
                     <div class="header-navigation">
                         <% if (loggedin) { %>
-                            <div class="user">
-                                <img src="assets/img/header-profile-img.png" />
-                                <a href="#">Lithica</a>
+                            <div class="ui icon buttons">
+                                <div class="small blue ui button">Lithica</div>
+                                <div id="user-settings-dropdown" class="small ui top right pointing dropdown icon button">
+                                    <i class="settings icon"></i>
+                                    <div class="menu">
+                                        <div class="item" data-value="settings">Settings</div>
+                                        <div class="item" data-value="log-out">Log out</div>
+                                    </div>
+                                </div>
                             </div>
-                            <a class="settings" data-dropdown="user-settings"><i class="icon-cog"></i></a>
-                            <ul id="user-settings" class="f-dropdown tiny" data-dropdown-content>
-                                <li><a href="#">Settings</a></li>
-                                <li><a href="#">Log out</a></li>
-                            </ul>
                         <% } else { %>
                             <ul class="user-nav">
-                                <li><a href="#">Sign In</a></li>
+                                <li><a href="#/signin">Sign In</a></li>
                                 <li><a href="#">Register</a></li>
                             </ul>
                         <% } %>
