@@ -16,7 +16,7 @@
                     <div class="header-navigation">
                         <% if (loggedin) { %>
                             <div class="ui icon buttons">
-                                <div class="small blue ui button">Lithica</div>
+                                <div class="small blue ui button"><%= username %></div>
                                 <div id="user-settings-dropdown" class="small ui top right pointing dropdown icon button">
                                     <i class="settings icon"></i>
                                     <div class="menu">
@@ -28,7 +28,7 @@
                         <% } else { %>
                             <ul class="user-nav">
                                 <li><a href="#/signin">Sign In</a></li>
-                                <li><a href="#">Register</a></li>
+                                <li><a href="#/register">Register</a></li>
                             </ul>
                         <% } %>
                     </div>

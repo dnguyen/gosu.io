@@ -1,4 +1,4 @@
-.login-container {
+.login-container, .register-container {
     margin: 10px 15px 10px 15px;
     padding: 15px 5px 15px 5px;
     border: 1px solid $grey-border;
@@ -11,7 +11,7 @@
     margin: 0 0 15px 0;
 }
 
-.social-login-container {
+.social-login-container, .social-register-container {
     border-left: 1px solid tint($base-font-color, 60%);
 
     ul {

@@ -9,8 +9,9 @@ define([
     "marionette",
     "controllers/HomePageController",
     "controllers/TracksPageController",
-    "controllers/LoginPageController"
-], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoginPageController) {
+    "controllers/LoginPageController",
+    "controllers/RegisterPageController"
+], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoginPageController, RegisterPageController) {
 
     var GosuApp = namespace.app;
     var ApiHelper = namespace.ApiHelper;
@@ -73,6 +74,14 @@ define([
         login : function() {
             var loginPage = new LoginPageController();
             loginPage.render();
+        },
+
+        /**
+         *  Register page
+         */
+        register : function() {
+            var registerPage = new RegisterPageController();
+            registerPage.render();
         }
     };
 

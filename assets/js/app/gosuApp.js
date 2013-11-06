@@ -37,6 +37,7 @@ define([
         appRoutes: {
             "" : "mainPage",
             "signin" : "login",
+            "register" : "register",
             "tracks/:page?*query" : "tracksPage",
             "tracks/:page" : "tracksPage",
             "tracks" : "tracksPage"
