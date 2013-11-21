@@ -5,9 +5,8 @@ define([
     "backbone",
     "marionette",
     "../TrackGroupCollectionView",
-    "text!../../templates/TracksPageLayoutTemplate.html",
-    "semantic.dropdown"
-], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate, SemanticDropdown) {
+    "text!../../templates/TracksPageLayoutTemplate.html"
+], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var GosuApp = namespace.app;
 
@@ -32,22 +31,6 @@ define([
             });
 
             this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
-
-            var that = this;
-
-            // Create sort dropdown
-            this.$el.find("#sort-dropdown").dropdown({
-                onChange : function(value, text) {
-                    that.applySort(value);
-                }
-            });
-
-            // Create order dropdown
-            this.$el.find("#order-dropdown").dropdown({
-                onChange : function(value, text) {
-                    that.applyOrder(value);
-                }
-            });
         },
 
         applySort : function(value) {

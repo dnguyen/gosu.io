@@ -97,44 +97,16 @@ a:hover {
   color: #00b4ff;
 }
 
-/**
- * Overrides for Semantic UI and Foundation
- */
-/* line 42, ../sass/layout/_base.scss */
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea {
-  box-shadow: none;
-  webkit-box-shadow: none;
-  height: 34px;
-}
-
-/* line 48, ../sass/layout/_base.scss */
-.ui.small.button {
-  height: 34px;
-}
-
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
   position: fixed;
-  max-width: 1201px;
   top: 0;
   height: 70px;
   z-index: 1010;
   border: 1px solid #d7d7d7;
   clear: both;
+  width: 100%;
 }
 
 /* line 12, ../sass/layout/_header.scss */
@@ -260,37 +232,30 @@ textarea {
   margin: 0;
 }
 
-/* line 5, ../sass/layout/_mainContent.scss */
-.container {
-  max-width: 1201px;
-  margin: 0 auto 0 auto;
-  border-right: 1px solid #d7d7d7;
-}
-
-/* line 10, ../sass/layout/_mainContent.scss */
+/* line 6, ../sass/layout/_mainContent.scss */
 .content-container {
   margin-left: 200px;
   padding-top: 70px;
   /* H4's used for side modules */
 }
-/* line 14, ../sass/layout/_mainContent.scss */
+/* line 10, ../sass/layout/_mainContent.scss */
 .content-container h3, .content-container h4, .content-container h5 {
   color: #515151;
   font-family: "PT Sans", Helvetica, sans-serif;
   font-size: 1.5em;
   margin: 10px 0 10px 0;
 }
-/* line 21, ../sass/layout/_mainContent.scss */
+/* line 17, ../sass/layout/_mainContent.scss */
 .content-container h4 {
   margin: 10px 0 10px 0;
 }
-/* line 25, ../sass/layout/_mainContent.scss */
+/* line 21, ../sass/layout/_mainContent.scss */
 .content-container h5 {
   margin: 10px 0 10px 15px;
 }
 
 /* Transition effect for changing pages */
-/* line 31, ../sass/layout/_mainContent.scss */
+/* line 27, ../sass/layout/_mainContent.scss */
 .app-region {
   -moz-animation-duration: 0.75s;
   -webkit-animation-duration: 0.75s;
@@ -303,67 +268,87 @@ textarea {
 }
 
 @-webkit-keyframes contentSlideIn {
-  /* line 42, ../sass/layout/_mainContent.scss */
+  /* line 38, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 42, ../sass/layout/_mainContent.scss */
+  /* line 38, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @-moz-keyframes contentSlideIn {
-  /* line 43, ../sass/layout/_mainContent.scss */
+  /* line 39, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 43, ../sass/layout/_mainContent.scss */
+  /* line 39, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @-o-keyframes contentSlideIn {
-  /* line 44, ../sass/layout/_mainContent.scss */
+  /* line 40, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 44, ../sass/layout/_mainContent.scss */
+  /* line 40, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
 @keyframes contentSlideIn {
-  /* line 45, ../sass/layout/_mainContent.scss */
+  /* line 41, ../sass/layout/_mainContent.scss */
   from {
     margin-top: 2000px;
   }
 
-  /* line 45, ../sass/layout/_mainContent.scss */
+  /* line 41, ../sass/layout/_mainContent.scss */
   to {
     margin-top: 0;
   }
 }
 
-/* line 48, ../sass/layout/_mainContent.scss */
+/* line 43, ../sass/layout/_mainContent.scss */
+.featured {
+  clear: both;
+  overflow: hidden;
+}
+/* line 47, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 53, ../sass/layout/_mainContent.scss */
+/* line 52, ../sass/layout/_mainContent.scss */
+.content {
+  padding: 0 0 15px 15px;
+}
+/* line 55, ../sass/layout/_mainContent.scss */
+.content .modules {
+  float: left;
+  width: 700px;
+}
+/* line 59, ../sass/layout/_mainContent.scss */
+.content .modules .module {
+  clear: both;
+  overflow: hidden;
+}
+
+/* line 66, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 57, ../sass/layout/_mainContent.scss */
+/* line 70, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 60, ../sass/layout/_mainContent.scss */
+/* line 73, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -371,6 +356,7 @@ textarea {
 /* line 1, ../sass/layout/_side_modules.scss */
 .side-modules {
   margin: 15px 0 0 0;
+  float: left;
 }
 
 /* line 10, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
@@ -404,8 +390,8 @@ html, body {
   background: #eeeeee;
   z-index: 9999;
   height: 70px;
+  width: 100%;
   clear: both;
-  max-width: 1201px;
   margin: 0 auto 0 auto;
   border-right: 1px solid #d7d7d7;
   padding: 20px 15px 15px 15px;
@@ -622,28 +608,34 @@ html, body {
   }
 }
 
-/* line 5, ../sass/modules/_tracks_group.scss */
+/* line 4, ../sass/modules/_tracks_group.scss */
+.tracks-group .item {
+  float: left;
+  margin: 0 10px 0 0;
+  width: 135px;
+}
+/* line 9, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb img {
   border: 5px solid #eeeeee;
 }
-/* line 8, ../sass/modules/_tracks_group.scss */
+/* line 12, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
 }
-/* line 11, ../sass/modules/_tracks_group.scss */
+/* line 15, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 12, ../sass/modules/_tracks_group.scss */
+/* line 16, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 13, ../sass/modules/_tracks_group.scss */
+/* line 17, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
 }
 
-/* line 20, ../sass/modules/_tracks_group.scss */
+/* line 24, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
@@ -674,6 +666,16 @@ html, body {
 /* line 21, ../sass/modules/_login_page.scss */
 .social-login-container ul li .ui.small.button, .social-register-container ul li .ui.small.button {
   width: 175px;
+}
+
+/* line 1, ../sass/modules/_main_page.scss */
+.tracks-group-col {
+  float: left;
+}
+/* line 4, ../sass/modules/_main_page.scss */
+.tracks-group-col #popular-group, .tracks-group-col #new-releases-group {
+  clear: both;
+  overflow: hidden;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

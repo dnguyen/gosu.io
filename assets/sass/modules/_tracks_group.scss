@@ -2,6 +2,10 @@
 .tracks-group {
 
     .item {
+        float: left;
+        margin: 0 10px 0 0;
+        width: 135px;
+
         .thumb img {
             border: 5px solid $base-module-bg;
         }

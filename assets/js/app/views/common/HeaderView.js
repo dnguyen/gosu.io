@@ -4,9 +4,8 @@ define([
     "underscore",
     "backbone",
     "marionette",
-    "semantic.dropdown",
     "text!../../templates/HeaderTemplate.html"
-], function(namespace, $, _, Backbone, Marionette, SemanticDropdown, HeaderTemplate) {
+], function(namespace, $, _, Backbone, Marionette, HeaderTemplate) {
 
     var GosuApp = namespace.app;
 
@@ -18,11 +17,11 @@ define([
         },
 
         onRender : function() {
-            this.$el.find("#user-settings-dropdown").dropdown({
+            /*this.$el.find("#user-settings-dropdown").dropdown({
                 onChange : function(value, text) {
                     GosuApp.vent.trigger("auth:logout");
                 }
-            });
+            });*/
         }
 
     });

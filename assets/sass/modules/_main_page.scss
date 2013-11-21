@@ -1,0 +1,8 @@
+.tracks-group-col {
+    float: left;
+
+    #popular-group, #new-releases-group  {
+        clear: both;
+        overflow: hidden;
+    }
+}
