@@ -633,12 +633,13 @@ html, body {
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
   width: 130px;
+  height: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 28, ../sass/modules/_tracks_group.scss */
+/* line 29, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
