@@ -332,23 +332,22 @@ a:hover {
 /* line 55, ../sass/layout/_mainContent.scss */
 .content .modules {
   float: left;
-  width: 700px;
 }
-/* line 59, ../sass/layout/_mainContent.scss */
+/* line 58, ../sass/layout/_mainContent.scss */
 .content .modules .module {
   clear: both;
   overflow: hidden;
 }
 
-/* line 66, ../sass/layout/_mainContent.scss */
+/* line 65, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 70, ../sass/layout/_mainContent.scss */
+/* line 69, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 73, ../sass/layout/_mainContent.scss */
+/* line 72, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -611,7 +610,7 @@ html, body {
 /* line 4, ../sass/modules/_tracks_group.scss */
 .tracks-group .item {
   float: left;
-  margin: 0 10px 0 0;
+  margin: 0 10px 25px 0;
   width: 135px;
 }
 /* line 9, ../sass/modules/_tracks_group.scss */
@@ -633,9 +632,13 @@ html, body {
 /* line 17, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
+  width: 130px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-/* line 24, ../sass/modules/_tracks_group.scss */
+/* line 28, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }

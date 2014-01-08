@@ -2,66 +2,28 @@
 
                 <div class="options row">
                     <form onsubmit="return false;">
-                        <div class="large-2 columns">
-                            <div id="sort-dropdown" class="ui dropdown selection">
-                                <input type="hidden" name="sort">
-                                <div class="default text">
-                                    <% if (sortType == "uploaded") { %>
-                                        Date
-                                    <% } else if (sortType == "popularity") { %>
-                                        Popular
-                                    <% } else if (sortType == "artistName") { %>
-                                        Artist
-                                    <% } else if (sortType == "title") { %>
-                                        Title
-                                    <% } %>
-                                </div>
-                                <i class="dropdown triangle down icon"></i>
-                                <div class="menu ui transition hidden">
-                                    <div class="item" data-value="uploaded">Date</div>
-                                    <div class="item" data-value="popular">Popular</div>
-                                    <div class="item" data-value="artistName">Artist</div>
-                                    <div class="item" data-value="title">Title</div>
-                                </div>
-                            </div>
-                        </div>
+                        <select id="sort-dropdown">
+                            <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>
+                            <option value="popular" <% if (sortType === "popular") { %> selected <% } %>>Popular</option>
+                            <option value="artistName" <% if (sortType === "artistName") { %> selected <% } %>>Artist</option>
+                            <option value="title" <% if (sortType === "title") { %> selected <% } %>>Title</option>
+                        </select>
 
-                        <div class="large-2 columns">
-                            <div id="order-dropdown" class="ui dropdown selection">
-                                <input type="hidden" name="order">
-                                <div class="default text">
-                                    <% if (orderBy == "desc") { %>
-                                        Descending
-                                    <% } else { %>
-                                        Ascending
-                                    <% } %>
-                                </div>
-                                <i class="dropdown triangle down icon"></i>
-                                <div class="menu ui transition hidden">
-                                    <div class="item" data-value="desc">Descending</div>
-                                    <div class="item" data-value="ascd">Ascending</div>
-                                </div>
-                            </div>
-                        </div>
+                        <select id="order-dropdown">
+                            <option value="desc" <% if (orderBy === "desc") { %> selected <% } %>>Descending</option>
+                            <option value="ascd" <% if (orderBy !== "desc") { %> selected <% } %>>Ascending</option>
+                        </select>
 
-                        <div class="large-3 columns">
-                            <div class="filter-input-container ui small icon input">
-                                <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">
-                                <i class="search icon icon-search"></i>
+                        <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">
+                        <% if (isFiltering) { %>
+                            <div class="filter-remove">
+                                Remove
                             </div>
+                        <% } %>
 
-                            <% if (isFiltering) { %>
-                                <div class="filter-remove small red ui icon button">
-                                    <i class="remove icon"></i>
-                                </div>
-                            <% } %>
-                        </div>
-
-                        <div class="large-2 large-offset-3 columns">
-                            <div class="view-types ui icon buttons">
-                                <a title="Thumbnail view"><div class="small blue ui button"><i class="grid layout icon"></i></div></a>
-                                <a title="List view"><div class="small ui button"><i class="list layout icon"></i></div></a>
-                            </div>
+                        <div class="view-types ui icon buttons">
+                            <a title="Thumbnail view">Thumb View</a>
+                            <a title="List view">List View</a>
                         </div>
                     </form>
 

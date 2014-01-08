@@ -12,8 +12,8 @@ define([
             featured : ".featured",
             content : ".content",
             popular : "#popular-group",
-            newReleases : "#new-releases-group",
-            sideModules : ".side-modules"
+            newReleases : "#new-releases-group"
+            //sideModules : ".side-modules"
         }
     });
 
