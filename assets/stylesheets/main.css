@@ -610,7 +610,7 @@ html, body {
 /* line 4, ../sass/modules/_tracks_group.scss */
 .tracks-group .item {
   float: left;
-  margin: 0 10px 25px 0;
+  margin: 0 20px 25px 0;
   width: 135px;
 }
 /* line 9, ../sass/modules/_tracks_group.scss */

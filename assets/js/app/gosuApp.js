@@ -40,7 +40,10 @@ define([
             "register" : "register",
             "tracks/:page?*query" : "tracksPage",
             "tracks/:page" : "tracksPage",
-            "tracks" : "tracksPage"
+            "tracks" : "tracksPage",
+            "track" : "singleTrackPage",
+            "track/:id" : "singleTrackPage",
+            "track/:id/*name" : "singleTrackPage"
         }
     });
 

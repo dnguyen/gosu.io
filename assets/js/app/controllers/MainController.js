@@ -69,6 +69,19 @@ define([
         },
 
         /**
+         * Single track page
+         */
+        singleTrackPage : function(id, name) {
+            var SingleTrackPageRoute = require(["controllers/SingleTrackPageController"], function(SingleTrackPageController) {
+                var singleTrackPageController = new SingleTrackPageController({
+                    id : id,
+                    name: name
+                });
+                singleTrackPageController.render();
+            });
+        },
+
+        /**
          *  Login page
          */
         login : function() {
