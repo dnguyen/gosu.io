@@ -35,13 +35,13 @@ define([
             this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
         },
 
-        applySort : function(e) {
+        applySort : function() {
             var sort = $("#sort-dropdown").val();
             this.model.set("sortType", sort);
             window.location = "#/tracks/" + this.model.get("page") + "?sort=" + sort + "&order=" + this.model.get("orderBy");
         },
 
-        applyOrder : function(value) {
+        applyOrder : function() {
             var order = $("#order-dropdown").val();
             this.model.set("orderBy", order);
             window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + order;

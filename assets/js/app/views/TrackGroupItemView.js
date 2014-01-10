@@ -19,9 +19,10 @@ define([
 
         // Display overlay navigation over thumbnail when hovering over the thumbnail
         thumbnailHover : function(e) {
+            var that = this;
             // If thumbnail doesn't already have an overlay, append an overlay.
             if ($(e.currentTarget).find(".overlay").length <= 0) {
-                $(e.currentTarget).append('<div class="overlay"><ul class="nav"><li><a href="#">L</a></li><li><a href="#">+</a></li></ul></div>');
+                $(e.currentTarget).append('<a href="#/track/' + that.model.get("id") + '/' + that.model.get("title") + '" ><div class="overlay"><div class="nav"><button>Listen</button><button>+</button></div></div></a>');
             }
         },
 
