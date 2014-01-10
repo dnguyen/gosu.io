@@ -614,22 +614,51 @@ html, body {
   width: 135px;
 }
 /* line 9, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb {
+  position: relative;
+}
+/* line 12, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb img {
   border: 5px solid #eeeeee;
 }
-/* line 12, ../sass/modules/_tracks_group.scss */
+/* line 16, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .overlay {
+  position: absolute;
+  width: 125px;
+  height: 125px;
+  top: 5px;
+  right: 0px;
+  left: 5px;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.3);
+}
+/* line 26, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .overlay .nav {
+  margin: 0 auto 0 auto;
+}
+/* line 29, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .overlay .nav li {
+  float: left;
+  margin: 0 5px 0 0;
+}
+/* line 33, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .overlay .nav li a {
+  color: #FFF;
+  text-decoration: none;
+}
+/* line 42, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
 }
-/* line 15, ../sass/modules/_tracks_group.scss */
+/* line 45, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 16, ../sass/modules/_tracks_group.scss */
+/* line 46, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 17, ../sass/modules/_tracks_group.scss */
+/* line 47, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
   width: 130px;
@@ -639,7 +668,7 @@ html, body {
   overflow: hidden;
 }
 
-/* line 29, ../sass/modules/_tracks_group.scss */
+/* line 59, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
