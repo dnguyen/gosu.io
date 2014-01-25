@@ -9,9 +9,10 @@ define([
     "marionette",
     "controllers/HomePageController",
     "controllers/TracksPageController",
+    "controllers/ArtistsPageController",
     "controllers/LoginPageController",
     "controllers/RegisterPageController"
-], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, LoginPageController, RegisterPageController) {
+], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
     var GosuApp = namespace.app;
     var ApiHelper = namespace.ApiHelper;
@@ -79,6 +80,11 @@ define([
                 });
                 singleTrackPageController.render();
             });
+        },
+
+        artistsPage : function(page, query) {
+          var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
+            artistsPage.render();
         },
 
         /**

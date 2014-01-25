@@ -1,7 +1,7 @@
 <h5>Tracks</h5>
 
 <div class="options row">
-    <form onsubmit="return false;">
+    <form class="uk-form" onsubmit="return false;">
         <select id="sort-dropdown">
             <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>
             <option value="popular" <% if (sortType === "popular") { %> selected <% } %>>Popular</option>
@@ -37,28 +37,58 @@
 <div class="content-footer row">
     <div class="large-4 large-centered columns">
         <% if (!isFiltering) { %>
-            <ul class="pagination">
-                <% if (page > 2) { %>
-                    <li class="arrow unavailable"><a>&laquo;</a></li>
-                    <li><a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a></li>
-                    <li><a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 1 %></a></li>
-                    <li class="current"><a><%= page %></a></li>
-                    <li><a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a></li>
-                    <li class="unavailable"><a href="">&hellip;</a></li>
-                    <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
-                    <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
-                    <li class="arrow"><a href="">&raquo;</a></li>
-                <% } else { %>
-                    <li class="arrow unavailable"><a>&laquo;</a></li>
-                    <li class="current"><a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>">1</a></li>
-                    <li><a href="#/tracks/2?sort=<%= sortType %>&order=<%= orderBy %>">2</a></li>
-                    <li><a href="#/tracks/3?sort=<%= sortType %>&order=<%= orderBy %>">3</a></li>
-                    <li><a href="#/tracks/4?sort=<%= sortType %>&order=<%= orderBy %>">4</a></li>
-                    <li class="unavailable"><a href="">&hellip;</a></li>
-                    <li><a href="#/tracks/<%= pageCount - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount - 1 %></a></li>
-                    <li><a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= pageCount %></a></li>
-                    <li class="arrow"><a href="">&raquo;</a></li>
+            <ul class="uk-pagination">
+                <li>
+                    <a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>
+                </li>
+                <% if (page - 1 > 0) { %>
+                    <li class="uk-paginationi-previous">
+                        <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
+                            Previous
+                        </a>
+                    </li>
                 <% } %>
+                <% if (page - 2 > 0) { %>
+                    <li>
+                        <a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a>
+                    </li>
+                <% } %>
+                    
+                <% if (page - 1 > 0) { %>
+                    <li class="uk-paginationi-previous">
+                        <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
+                            <%= page - 1 %>
+                        </a>
+                    </li>
+                <% } %>
+                
+                <li class="uk-active">
+                    <span><%= page %></span>
+                </li>
+                
+                <% if (page + 1 <= pageCount) { %>
+                    <li>
+                        <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a>
+                    </li>
+                <% } %>
+                    
+                <% if (page + 2 <= pageCount) { %>
+                    <li>
+                        <a href="#/tracks/<%= page + 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 2 %></a>
+                    </li>
+                <% } %>   
+                    
+                <% if (page + 1 <= pageCount) { %>
+                    <li>
+                        <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">Next</a>
+                    </li>
+                <% } %>  
+                    
+                <li>
+                    <a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>">
+                        <i class="uk-icon-angle-double-right"></i>
+                    </a>
+                </li>
             </ul>
         <% } %>
     </div>

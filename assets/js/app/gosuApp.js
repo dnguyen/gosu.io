@@ -1,3 +1,4 @@
+/*global define,document,console*/
 define([
     "jquery",
     "backbone",
@@ -43,7 +44,10 @@ define([
             "tracks" : "tracksPage",
             "track" : "singleTrackPage",
             "track/:id" : "singleTrackPage",
-            "track/:id/*name" : "singleTrackPage"
+            "track/:id/*name" : "singleTrackPage",
+            "artists/:page?*query" : "artistsPage",
+            "artists/:page" : "artistsPage",
+            "artists" : "artistsPage"
         }
     });
 
@@ -51,7 +55,7 @@ define([
         header : "#header",
         sidebar : "#sidebar",
         content : "#content",
-        footer : " #footer"
+        footer : "#footer"
     });
 
     gosuApp.on("initialize:after", function() {
@@ -71,7 +75,7 @@ define([
 
         gosuApp.contentLayout = new MainPageLayout();
 
-        new gosuApp.Router({
+        var mainRouter = new gosuApp.Router({
             controller : MainController
         });
 
