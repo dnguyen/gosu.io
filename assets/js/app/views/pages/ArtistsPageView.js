@@ -3,8 +3,8 @@ define([
     "jquery",
     "underscore",
     "backbone",
-    "marionette"
-    //"text!../../templates/ArtistsPageLayoutTemplate.html"
+    "marionette",
+    "text!../../templates/ArtistsPageLayoutTemplate.html"
 ], function(namespace, $, _, Backbone, Marionette, ArtistsPageLayoutTemplate) {
 
     var GosuApp = namespace.app;
