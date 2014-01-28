@@ -19,6 +19,8 @@ define([
             console.log(this.model);
             console.groupEnd();
             GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
+            GosuApp.vent.on("player:trackEnded", this.changeToNextTrack, this);
+            this.model.on("change:currentTrackIndex", this.currentTrackIndexChanged, this);
         },
         
         /*
@@ -30,42 +32,34 @@ define([
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 
                 window.onYouTubeIframeAPIReady = function() {
-                    that.ytplayer = new YT.Player('ytPlayer', {
-                        height: '200',
-                        width: '328',
-                        videoId: 'zVO5xTAbxm8',
-                        playerVars : {
-                            'controls' : 1
-                        },
-                        events: {
-                            'onReady': that.onPlayerReady,
-                            'onStateChange': that.onPlayerStateChange
-                        }
-                    });
+                    that.loadPlayer("zVO5xTAbxm8");
                 };
                 
                 $.getScript('//www.youtube.com/iframe_api');
             } else {
-                this.ytplayer = new YT.Player('ytPlayer', {
-                    height: '200',
-                    width: '328',
-                    videoId: 'zVO5xTAbxm8',
-                    playerVars : {
-                        'controls' : 1
-                    },
-                    events: {
-                        'onReady': this.onPlayerReady,
-                        'onStateChange': this.onPlayerStateChange
-                    }
-                });
+                this.loadPlayer("zVO5xTAbxm8");
             }
-            console.log(this.model.get("tracks"));
+            
+            var queueFragment = document.createDocumentFragment();
             this.model.get("tracks").forEach(function(track) {
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
-                
-                console.log("Start rendering tracks");
-                $(".queueItems").append(playerQueueItem.render().el);
-                
+                queueFragment.appendChild(playerQueueItem.render().el);
+            });
+            $(".queueItems").append(queueFragment);
+        },
+        
+        loadPlayer: function(videoId) {                
+            this.ytplayer = new YT.Player('ytPlayer', {
+                height: '200',
+                width: '328',
+                videoId: videoId,
+                playerVars : {
+                    'controls' : 1
+                },
+                events: {
+                    'onReady': this.onPlayerReady,
+                    'onStateChange': this.onPlayerStateChange
+                }
             });
         },
         
@@ -74,13 +68,43 @@ define([
             
         },
         
-        onPlayerStateChange: function() {
+        onPlayerStateChange: function(e) {
             console.log("player state change");
+            if (e.data === YT.PlayerState.ENDED) {
+                GosuApp.vent.trigger("player:trackEnded");
+            }
         },
         
+        /*
+            When currentTrackIndex changes, load the new track into the Youtube player
+        */
+        currentTrackIndexChanged: function() {
+            console.log("index changed");
+            var trackAtCurrentIndex = this.model.get("tracks").at(this.model.get("currentTrackIndex"));
+            this.ytplayer.loadVideoById(trackAtCurrentIndex.get("videoId"), 0, "hd720");
+        },
+        
+        /*
+            Click event for clicking a track on the queue
+        */
         changeTrack: function(trackModel) {
             console.log("change track app event");
-            this.ytplayer.loadVideoById(trackModel.get("videoId"), 0, "hd720");
+            this.model.set("currentTrackIndex", this.model.get("tracks").indexOf(trackModel));
+        },
+        
+        /*
+            Increment currentTrackIndex by 1 to move to the next track.
+            If we're on the last track in the queue reset the currentTrackIndex to 0
+        */
+        changeToNextTrack: function() {
+            console.log("changing to next track");
+            var currentTrackIndex = this.model.get("currentTrackIndex");
+            if (currentTrackIndex + 1 >= this.model.get("tracks").length) {
+                console.log("reset queue to 0");
+                this.model.set("currentTrackIndex", 0);
+            } else {
+                this.model.set("currentTrackIndex", currentTrackIndex + 1);
+            }
         }
         
     });
