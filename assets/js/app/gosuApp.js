@@ -7,11 +7,12 @@ define([
     "modernizr",
     "foundation",
     "controllers/HeaderController",
+    "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, modernizr, foundation, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function($, Backbone, Marionette, namespace, modernizr, foundation, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -55,7 +56,7 @@ define([
         header : "#header",
         sidebar : "#sidebar",
         content : "#content",
-        footer : "#footer"
+        player : "#player"
     });
 
     gosuApp.on("initialize:after", function() {
@@ -70,17 +71,16 @@ define([
 
         var headerController = new HeaderController();
         headerController.render();
-
+        
+        var playerController = new PlayerController();
+        playerController.render();
+        
         gosuApp.sidebar.show(new SidebarView());
 
         gosuApp.contentLayout = new MainPageLayout();
 
         var mainRouter = new gosuApp.Router({
             controller : MainController
-        });
-
-        $(document).foundation(function(response) {
-            console.log(response.errors);
         });
 
     });

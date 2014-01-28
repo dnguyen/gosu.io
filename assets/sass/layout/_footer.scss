@@ -1,7 +1,13 @@
-@include sticky-footer (70px, ".container", ".push", ".footer");
+//@include sticky-footer (70px, ".container", ".push", ".footer");
 
 .footer {
-    position: relative;
+    position: fixed;
+    z-index: 1010;
+    bottom: 0;
+    height: 200px;
+    background: $base-module-bg;
+    width: 100%;
+    /*position: relative;
     background: $base-module-bg;
     z-index: 9999;
     height: 70px;
@@ -25,5 +31,15 @@
             float: left;
             margin: 0 0 0 5px;
         }
+    }*/
+}
+
+.player-container {
+    #ytPlayer {
+        float: left;
+    }
+    .controls {
+        margin: 15px;
+        float: left;
     }
 }

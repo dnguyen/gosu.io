@@ -9,6 +9,7 @@ require.config({
         text : "../../../bower_components/requirejs-text/text",
         foundation : "../../../bower_components/foundation/js/foundation/foundation.min",
         modernizr : "../../../bower_components/foundation/js/vendor/custom.modernizr"
+        //YTApi: "../../../bower_components/youtube/player"
     },
     shim : {
         jquery : {
