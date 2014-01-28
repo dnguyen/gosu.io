@@ -1,9 +1,12 @@
 define([
+    "namespace",
     "underscore",
     "backbone",
     "marionette",
     "text!../templates/PlayerQueueItemTemplate.html"
-], function(_, Backbone, Marionette, PlayerQueueItemTemplate) {
+], function(namespace, _, Backbone, Marionette, PlayerQueueItemTemplate) {
+    
+    var GosuApp = namespace.app;
     
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
         tagName: "li",
@@ -14,11 +17,13 @@ define([
         template: _.template(PlayerQueueItemTemplate),
         
         onRender: function() {
+            console.group("Rendering PlayerQueueItemView");
             console.log(this.model);
+            console.groupEnd();
         },
         
         clicked: function(e) {
-            console.log("queue item clicked");
+            GosuApp.vent.trigger("player:changeTrack", this.model);
         }
     });
     

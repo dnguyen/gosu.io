@@ -8,6 +8,8 @@ define([
     "text!../../templates/PlayerTemplate.html"
 ], function(namespace, $, _, Backbone, Marionette, PlayerQueueItemView, PlayerTemplate) {
     
+    var GosuApp = namespace.app;
+    
     var PlayerView = Backbone.Marionette.ItemView.extend({
         className: 'player-container',
         template: _.template(PlayerTemplate),
@@ -16,6 +18,7 @@ define([
             console.group("initialize PlayerView");
             console.log(this.model);
             console.groupEnd();
+            GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
         },
         
         /*
@@ -23,26 +26,42 @@ define([
         *   Also render the queue from our model
         */
         onShow: function() {
-            var ytplayer = new YT.Player('ytPlayer', {
-                height: '200',
-                width: '328',
-                videoId: 'zVO5xTAbxm8',
-                playerVars : {
-                    'controls' : 1
-                },
-                events: {
-                    'onReady': this.onPlayerReady,
-                    'onStateChange': this.onPlayerStateChange
-                }
-            });
-            
-            _.each(this.model.get("tracks"), function(track) {
-                var trackModel = new Backbone.Model({
-                    title: track.title,
-                    artist: track.artist,
-                    videoId: track.videoId
+            var that = this;
+            if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+                
+                window.onYouTubeIframeAPIReady = function() {
+                    that.ytplayer = new YT.Player('ytPlayer', {
+                        height: '200',
+                        width: '328',
+                        videoId: 'zVO5xTAbxm8',
+                        playerVars : {
+                            'controls' : 1
+                        },
+                        events: {
+                            'onReady': that.onPlayerReady,
+                            'onStateChange': that.onPlayerStateChange
+                        }
+                    });
+                };
+                
+                $.getScript('//www.youtube.com/iframe_api');
+            } else {
+                this.ytplayer = new YT.Player('ytPlayer', {
+                    height: '200',
+                    width: '328',
+                    videoId: 'zVO5xTAbxm8',
+                    playerVars : {
+                        'controls' : 1
+                    },
+                    events: {
+                        'onReady': this.onPlayerReady,
+                        'onStateChange': this.onPlayerStateChange
+                    }
                 });
-                var playerQueueItem = new PlayerQueueItemView({ model: trackModel });
+            }
+            console.log(this.model.get("tracks"));
+            this.model.get("tracks").forEach(function(track) {
+                var playerQueueItem = new PlayerQueueItemView({ model: track });
                 
                 console.log("Start rendering tracks");
                 $(".queueItems").append(playerQueueItem.render().el);
@@ -57,6 +76,11 @@ define([
         
         onPlayerStateChange: function() {
             console.log("player state change");
+        },
+        
+        changeTrack: function(trackModel) {
+            console.log("change track app event");
+            this.ytplayer.loadVideoById(trackModel.get("videoId"), 0, "hd720");
         }
         
     });

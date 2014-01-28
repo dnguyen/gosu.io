@@ -41,9 +41,9 @@ define([
         if (localStorage.getItem("player_queue") === null) {
             this.model.saveLocal();
         } else {
-            this.model.loadLocal();
+            //this.model.loadLocal();
             console.group("player queue model loaded from localstorage");
-            console.log(this.model);
+            console.log(this.model.get("tracks"));
             console.groupEnd();
         }
     };
