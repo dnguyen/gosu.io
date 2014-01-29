@@ -4,15 +4,13 @@ define([
     "backbone",
     "marionette",
     "namespace",
-    "modernizr",
-    "foundation",
     "controllers/HeaderController",
     "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, modernizr, foundation, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function($, Backbone, Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;

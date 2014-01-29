@@ -35,11 +35,53 @@
 }
 
 .player-container {
+    .controls-container {
+        margin: 0 15px 0 343px;
+    }
+    
     #ytPlayer {
-        float: left;
+        position: absolute;
+        width: 328px;
     }
+    
     .controls {
-        margin: 15px;
-        float: left;
+        padding: 15px 0 30px 0;
+        
+        .left-controls {
+            float: left;
+            
+            div {
+                float: left;
+                margin: 0 10px 0 0;
+            }
+        }
     }
+    
+    .queue {
+        background: #FFF;
+        overflow: hidden;
+        clear: both;
+    }
+    
+    .queueItems {
+        /*padding: 10px 15px 10px 15px;
+        list-style-type: none;
+        background: #FFF;
+        overflow: hidden;
+        clear: both;*/
+    }
+    
+    .queueItem {
+        cursor: pointer;
+        float: left;
+        font-size: .875em;
+        margin: 0 10px 0 0;
+        
+        .small-thumb img {
+            
+            width: 75px;
+            height: 75px;
+        }
+    }
+    
 }

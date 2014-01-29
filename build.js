@@ -1,4 +1,7 @@
-require.config({
+({
+    baseUrl: "./assets/js/app",
+    name: "main",
+    out: "main-built.js",
     paths : {
         backbone : '../../../bower_components/backbone/backbone-min',
         underscore : '../../../bower_components/underscore/underscore-min',
@@ -39,6 +42,4 @@ require.config({
             exports : 'Marionette'
         }
     }
-}, require(["gosuApp"], function(GosuApp) {
-    return GosuApp.start();
-}));
+})

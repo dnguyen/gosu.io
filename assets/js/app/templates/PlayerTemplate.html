@@ -1,6 +1,28 @@
 <div id="ytPlayer" data-id="fdsafsd">
 </div>
-<div class="controls">
-    <ul class="queueItems">
-    </ul>
+<div class="controls-container">
+    <div class="controls">
+        <div class="left-controls">
+            <div class="play">Play</div>
+            <div class="pause">Pause</div>
+        </div>
+        
+        <span id="currentTime">0:00</span>
+        <!--<div class="progress-slider">
+            <input id="progress" type="range" max="100" value="0" step="1">
+        </div>-->
+        <div class="uk-progress uk-progress-mini">
+            <div class="uk-progress-bar"></div>
+        </div>
+        <span id="totalDuration">0:00</span>
+        <div>
+        Volume:
+        <input id="volume" type="range" max="100" value="50" step="1">
+            </div>
+    </div>
+    
+    <div class="queue uk-panel-box">
+        <ul class="queueItems">
+        </ul>
+    </div>
 </div>
