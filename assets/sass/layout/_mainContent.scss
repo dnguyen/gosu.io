@@ -27,6 +27,7 @@
 }
 
 /* Transition effect for changing pages */
+/*
 .app-region {
     -moz-animation-duration: 0.75s;
     -webkit-animation-duration: 0.75s;
@@ -42,7 +43,7 @@
 @-moz-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 @-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 @keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
-
+*/
 .featured {
     clear: both;
     overflow: hidden;

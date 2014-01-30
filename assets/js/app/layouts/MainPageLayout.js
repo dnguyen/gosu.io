@@ -7,7 +7,7 @@ define([
 
     var MainPageLayout = Backbone.Marionette.Layout.extend({
         template: _.template(MainPageLayoutTemplate),
-        className : "app-region",
+        className : "app-region uk-animation-slide-left",
         regions : {
             featured : ".featured",
             content : ".content",

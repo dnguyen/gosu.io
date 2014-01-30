@@ -46,15 +46,22 @@
     }
     
     .controls {
-        padding: 15px 0 30px 0;
+        padding: 10px 0 10px 0;
         
         .left-controls {
-            float: left;
-            
-            div {
-                float: left;
-                margin: 0 10px 0 0;
-            }
+            margin: 0 0 10px 0;
+        }
+        
+        .right-controls {
+        }
+        
+        .timing {
+            float: right;
+            padding: 0 0 0 10px;
+        }
+        
+        .Progress-container {
+            margin: 1px 0 0 0;
         }
         
         .uk-progress .handle {
@@ -68,6 +75,10 @@
         background: #FFF;
         overflow: hidden;
         clear: both;
+    }
+    
+    .queue.uk-panel-box {
+        padding: 8px;
     }
     
     .queueItems {

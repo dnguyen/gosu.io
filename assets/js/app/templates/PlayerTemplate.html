@@ -3,20 +3,28 @@
 <div class="controls-container">
     <div class="controls">
         <div class="left-controls">
-            <div class="play">Play</div>
-            <div class="pause">Pause</div>
+            <div class="uk-button-group">
+                <button class="StepBackward uk-button"><i class="uk-icon-step-backward"></i></button>
+                    <button class="PausePlay uk-button"><i class="uk-icon-play"></i></button>
+                <button class="StepForward uk-button"><i class="uk-icon-step-forward"></i></button>
+            </div>
+            Volume:
+            <input id="volume" type="range" max="100" value="50" step="1">
         </div>
         
-        <span class="time">0:00</span>
-        <div class="uk-progress uk-progress-small">
+        <div class="right-controls">
+        </div>
+
+        
+        <div class="timing">
+            <span class="time">0:00</span> /
+            <span class="duration">0:00</span>
+        </div>
+        
+        <div class="Progress-container uk-progress uk-progress-small">
             <div class="Progress uk-progress-bar"></div>
             <div class="handle" draggable="true"></div>
         </div>
-        <span class="duration">0:00</span>
-        <div>
-        Volume:
-        <input id="volume" type="range" max="100" value="50" step="1">
-            </div>
     </div>
     
     <div class="queue uk-panel-box">

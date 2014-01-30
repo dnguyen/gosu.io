@@ -258,99 +258,56 @@ a:hover {
 }
 
 /* Transition effect for changing pages */
-/* line 30, ../sass/layout/_mainContent.scss */
+/*
 .app-region {
-  -moz-animation-duration: 0.75s;
-  -webkit-animation-duration: 0.75s;
-  -o-animation-duration: 0.75s;
-  animation-duration: 0.75s;
-  -webkit-animation-name: contentSlideIn;
-  -moz-animation-name: contentSlideIn;
-  -o-animation-name: contentSlideIn;
-  animation-name: contentSlideIn;
+    -moz-animation-duration: 0.75s;
+    -webkit-animation-duration: 0.75s;
+    -o-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-name: contentSlideIn;
+    -moz-animation-name: contentSlideIn;
+    -o-animation-name: contentSlideIn;
+    animation-name: contentSlideIn;
 }
 
-@-webkit-keyframes contentSlideIn {
-  /* line 41, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 41, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-@-moz-keyframes contentSlideIn {
-  /* line 42, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 42, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-@-o-keyframes contentSlideIn {
-  /* line 43, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 43, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-@keyframes contentSlideIn {
-  /* line 44, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 44, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-/* line 46, ../sass/layout/_mainContent.scss */
+@-webkit-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-moz-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+*/
+/* line 47, ../sass/layout/_mainContent.scss */
 .featured {
   clear: both;
   overflow: hidden;
 }
-/* line 50, ../sass/layout/_mainContent.scss */
+/* line 51, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 55, ../sass/layout/_mainContent.scss */
+/* line 56, ../sass/layout/_mainContent.scss */
 .content {
   padding: 0 0 15px 15px;
 }
-/* line 58, ../sass/layout/_mainContent.scss */
+/* line 59, ../sass/layout/_mainContent.scss */
 .content .modules {
   float: left;
 }
-/* line 61, ../sass/layout/_mainContent.scss */
+/* line 62, ../sass/layout/_mainContent.scss */
 .content .modules .module {
   clear: both;
   overflow: hidden;
 }
 
-/* line 68, ../sass/layout/_mainContent.scss */
+/* line 69, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 72, ../sass/layout/_mainContent.scss */
+/* line 73, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 75, ../sass/layout/_mainContent.scss */
+/* line 76, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -408,30 +365,38 @@ a:hover {
 }
 /* line 48, ../sass/layout/_footer.scss */
 .player-container .controls {
-  padding: 15px 0 30px 0;
+  padding: 10px 0 10px 0;
 }
 /* line 51, ../sass/layout/_footer.scss */
 .player-container .controls .left-controls {
-  float: left;
+  margin: 0 0 10px 0;
 }
-/* line 54, ../sass/layout/_footer.scss */
-.player-container .controls .left-controls div {
-  float: left;
-  margin: 0 10px 0 0;
+/* line 58, ../sass/layout/_footer.scss */
+.player-container .controls .timing {
+  float: right;
+  padding: 0 0 0 10px;
 }
-/* line 60, ../sass/layout/_footer.scss */
+/* line 63, ../sass/layout/_footer.scss */
+.player-container .controls .Progress-container {
+  margin: 1px 0 0 0;
+}
+/* line 67, ../sass/layout/_footer.scss */
 .player-container .controls .uk-progress .handle {
   position: relative;
   background: url("../img/test_handle.png") no-repeat;
   height: 19px;
 }
-/* line 67, ../sass/layout/_footer.scss */
+/* line 74, ../sass/layout/_footer.scss */
 .player-container .queue {
   background: #FFF;
   overflow: hidden;
   clear: both;
 }
-/* line 73, ../sass/layout/_footer.scss */
+/* line 80, ../sass/layout/_footer.scss */
+.player-container .queue.uk-panel-box {
+  padding: 8px;
+}
+/* line 84, ../sass/layout/_footer.scss */
 .player-container .queueItems {
   /*padding: 10px 15px 10px 15px;
   list-style-type: none;
@@ -439,14 +404,14 @@ a:hover {
   overflow: hidden;
   clear: both;*/
 }
-/* line 81, ../sass/layout/_footer.scss */
+/* line 92, ../sass/layout/_footer.scss */
 .player-container .queueItem {
   cursor: pointer;
   float: left;
   font-size: .875em;
   margin: 0 10px 0 0;
 }
-/* line 87, ../sass/layout/_footer.scss */
+/* line 98, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb img {
   width: 75px;
   height: 75px;

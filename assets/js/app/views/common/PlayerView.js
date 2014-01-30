@@ -1,3 +1,4 @@
+/*global define,document,window,console,YT*/
 define([
     "namespace",
     "jquery",
@@ -6,7 +7,8 @@ define([
     "marionette",
     "../PlayerQueueItemView",
     "text!../../templates/PlayerTemplate.html"
-], function(namespace, $, _, Backbone, Marionette, PlayerQueueItemView, PlayerTemplate) {
+], function (namespace, $, _, Backbone, Marionette, PlayerQueueItemView, PlayerTemplate) {
+    "use strict";
     
     var GosuApp = namespace.app;
     
@@ -18,7 +20,7 @@ define([
             "click .uk-progress" : "progressBarClicked"
         },
         
-        initialize: function() {
+        initialize: function () {
             console.group("initialize PlayerView");
             console.log(this.model);
             console.groupEnd();
@@ -28,18 +30,20 @@ define([
             GosuApp.vent.on("player:paused", this.playerPaused, this);
             GosuApp.vent.on("player:incProgress", this.playerIncProgress, this);
             GosuApp.vent.on("player:seekPlayer", this.seekPlayer, this);
+            
             this.model.on("change:currentTrackIndex", this.currentTrackIndexChanged, this);
+            this.model.on("change:playing", this.playingStateChanged, this);
         },
         
         /*
         *   Once the el has been added to the dom, render the YouTube player with the api.
         *   Also render the queue from our model
         */
-        onShow: function() {
+        onShow: function () {
             var that = this;
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 
-                window.onYouTubeIframeAPIReady = function() {
+                window.onYouTubeIframeAPIReady = function () {
                     that.loadPlayer("zVO5xTAbxm8");
                 };
                 
@@ -49,7 +53,7 @@ define([
             }
             
             var queueFragment = document.createDocumentFragment();
-            this.model.get("tracks").forEach(function(track) {
+            this.model.get("tracks").forEach(function (track) {
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
                 queueFragment.appendChild(playerQueueItem.render().el);
             });
@@ -70,7 +74,7 @@ define([
             });*/
         },
         
-        loadPlayer: function(videoId) {                
+        loadPlayer: function (videoId) {
             this.ytplayer = new YT.Player('ytPlayer', {
                 height: '200',
                 width: '328',
@@ -85,15 +89,15 @@ define([
             });
         },
         
-        progressBarClicked: function(e) {
+        progressBarClicked: function (e) {
             GosuApp.vent.trigger("player:seekPlayer", e);
             
         },
         
-        seekPlayer: function(e) {
+        seekPlayer: function (e) {
             console.group("progress bar clicked");
             var fullProgressbarWidth = $(".handle").parent().css("width");
-                fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
+            fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             // leftAmt -> left % of handle
             var leftAmt = ((e.pageX - $(".Progress").offset().left) / fullProgressbarWidth) * 100;
             // seekTo -> seconds to jump to in the video
@@ -105,30 +109,42 @@ define([
         /*
             Returns seconds formatted as minutes:seconds (eg. 1:02)
         */
-        secsToMinSec: function(val) {
+        secsToMinSec: function (val) {
             var minutes = Math.floor(val / 60);
             var seconds = Math.floor(val - (minutes * 60));
             
             return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
         },
         
-        onPlayerReady: function() {
+        onPlayerReady: function () {
             console.log("yt player ready");
             
         },
         
-        onPlayerStateChange: function(e) {
+        onPlayerStateChange: function (e) {
             console.log("player state change");
             if (e.data === YT.PlayerState.PLAYING) {
                 GosuApp.vent.trigger("player:playing");
             } else if (e.data === YT.PlayerState.PAUSED) {
-                GosuApp.vent.trigger("player:paused");  
+                GosuApp.vent.trigger("player:paused");
             } else if (e.data === YT.PlayerState.ENDED) {
                 GosuApp.vent.trigger("player:trackEnded");
             }
         },
         
-        playerPlaying: function() {
+        /*
+            Event handler for when 'playing' model property changes
+        */
+        playingStateChanged: function () {
+            // If player is playing something, show pause button, else show play button
+            if (this.model.get("playing")) {
+                $(".PausePlay").html('<i class="uk-icon-pause"></i>');
+            } else {
+                $(".PausePlay").html('<i class="uk-icon-play"></i>');
+            }
+        },
+        
+        playerPlaying: function () {
             this.model.set("playing", true);
             this.model.set("progressInterval", setInterval(
                 function() {
@@ -137,15 +153,16 @@ define([
             $(".duration").text(this.secsToMinSec(this.ytplayer.getDuration()));
         },
         
-        playerPaused: function() {
+        playerPaused: function () {
             clearInterval(this.model.get("progressInterval"));
+            this.model.set("playing", false);
         },
         
-        playerIncProgress: function() {
+        playerIncProgress: function () {
             this.setTime();
         },
         
-        setTime: function() {
+        setTime: function () {
             // Increment the progress bar
             var incrementAmount = (this.ytplayer.getCurrentTime() / this.ytplayer.getDuration()) * 100;
             $('.Progress.uk-progress-bar').attr('style', 'width: ' + incrementAmount + '%');
@@ -163,7 +180,7 @@ define([
         /*
             When currentTrackIndex changes, load the new track into the Youtube player
         */
-        currentTrackIndexChanged: function() {
+        currentTrackIndexChanged: function () {
             console.log("index changed");
             var trackAtCurrentIndex = this.model.get("tracks").at(this.model.get("currentTrackIndex"));
             this.ytplayer.loadVideoById(trackAtCurrentIndex.get("videoId"), 0, "hd720");
@@ -172,7 +189,7 @@ define([
         /*
             Click event for clicking a track on the queue
         */
-        changeTrack: function(trackModel) {
+        changeTrack: function (trackModel) {
             console.log("change track app event");
             this.model.set("currentTrackIndex", this.model.get("tracks").indexOf(trackModel));
         },
@@ -181,7 +198,7 @@ define([
             Increment currentTrackIndex by 1 to move to the next track.
             If we're on the last track in the queue reset the currentTrackIndex to 0
         */
-        changeToNextTrack: function() {
+        changeToNextTrack: function () {
             console.log("changing to next track");
             
             // Reset the progress bar and interval

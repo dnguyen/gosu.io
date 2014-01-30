@@ -12,7 +12,7 @@ define([
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region",
+        className : "app-region uk-animation-slide-left",
         template : _.template(TracksPageTemplate),
 
         events : {
