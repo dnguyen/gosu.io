@@ -1,4 +1,4 @@
-<div id="ytPlayer" data-id="fdsafsd">
+<div id="ytPlayer">
 </div>
 <div class="controls-container">
     <div class="controls">
@@ -7,14 +7,12 @@
             <div class="pause">Pause</div>
         </div>
         
-        <span id="currentTime">0:00</span>
-        <!--<div class="progress-slider">
-            <input id="progress" type="range" max="100" value="0" step="1">
-        </div>-->
-        <div class="uk-progress uk-progress-mini">
-            <div class="uk-progress-bar"></div>
+        <span class="time">0:00</span>
+        <div class="uk-progress uk-progress-small">
+            <div class="Progress uk-progress-bar"></div>
+            <div class="handle" draggable="true"></div>
         </div>
-        <span id="totalDuration">0:00</span>
+        <span class="duration">0:00</span>
         <div>
         Volume:
         <input id="volume" type="range" max="100" value="50" step="1">

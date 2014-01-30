@@ -8,6 +8,7 @@ define([
         
         defaults: {
             currentTrackIndex: 0,
+            playing: false,
             tracks: new Backbone.Collection()
         },
         

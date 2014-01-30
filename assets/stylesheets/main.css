@@ -363,6 +363,7 @@ a:hover {
 
 /* line 3, ../sass/layout/_footer.scss */
 .footer {
+  border-top: 1px solid #d7d7d7;
   position: fixed;
   z-index: 1010;
   bottom: 0;
@@ -396,35 +397,41 @@ a:hover {
     }*/
 }
 
-/* line 38, ../sass/layout/_footer.scss */
+/* line 39, ../sass/layout/_footer.scss */
 .player-container .controls-container {
   margin: 0 15px 0 343px;
 }
-/* line 42, ../sass/layout/_footer.scss */
+/* line 43, ../sass/layout/_footer.scss */
 .player-container #ytPlayer {
   position: absolute;
   width: 328px;
 }
-/* line 47, ../sass/layout/_footer.scss */
+/* line 48, ../sass/layout/_footer.scss */
 .player-container .controls {
   padding: 15px 0 30px 0;
 }
-/* line 50, ../sass/layout/_footer.scss */
+/* line 51, ../sass/layout/_footer.scss */
 .player-container .controls .left-controls {
   float: left;
 }
-/* line 53, ../sass/layout/_footer.scss */
+/* line 54, ../sass/layout/_footer.scss */
 .player-container .controls .left-controls div {
   float: left;
   margin: 0 10px 0 0;
 }
 /* line 60, ../sass/layout/_footer.scss */
+.player-container .controls .uk-progress .handle {
+  position: relative;
+  background: url("../img/test_handle.png") no-repeat;
+  height: 19px;
+}
+/* line 67, ../sass/layout/_footer.scss */
 .player-container .queue {
   background: #FFF;
   overflow: hidden;
   clear: both;
 }
-/* line 66, ../sass/layout/_footer.scss */
+/* line 73, ../sass/layout/_footer.scss */
 .player-container .queueItems {
   /*padding: 10px 15px 10px 15px;
   list-style-type: none;
@@ -432,14 +439,14 @@ a:hover {
   overflow: hidden;
   clear: both;*/
 }
-/* line 74, ../sass/layout/_footer.scss */
+/* line 81, ../sass/layout/_footer.scss */
 .player-container .queueItem {
   cursor: pointer;
   float: left;
   font-size: .875em;
   margin: 0 10px 0 0;
 }
-/* line 80, ../sass/layout/_footer.scss */
+/* line 87, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb img {
   width: 75px;
   height: 75px;

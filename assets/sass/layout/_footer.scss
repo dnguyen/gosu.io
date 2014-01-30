@@ -1,6 +1,7 @@
 //@include sticky-footer (70px, ".container", ".push", ".footer");
 
 .footer {
+    border-top: 1px solid #d7d7d7;
     position: fixed;
     z-index: 1010;
     bottom: 0;
@@ -54,6 +55,12 @@
                 float: left;
                 margin: 0 10px 0 0;
             }
+        }
+        
+        .uk-progress .handle {
+            position: relative;
+            background: url('../img/test_handle.png') no-repeat;
+            height: 19px;
         }
     }
     
