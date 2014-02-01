@@ -1,8 +1,16 @@
 
 <div class="thumb">
-    <a href="#/track/<%= id %>/<%= title %>">
-        <img src="assets/img/girlsday_thumb.png" />
-    </a>
+    <figure class="uk-overlay-toggle">
+        <a href="#/track/<%= id %>/<%= title %>" class="uk-overlay">
+            <img src="assets/img/girlsday_thumb.png" />
+            <div class="uk-overlay-area">
+                <div class="OverlayNav uk-overlay-area-content">
+                    <a class="uk-icon-play uk-icon-small"></a>
+                    <a class="uk-icon-plus uk-icon-small"></a>
+                </div>
+            </div>
+        </a>
+    </figure>
 
 </div>
 

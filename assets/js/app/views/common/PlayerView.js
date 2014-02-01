@@ -1,4 +1,4 @@
-/*global define,document,window,console,YT*/
+/*global define,document,window,console,YT,localStorage,clearInterval,setInterval*/
 define([
     "namespace",
     "jquery",
@@ -24,10 +24,12 @@ define([
             "click .PausePlay" : "pausePlayBtnClicked"
         },
         
+        modelEvents: {
+            "change:currentTrackIndex" : "currentTrackIndexChanged",
+            "change:playing" : "playingStateChanged"
+        },
+        
         initialize: function () {
-            console.group("initialize PlayerView");
-            console.log(this.model);
-            console.groupEnd();
             GosuApp.vent.on("player:ytPlayerReady", this.playerReady, this);
             GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
             GosuApp.vent.on("player:trackEnded", this.changeToNextTrack, this);
@@ -39,8 +41,7 @@ define([
             GosuApp.vent.on("player:stepForward", this.changeToNextTrack, this);
             GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
             GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
-            this.model.on("change:currentTrackIndex", this.currentTrackIndexChanged, this);
-            this.model.on("change:playing", this.playingStateChanged, this);
+            GosuApp.vent.on("player:addToQueue", this.addToQueue, this);
             
             if (localStorage.getItem("playerVolume") === null) {
                 localStorage.setItem("playerVolume", 50);
@@ -78,27 +79,13 @@ define([
                     GosuApp.vent.trigger("player:changeVolume", ui.value);
                 }
             });
-            /*$('.Progress').bind('ondragover', function(e) {
-                e.preventDefault();
-            });
-            $('.Progress').bind('ondrop', function(e) {
-                e.preventDefault();
-                console.log('slider dropped on progress');
-                            
-            });
-            $('.handle').bind('dragenter', function() {
-                console.log("drag enter");
-            });
-            $('.handle').bind('drag', function(e) {
-                console.log('drag');
-            });*/
         },
         
         changeVolume: function (audioLevel) {
             this.ytplayer.setVolume(audioLevel);
             localStorage.setItem("playerVolume", audioLevel);
             
-            if (audioLevel == 0) {
+            if (audioLevel === 0) {
                 $(".Volume-indicator").html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
             } else if (audioLevel > 0 && audioLevel < 50) {
                 $(".Volume-indicator").html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
@@ -162,14 +149,11 @@ define([
             return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
         },
         
+        /* 
+            YouTube API events
+            ============================================================================ */
         onPlayerReady: function () {
-            console.log("yt player ready");
             GosuApp.vent.trigger("player:ytPlayerReady");
-        },
-        
-        playerReady: function() {
-            this.changeVolume(localStorage.getItem("playerVolume"));
-            $(".Volume").slider("value", localStorage.getItem("playerVolume"));
         },
         
         onPlayerStateChange: function (e) {
@@ -181,6 +165,13 @@ define([
             } else if (e.data === YT.PlayerState.ENDED) {
                 GosuApp.vent.trigger("player:trackEnded");
             }
+        },
+        /*  ============================================================================ */
+        
+        playerReady: function() {
+            console.log("yt player is ready");
+            this.changeVolume(localStorage.getItem("playerVolume"));
+            $(".Volume").slider("value", localStorage.getItem("playerVolume"));
         },
         
         /*
@@ -199,7 +190,7 @@ define([
             this.model.set("playing", true);
             this.model.set("progressInterval", setInterval(
                 function() {
-                    GosuApp.vent.trigger("player:incProgress");   
+                    GosuApp.vent.trigger("player:incProgress");
                 }, 250));
             $(".duration").text(this.secsToMinSec(this.ytplayer.getDuration()));
         },
@@ -266,7 +257,7 @@ define([
             }
         },
         
-        changeToPrevTrack: function() {
+        changeToPrevTrack: function () {
             clearInterval(this.model.get("progressInterval"));
             $(".Progress.uk-progress-bar").attr("style", "width: 0%");
             
@@ -278,12 +269,17 @@ define([
             }
         },
         
-        pauseOrPlay: function() {
+        pauseOrPlay: function () {
             if (this.model.get("playing")) {
                 this.ytplayer.pauseVideo();
             } else {
                 this.ytplayer.playVideo();
             }
+        },
+        
+        addToQueue: function(trackModel) {
+            console.log("add to queue event");
+            console.log(trackModel);
         }
         
     });

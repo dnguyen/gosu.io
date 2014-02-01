@@ -12,29 +12,13 @@
             img {
                 border: 5px solid $base-module-bg;
             }
-
-            .overlay {
-                position: absolute;
-                width: 125px;
-                height: 125px;
-                top: 5px;
-                right: 0px;
-                left: 5px;
-                bottom: 0px;
-                background: rgba(0, 0, 0, 0.3);
-
-                .nav {
-                    margin: 0 auto 0 auto;
-
-                    li {
-                        float: left;
-                        margin: 0 5px 0 0;
-
-                        a {
-                            color: #FFF;
-                            text-decoration: none;
-                        }
-                    }
+            
+            .OverlayNav {
+                a {
+                    color: #FFF;
+                    text-decoration: none;
+                    cursor: pointer;
+                    margin: 0 5px 0 0;
                 }
             }
         }
