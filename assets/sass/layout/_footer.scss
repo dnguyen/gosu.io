@@ -64,10 +64,26 @@
             margin: 1px 0 0 0;
         }
         
+        .Progress {
+            transition: all;
+            -webkit-transition: all;
+        }
+        
         .uk-progress .handle {
             position: relative;
             background: url('../img/test_handle.png') no-repeat;
             height: 19px;
+        }
+        
+        .Volume-indicator {
+            margin: 5px 0 0 25px;
+        }
+        
+        .Volume {
+            position: absolute;
+            left: 500px;
+            bottom: 170px;
+            width: 100px;
         }
     }
     

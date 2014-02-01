@@ -5,9 +5,10 @@ define([
     "underscore",
     "backbone",
     "marionette",
+    "jqueryui",
     "../PlayerQueueItemView",
     "text!../../templates/PlayerTemplate.html"
-], function (namespace, $, _, Backbone, Marionette, PlayerQueueItemView, PlayerTemplate) {
+], function (namespace, $, _, Backbone, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
     "use strict";
     
     var GosuApp = namespace.app;
@@ -27,6 +28,7 @@ define([
             console.group("initialize PlayerView");
             console.log(this.model);
             console.groupEnd();
+            GosuApp.vent.on("player:ytPlayerReady", this.playerReady, this);
             GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
             GosuApp.vent.on("player:trackEnded", this.changeToNextTrack, this);
             GosuApp.vent.on("player:playing", this.playerPlaying, this);
@@ -36,8 +38,13 @@ define([
             GosuApp.vent.on("player:stepBack", this.changeToPrevTrack, this);
             GosuApp.vent.on("player:stepForward", this.changeToNextTrack, this);
             GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
+            GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
             this.model.on("change:currentTrackIndex", this.currentTrackIndexChanged, this);
             this.model.on("change:playing", this.playingStateChanged, this);
+            
+            if (localStorage.getItem("playerVolume") === null) {
+                localStorage.setItem("playerVolume", 50);
+            }
         },
         
         /*
@@ -63,6 +70,14 @@ define([
                 queueFragment.appendChild(playerQueueItem.render().el);
             });
             $(".queueItems").append(queueFragment);
+            
+            $(".Volume").slider({
+                min: 0,
+                max: 100,
+                slide: function (event, ui) {
+                    GosuApp.vent.trigger("player:changeVolume", ui.value);
+                }
+            });
             /*$('.Progress').bind('ondragover', function(e) {
                 e.preventDefault();
             });
@@ -79,6 +94,19 @@ define([
             });*/
         },
         
+        changeVolume: function (audioLevel) {
+            this.ytplayer.setVolume(audioLevel);
+            localStorage.setItem("playerVolume", audioLevel);
+            
+            if (audioLevel == 0) {
+                $(".Volume-indicator").html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
+            } else if (audioLevel > 0 && audioLevel < 50) {
+                $(".Volume-indicator").html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
+            } else if (audioLevel >= 50) {
+                $(".Volume-indicator").html('<i class="uk-icon-volume-up .uk-icon-medium"></i>');
+            }
+        },
+        
         loadPlayer: function (videoId) {
             this.ytplayer = new YT.Player('ytPlayer', {
                 height: '200',
@@ -92,6 +120,7 @@ define([
                     'onStateChange': this.onPlayerStateChange
                 }
             });
+            
         },
         
         progressBarClicked: function (e) {
@@ -135,7 +164,12 @@ define([
         
         onPlayerReady: function () {
             console.log("yt player ready");
-            
+            GosuApp.vent.trigger("player:ytPlayerReady");
+        },
+        
+        playerReady: function() {
+            this.changeVolume(localStorage.getItem("playerVolume"));
+            $(".Volume").slider("value", localStorage.getItem("playerVolume"));
         },
         
         onPlayerStateChange: function (e) {
