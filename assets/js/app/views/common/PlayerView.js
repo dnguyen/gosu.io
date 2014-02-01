@@ -17,7 +17,10 @@ define([
         template: _.template(PlayerTemplate),
         
         events: {
-            "click .uk-progress" : "progressBarClicked"
+            "click .uk-progress" : "progressBarClicked",
+            "click .StepBackward" : "stepBackWardClicked",
+            "click .StepForward" : "stepForwardClicked",
+            "click .PausePlay" : "pausePlayBtnClicked"
         },
         
         initialize: function () {
@@ -30,7 +33,9 @@ define([
             GosuApp.vent.on("player:paused", this.playerPaused, this);
             GosuApp.vent.on("player:incProgress", this.playerIncProgress, this);
             GosuApp.vent.on("player:seekPlayer", this.seekPlayer, this);
-            
+            GosuApp.vent.on("player:stepBack", this.changeToPrevTrack, this);
+            GosuApp.vent.on("player:stepForward", this.changeToNextTrack, this);
+            GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
             this.model.on("change:currentTrackIndex", this.currentTrackIndexChanged, this);
             this.model.on("change:playing", this.playingStateChanged, this);
         },
@@ -92,6 +97,18 @@ define([
         progressBarClicked: function (e) {
             GosuApp.vent.trigger("player:seekPlayer", e);
             
+        },
+        
+        stepBackWardClicked: function (e) {
+            GosuApp.vent.trigger("player:stepBack");
+        },
+        
+        stepForwardClicked: function (e) {
+            GosuApp.vent.trigger("player:stepForward");
+        },
+        
+        pausePlayBtnClicked: function (e) {
+            GosuApp.vent.trigger("player:pausePlay");
         },
         
         seekPlayer: function (e) {
@@ -212,6 +229,26 @@ define([
                 this.model.set("currentTrackIndex", 0);
             } else {
                 this.model.set("currentTrackIndex", currentTrackIndex + 1);
+            }
+        },
+        
+        changeToPrevTrack: function() {
+            clearInterval(this.model.get("progressInterval"));
+            $(".Progress.uk-progress-bar").attr("style", "width: 0%");
+            
+            var currentTrackIndex = this.model.get("currentTrackIndex");
+            if (currentTrackIndex - 1 < 0) {
+                this.model.set("currentTrackIndex", this.model.get("tracks").length - 1);
+            } else {
+                this.model.set("currentTrackIndex", currentTrackIndex - 1);
+            }
+        },
+        
+        pauseOrPlay: function() {
+            if (this.model.get("playing")) {
+                this.ytplayer.pauseVideo();
+            } else {
+                this.ytplayer.playVideo();
             }
         }
         
