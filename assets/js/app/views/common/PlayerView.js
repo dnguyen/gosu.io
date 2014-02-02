@@ -42,6 +42,10 @@ define([
             GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
             GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
             GosuApp.vent.on("player:addToQueue", this.addToQueue, this);
+            GosuApp.vent.on("player:playTrackDirect", this.playTrackDirect, this);
+            
+            this.model.get("tracks").bind("add", this.addToQueueCollection, this);
+            this.model.get("tracks").bind("reset", this.resetQueueCollection, this);
             
             if (localStorage.getItem("playerVolume") === null) {
                 localStorage.setItem("playerVolume", 50);
@@ -100,7 +104,7 @@ define([
                 width: '328',
                 videoId: videoId,
                 playerVars : {
-                    'controls' : 1
+                    'controls' : 0
                 },
                 events: {
                     'onReady': this.onPlayerReady,
@@ -278,8 +282,28 @@ define([
         },
         
         addToQueue: function(trackModel) {
-            console.log("add to queue event");
-            console.log(trackModel);
+            this.model.get("tracks").add(trackModel);
+        },
+        
+        addToQueueCollection: function(model) {
+            var playerQueueItem = new PlayerQueueItemView({ model: model });
+            $(".queueItems").append(playerQueueItem.render().el);            
+        },
+        
+        resetQueueCollection: function() {
+            $(".queueItems").html("");
+        },
+        
+        /*
+            Fired when playing a track directly from a thumbnail or link
+            Should clear queue, and add the track that was asked to be played to the new queue.
+        */
+        playTrackDirect: function(trackModel) {
+            console.log("play track direct");
+            this.model.get("tracks").reset();
+            this.model.get("tracks").add(trackModel);
+            this.model.set({ "currentTrackIndex" : 0 }, { silent: true });
+            this.ytplayer.loadVideoById(trackModel.get("videoId"), 0, "hd720");
         }
         
     });

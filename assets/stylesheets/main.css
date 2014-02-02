@@ -97,6 +97,16 @@ a:hover {
   color: #00b4ff;
 }
 
+/* line 24, ../sass/layout/_base.scss */
+.AddToMenu {
+  position: absolute;
+  background: #FFF;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 150px;
+}
+
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
@@ -432,6 +442,13 @@ a:hover {
   width: 75px;
   height: 75px;
 }
+/* line 121, ../sass/layout/_footer.scss */
+.player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
+  width: 75px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 /* line 1, ../sass/modules/loading_icon.scss */
 .loading-icon {
@@ -651,16 +668,17 @@ a:hover {
 /* line 26, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
+  margin: 5px 0 0 0;
 }
-/* line 29, ../sass/modules/_tracks_group.scss */
+/* line 30, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 30, ../sass/modules/_tracks_group.scss */
+/* line 31, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 31, ../sass/modules/_tracks_group.scss */
+/* line 32, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
   width: 130px;
@@ -670,7 +688,7 @@ a:hover {
   overflow: hidden;
 }
 
-/* line 43, ../sass/modules/_tracks_group.scss */
+/* line 44, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }

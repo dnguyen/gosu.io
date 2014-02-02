@@ -116,6 +116,15 @@
             width: 75px;
             height: 75px;
         }
+        
+        .meta {
+            .title, .artist {
+                width: 75px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
     }
     
 }

@@ -20,3 +20,12 @@ a {
         color: $base-link-hover;
     }
 }
+
+.AddToMenu {
+    position: absolute;
+    background: #FFF;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    width: 150px;
+}

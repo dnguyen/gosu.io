@@ -32,6 +32,24 @@ define([
     gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
         gosuApp.loadingIconView.close();
     });
+    
+    gosuApp.vent.on("showTrackAddToMenu", function(data) {
+        var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
+            $(".AddToMenu").remove();
+            var newAddToMenuView = new AddToMenuView({ model : data.model });
+            $("body").append(newAddToMenuView.render().el);
+            $(".AddToMenu").css({
+                "left" : (data.event.clientX - 15) + "px",
+                "top" : (data.event.clientY - 15) + "px"
+            });
+            $(document).click(function(e) {
+                if ($(e.target).closest('.AddToMenu').length == 0) {
+                    $(".AddToMenu").remove();
+                    $(document).unbind("click");
+                }
+            });
+        });
+    });
 
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
