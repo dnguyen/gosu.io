@@ -106,6 +106,10 @@ a:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 150px;
 }
+/* line 32, ../sass/layout/_base.scss */
+.AddToMenu a {
+  cursor: pointer;
+}
 
 /* line 1, ../sass/layout/_header.scss */
 .header {

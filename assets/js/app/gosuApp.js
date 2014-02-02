@@ -35,12 +35,14 @@ define([
     
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
+            console.log("show menu");
+            console.log(data.event);
             $(".AddToMenu").remove();
             var newAddToMenuView = new AddToMenuView({ model : data.model });
             $("body").append(newAddToMenuView.render().el);
             $(".AddToMenu").css({
-                "left" : (data.event.clientX - 15) + "px",
-                "top" : (data.event.clientY - 15) + "px"
+                "left" : ($(data.event.target).offset().left - 10) + "px",
+                "top" : ($(data.event.target).offset().top - 15) + "px"
             });
             $(document).click(function(e) {
                 if ($(e.target).closest('.AddToMenu').length == 0) {
