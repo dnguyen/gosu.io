@@ -23,7 +23,7 @@ define([
         this.model = new PlayerModel();
         
         // If player_queue does not exist in localstorage, create it.
-        if (localStorage.getItem("player_queue") === null) {
+        if (localStorage.getItem("playerData") === null) {
             this.model.saveLocal();
         } else {
             this.model.loadLocal();
