@@ -35,8 +35,6 @@ define([
     
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
-            console.log("show menu");
-            console.log(data.event);
             $(".AddToMenu").remove();
             var newAddToMenuView = new AddToMenuView({ model : data.model });
             $("body").append(newAddToMenuView.render().el);

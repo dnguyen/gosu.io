@@ -14,18 +14,18 @@ define([
     "controllers/RegisterPageController"
 ], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
-    var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
-    var URLHelper = namespace.URLHelper;
+    var GosuApp = namespace.app,
+        ApiHelper = namespace.ApiHelper,
+        URLHelper = namespace.URLHelper;
 
     return {
         /**
          *  Home Page
          */
         mainPage : function() {
-            var popularTracksCollection = new Backbone.Collection();
-            var newReleasesCollection = new Backbone.Collection();
-            var comingSoonCollection = new Backbone.Collection();
+            var popularTracksCollection = new Backbone.Collection(),
+                newReleasesCollection = new Backbone.Collection(),
+                comingSoonCollection = new Backbone.Collection();
 
             // Display the loading icon
             GosuApp.vent.trigger("StartLoadingNewPage", { page : "explore" });

@@ -42,9 +42,11 @@ define([
             GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
             GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
             GosuApp.vent.on("player:addToQueue", this.addToQueue, this);
+            GosuApp.vent.on("player:removeFromQueue", this.removeFromQueue, this);
             GosuApp.vent.on("player:playTrackDirect", this.playTrackDirect, this);
             
             this.model.get("tracks").bind("add", this.addToQueueCollection, this);
+            this.model.get("tracks").bind("remove", this.removeFromQueueCollection, this);
             this.model.get("tracks").bind("reset", this.resetQueueCollection, this);
             
             if (localStorage.getItem("playerVolume") === null) {
@@ -61,18 +63,30 @@ define([
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 
                 window.onYouTubeIframeAPIReady = function () {
-                    that.loadPlayer("zVO5xTAbxm8");
+                    if (that.model.get("tracks").length <= 0) {
+                        that.loadPlayer("");
+                    } else {
+                        that.loadPlayer(that.model.get("tracks").at(0).videoId);
+                    }
                 };
                 
                 $.getScript('//www.youtube.com/iframe_api');
             } else {
-                this.loadPlayer("zVO5xTAbxm8");
+                if (this.get("tracks").length <= 0) {
+                    this.loadPlayer("");
+                } else {
+                    this.loadPlayer(this.get("tracks").at(0).videoId);
+                }
             }
             
             var queueFragment = document.createDocumentFragment();
+            var index = 0;
+            var that = this;
             this.model.get("tracks").forEach(function (track) {
+                track.set("collectionIndex", index);
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
                 queueFragment.appendChild(playerQueueItem.render().el);
+                index++;
             });
             $(".queueItems").append(queueFragment);
             
@@ -282,12 +296,35 @@ define([
         },
         
         addToQueue: function(trackModel) {
+            console.log("addToQueue");
+            console.log(trackModel);
             this.model.get("tracks").add(trackModel);
+            this.model.saveLocal();
+        },
+
+        removeFromQueue: function(trackModel) {
+            this.model.get("tracks").remove(trackModel);
+            this.model.saveLocal();
         },
         
-        addToQueueCollection: function(model) {
-            var playerQueueItem = new PlayerQueueItemView({ model: model });
+        addToQueueCollection: function(trackModel) {
+            trackModel.set("collectionIndex", (this.model.get("tracks").length) >= 0 ? this.model.get("tracks").length - 1 : 0);
+            console.log("addToQueueCollection");
+            console.log(trackModel);
+            var playerQueueItem = new PlayerQueueItemView({ model: trackModel });
             $(".queueItems").append(playerQueueItem.render().el);            
+        },
+
+        removeFromQueueCollection: function(model) {
+            model.destroy();
+            /*_.each($(".queueItem .Index"), function(queueItemIndex) {
+                var domIndexToRemove = $(queueItemIndex).text();
+                console.log("collectionIndex: " + model.get("collectionIndex") + " - - " + "domIndex: " + domIndexToRemove);
+                console.log(model.get("collectionIndex") === domIndexToRemove);
+                if (model.get("collectionIndex") == domIndexToRemove) {
+                    $(queueItemIndex).parent().remove();
+                }
+            });*/
         },
         
         resetQueueCollection: function() {

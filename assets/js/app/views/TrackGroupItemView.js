@@ -33,7 +33,15 @@ define([
             console.log("add track to");
             e.stopPropagation();
             GosuApp.vent.trigger("showTrackAddToMenu", {
-                model : this.model,
+                model : new Backbone.Model({
+                    trackId: this.model.get("trackId"),
+                    title: this.model.get("title"),
+                    artistId: this.model.get("artistId"),
+                    artistName: this.model.get("artistName"),
+                    videoId: this.model.get("videoId"),
+                    uploaded: this.model.get("uploaded"),
+                    viewCount: this.model.get("viewCount")
+                }),
                 event : e
             });
         }

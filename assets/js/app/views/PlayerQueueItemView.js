@@ -9,21 +9,44 @@ define([
     var GosuApp = namespace.app;
     
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
-        tagName: "li",
+        tagName: "div",
         className: "queueItem",
         events: {
-            "click" : "clicked"
+            "click .Play" : "play",
+            "click .Remove" : "removeEvent",
+            "click .AddTo" : "addTo"
         },
         template: _.template(PlayerQueueItemTemplate),
         
+        initialize: function() {
+            this.model.bind("destroy", this.destroyView, this);
+        },
+
         onRender: function() {
             console.group("Rendering PlayerQueueItemView");
             console.log(this.model);
             console.groupEnd();
         },
         
-        clicked: function(e) {
+        play: function(e) {
             GosuApp.vent.trigger("player:changeTrack", this.model);
+        },
+
+        removeEvent: function(e) {
+            GosuApp.vent.trigger("player:removeFromQueue", this.model);
+        },
+
+        addTo: function(e) {
+            e.stopPropagation();
+            GosuApp.vent.trigger("showTrackAddToMenu", {
+                model : this.model,
+                event : e
+            });
+        },
+
+        destroyView: function(e) {
+            console.log("destroy view");
+            this.remove();
         }
     });
     

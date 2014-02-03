@@ -105,8 +105,9 @@ a:hover {
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 150px;
+  z-index: 1100;
 }
-/* line 32, ../sass/layout/_base.scss */
+/* line 33, ../sass/layout/_base.scss */
 .AddToMenu a {
   cursor: pointer;
 }
@@ -332,7 +333,7 @@ a:hover {
   float: left;
 }
 
-/* line 3, ../sass/layout/_footer.scss */
+/* line 1, ../sass/layout/_footer.scss */
 .footer {
   border-top: 1px solid #d7d7d7;
   position: fixed;
@@ -341,92 +342,68 @@ a:hover {
   height: 200px;
   background: #eeeeee;
   width: 100%;
-    /*position: relative;
-    background: $base-module-bg;
-    z-index: 9999;
-    height: 70px;
-    width: 100%;
-    clear: both;
-    margin: 0 auto 0 auto;
-    border-right: 1px solid #d7d7d7;
-    padding: 20px 15px 15px 15px;
-
-    .footer-logo {
-        float: left;
-        font-size: $heading-content-size;
-        font-family: $heading-font-family;
-        color: $base-font-color;
-    }
-
-    .social-links {
-        float: right;
-        margin: 7px 0 0 0;
-        li {
-            float: left;
-            margin: 0 0 0 5px;
-        }
-    }*/
 }
 
-/* line 39, ../sass/layout/_footer.scss */
+/* line 12, ../sass/layout/_footer.scss */
 .player-container .controls-container {
   margin: 0 15px 0 343px;
 }
-/* line 43, ../sass/layout/_footer.scss */
+/* line 16, ../sass/layout/_footer.scss */
 .player-container #ytPlayer {
   position: absolute;
   width: 328px;
 }
-/* line 48, ../sass/layout/_footer.scss */
+/* line 21, ../sass/layout/_footer.scss */
 .player-container .controls {
   padding: 10px 0 10px 0;
 }
-/* line 51, ../sass/layout/_footer.scss */
+/* line 24, ../sass/layout/_footer.scss */
 .player-container .controls .left-controls {
   margin: 0 0 10px 0;
 }
-/* line 58, ../sass/layout/_footer.scss */
+/* line 31, ../sass/layout/_footer.scss */
 .player-container .controls .timing {
   float: right;
   padding: 0 0 0 10px;
 }
-/* line 63, ../sass/layout/_footer.scss */
+/* line 36, ../sass/layout/_footer.scss */
 .player-container .controls .Progress-container {
   margin: 1px 0 0 0;
 }
-/* line 67, ../sass/layout/_footer.scss */
+/* line 40, ../sass/layout/_footer.scss */
 .player-container .controls .Progress {
   transition: all;
   -webkit-transition: all;
 }
-/* line 72, ../sass/layout/_footer.scss */
+/* line 45, ../sass/layout/_footer.scss */
 .player-container .controls .uk-progress .handle {
   position: relative;
   background: url("../img/test_handle.png") no-repeat;
   height: 19px;
 }
-/* line 78, ../sass/layout/_footer.scss */
+/* line 51, ../sass/layout/_footer.scss */
 .player-container .controls .Volume-indicator {
   margin: 5px 0 0 25px;
 }
-/* line 82, ../sass/layout/_footer.scss */
+/* line 55, ../sass/layout/_footer.scss */
 .player-container .controls .Volume {
   position: absolute;
   left: 500px;
   bottom: 170px;
   width: 100px;
 }
-/* line 90, ../sass/layout/_footer.scss */
+/* line 63, ../sass/layout/_footer.scss */
 .player-container .queue {
+  height: 119px;
   background: #FFF;
   overflow: hidden;
   clear: both;
 }
-/* line 96, ../sass/layout/_footer.scss */
+/* line 70, ../sass/layout/_footer.scss */
 .player-container .queue.uk-panel-box {
   padding: 8px;
 }
-/* line 100, ../sass/layout/_footer.scss */
+/* line 74, ../sass/layout/_footer.scss */
 .player-container .queueItems {
   /*padding: 10px 15px 10px 15px;
   list-style-type: none;
@@ -434,20 +411,29 @@ a:hover {
   overflow: hidden;
   clear: both;*/
 }
-/* line 108, ../sass/layout/_footer.scss */
+/* line 82, ../sass/layout/_footer.scss */
 .player-container .queueItem {
   cursor: pointer;
   float: left;
   font-size: .875em;
   margin: 0 10px 0 0;
-}
-/* line 114, ../sass/layout/_footer.scss */
-.player-container .queueItem .small-thumb img {
   width: 75px;
+}
+/* line 89, ../sass/layout/_footer.scss */
+.player-container .queueItem .Index {
+  display: none;
+}
+/* line 91, ../sass/layout/_footer.scss */
+.player-container .queueItem .small-thumb {
+  position: relative;
+}
+/* line 93, ../sass/layout/_footer.scss */
+.player-container .queueItem .small-thumb img {
   height: 75px;
 }
-/* line 121, ../sass/layout/_footer.scss */
+/* line 99, ../sass/layout/_footer.scss */
 .player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
+  display: block;
   width: 75px;
   text-overflow: ellipsis;
   white-space: nowrap;

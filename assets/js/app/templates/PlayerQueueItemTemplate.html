@@ -1,8 +1,21 @@
+<div class="Index"><%= collectionIndex %></div>
+
 <div class="small-thumb">
-    <img src="assets/img/girlsday_thumb.png" />
+    <figure class="uk-overlay-toggle">
+        <a href="#/track/<%= trackId %>/<%= title %>" class="uk-overlay">
+            <img src="assets/img/girlsday_thumb.png" />
+            <div class="uk-overlay-area">
+                <div class="OverlayNav uk-overlay-area-content">
+            		<a class="Remove uk-icon-times uk-icon-xsmall"></a>
+                    <a class="Play uk-icon-play uk-icon-small"></a>
+                    <a class="AddTo uk-icon-plus uk-icon-xsmall"></a>
+                </div>
+            </div>
+        </a>
+    </figure>
 </div>
 
 <div class="meta">
     <div class="title"><%= title %></div>
-    <div class="artist"><%= artist %></div>
+    <div class="artist"><%= artistName %></div>
 </div>

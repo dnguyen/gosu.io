@@ -1,5 +1,3 @@
-//@include sticky-footer (70px, ".container", ".push", ".footer");
-
 .footer {
     border-top: 1px solid #d7d7d7;
     position: fixed;
@@ -8,31 +6,6 @@
     height: 200px;
     background: $base-module-bg;
     width: 100%;
-    /*position: relative;
-    background: $base-module-bg;
-    z-index: 9999;
-    height: 70px;
-    width: 100%;
-    clear: both;
-    margin: 0 auto 0 auto;
-    border-right: 1px solid #d7d7d7;
-    padding: 20px 15px 15px 15px;
-
-    .footer-logo {
-        float: left;
-        font-size: $heading-content-size;
-        font-family: $heading-font-family;
-        color: $base-font-color;
-    }
-
-    .social-links {
-        float: right;
-        margin: 7px 0 0 0;
-        li {
-            float: left;
-            margin: 0 0 0 5px;
-        }
-    }*/
 }
 
 .player-container {
@@ -88,6 +61,7 @@
     }
     
     .queue {
+        height: 119px;
         background: #FFF;
         overflow: hidden;
         clear: both;
@@ -110,15 +84,20 @@
         float: left;
         font-size: .875em;
         margin: 0 10px 0 0;
-        
-        .small-thumb img {
-            
-            width: 75px;
-            height: 75px;
+        width: 75px;
+
+        .Index { display: none; }
+
+        .small-thumb {
+            position: relative;
+            img {
+                height: 75px;
+            }
         }
         
         .meta {
             .title, .artist {
+                display: block;
                 width: 75px;
                 text-overflow: ellipsis;
                 white-space: nowrap;
