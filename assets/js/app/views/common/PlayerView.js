@@ -66,7 +66,7 @@ define([
                     if (that.model.get("tracks").length <= 0) {
                         that.loadPlayer("");
                     } else {
-                        that.loadPlayer(that.model.get("tracks").at(0).videoId);
+                        that.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
                     }
                 };
                 
@@ -75,7 +75,7 @@ define([
                 if (this.get("tracks").length <= 0) {
                     this.loadPlayer("");
                 } else {
-                    this.loadPlayer(this.get("tracks").at(0).videoId);
+                    this.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
                 }
             }
             
@@ -251,7 +251,9 @@ define([
         */
         changeTrack: function (trackModel) {
             console.log("change track app event");
-            this.model.set("currentTrackIndex", this.model.get("tracks").indexOf(trackModel));
+            console.log(trackModel);
+            console.log(this.model.get("tracks").at(trackModel.get("collectionIndex")));
+            this.model.set("currentTrackIndex", trackModel.get("collectionIndex"));
         },
         
         /*
