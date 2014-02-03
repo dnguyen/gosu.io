@@ -80,7 +80,6 @@
     }
     
     .queueItem {
-        cursor: pointer;
         float: left;
         font-size: .875em;
         margin: 0 10px 0 0;
@@ -90,6 +89,8 @@
 
         .small-thumb {
             position: relative;
+            cursor: pointer;
+            
             img {
                 height: 75px;
             }

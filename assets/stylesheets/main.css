@@ -413,25 +413,25 @@ a:hover {
 }
 /* line 82, ../sass/layout/_footer.scss */
 .player-container .queueItem {
-  cursor: pointer;
   float: left;
   font-size: .875em;
   margin: 0 10px 0 0;
   width: 75px;
 }
-/* line 89, ../sass/layout/_footer.scss */
+/* line 88, ../sass/layout/_footer.scss */
 .player-container .queueItem .Index {
   display: none;
 }
-/* line 91, ../sass/layout/_footer.scss */
+/* line 90, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb {
   position: relative;
+  cursor: pointer;
 }
-/* line 93, ../sass/layout/_footer.scss */
+/* line 94, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb img {
   height: 75px;
 }
-/* line 99, ../sass/layout/_footer.scss */
+/* line 100, ../sass/layout/_footer.scss */
 .player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
   display: block;
   width: 75px;

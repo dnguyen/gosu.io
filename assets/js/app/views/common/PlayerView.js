@@ -79,9 +79,10 @@ define([
                 }
             }
             
-            var queueFragment = document.createDocumentFragment();
-            var index = 0;
-            var that = this;
+            var queueFragment = document.createDocumentFragment(),
+                index = 0,
+                that = this;
+
             this.model.get("tracks").forEach(function (track) {
                 track.set("collectionIndex", index);
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
@@ -146,7 +147,6 @@ define([
         },
         
         seekPlayer: function (e) {
-            console.group("progress bar clicked");
             var fullProgressbarWidth = $(".handle").parent().css("width");
             fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             // leftAmt -> left % of handle
@@ -175,7 +175,6 @@ define([
         },
         
         onPlayerStateChange: function (e) {
-            console.log("player state change");
             if (e.data === YT.PlayerState.PLAYING) {
                 GosuApp.vent.trigger("player:playing");
             } else if (e.data === YT.PlayerState.PAUSED) {
@@ -187,7 +186,6 @@ define([
         /*  ============================================================================ */
         
         playerReady: function() {
-            console.log("yt player is ready");
             this.changeVolume(localStorage.getItem("playerVolume"));
             $(".Volume").slider("value", localStorage.getItem("playerVolume"));
         },
@@ -241,7 +239,6 @@ define([
             When currentTrackIndex changes, load the new track into the Youtube player
         */
         currentTrackIndexChanged: function () {
-            console.log("index changed");
             var trackAtCurrentIndex = this.model.get("tracks").at(this.model.get("currentTrackIndex"));
             this.ytplayer.loadVideoById(trackAtCurrentIndex.get("videoId"), 0, "hd720");
         },
@@ -250,9 +247,6 @@ define([
             Click event for clicking a track on the queue
         */
         changeTrack: function (trackModel) {
-            console.log("change track app event");
-            console.log(trackModel);
-            console.log(this.model.get("tracks").at(trackModel.get("collectionIndex")));
             this.model.set("currentTrackIndex", trackModel.get("collectionIndex"));
         },
         
@@ -298,8 +292,6 @@ define([
         },
         
         addToQueue: function(trackModel) {
-            console.log("addToQueue");
-            console.log(trackModel);
             this.model.get("tracks").add(trackModel);
             this.model.saveLocal();
         },
@@ -311,22 +303,12 @@ define([
         
         addToQueueCollection: function(trackModel) {
             trackModel.set("collectionIndex", (this.model.get("tracks").length) >= 0 ? this.model.get("tracks").length - 1 : 0);
-            console.log("addToQueueCollection");
-            console.log(trackModel);
             var playerQueueItem = new PlayerQueueItemView({ model: trackModel });
             $(".queueItems").append(playerQueueItem.render().el);            
         },
 
         removeFromQueueCollection: function(model) {
             model.destroy();
-            /*_.each($(".queueItem .Index"), function(queueItemIndex) {
-                var domIndexToRemove = $(queueItemIndex).text();
-                console.log("collectionIndex: " + model.get("collectionIndex") + " - - " + "domIndex: " + domIndexToRemove);
-                console.log(model.get("collectionIndex") === domIndexToRemove);
-                if (model.get("collectionIndex") == domIndexToRemove) {
-                    $(queueItemIndex).parent().remove();
-                }
-            });*/
         },
         
         resetQueueCollection: function() {
@@ -338,7 +320,6 @@ define([
             Should clear queue, and add the track that was asked to be played to the new queue.
         */
         playTrackDirect: function(trackModel) {
-            console.log("play track direct");
             this.model.get("tracks").reset();
             this.model.get("tracks").add(trackModel);
             this.model.set({ "currentTrackIndex" : 0 }, { silent: true });
