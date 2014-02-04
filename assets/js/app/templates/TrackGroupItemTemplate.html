@@ -1,9 +1,21 @@
 
-                                    <div class="thumb">
-                                        <a href="#"><img src="assets/img/girlsday_thumb.png" /></a>
-                                    </div>
+<div class="thumb">
+    <figure class="uk-overlay-toggle">
+        <a href="#/track/<%= trackId %>/<%= title %>" class="uk-overlay">
+            <img src="assets/img/girlsday_thumb.png" />
+            <div class="uk-overlay-area">
+                <div class="OverlayNav uk-overlay-area-content">
+                    <a class="Play uk-icon-play uk-icon-small"></a>
+                    <a class="AddTo uk-icon-plus uk-icon-small"></a>
+                </div>
+            </div>
+        </a>
+    </figure>
 
-                                    <div class="meta">
-                                        <span class="title"><%= title %></span>
-                                        <span class="artist"><%= name %></span>
-                                    </div>
+</div>
+<div class="meta">
+    <span class="title">
+        <a href="#/track/<%= trackId %>/<%= title %>" title="<%= artistName %> - <%= title %>"><%= title %></a>
+    </span>
+    <span class="artist"><%= artistName %></span>
+</div>

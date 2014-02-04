@@ -2,16 +2,41 @@
 .tracks-group {
 
     .item {
-        .thumb img {
-            border: 5px solid $base-module-bg;
+        float: left;
+        width: 10%;
+        margin: 1% 1% 25px 1%;
+        
+        .thumb {
+            position: relative;
+
+            img {
+                border: 5px solid $base-module-bg;
+                max-width: 100%;
+            }
+            
+            .OverlayNav {
+                a {
+                    color: #FFF;
+                    text-decoration: none;
+                    cursor: pointer;
+                    margin: 0 5px 0 0;
+                }
+            }
         }
+
         .meta {
             float: left;
+            margin: 5px 0 0 0;
+            width: 100%;
 
             .title { margin: 0 0 3px 0; }
             .artist { color: $base-light-font-color; }
             .title, .artist {
                 display: block;
+                height: 15px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
         }
     }

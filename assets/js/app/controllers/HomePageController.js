@@ -41,7 +41,7 @@ define([
         GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
 
         // Render side modules
-        var sideModulesLayout = new SideModulesLayout();
+        /*var sideModulesLayout = new SideModulesLayout();
         var sotwView = new SOTWSideModuleView();
         var radioView = new RadioSideModuleView();
         var moduleListView = new ModuleListCompositeView({
@@ -56,7 +56,7 @@ define([
         GosuApp.contentLayout.sideModules.show(sideModulesLayout);
         sideModulesLayout.sotw.show(sotwView);
         sideModulesLayout.radio.show(radioView);
-        sideModulesLayout.comingSoon.show(moduleListView);
+        sideModulesLayout.comingSoon.show(moduleListView);*/
 
     };
 

@@ -1,34 +1,33 @@
 
-                <div class="logo">
-                    <a href="#"><img src="assets/img/logo.png" /></a>
-                </div>
+<div class="logo">
+    <a href="#"><img src="assets/img/logo.png" /></a>
+</div>
 
-                <div class="header-menu">
-                    <div class="header-search">
-                        <div class="text-input">
-                            <input type="text"placeholder="Search"></input>
-                        </div>
-                        <button class="search-btn tiny secondary">
-                            <a href="#"><i class="icon-search"></i></a>
-                        </button>
-                    </div>
+<div class="header-menu">
+    <div class="header-search">
+        <form class="uk-form" data-uk-search>
+            <input type="text" class="uk-form-width-large" placeholder="Search artists, tracks, or playlists">
+            <button class="uk-button" type="button">Search</button>
+        </form>
+    </div>
 
-                    <div class="header-navigation">
-                        <% if (loggedin) { %>
-                            <div class="user">
-                                <img src="assets/img/header-profile-img.png" />
-                                <a href="#">Lithica</a>
-                            </div>
-                            <a class="settings" data-dropdown="user-settings"><i class="icon-cog"></i></a>
-                            <ul id="user-settings" class="f-dropdown tiny" data-dropdown-content>
-                                <li><a href="#">Settings</a></li>
-                                <li><a href="#">Log out</a></li>
-                            </ul>
-                        <% } else { %>
-                            <ul class="user-nav">
-                                <li><a href="#">Sign In</a></li>
-                                <li><a href="#">Register</a></li>
-                            </ul>
-                        <% } %>
+    <div class="header-navigation">
+        <% if (loggedin) { %>
+            <div class="ui icon buttons">
+                <div class="small blue ui button"><%= username %></div>
+                <div id="user-settings-dropdown" class="small ui top right pointing dropdown icon button">
+                    <i class="settings icon"></i>
+                    <div class="menu">
+                        <div class="item" data-value="settings">Settings</div>
+                        <div class="item" data-value="log-out">Log out</div>
                     </div>
                 </div>
+            </div>
+        <% } else { %>
+            <ul class="user-nav">
+                <li><a href="#/signin">Sign In</a></li>
+                <li><a href="#/register">Register</a></li>
+            </ul>
+        <% } %>
+    </div>
+</div>

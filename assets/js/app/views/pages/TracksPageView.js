@@ -5,20 +5,21 @@ define([
     "backbone",
     "marionette",
     "../TrackGroupCollectionView",
-    "text!../../templates/TracksPageLayoutTemplate.html",
-    "semantic.dropdown"
-], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate, SemanticDropdown) {
+    "text!../../templates/TracksPageLayoutTemplate.html"
+], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var GosuApp = namespace.app;
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region",
+        className : "app-region uk-animation-slide-left",
         template : _.template(TracksPageTemplate),
 
         events : {
             "keypress #filter-input" : "filterKeyPress",
-            "click .filter-remove" : "filterRemove"
+            "click .filter-remove" : "filterRemove",
+            "change #sort-dropdown" : "applySort",
+            "change #order-dropdown" : "applyOrder"
         },
 
         initialize : function() {
@@ -32,28 +33,18 @@ define([
             });
 
             this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
-
-            var that = this;
-
-            this.$el.find("#sort-dropdown").dropdown({
-                onChange : function(value, text) {
-                    that.applySort(value);
-                }
-            });
-
-            this.$el.find("#order-dropdown").dropdown({
-                onChange : function(value, text) {
-                    that.applyOrder(value);
-                }
-            });
         },
 
-        applySort : function(value) {
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + value + "&order=" + this.model.get("orderBy");
+        applySort : function() {
+            var sort = $("#sort-dropdown").val();
+            this.model.set("sortType", sort);
+            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + sort + "&order=" + this.model.get("orderBy");
         },
 
-        applyOrder : function(value) {
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + value;
+        applyOrder : function() {
+            var order = $("#order-dropdown").val();
+            this.model.set("orderBy", order);
+            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + order;
         },
 
         filterKeyPress : function(e) {

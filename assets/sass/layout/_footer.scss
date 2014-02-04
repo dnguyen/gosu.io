@@ -1,29 +1,102 @@
-@include sticky-footer (70px, ".container", ".push", ".footer");
-
 .footer {
-    position: relative;
+    border-top: 1px solid #d7d7d7;
+    position: fixed;
+    z-index: 1010;
+    bottom: 0;
+    height: 200px;
     background: $base-module-bg;
-    z-index: 9999;
-    height: 70px;
-    clear: both;
-    max-width: 1201px;
-    margin: 0 auto 0 auto;
-    border-right: 1px solid #d7d7d7;
-    padding: 20px 15px 15px 15px;
+    width: 100%;
+}
 
-    .footer-logo {
-        float: left;
-        font-size: $heading-content-size;
-        font-family: $heading-font-family;
-        color: $base-font-color;
+.player-container {
+    .controls-container {
+        margin: 0 15px 0 343px;
     }
-
-    .social-links {
-        float: right;
-        margin: 7px 0 0 0;
-        li {
-            float: left;
-            margin: 0 0 0 5px;
+    
+    #ytPlayer {
+        position: absolute;
+        width: 328px;
+    }
+    
+    .controls {
+        padding: 10px 0 10px 0;
+        
+        .left-controls {
+            margin: 0 0 10px 0;
+        }
+        
+        .right-controls {
+        }
+        
+        .timing {
+            float: right;
+            padding: 0 0 0 10px;
+        }
+        
+        .Progress-container {
+            margin: 1px 0 0 0;
+        }
+        
+        .Progress {
+            transition: all;
+            -webkit-transition: all;
+        }
+        
+        .uk-progress .handle {
+            position: relative;
+            background: url('../img/test_handle.png') no-repeat;
+            height: 19px;
+        }
+        
+        .Volume-indicator {
+            margin: 5px 0 0 25px;
+        }
+        
+        .Volume {
+            position: absolute;
+            left: 500px;
+            bottom: 170px;
+            width: 100px;
         }
     }
+    
+    .queue {
+        height: 119px;
+        background: #FFF;
+        overflow: hidden;
+        clear: both;
+    }
+    
+    .queue.uk-panel-box {
+        padding: 8px;
+    }
+    
+    .queueItem {
+        float: left;
+        font-size: .875em;
+        margin: 0 10px 0 0;
+        width: 75px;
+
+        .Index { display: none; }
+
+        .small-thumb {
+            position: relative;
+            cursor: pointer;
+
+            img {
+                height: 75px;
+            }
+        }
+        
+        .meta {
+            .title, .artist {
+                display: block;
+                width: 75px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+    }
+    
 }

@@ -7,6 +7,7 @@ define([
 ], function(namespace, $, Backbone, Marionette, HeaderView) {
 
     var GosuApp = namespace.app;
+    var ApiHelper = namespace.ApiHelper;
 
     /*
      * Get's login status from API
@@ -19,6 +20,11 @@ define([
 
     var HeaderController = function(options) {
         this.loginModel = new Backbone.Model();
+
+        var that = this;
+        GosuApp.vent.on("auth:logout", function() {
+            that.logout();
+        });
     };
 
     HeaderController.prototype.render = function() {
@@ -28,6 +34,12 @@ define([
             getLoginStatus(that.loginModel)
         ).then(function(data) {
             GosuApp.header.show(new HeaderView({ model : that.loginModel }));
+        });
+    };
+
+    HeaderController.prototype.logout = function() {
+        $.when(ApiHelper.request("DELETE", "http://localhost/gosukpop-api/public/auth"), { }).then(function(data) {
+            window.location.reload();
         });
     };
 

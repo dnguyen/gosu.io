@@ -26,7 +26,6 @@
         "underscore" : "latest",
         "requirejs" : "latest",
         "requirejs-text" : "latest",
-        "foundation" : "latest",
-        "semantic" : "latest"
+        "foundation" : "latest"
     }
 }

@@ -6,25 +6,19 @@
 
         <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
-
-        <link rel="stylesheet" href="assets/stylesheets/foundation.min.css" media="screen">
-
-        <!-- Use Semantic UI for forms and buttons -->
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/elements/icon.min.css">
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/collections/form.min.css">
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/elements/button.min.css">
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/elements/input.min.css">
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/modules/dropdown.min.css">
-        <link rel="stylesheet" href="bower_components/semantic/build/minified/modules/transition.min.css">
-
+        <link href='bower_components/jquery-ui/themes/base/minified/jquery-ui.min.css' rel='stylesheet' type='text/css'>
+        <link href="assets/stylesheets/uikit.gradient.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/stylesheets/main.css" rel="stylesheet" type="text/css" />
         <link href="assets/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-
         <script data-main="assets/js/app/main" src="bower_components/requirejs/require.js"></script>
+        <!--
+        <script src="bower_components/requirejs/require.js"></script>
+        <script src="main-built.js"></script>
+        -->
     </head>
     <body>
         <div id="main-region" class="container">
-            <div id="header" class="header row">
+            <div id="header" class="header">
             </div>
 
             <div id="sidebar" class="sidebar">
@@ -34,17 +28,7 @@
             </div>
         </div>
 
-        <div id="footer" class="footer">
-            <div class="footer-logo">
-                <h2>gosu.io</h2>
-            </div>
-
-            <ul class="social-links">
-                <li><a href="#"><i class="icon-facebook-sign"></i></a></li>
-                <li><a href="#"><i class="icon-twitter-sign"></i></a></li>
-                <li><a href="#"><i class="icon-rss-sign"></i></a></li>
-            </ul>
-
+        <div id="player" class="footer">
         </div>
     </body>
 </html>

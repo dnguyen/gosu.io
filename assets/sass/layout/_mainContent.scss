@@ -2,15 +2,15 @@
 .row {
     margin: 0;
 }
-.container {
-    max-width: 1201px;
-    margin: 0 auto 0 auto;
-    border-right: 1px solid #d7d7d7;
-}
-.content-container {
-    margin-left: 200px;
-    padding-top: 70px;
 
+.content-container {
+    padding-left: 200px;
+    padding-top: 70px;
+    padding-bottom: 200px;
+    overflow: hidden;
+    clear: both;
+    width: 100%;
+    
     h3, h4, h5 {
         color: $base-font-color;
         font-family: $base-font-family;
@@ -25,11 +25,10 @@
     h5 {
         margin: 10px 0 10px 15px;
     }
-
-
 }
 
 /* Transition effect for changing pages */
+/*
 .app-region {
     -moz-animation-duration: 0.75s;
     -webkit-animation-duration: 0.75s;
@@ -45,10 +44,26 @@
 @-moz-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 @-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 @keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
-
+*/
 .featured {
+    clear: both;
+    overflow: hidden;
+
     img {
         float: left;
+    }
+}
+
+.content {
+    padding: 0 0 15px 15px;
+
+    .modules {
+        float: left;
+
+        .module {
+            clear: both;
+            overflow: hidden;
+        }
     }
 }
 

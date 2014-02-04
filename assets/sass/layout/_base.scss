@@ -21,26 +21,16 @@ a {
     }
 }
 
-/**
- * Overrides for Semantic UI and Foundation
- */
-
-// Remove box shadows from inputs (Overrides Foundation)
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea {
-    box-shadow: none;
-    webkit-box-shadow: none;
-    height: 34px;
+.AddToMenu {
+    position: absolute;
+    background: #FFF;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    width: 150px;
+    z-index: 1100;
+    
+    a {
+        cursor: pointer;
+    }
 }

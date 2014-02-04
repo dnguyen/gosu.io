@@ -63,6 +63,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/* line 18, ../sass/partials/_colors.scss */
+.grey {
+  background: #f6f6f6;
+}
+
 /* line 1, ../sass/layout/_base.scss */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -78,7 +83,7 @@ html, body {
 /* line 9, ../sass/layout/_base.scss */
 body {
   font-family: "PT Sans", Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 0.875em;
   color: #515151;
   cursor: auto;
 }
@@ -92,39 +97,31 @@ a:hover {
   color: #00b4ff;
 }
 
-/**
- * Overrides for Semantic UI and Foundation
- */
-/* line 42, ../sass/layout/_base.scss */
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea {
-  box-shadow: none;
-  webkit-box-shadow: none;
-  height: 34px;
+/* line 24, ../sass/layout/_base.scss */
+.AddToMenu {
+  position: absolute;
+  background: #FFF;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  z-index: 1100;
+}
+/* line 33, ../sass/layout/_base.scss */
+.AddToMenu a {
+  cursor: pointer;
 }
 
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
   position: fixed;
-  max-width: 1201px;
   top: 0;
   height: 70px;
   z-index: 1010;
   border: 1px solid #d7d7d7;
   clear: both;
+  width: 100%;
 }
 
 /* line 12, ../sass/layout/_header.scss */
@@ -153,7 +150,7 @@ textarea {
 .header-search .text-input input {
   width: 250px;
   height: 35px;
-  font-size: 14px;
+  font-size: 0.875em;
 }
 /* line 39, ../sass/layout/_header.scss */
 .header-search .search-btn {
@@ -171,40 +168,27 @@ textarea {
   float: right;
   margin: 5px 15px 0 0;
 }
-/* line 54, ../sass/layout/_header.scss */
-.header-navigation .user {
-  margin: 0 10px 0 0;
-}
-/* line 57, ../sass/layout/_header.scss */
+/* line 55, ../sass/layout/_header.scss */
 .header-navigation .user a {
   margin: 3px 0 0 8px;
 }
-/* line 61, ../sass/layout/_header.scss */
+/* line 59, ../sass/layout/_header.scss */
 .header-navigation .user img {
   border: 1px solid #a7a1a1;
 }
-/* line 65, ../sass/layout/_header.scss */
+/* line 63, ../sass/layout/_header.scss */
 .header-navigation .user a, .header-navigation .user img {
   float: left;
 }
-/* line 70, ../sass/layout/_header.scss */
-.header-navigation .settings {
-  color: #515151;
-  margin: 3px 13px 0 0;
-}
-/* line 74, ../sass/layout/_header.scss */
-.header-navigation .settings:hover {
-  color: #00b4ff;
-}
-/* line 79, ../sass/layout/_header.scss */
-.header-navigation .user, .header-navigation .settings {
+/* line 68, ../sass/layout/_header.scss */
+.header-navigation .user {
   float: left;
 }
-/* line 83, ../sass/layout/_header.scss */
+/* line 72, ../sass/layout/_header.scss */
 .header-navigation .user-nav {
   margin: 3px 0 0 0;
 }
-/* line 86, ../sass/layout/_header.scss */
+/* line 75, ../sass/layout/_header.scss */
 .header-navigation .user-nav li {
   float: left;
   margin: 0 0 0 10px;
@@ -228,7 +212,7 @@ textarea {
 }
 /* line 15, ../sass/layout/_sidebar.scss */
 .sidebar .heading h3 {
-  font-size: 18px;
+  font-size: 1.125em;
   color: #515151;
 }
 /* line 22, ../sass/layout/_sidebar.scss */
@@ -254,7 +238,7 @@ textarea {
   height: 30px;
   margin: 0 0 0 30px;
   padding: 9px 0 9px 15px;
-  font-size: 12px;
+  font-size: 0.75em;
   background: url("../img/selected_navigation_item.png") repeat-y scroll left center transparent;
 }
 
@@ -263,24 +247,21 @@ textarea {
   margin: 0;
 }
 
-/* line 5, ../sass/layout/_mainContent.scss */
-.container {
-  max-width: 1201px;
-  margin: 0 auto 0 auto;
-  border-right: 1px solid #d7d7d7;
-}
-
-/* line 10, ../sass/layout/_mainContent.scss */
+/* line 6, ../sass/layout/_mainContent.scss */
 .content-container {
-  margin-left: 200px;
+  padding-left: 200px;
   padding-top: 70px;
+  padding-bottom: 200px;
+  overflow: hidden;
+  clear: both;
+  width: 100%;
   /* H4's used for side modules */
 }
 /* line 14, ../sass/layout/_mainContent.scss */
 .content-container h3, .content-container h4, .content-container h5 {
   color: #515151;
   font-family: "PT Sans", Helvetica, sans-serif;
-  font-size: 24px;
+  font-size: 1.5em;
   margin: 10px 0 10px 0;
 }
 /* line 21, ../sass/layout/_mainContent.scss */
@@ -293,80 +274,56 @@ textarea {
 }
 
 /* Transition effect for changing pages */
-/* line 33, ../sass/layout/_mainContent.scss */
+/*
 .app-region {
-  -moz-animation-duration: 0.75s;
-  -webkit-animation-duration: 0.75s;
-  -o-animation-duration: 0.75s;
-  animation-duration: 0.75s;
-  -webkit-animation-name: contentSlideIn;
-  -moz-animation-name: contentSlideIn;
-  -o-animation-name: contentSlideIn;
-  animation-name: contentSlideIn;
+    -moz-animation-duration: 0.75s;
+    -webkit-animation-duration: 0.75s;
+    -o-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-name: contentSlideIn;
+    -moz-animation-name: contentSlideIn;
+    -o-animation-name: contentSlideIn;
+    animation-name: contentSlideIn;
 }
 
-@-webkit-keyframes contentSlideIn {
-  /* line 44, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 44, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
+@-webkit-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-moz-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+@keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
+*/
+/* line 48, ../sass/layout/_mainContent.scss */
+.featured {
+  clear: both;
+  overflow: hidden;
 }
-
-@-moz-keyframes contentSlideIn {
-  /* line 45, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 45, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-@-o-keyframes contentSlideIn {
-  /* line 46, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 46, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-@keyframes contentSlideIn {
-  /* line 47, ../sass/layout/_mainContent.scss */
-  from {
-    margin-top: 2000px;
-  }
-
-  /* line 47, ../sass/layout/_mainContent.scss */
-  to {
-    margin-top: 0;
-  }
-}
-
-/* line 50, ../sass/layout/_mainContent.scss */
+/* line 52, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 55, ../sass/layout/_mainContent.scss */
+/* line 57, ../sass/layout/_mainContent.scss */
+.content {
+  padding: 0 0 15px 15px;
+}
+/* line 60, ../sass/layout/_mainContent.scss */
+.content .modules {
+  float: left;
+}
+/* line 63, ../sass/layout/_mainContent.scss */
+.content .modules .module {
+  clear: both;
+  overflow: hidden;
+}
+
+/* line 70, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 59, ../sass/layout/_mainContent.scss */
+/* line 74, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 62, ../sass/layout/_mainContent.scss */
+/* line 77, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -374,61 +331,106 @@ textarea {
 /* line 1, ../sass/layout/_side_modules.scss */
 .side-modules {
   margin: 15px 0 0 0;
-}
-
-/* line 10, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-html, body {
-  height: 100%;
-}
-
-/* line 12, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-.container {
-  clear: both;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin-bottom: -70px;
-}
-/* line 18, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-.container .push {
-  height: 70px;
-}
-
-/* line 20, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-.footer {
-  clear: both;
-  position: relative;
-  height: 70px;
-}
-
-/* line 3, ../sass/layout/_footer.scss */
-.footer {
-  position: relative;
-  background: #eeeeee;
-  z-index: 9999;
-  height: 70px;
-  clear: both;
-  max-width: 1201px;
-  margin: 0 auto 0 auto;
-  border-right: 1px solid #d7d7d7;
-  padding: 20px 15px 15px 15px;
-}
-/* line 14, ../sass/layout/_footer.scss */
-.footer .footer-logo {
   float: left;
-  font-size: 24px;
-  font-family: "PT Sans Narrow", Helvetica, sans-serif;
-  color: #515151;
+}
+
+/* line 1, ../sass/layout/_footer.scss */
+.footer {
+  border-top: 1px solid #d7d7d7;
+  position: fixed;
+  z-index: 1010;
+  bottom: 0;
+  height: 200px;
+  background: #eeeeee;
+  width: 100%;
+}
+
+/* line 12, ../sass/layout/_footer.scss */
+.player-container .controls-container {
+  margin: 0 15px 0 343px;
+}
+/* line 16, ../sass/layout/_footer.scss */
+.player-container #ytPlayer {
+  position: absolute;
+  width: 328px;
 }
 /* line 21, ../sass/layout/_footer.scss */
-.footer .social-links {
-  float: right;
-  margin: 7px 0 0 0;
+.player-container .controls {
+  padding: 10px 0 10px 0;
 }
 /* line 24, ../sass/layout/_footer.scss */
-.footer .social-links li {
+.player-container .controls .left-controls {
+  margin: 0 0 10px 0;
+}
+/* line 31, ../sass/layout/_footer.scss */
+.player-container .controls .timing {
+  float: right;
+  padding: 0 0 0 10px;
+}
+/* line 36, ../sass/layout/_footer.scss */
+.player-container .controls .Progress-container {
+  margin: 1px 0 0 0;
+}
+/* line 40, ../sass/layout/_footer.scss */
+.player-container .controls .Progress {
+  transition: all;
+  -webkit-transition: all;
+}
+/* line 45, ../sass/layout/_footer.scss */
+.player-container .controls .uk-progress .handle {
+  position: relative;
+  background: url("../img/test_handle.png") no-repeat;
+  height: 19px;
+}
+/* line 51, ../sass/layout/_footer.scss */
+.player-container .controls .Volume-indicator {
+  margin: 5px 0 0 25px;
+}
+/* line 55, ../sass/layout/_footer.scss */
+.player-container .controls .Volume {
+  position: absolute;
+  left: 500px;
+  bottom: 170px;
+  width: 100px;
+}
+/* line 63, ../sass/layout/_footer.scss */
+.player-container .queue {
+  height: 119px;
+  background: #FFF;
+  overflow: hidden;
+  clear: both;
+}
+/* line 70, ../sass/layout/_footer.scss */
+.player-container .queue.uk-panel-box {
+  padding: 8px;
+}
+/* line 74, ../sass/layout/_footer.scss */
+.player-container .queueItem {
   float: left;
-  margin: 0 0 0 5px;
+  font-size: .875em;
+  margin: 0 10px 0 0;
+  width: 75px;
+}
+/* line 80, ../sass/layout/_footer.scss */
+.player-container .queueItem .Index {
+  display: none;
+}
+/* line 82, ../sass/layout/_footer.scss */
+.player-container .queueItem .small-thumb {
+  position: relative;
+  cursor: pointer;
+}
+/* line 86, ../sass/layout/_footer.scss */
+.player-container .queueItem .small-thumb img {
+  height: 75px;
+}
+/* line 92, ../sass/layout/_footer.scss */
+.player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
+  display: block;
+  width: 75px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* line 1, ../sass/modules/loading_icon.scss */
@@ -625,30 +627,121 @@ html, body {
   }
 }
 
-/* line 5, ../sass/modules/_tracks_group.scss */
+/* line 4, ../sass/modules/_tracks_group.scss */
+.tracks-group .item {
+  float: left;
+  width: 10%;
+  margin: 1% 1% 25px 1%;
+}
+/* line 9, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb {
+  position: relative;
+}
+/* line 12, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb img {
   border: 5px solid #eeeeee;
+  max-width: 100%;
 }
-/* line 8, ../sass/modules/_tracks_group.scss */
+/* line 18, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .OverlayNav a {
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 5px 0 0;
+}
+/* line 27, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
+  margin: 5px 0 0 0;
+  width: 100%;
 }
-/* line 11, ../sass/modules/_tracks_group.scss */
+/* line 32, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 12, ../sass/modules/_tracks_group.scss */
+/* line 33, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 13, ../sass/modules/_tracks_group.scss */
+/* line 34, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
+  height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-/* line 20, ../sass/modules/_tracks_group.scss */
+/* line 45, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
+}
+
+/* line 1, ../sass/modules/_login_page.scss */
+.login-container, .register-container {
+  margin: 10px 15px 10px 15px;
+  padding: 15px 5px 15px 5px;
+  border: 1px solid #d7d7d7;
+  margin: 35px auto 0 auto;
+  border-radius: .25em;
+  width: 600px;
+}
+
+/* line 10, ../sass/modules/_login_page.scss */
+#errors {
+  margin: 0 0 15px 0;
+}
+
+/* line 14, ../sass/modules/_login_page.scss */
+.social-login-container, .social-register-container {
+  border-left: 1px solid #b9b9b9;
+}
+/* line 18, ../sass/modules/_login_page.scss */
+.social-login-container ul li, .social-register-container ul li {
+  margin: 0 0 10px 0;
+}
+/* line 21, ../sass/modules/_login_page.scss */
+.social-login-container ul li .ui.small.button, .social-register-container ul li .ui.small.button {
+  width: 175px;
+}
+
+/* line 1, ../sass/modules/_main_page.scss */
+.tracks-group-col {
+  float: left;
+}
+/* line 4, ../sass/modules/_main_page.scss */
+.tracks-group-col #popular-group, .tracks-group-col #new-releases-group {
+  clear: both;
+  overflow: hidden;
+}
+
+/* line 2, ../sass/modules/_single_track_page.scss */
+.app-region .player-container {
+  width: 60%;
+  max-width: 853px;
+  max-height: 480px;
+}
+/* line 7, ../sass/modules/_single_track_page.scss */
+.app-region .player {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+}
+/* line 10, ../sass/modules/_single_track_page.scss */
+.app-region .player iframe, .app-region .player object, .app-region .player embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 15, ../sass/modules/_single_track_page.scss */
+.app-region .track-options {
+  margin: 30px 0 0 0;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */
@@ -709,41 +802,38 @@ html, body {
 /* line 2, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options {
   margin: 0 0 15px 0;
+  padding: 0 0 0 15px;
 }
-/* line 5, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 6, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types {
   float: right;
   padding-right: 13px;
 }
-/* line 9, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 10, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types a {
   font-size: 14px;
 }
-/* line 12, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 13, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types .selected.button {
   background-color: #00b4ff;
   border: 1px solid #0079ab;
   color: #FFFFFF;
 }
-/* line 19, ../sass/modules/content_main_modules/_options_bar.scss */
-.content-container .options .ui.small.button {
-  height: 34px;
-}
-/* line 23, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 20, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-input-container {
   float: left;
 }
-/* line 27, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 24, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-remove {
   float: left;
   margin: 0 0 0 3px;
 }
 
-/* line 35, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 32, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown, #order-dropdown {
   font-size: 14px;
 }
-/* line 38, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 35, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown ul, #order-dropdown ul {
   min-width: 100%;
 }

@@ -1,16 +1,16 @@
+/*global define,document,console*/
 define([
     "jquery",
     "backbone",
     "marionette",
     "namespace",
-    "modernizr",
-    "foundation",
     "controllers/HeaderController",
+    "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, modernizr, foundation, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function($, Backbone, Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -32,13 +32,41 @@ define([
     gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
         gosuApp.loadingIconView.close();
     });
+    
+    gosuApp.vent.on("showTrackAddToMenu", function(data) {
+        var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
+            $(".AddToMenu").remove();
+            var newAddToMenuView = new AddToMenuView({ model : data.model });
+            
+            $("body").append(newAddToMenuView.render().el);
+            $(".AddToMenu").css({
+                "left" : ($(data.event.target).offset().left - 10) + "px",
+                "top" : ($(data.event.target).offset().top - 15) + "px"
+            });
+
+            $(document).click(function(e) {
+                if ($(e.target).closest('.AddToMenu').length == 0) {
+                    $(".AddToMenu").remove();
+                    $(document).unbind("click");
+                }
+            });
+        });
+    });
 
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
             "" : "mainPage",
+            "signin" : "login",
+            "register" : "register",
             "tracks/:page?*query" : "tracksPage",
             "tracks/:page" : "tracksPage",
-            "tracks" : "tracksPage"
+            "tracks" : "tracksPage",
+            "track" : "singleTrackPage",
+            "track/:id" : "singleTrackPage",
+            "track/:id/*name" : "singleTrackPage",
+            "artists/:page?*query" : "artistsPage",
+            "artists/:page" : "artistsPage",
+            "artists" : "artistsPage"
         }
     });
 
@@ -46,7 +74,7 @@ define([
         header : "#header",
         sidebar : "#sidebar",
         content : "#content",
-        footer : " #footer"
+        player : "#player"
     });
 
     gosuApp.on("initialize:after", function() {
@@ -61,17 +89,16 @@ define([
 
         var headerController = new HeaderController();
         headerController.render();
-
+        
+        var playerController = new PlayerController();
+        playerController.render();
+        
         gosuApp.sidebar.show(new SidebarView());
 
         gosuApp.contentLayout = new MainPageLayout();
 
-        new gosuApp.Router({
+        var mainRouter = new gosuApp.Router({
             controller : MainController
-        });
-
-        $(document).foundation(function(response) {
-            console.log(response.errors);
         });
 
     });

@@ -7,7 +7,7 @@ define([
 
     var TracksPageLayout = Backbone.Marionette.Layout.extend({
         template : _.template(TracksPageLayoutTemplate),
-        className : "app-region",
+        className : "app-region uk-animation-slide-left",
         regions : {
             content : ".content"
         }
