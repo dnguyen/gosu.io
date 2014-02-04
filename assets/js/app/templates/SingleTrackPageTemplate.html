@@ -1,8 +1,12 @@
-<div class="player">
-    <iframe width="853" height="480" src="//www.youtube.com/embed/<%= trackData.videoId %>" frameborder="0" allowfullscreen></iframe>
+<div class="player-container">
+	<div class="player">
+	    <iframe width="640" height="360" src="//www.youtube.com/embed/<%= trackData.videoId %>" frameborder="0" allowfullscreen></iframe>
+	</div>
 </div>
 
-<p><%= trackData.name %> - <%= trackData.title %></p>
+<div class="meta">
+	<p><%= trackData.artistName %> - <%= trackData.title %></p>
+</div>
 
 <ul class="track-options">
     <li><a href="#">Upvote</a></li>

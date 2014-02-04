@@ -249,25 +249,26 @@ a:hover {
 
 /* line 6, ../sass/layout/_mainContent.scss */
 .content-container {
-  margin-left: 200px;
+  padding-left: 200px;
   padding-top: 70px;
   padding-bottom: 200px;
   overflow: hidden;
   clear: both;
+  width: 100%;
   /* H4's used for side modules */
 }
-/* line 13, ../sass/layout/_mainContent.scss */
+/* line 14, ../sass/layout/_mainContent.scss */
 .content-container h3, .content-container h4, .content-container h5 {
   color: #515151;
   font-family: "PT Sans", Helvetica, sans-serif;
   font-size: 1.5em;
   margin: 10px 0 10px 0;
 }
-/* line 20, ../sass/layout/_mainContent.scss */
+/* line 21, ../sass/layout/_mainContent.scss */
 .content-container h4 {
   margin: 10px 0 10px 0;
 }
-/* line 24, ../sass/layout/_mainContent.scss */
+/* line 25, ../sass/layout/_mainContent.scss */
 .content-container h5 {
   margin: 10px 0 10px 15px;
 }
@@ -290,39 +291,39 @@ a:hover {
 @-o-keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 @keyframes contentSlideIn { from { margin-top: 2000px; } to { margin-top: 0; } }
 */
-/* line 47, ../sass/layout/_mainContent.scss */
+/* line 48, ../sass/layout/_mainContent.scss */
 .featured {
   clear: both;
   overflow: hidden;
 }
-/* line 51, ../sass/layout/_mainContent.scss */
+/* line 52, ../sass/layout/_mainContent.scss */
 .featured img {
   float: left;
 }
 
-/* line 56, ../sass/layout/_mainContent.scss */
+/* line 57, ../sass/layout/_mainContent.scss */
 .content {
   padding: 0 0 15px 15px;
 }
-/* line 59, ../sass/layout/_mainContent.scss */
+/* line 60, ../sass/layout/_mainContent.scss */
 .content .modules {
   float: left;
 }
-/* line 62, ../sass/layout/_mainContent.scss */
+/* line 63, ../sass/layout/_mainContent.scss */
 .content .modules .module {
   clear: both;
   overflow: hidden;
 }
 
-/* line 69, ../sass/layout/_mainContent.scss */
+/* line 70, ../sass/layout/_mainContent.scss */
 .content-footer {
   margin: 15px 0 15px 0;
 }
-/* line 73, ../sass/layout/_mainContent.scss */
+/* line 74, ../sass/layout/_mainContent.scss */
 .content-footer .pagination li {
   font-size: 14px;
 }
-/* line 76, ../sass/layout/_mainContent.scss */
+/* line 77, ../sass/layout/_mainContent.scss */
 .content-footer .pagination .current a {
   background: #00b4ff;
 }
@@ -404,34 +405,26 @@ a:hover {
   padding: 8px;
 }
 /* line 74, ../sass/layout/_footer.scss */
-.player-container .queueItems {
-  /*padding: 10px 15px 10px 15px;
-  list-style-type: none;
-  background: #FFF;
-  overflow: hidden;
-  clear: both;*/
-}
-/* line 82, ../sass/layout/_footer.scss */
 .player-container .queueItem {
   float: left;
   font-size: .875em;
   margin: 0 10px 0 0;
   width: 75px;
 }
-/* line 88, ../sass/layout/_footer.scss */
+/* line 80, ../sass/layout/_footer.scss */
 .player-container .queueItem .Index {
   display: none;
 }
-/* line 90, ../sass/layout/_footer.scss */
+/* line 82, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb {
   position: relative;
   cursor: pointer;
 }
-/* line 94, ../sass/layout/_footer.scss */
+/* line 86, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb img {
   height: 75px;
 }
-/* line 100, ../sass/layout/_footer.scss */
+/* line 92, ../sass/layout/_footer.scss */
 .player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
   display: block;
   width: 75px;
@@ -637,8 +630,8 @@ a:hover {
 /* line 4, ../sass/modules/_tracks_group.scss */
 .tracks-group .item {
   float: left;
-  margin: 0 20px 25px 0;
-  width: 135px;
+  width: 10%;
+  margin: 1% 1% 25px 1%;
 }
 /* line 9, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb {
@@ -647,38 +640,39 @@ a:hover {
 /* line 12, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb img {
   border: 5px solid #eeeeee;
+  max-width: 100%;
 }
-/* line 17, ../sass/modules/_tracks_group.scss */
+/* line 18, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb .OverlayNav a {
   color: #FFF;
   text-decoration: none;
   cursor: pointer;
   margin: 0 5px 0 0;
 }
-/* line 26, ../sass/modules/_tracks_group.scss */
+/* line 27, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
   margin: 5px 0 0 0;
+  width: 100%;
 }
-/* line 30, ../sass/modules/_tracks_group.scss */
+/* line 32, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 31, ../sass/modules/_tracks_group.scss */
+/* line 33, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 32, ../sass/modules/_tracks_group.scss */
+/* line 34, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
-  width: 130px;
   height: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 44, ../sass/modules/_tracks_group.scss */
+/* line 45, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
@@ -719,6 +713,35 @@ a:hover {
 .tracks-group-col #popular-group, .tracks-group-col #new-releases-group {
   clear: both;
   overflow: hidden;
+}
+
+/* line 2, ../sass/modules/_single_track_page.scss */
+.app-region .player-container {
+  width: 60%;
+  max-width: 853px;
+  max-height: 480px;
+}
+/* line 7, ../sass/modules/_single_track_page.scss */
+.app-region .player {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+}
+/* line 10, ../sass/modules/_single_track_page.scss */
+.app-region .player iframe, .app-region .player object, .app-region .player embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 15, ../sass/modules/_single_track_page.scss */
+.app-region .track-options {
+  margin: 30px 0 0 0;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */
@@ -779,37 +802,38 @@ a:hover {
 /* line 2, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options {
   margin: 0 0 15px 0;
+  padding: 0 0 0 15px;
 }
-/* line 5, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 6, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types {
   float: right;
   padding-right: 13px;
 }
-/* line 9, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 10, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types a {
   font-size: 14px;
 }
-/* line 12, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 13, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .view-types .selected.button {
   background-color: #00b4ff;
   border: 1px solid #0079ab;
   color: #FFFFFF;
 }
-/* line 19, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 20, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-input-container {
   float: left;
 }
-/* line 23, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 24, ../sass/modules/content_main_modules/_options_bar.scss */
 .content-container .options .filter-remove {
   float: left;
   margin: 0 0 0 3px;
 }
 
-/* line 31, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 32, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown, #order-dropdown {
   font-size: 14px;
 }
-/* line 34, ../sass/modules/content_main_modules/_options_bar.scss */
+/* line 35, ../sass/modules/content_main_modules/_options_bar.scss */
 #sort-dropdown ul, #order-dropdown ul {
   min-width: 100%;
 }

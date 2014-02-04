@@ -4,11 +4,12 @@
 }
 
 .content-container {
-    margin-left: 200px;
+    padding-left: 200px;
     padding-top: 70px;
     padding-bottom: 200px;
     overflow: hidden;
     clear: both;
+    width: 100%;
     
     h3, h4, h5 {
         color: $base-font-color;

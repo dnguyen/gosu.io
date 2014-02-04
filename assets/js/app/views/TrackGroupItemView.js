@@ -24,8 +24,6 @@ define([
         },
         
         playTrack: function (e) {
-            console.log("play track");
-            console.log(this.model);
             GosuApp.vent.trigger("player:playTrackDirect", this.model);
         },
         

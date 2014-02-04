@@ -37,11 +37,13 @@ define([
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
             $(".AddToMenu").remove();
             var newAddToMenuView = new AddToMenuView({ model : data.model });
+            
             $("body").append(newAddToMenuView.render().el);
             $(".AddToMenu").css({
                 "left" : ($(data.event.target).offset().left - 10) + "px",
                 "top" : ($(data.event.target).offset().top - 15) + "px"
             });
+
             $(document).click(function(e) {
                 if ($(e.target).closest('.AddToMenu').length == 0) {
                     $(".AddToMenu").remove();

@@ -71,14 +71,6 @@
         padding: 8px;
     }
     
-    .queueItems {
-        /*padding: 10px 15px 10px 15px;
-        list-style-type: none;
-        background: #FFF;
-        overflow: hidden;
-        clear: both;*/
-    }
-    
     .queueItem {
         float: left;
         font-size: .875em;
@@ -90,7 +82,7 @@
         .small-thumb {
             position: relative;
             cursor: pointer;
-            
+
             img {
                 height: 75px;
             }
