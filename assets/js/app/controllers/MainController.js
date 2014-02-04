@@ -7,6 +7,7 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "controllers/HomePageController",
     "controllers/TracksPageController",
     "controllers/ArtistsPageController",
     "controllers/LoginPageController",
@@ -34,9 +35,9 @@ define([
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.get("http://api.gosukpop.com/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.get("http://api.gosukpop.com/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
-                ApiHelper.get("http://api.gosukpop.com/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
+                ApiHelper.request("GET", "http://localhost/gosukpop-api/public/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.request("GET", "http://localhost/gosukpop-api/public/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
+                ApiHelper.request("GET", "http://localhost/gosukpop-api/public/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.
                 // TODO: status code check...make sure the requests were actually completed successfully
@@ -66,6 +67,40 @@ define([
             console.log("tracks route");
             var tracksPage = new TracksPageController({ page : page }, URLHelper.getQueryObj(query));
             tracksPage.render();
+        },
+
+        /**
+         * Single track page
+         */
+        singleTrackPage : function(id, name) {
+            var SingleTrackPageRoute = require(["controllers/SingleTrackPageController"], function(SingleTrackPageController) {
+                var singleTrackPageController = new SingleTrackPageController({
+                    id : id,
+                    name: name
+                });
+                singleTrackPageController.render();
+            });
+        },
+
+        artistsPage : function(page, query) {
+          var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
+            artistsPage.render();
+        },
+
+        /**
+         *  Login page
+         */
+        login : function() {
+            var loginPage = new LoginPageController();
+            loginPage.render();
+        },
+
+        /**
+         *  Register page
+         */
+        register : function() {
+            var registerPage = new RegisterPageController();
+            registerPage.render();
         }
     };
 
