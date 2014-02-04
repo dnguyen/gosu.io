@@ -7,18 +7,12 @@ define([
     "jquery",
     "backbone",
     "marionette",
-    "controllers/HomePageController",
-    "controllers/TracksPageController"
-], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController) {
     "controllers/TracksPageController",
     "controllers/ArtistsPageController",
     "controllers/LoginPageController",
     "controllers/RegisterPageController"
 ], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
-    var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
-    var URLHelper = namespace.URLHelper;
     var GosuApp = namespace.app,
         ApiHelper = namespace.ApiHelper,
         URLHelper = namespace.URLHelper;
@@ -28,9 +22,6 @@ define([
          *  Home Page
          */
         mainPage : function() {
-            var popularTracksCollection = new Backbone.Collection();
-            var newReleasesCollection = new Backbone.Collection();
-            var comingSoonCollection = new Backbone.Collection();
             var popularTracksCollection = new Backbone.Collection(),
                 newReleasesCollection = new Backbone.Collection(),
                 comingSoonCollection = new Backbone.Collection();
