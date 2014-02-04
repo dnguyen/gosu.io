@@ -203,37 +203,38 @@ a:hover {
   height: 100%;
   border-right: 1px solid #d7d7d7;
   border-left: 1px solid #d7d7d7;
+  background: #FFF;
 }
-/* line 10, ../sass/layout/_sidebar.scss */
+/* line 11, ../sass/layout/_sidebar.scss */
 .sidebar .heading {
   background: #eeeeee;
   height: 50px;
   padding: 15px;
 }
-/* line 15, ../sass/layout/_sidebar.scss */
+/* line 16, ../sass/layout/_sidebar.scss */
 .sidebar .heading h3 {
   font-size: 1.125em;
   color: #515151;
 }
-/* line 22, ../sass/layout/_sidebar.scss */
+/* line 23, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li {
   height: 40px;
   padding: 12px 15px 12px 15px;
   border-bottom: 1px solid #eeeeee;
 }
-/* line 27, ../sass/layout/_sidebar.scss */
+/* line 28, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li.selected {
   background: url("../img/selected_navigation_item.png") repeat-y scroll left center transparent;
 }
-/* line 31, ../sass/layout/_sidebar.scss */
+/* line 32, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li a {
   color: #515151;
 }
-/* line 34, ../sass/layout/_sidebar.scss */
+/* line 35, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li a:hover {
   color: #00b4ff;
 }
-/* line 41, ../sass/layout/_sidebar.scss */
+/* line 42, ../sass/layout/_sidebar.scss */
 .sidebar .navigation .playlists li {
   height: 30px;
   margin: 0 0 0 30px;
