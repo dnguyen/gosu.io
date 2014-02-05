@@ -11,11 +11,13 @@ define([
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
         tagName: "div",
         className: "queueItem",
+        
         events: {
             "click .Play" : "play",
             "click .Remove" : "removeEvent",
             "click .AddTo" : "addTo"
         },
+
         template: _.template(PlayerQueueItemTemplate),
         
         initialize: function() {

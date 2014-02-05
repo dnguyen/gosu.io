@@ -8,10 +8,16 @@
         
         .thumb {
             position: relative;
+            
+            .uk-overlay-toggle {
+                > a:first-of-type {
+                    width: 100%;
+                }
+            }
 
             img {
                 border: 5px solid $base-module-bg;
-                max-width: 100%;
+                width: 100%;
             }
             
             .OverlayNav {

@@ -24,7 +24,7 @@ define([
         },
         
         playTrack: function (e) {
-            GosuApp.vent.trigger("player:playTrackDirect", this.model);
+            GosuApp.vent.trigger("player:addToQueue", this.model);
         },
         
         addTrackTo: function (e) {
