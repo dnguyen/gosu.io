@@ -1,14 +1,18 @@
 
 .tracks-group {
 
+    .item:nth-child(8n+1) {
+        margin: 1% 1% 25px 0;
+    }
+
     .item {
         float: left;
-        width: 10%;
+        width: 10.6%;
         margin: 1% 1% 25px 1%;
         
         .thumb {
             position: relative;
-            
+
             .uk-overlay-toggle {
                 > a:first-of-type {
                     width: 100%;
