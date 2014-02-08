@@ -77,7 +77,6 @@ define([
     };
 
     TracksPageController.prototype.getTrackCollection = function(type, data) {
-        console.log(type);
         if (type === "filter") {
             return ApiHelper.request(
                         "GET",
@@ -89,7 +88,6 @@ define([
                         GosuApp.GlobalCache,
                         "tracks_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
         } else {
-            console.log("not filter");
             return ApiHelper.request(
                         "GET",
                         "http://localhost/gosukpop-api/public/tracks",

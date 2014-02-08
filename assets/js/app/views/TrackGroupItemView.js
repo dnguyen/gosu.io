@@ -24,7 +24,15 @@ define([
         },
         
         playTrack: function (e) {
-            GosuApp.vent.trigger("player:addToQueue", this.model);
+            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
+                    trackId: this.model.get("trackId"),
+                    title: this.model.get("title"),
+                    artistId: this.model.get("artistId"),
+                    artistName: this.model.get("artistName"),
+                    videoId: this.model.get("videoId"),
+                    uploaded: this.model.get("uploaded"),
+                    viewCount: this.model.get("viewCount")
+                }));
         },
         
         addTrackTo: function (e) {

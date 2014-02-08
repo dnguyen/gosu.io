@@ -71,8 +71,16 @@
         padding: 8px;
     }
     
-    .queueItem {
+    .queueItems {
+        width: 100%;
         float: left;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    .queueItem {
+        display: inline-block;
         font-size: .875em;
         margin: 0 10px 0 0;
         width: 75px;

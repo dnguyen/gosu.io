@@ -21,7 +21,8 @@ define([
             "click .uk-progress" : "progressBarClicked",
             "click .StepBackward" : "stepBackWardClicked",
             "click .StepForward" : "stepForwardClicked",
-            "click .PausePlay" : "pausePlayBtnClicked"
+            "click .PausePlay" : "pausePlayBtnClicked",
+            "mousewheel .queueItems" : "scrollQueue"
         },
         
         modelEvents: {
@@ -144,6 +145,13 @@ define([
         
         pausePlayBtnClicked: function (e) {
             GosuApp.vent.trigger("player:pausePlay");
+        },
+
+        scrollQueue: function (e) {
+            var delta = e.originalEvent.wheelDelta;
+            // Use -1 * delta to make mousewheel down scroll to the right
+            $(e.currentTarget).scrollLeft((-1 * delta) * 30);
+            e.preventDefault();
         },
         
         seekPlayer: function (e) {
