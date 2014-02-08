@@ -17,7 +17,8 @@ define([
 
         events : {
             "keypress #filter-input" : "filterKeyPress",
-            "click .filter-remove" : "filterRemove",
+            "click .Remove" : "filterRemove",
+            "click .Filter" : "addFilter",
             "change #sort-dropdown" : "applySort",
             "change #order-dropdown" : "applyOrder"
         },
@@ -45,6 +46,11 @@ define([
             var order = $("#order-dropdown").val();
             this.model.set("orderBy", order);
             window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + order;
+        },
+
+        addFilter : function(e) {
+            var searchTerms = $("#filter-input").val();
+            GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
         },
 
         filterKeyPress : function(e) {

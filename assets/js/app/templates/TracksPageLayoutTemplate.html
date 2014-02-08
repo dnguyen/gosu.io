@@ -15,10 +15,11 @@
         </select>
 
         <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">
-        <% if (isFiltering) { %>
-            <div class="filter-remove">
-                Remove
-            </div>
+
+        <% if (!isFiltering) { %>
+            <button class="Filter uk-button"><i class="uk-icon-search"></i></button>
+        <% } else { %>
+            <button class="Remove uk-button"><i class="uk-icon-times"></i></button>
         <% } %>
 
         <div class="view-types uk-button-group">
