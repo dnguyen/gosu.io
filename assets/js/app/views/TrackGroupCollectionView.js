@@ -15,7 +15,14 @@ define([
         initialize : function(options) {
             var GroupModel = new Backbone.Model();
             GroupModel.set("size", options.size);
+            GroupModel.set("renderType", options.renderType);
             this.model = GroupModel;
+        },
+
+        itemViewOptions: function(model, index) {
+            return {
+                renderType: this.model.get("renderType")
+            };
         },
 
         getTemplate : function() {

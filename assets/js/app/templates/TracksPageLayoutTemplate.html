@@ -25,13 +25,13 @@
         <div class="view-types uk-button-group">
             <button class="ThumbView uk-button" title="Thumbnail view"><i class="uk-icon-th"></i></button>
             <button class="ListView uk-button" title="List view"><i class="uk-icon-list"></i></button>
-        </div>        
+        </div>
     </form>
 
 </div>
 
 <div class="content row">
-    <div class="tracks-group-col large-12 columns">
+    <div class="tracks-group">
     </div>
 </div>
 
@@ -54,7 +54,7 @@
                         <a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a>
                     </li>
                 <% } %>
-                    
+
                 <% if (page - 1 > 0) { %>
                     <li class="uk-paginationi-previous">
                         <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
@@ -62,29 +62,29 @@
                         </a>
                     </li>
                 <% } %>
-                
+
                 <li class="uk-active">
                     <span><%= page %></span>
                 </li>
-                
+
                 <% if (page + 1 <= pageCount) { %>
                     <li>
                         <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a>
                     </li>
                 <% } %>
-                    
+
                 <% if (page + 2 <= pageCount) { %>
                     <li>
                         <a href="#/tracks/<%= page + 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 2 %></a>
                     </li>
-                <% } %>   
-                    
+                <% } %>
+
                 <% if (page + 1 <= pageCount) { %>
                     <li>
                         <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">Next</a>
                     </li>
-                <% } %>  
-                    
+                <% } %>
+
                 <li>
                     <a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>">
                         <i class="uk-icon-angle-double-right"></i>

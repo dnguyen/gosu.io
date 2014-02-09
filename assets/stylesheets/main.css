@@ -642,7 +642,7 @@ a:hover {
 }
 /* line 8, ../sass/modules/_tracks_group.scss */
 .tracks-group .item {
-  float: left;
+  display: inline-block;
   width: 10.6%;
   margin: 1% 1% 25px 1%;
 }
@@ -688,8 +688,14 @@ a:hover {
   white-space: nowrap;
   overflow: hidden;
 }
+/* line 54, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem {
+  display: block;
+  width: 100%;
+  margin: 0 0 25px 0;
+}
 
-/* line 55, ../sass/modules/_tracks_group.scss */
+/* line 61, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }

@@ -3,11 +3,12 @@ define([
     "underscore",
     "backbone",
     "marionette",
-    "text!../templates/TrackGroupItemTemplate.html"
-], function(namespace, _, Backbone, Marionette, TrackGroupItemTemplate) {
+    "text!../templates/TrackGroupItemTemplate.html",
+    "text!../templates/TrackGroupListItemTemplate.html"
+], function(namespace, _, Backbone, Marionette, TrackGroupItemTemplate, TrackGroupListItemTemplate) {
 
     var GosuApp = namespace.app;
-    
+
     var TrackGroupItemView = Backbone.Marionette.ItemView.extend({
 
         tagName : 'li',
@@ -22,7 +23,21 @@ define([
 
         initialize: function() {
         },
-        
+
+        onRender: function() {
+            if (this.options.renderType === "list") {
+                $(this.el).addClass("listItem");
+            }
+        },
+
+        getTemplate: function() {
+            if (this.options.renderType === "list") {
+                return _.template(TrackGroupListItemTemplate);
+            } else {
+                return _.template(TrackGroupItemTemplate);
+            }
+        },
+
         playTrack: function (e) {
             GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
                     trackId: this.model.get("trackId"),
@@ -34,7 +49,7 @@ define([
                     viewCount: this.model.get("viewCount")
                 }));
         },
-        
+
         addTrackTo: function (e) {
             console.log("add track to");
             e.stopPropagation();

@@ -61,8 +61,9 @@ define([
         */
         onShow: function () {
             var that = this;
+            // If the YouTube API is not loaded yet, load it.
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-
+                // Load the player once the API is ready.
                 window.onYouTubeIframeAPIReady = function () {
                     if (that.model.get("tracks").length <= 0) {
                         that.loadPlayer("");
@@ -70,7 +71,7 @@ define([
                         that.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
                     }
                 };
-
+                // Load YouTube API. When finished window.onYouTubeIframeAPIReady is called.
                 $.getScript('//www.youtube.com/iframe_api');
             } else {
                 if (this.get("tracks").length <= 0) {
@@ -80,6 +81,7 @@ define([
                 }
             }
 
+            // Render queue items
             var queueFragment = document.createDocumentFragment(),
                 index = 0,
                 that = this;
@@ -94,6 +96,7 @@ define([
 
             this.setQueueItemsScrollbar();
 
+            // Render volume slider
             $(".Volume").slider({
                 min: 0,
                 max: 100,

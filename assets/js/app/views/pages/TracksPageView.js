@@ -20,20 +20,27 @@ define([
             "click .Remove" : "filterRemove",
             "click .Filter" : "addFilter",
             "change #sort-dropdown" : "applySort",
-            "change #order-dropdown" : "applyOrder"
+            "change #order-dropdown" : "applyOrder",
+            "click .ThumbView" : "switchViewThumb",
+            "click .ListView" : "switchViewList"
         },
 
         initialize : function() {
         },
 
         onRender : function() {
+            if (localStorage.getItem("tracksPage:renderType") === null) {
+                localStorage.setItem("tracksPage:renderType", "thumb");
+            }
+
             // After rendering entire layout, start rendering the tracks
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
-                size : 6
+                size : 6,
+                renderType : localStorage.getItem("tracksPage:renderType")
             });
 
-            this.$el.find(".content .tracks-group-col").append(trackGroupCollectionView.render().$el);
+            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
         },
 
         applySort : function() {
@@ -63,6 +70,32 @@ define([
 
         filterRemove : function(e) {
             GosuApp.vent.trigger("tracks:removeFilter");
+        },
+
+        switchViewThumb : function(e) {
+            localStorage.setItem("tracksPage:renderType", "thumb");
+            $(this.el).find(".content .tracks-group").html('');
+
+            var trackGroupCollectionView = new TrackGroupCollectionView({
+                collection : this.model.get("tracksCollection"),
+                size : 6,
+                renderType : "thumb"
+            });
+
+            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
+        },
+
+        switchViewList : function(e) {
+            localStorage.setItem("tracksPage:renderType", "list");
+            $(this.el).find(".content .tracks-group").html('');
+
+            var trackGroupCollectionView = new TrackGroupCollectionView({
+                collection : this.model.get("tracksCollection"),
+                size : 6,
+                renderType : "list"
+            });
+
+            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
         }
 
     });
