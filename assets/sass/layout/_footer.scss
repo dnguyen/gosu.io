@@ -12,46 +12,46 @@
     .controls-container {
         margin: 0 15px 0 343px;
     }
-    
+
     #ytPlayer {
         position: absolute;
         width: 328px;
     }
-    
+
     .controls {
         padding: 10px 0 10px 0;
-        
+
         .left-controls {
             margin: 0 0 10px 0;
         }
-        
+
         .right-controls {
         }
-        
+
         .timing {
             float: right;
             padding: 0 0 0 10px;
         }
-        
+
         .Progress-container {
             margin: 1px 0 0 0;
         }
-        
+
         .Progress {
             transition: all;
             -webkit-transition: all;
         }
-        
+
         .uk-progress .handle {
             position: relative;
             background: url('../img/test_handle.png') no-repeat;
             height: 19px;
         }
-        
+
         .Volume-indicator {
             margin: 5px 0 0 25px;
         }
-        
+
         .Volume {
             position: absolute;
             left: 500px;
@@ -59,22 +59,22 @@
             width: 100px;
         }
     }
-    
+
     .queue {
         height: 119px;
         background: #FFF;
         overflow: hidden;
         clear: both;
     }
-    
+
     .queue.uk-panel-box {
         padding: 8px;
     }
-    
+
     .queueItems {
         width: 100%;
         float: left;
-        overflow-x: scroll;
+        overflow-x: hidden;
         overflow-y: hidden;
         white-space: nowrap;
     }
@@ -95,7 +95,7 @@
                 height: 75px;
             }
         }
-        
+
         .meta {
             .title, .artist {
                 display: block;
@@ -106,5 +106,5 @@
             }
         }
     }
-    
+
 }

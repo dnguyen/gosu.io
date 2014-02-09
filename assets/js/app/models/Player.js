@@ -10,7 +10,6 @@ define([
         defaults: {
             currentTrackIndex: 0,
             playing: false,
-            queuePage: 0,
             tracks: new Backbone.Collection()
         },
         
