@@ -40,20 +40,20 @@ define([
         $(".error-message").remove();
         $("#error-segment").remove();
         $("#login-form").removeClass("error");
-        usernameInput.parent().removeClass("error");
-        passwordInput.parent().removeClass("error");
+        usernameInput.removeClass("uk-form-danger");
+        passwordInput.removeClass("uk-form-danger");
 
         // Check if there's anything in username input
         if (data.username === "") {
-            usernameInput.parent().addClass("error");
-            usernameInput.parent().append('<div class="error-message ui red pointing above ui label">Please enter a username.</div>');
+            usernameInput.addClass("uk-form-danger");
+            usernameInput.parent().append('<p class="uk-form-help-block">Please enter a username.</p>');
             errors = true;
         }
 
         // Check if there's anything in password input
         if (data.password === "") {
-            passwordInput.parent().addClass("error");
-            passwordInput.parent().append('<div class="error-message ui red pointing above ui label">Please enter a password.</div>');
+            passwordInput.addClass("uk-form-danger");
+            passwordInput.parent().append('<p class="uk-form-help-block">Please enter a password.</p>');
             errors = true;
         }
 
@@ -78,7 +78,7 @@ define([
                 // Status is false, so login was unsuccesful. Display error message.
                 else {
                     $("#login-form").addClass("error");
-                    $("#errors").prepend('<div id="error-segment" class="ui red segment"><p>The username or password is not correct.</p></div>');
+                    $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
                 }
             });
         }

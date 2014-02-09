@@ -692,10 +692,25 @@ a:hover {
 .tracks-group .item.listItem {
   display: block;
   width: 100%;
-  margin: 0 0 25px 0;
+  height: 50px;
+  margin: 0 0 15px 0;
+}
+/* line 60, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .thumb {
+  float: left;
+}
+/* line 63, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .thumb img {
+  width: 50px;
+}
+/* line 68, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .meta {
+  float: left;
+  width: auto;
+  margin: 8px 0 0 15px;
 }
 
-/* line 61, ../sass/modules/_tracks_group.scss */
+/* line 76, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
@@ -717,15 +732,17 @@ a:hover {
 
 /* line 14, ../sass/modules/_login_page.scss */
 .social-login-container, .social-register-container {
-  border-left: 1px solid #b9b9b9;
-}
-/* line 18, ../sass/modules/_login_page.scss */
-.social-login-container ul li, .social-register-container ul li {
-  margin: 0 0 10px 0;
-}
-/* line 21, ../sass/modules/_login_page.scss */
-.social-login-container ul li .ui.small.button, .social-register-container ul li .ui.small.button {
-  width: 175px;
+  /*    border-left: 1px solid tint($base-font-color, 60%);
+  
+      ul {
+          li {
+              margin: 0 0 10px 0;
+  
+              .ui.small.button {
+                  width: 175px;
+              }
+          }
+      }*/
 }
 
 /* line 1, ../sass/modules/_main_page.scss */
@@ -740,31 +757,27 @@ a:hover {
 
 /* line 2, ../sass/modules/_single_track_page.scss */
 .app-region .player-container {
-  width: 60%;
+  margin: 15px;
+  /*width: 60%;
   max-width: 853px;
-  max-height: 480px;
+  max-height: 480px;*/
 }
-/* line 7, ../sass/modules/_single_track_page.scss */
+/* line 8, ../sass/modules/_single_track_page.scss */
 .app-region .player {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-  height: auto;
+  		/*position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; max-width: 100%; height: auto;
+  
+  		iframe, object, embed {
+  			position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  		}*/
 }
-/* line 10, ../sass/modules/_single_track_page.scss */
-.app-region .player iframe, .app-region .player object, .app-region .player embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-/* line 15, ../sass/modules/_single_track_page.scss */
-.app-region .track-options {
-  margin: 30px 0 0 0;
+/* line 16, ../sass/modules/_single_track_page.scss */
+.app-region .track-content {
+  padding: 10px 15px 10px 15px;
+  margin: 15px 0 15px 15px;
+  width: 960px;
+  background: #EEE;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

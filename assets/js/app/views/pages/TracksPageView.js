@@ -40,7 +40,7 @@ define([
                 renderType : localStorage.getItem("tracksPage:renderType")
             });
 
-            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
+            this.$el.find(".content").append(trackGroupCollectionView.render().$el);
         },
 
         applySort : function() {

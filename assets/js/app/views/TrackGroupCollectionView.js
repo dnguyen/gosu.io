@@ -8,7 +8,8 @@ define([
 ], function(_, Backbone, Marionette, TrackGroupItemView, TrackGroupCollection_4_Template, TrackGroupCollection_6_Template) {
 
     var TrackGroupCollectionView = Backbone.Marionette.CompositeView.extend({
-
+        tagName: "div",
+        className: "tracks-group-container",
         itemView: TrackGroupItemView,
         itemViewContainer : ".tracks-group",
 

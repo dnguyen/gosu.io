@@ -54,7 +54,22 @@
     .item.listItem {
         display: block;
         width: 100%;
-        margin: 0 0 25px 0;
+        height: 50px;
+        margin: 0 0 15px 0;
+
+        .thumb {
+            float: left;
+
+            img {
+                width: 50px;
+            }
+        }
+
+        .meta {
+            float: left;
+            width: auto;
+            margin: 8px 0 0 15px;
+        }
     }
 }
 
