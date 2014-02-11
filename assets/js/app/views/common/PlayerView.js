@@ -132,7 +132,6 @@ define([
                     'onStateChange': this.onPlayerStateChange
                 }
             });
-
         },
 
         progressBarClicked: function (e) {
@@ -207,6 +206,8 @@ define([
             Event handler for when 'playing' model property changes
         */
         playingStateChanged: function () {
+            this.ytplayer.setPlaybackQuality("hd720");
+
             // If player is playing something, show pause button, else show play button
             if (this.model.get("playing")) {
                 $(".PausePlay").html('<i class="uk-icon-pause"></i>');
