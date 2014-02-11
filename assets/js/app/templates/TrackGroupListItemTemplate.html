@@ -1,7 +1,16 @@
-<div class="thumb">
-	<img src="assets/img/girlsday_thumb.png" />
+<div class="track-item-container">
+	<div class="thumb">
+		<img src="assets/img/girlsday_thumb.png" />
+	</div>
+	<div class="meta">
+		<span class="title"><a href="#/track/<%= trackId %>/<%= title %>"><%= title %></a></span>
+		<span clasds="artist"><%= artistName %></span>
+	</div>
 </div>
-<div class="meta">
-	<span class="title"><a href="#/track/<%= trackId %>/<%= title %>"><%= title %></a></span>
-	<span clasds="artist"><%= artistName %></span>
+
+<div class="track-options">
+    <div class="uk-button-group">
+        <button class="Play uk-button" title="Play"><i class="uk-icon-play"></i></button>
+        <button class="AddTo uk-button" title="Add to..."><i class="uk-icon-plus"></i></button>
+    </div>
 </div>

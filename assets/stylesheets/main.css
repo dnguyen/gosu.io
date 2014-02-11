@@ -691,26 +691,37 @@ a:hover {
 /* line 54, ../sass/modules/_tracks_group.scss */
 .tracks-group .item.listItem {
   display: block;
-  width: 100%;
+  width: 800px;
   height: 50px;
   margin: 0 0 15px 0;
+  clear: both;
+  overflow: hidden;
 }
-/* line 60, ../sass/modules/_tracks_group.scss */
+/* line 62, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .track-item-container {
+  width: 700px;
+  float: left;
+}
+/* line 67, ../sass/modules/_tracks_group.scss */
 .tracks-group .item.listItem .thumb {
   float: left;
 }
-/* line 63, ../sass/modules/_tracks_group.scss */
+/* line 70, ../sass/modules/_tracks_group.scss */
 .tracks-group .item.listItem .thumb img {
   width: 50px;
 }
-/* line 68, ../sass/modules/_tracks_group.scss */
+/* line 75, ../sass/modules/_tracks_group.scss */
 .tracks-group .item.listItem .meta {
   float: left;
   width: auto;
   margin: 8px 0 0 15px;
 }
+/* line 81, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .track-options {
+  float: right;
+}
 
-/* line 76, ../sass/modules/_tracks_group.scss */
+/* line 87, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
