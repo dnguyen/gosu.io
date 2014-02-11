@@ -217,6 +217,7 @@ define([
         },
 
         playerPlaying: function () {
+            this.ytplayer.setPlaybackQuality("hd720");
             this.model.set("playing", true);
             this.model.set("progressInterval", setInterval(
                 function() {
