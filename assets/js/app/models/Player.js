@@ -20,10 +20,9 @@ define([
             Loads model from localStorage
         */
         loadLocal: function() {
-            //this.attributes = JSON.parse(localStorage.getItem("player_queue"));
             var data = JSON.parse(localStorage.getItem("playerData"));
             var that = this;
-            
+
             _.each(data.tracks, function(track) {
                 var trackModel = new Backbone.Model({
                     trackId: track.trackId,

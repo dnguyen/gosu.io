@@ -3,17 +3,18 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "views/common/HeaderView"
-], function(namespace, $, Backbone, Marionette, HeaderView) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, HeaderView) {
 
-    var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
+    var GosuApp = namespace.app,
+        config = namespace.config;
 
     /*
      * Get's login status from API
      */
     function getLoginStatus(model) {
-        model.url = "http://api.gosukpop.com/session";
+        model.url = config.serverUrl + "session";
 
         return model.fetch();
     }
@@ -38,7 +39,7 @@ define([
     };
 
     HeaderController.prototype.logout = function() {
-        $.when(ApiHelper.request("DELETE", "http://localhost/gosukpop-api/public/auth"), { }).then(function(data) {
+        $.when(ApiHelper.request("DELETE", "auth"), { }).then(function(data) {
             window.location.reload();
         });
     };

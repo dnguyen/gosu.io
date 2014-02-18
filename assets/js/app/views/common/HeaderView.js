@@ -11,6 +11,9 @@ define([
 
     var HeaderView = Backbone.Marionette.ItemView.extend({
         template: _.template(HeaderTemplate),
+        events: {
+            "click .SignOut" : "signOut"
+        },
 
         initialize : function() {
             console.log("Header view init");
@@ -22,6 +25,10 @@ define([
                     GosuApp.vent.trigger("auth:logout");
                 }
             });*/
+        },
+
+        signOut : function(e) {
+            GosuApp.vent.trigger("auth:logout");
         }
 
     });

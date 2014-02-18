@@ -203,37 +203,38 @@ a:hover {
   height: 100%;
   border-right: 1px solid #d7d7d7;
   border-left: 1px solid #d7d7d7;
+  background: #FFF;
 }
-/* line 10, ../sass/layout/_sidebar.scss */
+/* line 11, ../sass/layout/_sidebar.scss */
 .sidebar .heading {
   background: #eeeeee;
   height: 50px;
   padding: 15px;
 }
-/* line 15, ../sass/layout/_sidebar.scss */
+/* line 16, ../sass/layout/_sidebar.scss */
 .sidebar .heading h3 {
   font-size: 1.125em;
   color: #515151;
 }
-/* line 22, ../sass/layout/_sidebar.scss */
+/* line 23, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li {
   height: 40px;
   padding: 12px 15px 12px 15px;
   border-bottom: 1px solid #eeeeee;
 }
-/* line 27, ../sass/layout/_sidebar.scss */
+/* line 28, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li.selected {
   background: url("../img/selected_navigation_item.png") repeat-y scroll left center transparent;
 }
-/* line 31, ../sass/layout/_sidebar.scss */
+/* line 32, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li a {
   color: #515151;
 }
-/* line 34, ../sass/layout/_sidebar.scss */
+/* line 35, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li a:hover {
   color: #00b4ff;
 }
-/* line 41, ../sass/layout/_sidebar.scss */
+/* line 42, ../sass/layout/_sidebar.scss */
 .sidebar .navigation .playlists li {
   height: 30px;
   margin: 0 0 0 30px;
@@ -405,26 +406,34 @@ a:hover {
   padding: 8px;
 }
 /* line 74, ../sass/layout/_footer.scss */
-.player-container .queueItem {
+.player-container .queueItems {
+  width: 100%;
   float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+/* line 82, ../sass/layout/_footer.scss */
+.player-container .queueItem {
+  display: inline-block;
   font-size: .875em;
   margin: 0 10px 0 0;
   width: 75px;
 }
-/* line 80, ../sass/layout/_footer.scss */
+/* line 88, ../sass/layout/_footer.scss */
 .player-container .queueItem .Index {
   display: none;
 }
-/* line 82, ../sass/layout/_footer.scss */
+/* line 90, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb {
   position: relative;
   cursor: pointer;
 }
-/* line 86, ../sass/layout/_footer.scss */
+/* line 94, ../sass/layout/_footer.scss */
 .player-container .queueItem .small-thumb img {
   height: 75px;
 }
-/* line 92, ../sass/layout/_footer.scss */
+/* line 100, ../sass/layout/_footer.scss */
 .player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
   display: block;
   width: 75px;
@@ -628,42 +637,50 @@ a:hover {
 }
 
 /* line 4, ../sass/modules/_tracks_group.scss */
+.tracks-group .item:nth-child(8n+1) {
+  margin: 1% 1% 25px 0;
+}
+/* line 8, ../sass/modules/_tracks_group.scss */
 .tracks-group .item {
-  float: left;
-  width: 10%;
+  display: inline-block;
+  width: 10.6%;
   margin: 1% 1% 25px 1%;
 }
-/* line 9, ../sass/modules/_tracks_group.scss */
+/* line 13, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb {
   position: relative;
 }
-/* line 12, ../sass/modules/_tracks_group.scss */
+/* line 17, ../sass/modules/_tracks_group.scss */
+.tracks-group .item .thumb .uk-overlay-toggle > a:first-of-type {
+  width: 100%;
+}
+/* line 22, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb img {
   border: 5px solid #eeeeee;
-  max-width: 100%;
+  width: 100%;
 }
-/* line 18, ../sass/modules/_tracks_group.scss */
+/* line 28, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .thumb .OverlayNav a {
   color: #FFF;
   text-decoration: none;
   cursor: pointer;
   margin: 0 5px 0 0;
 }
-/* line 27, ../sass/modules/_tracks_group.scss */
+/* line 37, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta {
   float: left;
   margin: 5px 0 0 0;
   width: 100%;
 }
-/* line 32, ../sass/modules/_tracks_group.scss */
+/* line 42, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 33, ../sass/modules/_tracks_group.scss */
+/* line 43, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .artist {
   color: #878787;
 }
-/* line 34, ../sass/modules/_tracks_group.scss */
+/* line 44, ../sass/modules/_tracks_group.scss */
 .tracks-group .item .meta .title, .tracks-group .item .meta .artist {
   display: block;
   height: 15px;
@@ -671,8 +688,40 @@ a:hover {
   white-space: nowrap;
   overflow: hidden;
 }
+/* line 54, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem {
+  display: block;
+  width: 800px;
+  height: 50px;
+  margin: 0 0 15px 0;
+  clear: both;
+  overflow: hidden;
+}
+/* line 62, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .track-item-container {
+  width: 700px;
+  float: left;
+}
+/* line 67, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .thumb {
+  float: left;
+}
+/* line 70, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .thumb img {
+  width: 50px;
+}
+/* line 75, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .meta {
+  float: left;
+  width: auto;
+  margin: 8px 0 0 15px;
+}
+/* line 81, ../sass/modules/_tracks_group.scss */
+.tracks-group .item.listItem .track-options {
+  float: right;
+}
 
-/* line 45, ../sass/modules/_tracks_group.scss */
+/* line 87, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
@@ -694,15 +743,17 @@ a:hover {
 
 /* line 14, ../sass/modules/_login_page.scss */
 .social-login-container, .social-register-container {
-  border-left: 1px solid #b9b9b9;
-}
-/* line 18, ../sass/modules/_login_page.scss */
-.social-login-container ul li, .social-register-container ul li {
-  margin: 0 0 10px 0;
-}
-/* line 21, ../sass/modules/_login_page.scss */
-.social-login-container ul li .ui.small.button, .social-register-container ul li .ui.small.button {
-  width: 175px;
+  /*    border-left: 1px solid tint($base-font-color, 60%);
+  
+      ul {
+          li {
+              margin: 0 0 10px 0;
+  
+              .ui.small.button {
+                  width: 175px;
+              }
+          }
+      }*/
 }
 
 /* line 1, ../sass/modules/_main_page.scss */
@@ -717,31 +768,27 @@ a:hover {
 
 /* line 2, ../sass/modules/_single_track_page.scss */
 .app-region .player-container {
-  width: 60%;
+  margin: 15px;
+  /*width: 60%;
   max-width: 853px;
-  max-height: 480px;
+  max-height: 480px;*/
 }
-/* line 7, ../sass/modules/_single_track_page.scss */
+/* line 8, ../sass/modules/_single_track_page.scss */
 .app-region .player {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-  height: auto;
+  		/*position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; max-width: 100%; height: auto;
+  
+  		iframe, object, embed {
+  			position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  		}*/
 }
-/* line 10, ../sass/modules/_single_track_page.scss */
-.app-region .player iframe, .app-region .player object, .app-region .player embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-/* line 15, ../sass/modules/_single_track_page.scss */
-.app-region .track-options {
-  margin: 30px 0 0 0;
+/* line 16, ../sass/modules/_single_track_page.scss */
+.app-region .track-content {
+  padding: 10px 15px 10px 15px;
+  margin: 15px 0 15px 15px;
+  width: 960px;
+  background: #EEE;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

@@ -3,11 +3,11 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "../views/pages/RegisterPageView"
-], function(namespace, $, Backbone, Marionette, RegisterPageView) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, RegisterPageView) {
 
     var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
 
     var RegisterPageController = function() {
         var that = this;
@@ -26,7 +26,7 @@ define([
             console.log("valid registeration");
             $.when(ApiHelper.request(
                 "POST",
-                "http://localhost/gosukpop-api/public/users",
+                "users",
                 {
                     username: data.username,
                     password : data.password,

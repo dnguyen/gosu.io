@@ -7,15 +7,15 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "controllers/HomePageController",
     "controllers/TracksPageController",
     "controllers/ArtistsPageController",
     "controllers/LoginPageController",
     "controllers/RegisterPageController"
-], function(namespace, $, Backbone, Marionette, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
     var GosuApp = namespace.app,
-        ApiHelper = namespace.ApiHelper,
         URLHelper = namespace.URLHelper;
 
     return {
@@ -35,9 +35,9 @@ define([
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.request("GET", "http://api.gosukpop.com/MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.request("GET", "http://api.gosukpop.com/NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
-                ApiHelper.request("GET", "http://api.gosukpop.com/ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
+                ApiHelper.request("GET", "MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.request("GET", "NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
+                ApiHelper.request("GET", "ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.
                 // TODO: status code check...make sure the requests were actually completed successfully

@@ -16,6 +16,7 @@ define([
     var gosuApp = namespace.app;
 
     // Cache any data that was fetched from the server.
+    // TODO: evict caches that haven't been accessed recently.
     gosuApp.GlobalCache = new Backbone.Model();
 
     gosuApp.vent.on("StartLoadingNewPage", function(data) {

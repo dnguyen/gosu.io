@@ -13,21 +13,16 @@
 
     <div class="header-navigation">
         <% if (loggedin) { %>
-            <div class="ui icon buttons">
-                <div class="small blue ui button"><%= username %></div>
-                <div id="user-settings-dropdown" class="small ui top right pointing dropdown icon button">
-                    <i class="settings icon"></i>
-                    <div class="menu">
-                        <div class="item" data-value="settings">Settings</div>
-                        <div class="item" data-value="log-out">Log out</div>
-                    </div>
-                </div>
+            <div class="uk-button-group">
+                <button class="uk-button"><%= username %></button>
+                <button class="Settings uk-button" title="Settings"><i class="uk-icon-cog"></i></button>
+                <button class="SignOut uk-button" title="Sign out"><i class="uk-icon-sign-out"></i></button>
             </div>
         <% } else { %>
-            <ul class="user-nav">
-                <li><a href="#/signin">Sign In</a></li>
-                <li><a href="#/register">Register</a></li>
-            </ul>
+            <div class="uk-button-group">
+                <a class="uk-button" href="#/signin">Sign In</a>
+                <a class="uk-button" href="#/register">Register</a>
+            </div>
         <% } %>
     </div>
 </div>
