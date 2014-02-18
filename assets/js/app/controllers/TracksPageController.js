@@ -3,11 +3,11 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "../views/pages/TracksPageView"
-], function(namespace, $, Backbone, Marionette, TracksPageView) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, TracksPageView) {
 
     var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
 
     var TracksPageController = function(options, queryObj) {
         this.model = new Backbone.Model();
@@ -80,7 +80,7 @@ define([
         if (type === "filter") {
             return ApiHelper.request(
                         "GET",
-                        "http://localhost/gosukpop-api/public/tracks/search/" + this.model.get("searchTerms"),
+                        "tracks/search/" + this.model.get("searchTerms"),
                         {
                             sort : this.model.get("sortType"),
                             order : this.model.get("orderBy")
@@ -90,7 +90,7 @@ define([
         } else {
             return ApiHelper.request(
                         "GET",
-                        "http://localhost/gosukpop-api/public/tracks",
+                        "tracks",
                         {
                             page : this.model.get("page"),
                             sort : this.model.get("sortType"),

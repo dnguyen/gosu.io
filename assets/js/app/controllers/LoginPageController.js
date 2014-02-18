@@ -3,11 +3,11 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "../views/pages/LoginPageView"
-], function(namespace, $, Backbone, Marionette, LoginPageView) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, LoginPageView) {
 
     var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
 
     var LoginPageController = function() {
 
@@ -62,7 +62,7 @@ define([
             $.when(
                 ApiHelper.request(
                     "GET",
-                    "http://localhost/gosukpop-api/public/auth",
+                    "auth",
                     {
                         username : data.username,
                         password : data.password

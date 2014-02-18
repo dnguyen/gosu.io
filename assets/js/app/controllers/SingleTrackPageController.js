@@ -3,11 +3,11 @@ define([
     "jquery",
     "backbone",
     "marionette",
+    "helpers/ApiHelper",
     "../views/pages/SingleTrackPageView"
-], function(namespace, $, Backbone, Marionette, SingleTrackPageView) {
+], function(namespace, $, Backbone, Marionette, ApiHelper, SingleTrackPageView) {
 
     var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
 
     var SingleTrackPageController = function(options) {
         this.model = new Backbone.Model();
@@ -26,7 +26,7 @@ define([
 
         $.when(ApiHelper.request(
             "GET",
-            "http://localhost/gosukpop-api/public/tracks/" +  that.model.get("trackId"),
+            "tracks/" +  that.model.get("trackId"),
             {}
         )).then(function(data) {
             that.model.set("trackData", data);
