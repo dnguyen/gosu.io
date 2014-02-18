@@ -11,7 +11,7 @@ define([
         },
 
         config : {
-            serverUrl: 'http://localhost/gosukpop-api/public/'
+            serverUrl: 'http://api.gosukpop.com/'
         },
 
         /**
