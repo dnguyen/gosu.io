@@ -79,6 +79,7 @@ define([
                 else {
                     $("#login-form").addClass("error");
                     $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
+                    $('.uk-form-help-block').remove();
                 }
             });
         }

@@ -1,3 +1,4 @@
+/* TODO: Completely refactor scss files... */
 /* line 17, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -112,6 +113,17 @@ a:hover {
   cursor: pointer;
 }
 
+/* line 38, ../sass/layout/_base.scss */
+.btn-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* line 43, ../sass/layout/_base.scss */
+.text-center {
+  text-align: center;
+}
+
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
@@ -125,6 +137,11 @@ a:hover {
 }
 
 /* line 12, ../sass/layout/_header.scss */
+.small-logo {
+  width: 80px;
+}
+
+/* line 16, ../sass/layout/_header.scss */
 .logo {
   width: 198px;
   background: #515151;
@@ -132,63 +149,63 @@ a:hover {
   height: 69px;
   margin: 0 25px 0 0;
 }
-/* line 19, ../sass/layout/_header.scss */
+/* line 23, ../sass/layout/_header.scss */
 .logo img {
   margin: 20px 15px 20px 15px;
 }
 
-/* line 24, ../sass/layout/_header.scss */
+/* line 28, ../sass/layout/_header.scss */
 .header-menu {
   padding: 17px 0 0 20px;
 }
 
-/* line 28, ../sass/layout/_header.scss */
+/* line 32, ../sass/layout/_header.scss */
 .header-search {
   float: left;
 }
-/* line 32, ../sass/layout/_header.scss */
+/* line 36, ../sass/layout/_header.scss */
 .header-search .text-input input {
   width: 250px;
   height: 35px;
   font-size: 0.875em;
 }
-/* line 39, ../sass/layout/_header.scss */
+/* line 43, ../sass/layout/_header.scss */
 .header-search .search-btn {
   height: 35px;
   border-left: none;
   width: 40px;
 }
-/* line 45, ../sass/layout/_header.scss */
+/* line 49, ../sass/layout/_header.scss */
 .header-search .text-input, .header-search .search-btn {
   float: left;
 }
 
-/* line 50, ../sass/layout/_header.scss */
+/* line 54, ../sass/layout/_header.scss */
 .header-navigation {
   float: right;
   margin: 5px 15px 0 0;
 }
-/* line 55, ../sass/layout/_header.scss */
+/* line 59, ../sass/layout/_header.scss */
 .header-navigation .user a {
   margin: 3px 0 0 8px;
 }
-/* line 59, ../sass/layout/_header.scss */
+/* line 63, ../sass/layout/_header.scss */
 .header-navigation .user img {
   border: 1px solid #a7a1a1;
 }
-/* line 63, ../sass/layout/_header.scss */
+/* line 67, ../sass/layout/_header.scss */
 .header-navigation .user a, .header-navigation .user img {
   float: left;
 }
-/* line 68, ../sass/layout/_header.scss */
+/* line 72, ../sass/layout/_header.scss */
 .header-navigation .user {
   float: left;
 }
-/* line 72, ../sass/layout/_header.scss */
+/* line 76, ../sass/layout/_header.scss */
 .header-navigation .user-nav {
   margin: 3px 0 0 0;
 }
-/* line 75, ../sass/layout/_header.scss */
+/* line 79, ../sass/layout/_header.scss */
 .header-navigation .user-nav li {
   float: left;
   margin: 0 0 0 10px;
@@ -727,33 +744,8 @@ a:hover {
 }
 
 /* line 1, ../sass/modules/_login_page.scss */
-.login-container, .register-container {
-  margin: 10px 15px 10px 15px;
-  padding: 15px 5px 15px 5px;
-  border: 1px solid #d7d7d7;
-  margin: 35px auto 0 auto;
-  border-radius: .25em;
-  width: 600px;
-}
-
-/* line 10, ../sass/modules/_login_page.scss */
 #errors {
   margin: 0 0 15px 0;
-}
-
-/* line 14, ../sass/modules/_login_page.scss */
-.social-login-container, .social-register-container {
-  /*    border-left: 1px solid tint($base-font-color, 60%);
-  
-      ul {
-          li {
-              margin: 0 0 10px 0;
-  
-              .ui.small.button {
-                  width: 175px;
-              }
-          }
-      }*/
 }
 
 /* line 1, ../sass/modules/_main_page.scss */
@@ -789,6 +781,40 @@ a:hover {
   background: #EEE;
   border: 1px solid #d7d7d7;
   border-radius: 4px;
+}
+
+/* line 1, ../sass/modules/_containers.scss */
+.centered-container {
+  margin: 0 auto 15px auto;
+}
+
+/* line 5, ../sass/modules/_containers.scss */
+.small-centered-container {
+  background: #f7f7f7;
+  width: 300px;
+  margin: 35px auto 0 auto;
+  border: 1px solid #d7d7d7;
+  border-radius: .25em;
+  -webkit-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+}
+/* line 15, ../sass/modules/_containers.scss */
+.small-centered-container .heading {
+  background: #FFF;
+  width: 100%;
+  height: 38px;
+  padding: 10px;
+  font-size: 1.25em;
+  border-bottom: 1px solid #d7d7d7;
+}
+/* line 24, ../sass/modules/_containers.scss */
+.small-centered-container .content {
+  padding: 15px 10px 15px 10px;
+}
+/* line 27, ../sass/modules/_containers.scss */
+.small-centered-container .content input {
+  width: 100%;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

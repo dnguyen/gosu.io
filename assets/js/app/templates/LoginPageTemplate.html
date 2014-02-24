@@ -1,50 +1,35 @@
-
-<div class="grey login-container">
-    <div class="row">
-        <div id="errors">
+<div class="content">
+    <div class="small-centered-container">
+        <div class="heading">
+            Sign In
         </div>
-    </div>
-    <div class="content row">
-        <h4>Sign In</h4>
-        <form class="uk-form uk-form-stacked">
-            <div class="uk-form-row">
-                <label class="uk-form-label" for="username">Username</label>
-                <input id="username" type="text">
+        <div class="content">
+            <div class="centered-container small-logo">
+                <img src="assets/img/logo_main.png"/>
             </div>
 
-            <div class="uk-form-row">
-                <label class="uk-form-label" for="password">Password</label>
-                <input id="password" type="password">
+            <div id="errors">
             </div>
 
-            <div class="uk-form-row">
-                <div id="login-btn" class="uk-button uk-button-primary">Sign In</div>
+            <form class="uk-form uk-form-stacked" onsubmit="return false;">
+                <div class="uk-form-row">
+                    <input id="username" type="text" placeholder="Username">
+                </div>
+
+                <div class="uk-form-row">
+                    <input id="password" type="password" placeholder="Password">
+                </div>
+
+                <div class="uk-form-row">
+                    <button id="login-btn" class="uk-button uk-button-primary btn-block">Sign In</button>
+                </div>
+
+            </form>
+
+            <hr>
+            <div class="text-center">
+                <a href="#">Forget your password?</a>
             </div>
-
-        </form>
-
-        <div class="social-login-container large-5 columns">
-            <h4>Or Sign in using...</h4>
-            <ul>
-                <li>
-                    <div class="small button">
-                        <i class="facebook sign icon"></i>
-                        Facebook
-                    </div>
-                </li>
-                <li>
-                    <div class="small button">
-                        <i class="google plus sign icon"></i>
-                        Google
-                    </div>
-                </li>
-                <li>
-                    <div class="small button">
-                        <i class="google plus sign icon"></i>
-                        Persona
-                    </div>
-                </li>
-            </ul>
         </div>
     </div>
 </div>
