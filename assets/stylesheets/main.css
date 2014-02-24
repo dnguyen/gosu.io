@@ -1,4 +1,6 @@
-/* TODO: Completely refactor scss files... */
+/*
+	TODO: Completely refactor markup and scss files
+*/
 /* line 17, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -122,6 +124,16 @@ a:hover {
 /* line 43, ../sass/layout/_base.scss */
 .text-center {
   text-align: center;
+}
+
+/* line 47, ../sass/layout/_base.scss */
+.push-left, .normal-container .heading .title, .small-centered-container .heading .title {
+  float: left;
+}
+
+/* line 51, ../sass/layout/_base.scss */
+.push-right {
+  float: right;
 }
 
 /* line 1, ../sass/layout/_header.scss */
@@ -758,6 +770,20 @@ a:hover {
   overflow: hidden;
 }
 
+/* line 1, ../sass/modules/_single_track_page.scss */
+.app-region {
+  	/*.track-content {
+  		padding: 10px 15px 10px 15px;
+  		margin: 15px 0 15px 15px;
+  		width: 960px;
+  		background: #EEE;
+  		border: 1px solid #d7d7d7;
+  		border-radius: 4px;
+  	}
+  
+  	.track-options {
+  	}*/
+}
 /* line 2, ../sass/modules/_single_track_page.scss */
 .app-region .player-container {
   margin: 15px;
@@ -773,46 +799,54 @@ a:hover {
   			position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   		}*/
 }
-/* line 16, ../sass/modules/_single_track_page.scss */
-.app-region .track-content {
-  padding: 10px 15px 10px 15px;
-  margin: 15px 0 15px 15px;
-  width: 960px;
-  background: #EEE;
-  border: 1px solid #d7d7d7;
-  border-radius: 4px;
-}
 
-/* line 1, ../sass/modules/_containers.scss */
-.centered-container {
-  margin: 0 auto 15px auto;
-}
-
-/* line 5, ../sass/modules/_containers.scss */
-.small-centered-container {
+/* line 9, ../sass/modules/_containers.scss */
+.normal-container, .normal-container.large-container, .small-centered-container {
   background: #f7f7f7;
-  width: 300px;
-  margin: 35px auto 0 auto;
   border: 1px solid #d7d7d7;
   border-radius: .25em;
+  margin: 15px;
   -webkit-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
 }
-/* line 15, ../sass/modules/_containers.scss */
-.small-centered-container .heading {
+/* line 16, ../sass/modules/_containers.scss */
+.normal-container .heading, .small-centered-container .heading {
   background: #FFF;
   width: 100%;
   height: 38px;
-  padding: 10px;
   font-size: 1.25em;
   border-bottom: 1px solid #d7d7d7;
 }
-/* line 24, ../sass/modules/_containers.scss */
-.small-centered-container .content {
+/* line 23, ../sass/modules/_containers.scss */
+.normal-container .heading .title, .small-centered-container .heading .title {
+  margin: 10px;
+}
+/* line 28, ../sass/modules/_containers.scss */
+.normal-container .heading .push-right, .small-centered-container .heading .push-right {
+  margin: 6px 10px 8px 0;
+}
+/* line 33, ../sass/modules/_containers.scss */
+.normal-container .content, .small-centered-container .content {
   padding: 15px 10px 15px 10px;
 }
-/* line 27, ../sass/modules/_containers.scss */
+
+/* line 38, ../sass/modules/_containers.scss */
+.large-container.normal-container, .large-container.small-centered-container {
+  max-width: 960px;
+}
+
+/* line 43, ../sass/modules/_containers.scss */
+.centered-container {
+  margin: 0 auto 15px auto;
+}
+
+/* line 47, ../sass/modules/_containers.scss */
+.small-centered-container {
+  margin: 35px auto 0 auto;
+  max-width: 300px;
+}
+/* line 53, ../sass/modules/_containers.scss */
 .small-centered-container .content input {
   width: 100%;
 }

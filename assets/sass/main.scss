@@ -1,7 +1,10 @@
-/* TODO: Completely refactor scss files... */
+/*
+	TODO: Completely refactor markup and scss files
+*/
 
 @import "compass/reset";
 @import "compass/layout/sticky-footer";
+@import "compass/css3/box-shadow";
 
 @import "partials/base";
 @import "partials/colors";

@@ -4,15 +4,23 @@
 	</div>
 </div>
 
-<div class="track-content">
-	<div class="meta">
-		<h3><%= trackData.artistName %> - <%= trackData.title %></h3>
+<div class="normal-container large-container">
+	<div class="heading">
+		<div class="title">
+			<%= trackData.artistName %> - <%= trackData.title %>
+		</div>
+
+		<div class="push-right">
+			<a class="uk-button uk-button-small"><i class="uk-icon-plus"></i></a>
+		</div>
 	</div>
 
-	<ul class="track-options">
-	    <li><a href="#">Upvote</a></li>
-	    <li><a href="#">Downvote</a></li>
-	    <li><a href="#">Add to</a></li>
-	    <li><a href="#">Share</a></li>
-	</ul>
+	<div class="content">
+		<ul class="track-options">
+		    <li><a href="#">Upvote</a></li>
+		    <li><a href="#">Downvote</a></li>
+		    <li><a href="#">Add to</a></li>
+		    <li><a href="#">Share</a></li>
+		</ul>
+	</div>
 </div>
