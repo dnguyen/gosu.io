@@ -12,6 +12,9 @@
     margin: 15px 0 0 0;
 }
 
+/*
+	Responsive thumbnail items with captions
+*/
 .item-group .item {
     display: inline-block;
     width: 10.6%;
@@ -48,10 +51,9 @@
         margin: 5px 0 0 0;
         width: 100%;
 
-        .title { margin: 0 0 3px 0; }
-        .artist { color: $base-light-font-color; }
-        .title, .artist {
-            display: block;
+        .caption { margin: 0 0 3px 0; }
+        .sub-caption { color: $base-light-font-color; }
+        .caption, .sub-caption {
             height: 15px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -60,6 +62,9 @@
     }
 }
 
+/*
+	Non-responsive small thumbnail items with captions
+*/
 .item-group .small-item {
 	@extend .item;
     font-size: $base-font-size;
@@ -76,9 +81,10 @@
 
     .meta {
     	margin: 0;
-        .title, .artist {
+        .caption, .subcaption {
             width: 75px;
             height: auto;
+
         }
     }
 }
