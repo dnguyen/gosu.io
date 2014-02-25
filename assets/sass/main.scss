@@ -14,7 +14,6 @@
 @import "layout/sidebar";
 @import "layout/mainContent";
 @import "layout/side_modules";
-@import "layout/footer";
 
 @import "modules/loading_icon.scss";
 @import "modules/_tracks_group.scss";
@@ -24,6 +23,8 @@
 
 @import "modules/_containers.scss";
 @import "modules/_item-group.scss";
+
+@import "layout/footer";
 
 @import "modules/content_side_modules/_content_side_module.scss";
 @import "modules/content_side_modules/_radio.scss";

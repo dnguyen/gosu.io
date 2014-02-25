@@ -364,113 +364,6 @@ a:hover {
   float: left;
 }
 
-/* line 1, ../sass/layout/_footer.scss */
-.footer {
-  border-top: 1px solid #d7d7d7;
-  position: fixed;
-  z-index: 1010;
-  bottom: 0;
-  height: 200px;
-  background: #eeeeee;
-  width: 100%;
-}
-
-/* line 12, ../sass/layout/_footer.scss */
-.player-container .controls-container {
-  margin: 0 15px 0 343px;
-}
-/* line 16, ../sass/layout/_footer.scss */
-.player-container #ytPlayer {
-  position: absolute;
-  width: 328px;
-}
-/* line 21, ../sass/layout/_footer.scss */
-.player-container .controls {
-  padding: 10px 0 10px 0;
-}
-/* line 24, ../sass/layout/_footer.scss */
-.player-container .controls .left-controls {
-  margin: 0 0 10px 0;
-}
-/* line 31, ../sass/layout/_footer.scss */
-.player-container .controls .timing {
-  float: right;
-  padding: 0 0 0 10px;
-}
-/* line 36, ../sass/layout/_footer.scss */
-.player-container .controls .Progress-container {
-  margin: 1px 0 0 0;
-}
-/* line 40, ../sass/layout/_footer.scss */
-.player-container .controls .Progress {
-  transition: all;
-  -webkit-transition: all;
-}
-/* line 45, ../sass/layout/_footer.scss */
-.player-container .controls .uk-progress .handle {
-  position: relative;
-  background: url("../img/test_handle.png") no-repeat;
-  height: 19px;
-}
-/* line 51, ../sass/layout/_footer.scss */
-.player-container .controls .Volume-indicator {
-  margin: 5px 0 0 25px;
-}
-/* line 55, ../sass/layout/_footer.scss */
-.player-container .controls .Volume {
-  position: absolute;
-  left: 500px;
-  bottom: 170px;
-  width: 100px;
-}
-/* line 63, ../sass/layout/_footer.scss */
-.player-container .queue {
-  height: 119px;
-  background: #FFF;
-  overflow: hidden;
-  clear: both;
-}
-/* line 70, ../sass/layout/_footer.scss */
-.player-container .queue.uk-panel-box {
-  padding: 8px;
-}
-/* line 74, ../sass/layout/_footer.scss */
-.player-container .queueItems {
-  width: 100%;
-  float: left;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-/* line 82, ../sass/layout/_footer.scss */
-.player-container .queueItem {
-  display: inline-block;
-  font-size: .875em;
-  margin: 0 10px 0 0;
-  width: 75px;
-}
-/* line 88, ../sass/layout/_footer.scss */
-.player-container .queueItem .Index {
-  display: none;
-}
-/* line 90, ../sass/layout/_footer.scss */
-.player-container .queueItem .small-thumb {
-  position: relative;
-  cursor: pointer;
-}
-/* line 94, ../sass/layout/_footer.scss */
-.player-container .queueItem .small-thumb img {
-  height: 75px;
-}
-/* line 100, ../sass/layout/_footer.scss */
-.player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
-  display: block;
-  width: 75px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 /* line 1, ../sass/modules/loading_icon.scss */
 .loading-icon {
   margin: 100px auto 0 auto;
@@ -665,59 +558,7 @@ a:hover {
   }
 }
 
-/* line 2, ../sass/modules/_tracks_group.scss */
-.tracks-group {
-  /*    .item {
-          display: inline-block;
-          width: 10.6%;
-          margin: 1% 1% 25px 1%;
-  
-          &:nth-child(8n+1) {
-              margin: 1% 1% 25px 0;
-          }
-          .thumb {
-              position: relative;
-  
-              .uk-overlay-toggle {
-                  > a:first-of-type {
-                      width: 100%;
-                  }
-              }
-  
-              img {
-                  border: 5px solid $base-module-bg;
-                  width: 100%;
-              }
-  
-              .OverlayNav {
-                  a {
-                      color: #FFF;
-                      text-decoration: none;
-                      cursor: pointer;
-                      margin: 0 5px 0 0;
-                  }
-              }
-          }
-  
-          .meta {
-              float: left;
-              margin: 5px 0 0 0;
-              width: 100%;
-  
-              .title { margin: 0 0 3px 0; }
-              .artist { color: $base-light-font-color; }
-              .title, .artist {
-                  display: block;
-                  height: 15px;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                  overflow: hidden;
-              }
-          }
-      }*/
-}
-
-/* line 54, ../sass/modules/_tracks_group.scss */
+/* line 1, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
@@ -820,58 +661,59 @@ a:hover {
 
 /*
 	Group of thumbnail items with meta data.
+	Used for tracks, and artists view
 */
-/* line 5, ../sass/modules/_item-group.scss */
+/* line 11, ../sass/modules/_item-group.scss */
 .item-row {
   margin: 15px 0 0 0;
 }
 
-/* line 9, ../sass/modules/_item-group.scss */
-.item-group .item {
+/* line 15, ../sass/modules/_item-group.scss */
+.item-group .item, .item-group .small-item {
   display: inline-block;
   width: 10.6%;
   margin: 1% 1% 25px 1%;
 }
-/* line 14, ../sass/modules/_item-group.scss */
-.item-group .item:nth-child(8n+1) {
+/* line 6, ../sass/modules/_item-group.scss */
+.item-group .item:nth-child(8n+1), .item-group .small-item:nth-child(8n+1) {
   margin: 1% 1% 25px 0;
 }
-/* line 18, ../sass/modules/_item-group.scss */
-.item-group .item .thumb {
+/* line 22, ../sass/modules/_item-group.scss */
+.item-group .item .thumb, .item-group .small-item .thumb {
   position: relative;
 }
-/* line 22, ../sass/modules/_item-group.scss */
-.item-group .item .thumb .uk-overlay-toggle > a:first-of-type {
+/* line 26, ../sass/modules/_item-group.scss */
+.item-group .item .thumb .uk-overlay-toggle > a:first-of-type, .item-group .small-item .thumb .uk-overlay-toggle > a:first-of-type {
   width: 100%;
 }
-/* line 27, ../sass/modules/_item-group.scss */
-.item-group .item .thumb img {
+/* line 31, ../sass/modules/_item-group.scss */
+.item-group .item .thumb img, .item-group .small-item .thumb img {
   border: 5px solid #eeeeee;
   width: 100%;
 }
-/* line 33, ../sass/modules/_item-group.scss */
-.item-group .item .thumb .OverlayNav a {
+/* line 37, ../sass/modules/_item-group.scss */
+.item-group .item .thumb .OverlayNav a, .item-group .small-item .thumb .OverlayNav a {
   color: #FFF;
   text-decoration: none;
   cursor: pointer;
   margin: 0 5px 0 0;
 }
-/* line 42, ../sass/modules/_item-group.scss */
-.item-group .item .meta {
+/* line 46, ../sass/modules/_item-group.scss */
+.item-group .item .meta, .item-group .small-item .meta {
   float: left;
   margin: 5px 0 0 0;
   width: 100%;
 }
-/* line 47, ../sass/modules/_item-group.scss */
-.item-group .item .meta .title {
+/* line 51, ../sass/modules/_item-group.scss */
+.item-group .item .meta .title, .item-group .small-item .meta .title {
   margin: 0 0 3px 0;
 }
-/* line 48, ../sass/modules/_item-group.scss */
-.item-group .item .meta .artist {
+/* line 52, ../sass/modules/_item-group.scss */
+.item-group .item .meta .artist, .item-group .small-item .meta .artist {
   color: #878787;
 }
-/* line 49, ../sass/modules/_item-group.scss */
-.item-group .item .meta .title, .item-group .item .meta .artist {
+/* line 53, ../sass/modules/_item-group.scss */
+.item-group .item .meta .title, .item-group .small-item .meta .title, .item-group .item .meta .artist, .item-group .small-item .meta .artist {
   display: block;
   height: 15px;
   text-overflow: ellipsis;
@@ -879,8 +721,32 @@ a:hover {
   overflow: hidden;
 }
 
-/* line 59, ../sass/modules/_item-group.scss */
-.item-group .item.listItem {
+/* line 63, ../sass/modules/_item-group.scss */
+.item-group .small-item {
+  font-size: 0.875em;
+  margin: 0 10px 0 0;
+  width: 75px;
+}
+/* line 69, ../sass/modules/_item-group.scss */
+.item-group .small-item .thumb {
+  cursor: pointer;
+}
+/* line 72, ../sass/modules/_item-group.scss */
+.item-group .small-item .thumb img {
+  height: 75px;
+}
+/* line 77, ../sass/modules/_item-group.scss */
+.item-group .small-item .meta {
+  margin: 0;
+}
+/* line 79, ../sass/modules/_item-group.scss */
+.item-group .small-item .meta .title, .item-group .small-item .meta .artist {
+  width: 75px;
+  height: auto;
+}
+
+/* line 86, ../sass/modules/_item-group.scss */
+.item-group .item.listItem, .item-group .listItem.small-item {
   display: block;
   width: 800px;
   height: 50px;
@@ -888,28 +754,115 @@ a:hover {
   clear: both;
   overflow: hidden;
 }
-/* line 67, ../sass/modules/_item-group.scss */
-.item-group .item.listItem .track-item-container {
+/* line 94, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .track-item-container, .item-group .listItem.small-item .track-item-container {
   width: 700px;
   float: left;
 }
-/* line 72, ../sass/modules/_item-group.scss */
-.item-group .item.listItem .thumb {
+/* line 99, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .thumb, .item-group .listItem.small-item .thumb {
   float: left;
 }
-/* line 75, ../sass/modules/_item-group.scss */
-.item-group .item.listItem .thumb img {
+/* line 102, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .thumb img, .item-group .listItem.small-item .thumb img {
   width: 50px;
 }
-/* line 80, ../sass/modules/_item-group.scss */
-.item-group .item.listItem .meta {
+/* line 107, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .meta, .item-group .listItem.small-item .meta {
   float: left;
   width: auto;
   margin: 8px 0 0 15px;
 }
-/* line 86, ../sass/modules/_item-group.scss */
-.item-group .item.listItem .track-options {
+/* line 113, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .track-options, .item-group .listItem.small-item .track-options {
   float: right;
+}
+
+/* line 1, ../sass/layout/_footer.scss */
+.footer {
+  border-top: 1px solid #d7d7d7;
+  position: fixed;
+  z-index: 1010;
+  bottom: 0;
+  height: 200px;
+  background: #eeeeee;
+  width: 100%;
+}
+
+/* line 12, ../sass/layout/_footer.scss */
+.player-container .controls-container {
+  margin: 0 15px 0 343px;
+}
+/* line 16, ../sass/layout/_footer.scss */
+.player-container #ytPlayer {
+  position: absolute;
+  width: 328px;
+}
+/* line 21, ../sass/layout/_footer.scss */
+.player-container .controls {
+  padding: 10px 0 10px 0;
+}
+/* line 24, ../sass/layout/_footer.scss */
+.player-container .controls .left-controls {
+  margin: 0 0 10px 0;
+}
+/* line 31, ../sass/layout/_footer.scss */
+.player-container .controls .timing {
+  float: right;
+  padding: 0 0 0 10px;
+}
+/* line 36, ../sass/layout/_footer.scss */
+.player-container .controls .Progress-container {
+  margin: 1px 0 0 0;
+}
+/* line 40, ../sass/layout/_footer.scss */
+.player-container .controls .Progress {
+  transition: all;
+  -webkit-transition: all;
+}
+/* line 45, ../sass/layout/_footer.scss */
+.player-container .controls .uk-progress .handle {
+  position: relative;
+  background: url("../img/test_handle.png") no-repeat;
+  height: 19px;
+}
+/* line 51, ../sass/layout/_footer.scss */
+.player-container .controls .Volume-indicator {
+  margin: 5px 0 0 25px;
+}
+/* line 55, ../sass/layout/_footer.scss */
+.player-container .controls .Volume {
+  position: absolute;
+  left: 500px;
+  bottom: 170px;
+  width: 100px;
+}
+/* line 63, ../sass/layout/_footer.scss */
+.player-container .queue {
+  height: 119px;
+  background: #FFF;
+  overflow: hidden;
+  clear: both;
+}
+/* line 70, ../sass/layout/_footer.scss */
+.player-container .queue.uk-panel-box {
+  padding: 8px;
+}
+/* line 74, ../sass/layout/_footer.scss */
+.player-container .queueItems {
+  width: 100%;
+  float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+/* line 83, ../sass/layout/_footer.scss */
+.player-container .queueItem:nth-child(8n+1) {
+  margin: 0;
+}
+/* line 86, ../sass/layout/_footer.scss */
+.player-container .queueItem .Index {
+  display: none;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

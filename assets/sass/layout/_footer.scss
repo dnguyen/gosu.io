@@ -80,31 +80,10 @@
     }
 
     .queueItem {
-        display: inline-block;
-        font-size: .875em;
-        margin: 0 10px 0 0;
-        width: 75px;
-
+        &:nth-child(8n+1) {
+            margin: 0;
+        }
         .Index { display: none; }
-
-        .small-thumb {
-            position: relative;
-            cursor: pointer;
-
-            img {
-                height: 75px;
-            }
-        }
-
-        .meta {
-            .title, .artist {
-                display: block;
-                width: 75px;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-        }
     }
 
 }
