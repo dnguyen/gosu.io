@@ -81,7 +81,7 @@
 
     .queueItem {
         &:nth-child(8n+1) {
-            margin: 0;
+            margin: 0 10px 0 0;
         }
         .Index { display: none; }
     }

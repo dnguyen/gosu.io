@@ -874,7 +874,7 @@ a:hover {
 }
 /* line 83, ../sass/layout/_footer.scss */
 .player-container .queueItem:nth-child(8n+1) {
-  margin: 0;
+  margin: 0 10px 0 0;
 }
 /* line 86, ../sass/layout/_footer.scss */
 .player-container .queueItem .Index {
