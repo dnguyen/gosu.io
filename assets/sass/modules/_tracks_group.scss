@@ -1,15 +1,14 @@
 
 .tracks-group {
 
-    .item:nth-child(8n+1) {
-        margin: 1% 1% 25px 0;
-    }
-
-    .item {
+/*    .item {
         display: inline-block;
         width: 10.6%;
         margin: 1% 1% 25px 1%;
 
+        &:nth-child(8n+1) {
+            margin: 1% 1% 25px 0;
+        }
         .thumb {
             position: relative;
 
@@ -49,39 +48,7 @@
                 overflow: hidden;
             }
         }
-    }
-
-    .item.listItem {
-        display: block;
-        width: 800px;
-        height: 50px;
-        margin: 0 0 15px 0;
-        clear: both;
-        overflow: hidden;
-
-        .track-item-container {
-            width: 700px;
-            float: left;
-        }
-
-        .thumb {
-            float: left;
-
-            img {
-                width: 50px;
-            }
-        }
-
-        .meta {
-            float: left;
-            width: auto;
-            margin: 8px 0 0 15px;
-        }
-
-        .track-options {
-            float: right;
-        }
-    }
+    }*/
 }
 
 .tracks-group-row {

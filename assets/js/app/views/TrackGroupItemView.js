@@ -11,7 +11,7 @@ define([
 
     var TrackGroupItemView = Backbone.Marionette.ItemView.extend({
 
-        tagName : 'li',
+        tagName : 'div',
         className : 'item',
 
         template: _.template(TrackGroupItemTemplate),

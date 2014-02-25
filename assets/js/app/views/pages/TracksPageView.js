@@ -74,7 +74,7 @@ define([
 
         switchViewThumb : function(e) {
             localStorage.setItem("tracksPage:renderType", "thumb");
-            $(this.el).find(".content .tracks-group").html('');
+            $(this.el).find(".content .item-group").html('');
 
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
@@ -82,12 +82,12 @@ define([
                 renderType : "thumb"
             });
 
-            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
+            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
         },
 
         switchViewList : function(e) {
             localStorage.setItem("tracksPage:renderType", "list");
-            $(this.el).find(".content .tracks-group").html('');
+            $(this.el).find(".content .item-group").html('');
 
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
@@ -95,7 +95,7 @@ define([
                 renderType : "list"
             });
 
-            this.$el.find(".content .tracks-group").append(trackGroupCollectionView.render().$el);
+            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
         }
 
     });

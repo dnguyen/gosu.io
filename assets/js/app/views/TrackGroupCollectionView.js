@@ -11,7 +11,7 @@ define([
         tagName: "div",
         className: "tracks-group-container",
         itemView: TrackGroupItemView,
-        itemViewContainer : ".tracks-group",
+        itemViewContainer : ".item-group",
 
         initialize : function(options) {
             var GroupModel = new Backbone.Model();
