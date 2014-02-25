@@ -1,0 +1,122 @@
+/*
+	Group of thumbnail items with meta data.
+	Used for tracks, and artists view
+*/
+@mixin nthChild() {
+    &:nth-child(8n+1) {
+        margin: 1% 1% 25px 0;
+    }
+}
+
+.item-row {
+    margin: 15px 0 0 0;
+}
+
+/*
+	Responsive thumbnail items with captions
+*/
+.item-group .item {
+    display: inline-block;
+    width: 10.6%;
+    margin: 1% 1% 25px 1%;
+
+    @include nthChild();
+
+    .thumb {
+        position: relative;
+
+        .uk-overlay-toggle {
+            > a:first-of-type {
+                width: 100%;
+            }
+        }
+
+        img {
+            border: 5px solid $base-module-bg;
+            width: 100%;
+        }
+
+        .OverlayNav {
+            a {
+                color: #FFF;
+                text-decoration: none;
+                cursor: pointer;
+                margin: 0 5px 0 0;
+            }
+        }
+    }
+
+    .meta {
+        float: left;
+        margin: 5px 0 0 0;
+        width: 100%;
+
+        .caption { margin: 0 0 3px 0; }
+        .sub-caption { color: $base-light-font-color; }
+        .caption, .sub-caption {
+            height: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+}
+
+/*
+	Non-responsive small thumbnail items with captions
+*/
+.item-group .small-item {
+	@extend .item;
+    font-size: $base-font-size;
+    margin: 0 10px 0 0;
+    width: 75px;
+
+    .thumb {
+        cursor: pointer;
+
+        img {
+            height: 75px;
+        }
+    }
+
+    .meta {
+    	margin: 0;
+        .caption, .subcaption {
+            width: 75px;
+            height: auto;
+
+        }
+    }
+}
+
+.item-group .item.listItem {
+    display: block;
+    width: 800px;
+    height: 50px;
+    margin: 0 0 15px 0;
+    clear: both;
+    overflow: hidden;
+
+    .track-item-container {
+        width: 700px;
+        float: left;
+    }
+
+    .thumb {
+        float: left;
+
+        img {
+            width: 50px;
+        }
+    }
+
+    .meta {
+        float: left;
+        width: auto;
+        margin: 8px 0 0 15px;
+    }
+
+    .track-options {
+        float: right;
+    }
+}

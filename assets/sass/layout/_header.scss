@@ -9,15 +9,28 @@
     width: 100%;
 }
 
+.small-logo {
+    width: 80px;
+}
+
 .logo {
     width: 198px;
-    background: $logo-bg;
     float: left;
     height: 69px;
-    margin: 0 25px 0 0;
+    padding: 2px 0 0 10px;
 
-    img {
-        margin: 20px 15px 20px 15px;
+    .brand {
+        float: left;
+        width: 65px;
+    }
+
+    .name {
+        float: left;
+        margin: 13px 0 0 3px;
+        font-size: 2.5em;
+        a:hover {
+            text-decoration: none;
+        }
     }
 }
 
@@ -27,7 +40,7 @@
 
 .header-search {
     float: left;
-
+    margin: 0 0 0 15px;
     .text-input {
         input {
             width: 250px;

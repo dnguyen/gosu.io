@@ -10,8 +10,9 @@ define([
     var TrackGroupCollectionView = Backbone.Marionette.CompositeView.extend({
         tagName: "div",
         className: "tracks-group-container",
+        template: _.template(TrackGroupCollection_6_Template),
         itemView: TrackGroupItemView,
-        itemViewContainer : ".tracks-group",
+        itemViewContainer : ".item-group",
 
         initialize : function(options) {
             var GroupModel = new Backbone.Model();
@@ -24,9 +25,9 @@ define([
             return {
                 renderType: this.model.get("renderType")
             };
-        },
+        }
 
-        getTemplate : function() {
+        /*getTemplate : function() {
             var blockSize = this.model.get("size");
 
             if (blockSize == 4) {
@@ -35,7 +36,7 @@ define([
                 return _.template(TrackGroupCollection_6_Template);
             }
             return trackGroupTemplate;
-        }
+        }*/
 
     });
 

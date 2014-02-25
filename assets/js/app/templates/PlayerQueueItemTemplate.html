@@ -1,6 +1,6 @@
 <div class="Index"><%= collectionIndex %></div>
 
-<div class="small-thumb">
+<div class="thumb">
     <figure class="uk-overlay-toggle">
         <div class="uk-overlay">
             <img src="assets/img/girlsday_thumb.png" />
@@ -16,8 +16,10 @@
 </div>
 
 <div class="meta">
-    <div class="title">
-    	<a href="#/track/<%= trackId %>/<%= title %>" title="<%= artistName %> - <%= title %>"><%= title %></a>
+    <div class="caption">
+        <a href="#/track/<%= trackId %>/<%= title %>" title="<%= artistName %> - <%= title %>"><%= title %></a>
     </div>
-    <div class="artist"><%= artistName %></div>
+    <div class="sub-caption">
+        <%= artistName %>
+    </div>
 </div>

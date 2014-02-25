@@ -1,5 +1,10 @@
+/*
+	TODO: Completely refactor markup and scss files
+*/
+
 @import "compass/reset";
 @import "compass/layout/sticky-footer";
+@import "compass/css3/box-shadow";
 
 @import "partials/base";
 @import "partials/colors";
@@ -9,13 +14,18 @@
 @import "layout/sidebar";
 @import "layout/mainContent";
 @import "layout/side_modules";
-@import "layout/footer";
 
 @import "modules/loading_icon.scss";
 @import "modules/_tracks_group.scss";
 @import "modules/_login_page.scss";
 @import "modules/_main_page.scss";
 @import "modules/_single_track_page.scss";
+
+@import "modules/_containers.scss";
+@import "modules/_item-group.scss";
+
+@import "layout/footer";
+
 @import "modules/content_side_modules/_content_side_module.scss";
 @import "modules/content_side_modules/_radio.scss";
 @import "modules/content_side_modules/_coming_soon.scss";

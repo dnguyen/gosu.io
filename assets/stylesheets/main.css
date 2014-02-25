@@ -1,3 +1,6 @@
+/*
+	TODO: Completely refactor markup and scss files
+*/
 /* line 17, ../../../../../Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -94,7 +97,7 @@ a {
 }
 /* line 19, ../sass/layout/_base.scss */
 a:hover {
-  color: #00b4ff;
+  color: #3399ff;
 }
 
 /* line 24, ../sass/layout/_base.scss */
@@ -112,6 +115,27 @@ a:hover {
   cursor: pointer;
 }
 
+/* line 38, ../sass/layout/_base.scss */
+.btn-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* line 43, ../sass/layout/_base.scss */
+.text-center {
+  text-align: center;
+}
+
+/* line 47, ../sass/layout/_base.scss */
+.push-left, .normal-container .heading .title, .small-centered-container .heading .title {
+  float: left;
+}
+
+/* line 51, ../sass/layout/_base.scss */
+.push-right {
+  float: right;
+}
+
 /* line 1, ../sass/layout/_header.scss */
 .header {
   background: #eeeeee;
@@ -125,70 +149,86 @@ a:hover {
 }
 
 /* line 12, ../sass/layout/_header.scss */
-.logo {
-  width: 198px;
-  background: #515151;
-  float: left;
-  height: 69px;
-  margin: 0 25px 0 0;
-}
-/* line 19, ../sass/layout/_header.scss */
-.logo img {
-  margin: 20px 15px 20px 15px;
+.small-logo {
+  width: 80px;
 }
 
-/* line 24, ../sass/layout/_header.scss */
+/* line 16, ../sass/layout/_header.scss */
+.logo {
+  width: 198px;
+  float: left;
+  height: 69px;
+  padding: 2px 0 0 10px;
+}
+/* line 22, ../sass/layout/_header.scss */
+.logo .brand {
+  float: left;
+  width: 65px;
+}
+/* line 27, ../sass/layout/_header.scss */
+.logo .name {
+  float: left;
+  margin: 13px 0 0 3px;
+  font-size: 2.5em;
+}
+/* line 31, ../sass/layout/_header.scss */
+.logo .name a:hover {
+  text-decoration: none;
+}
+
+/* line 37, ../sass/layout/_header.scss */
 .header-menu {
   padding: 17px 0 0 20px;
 }
 
-/* line 28, ../sass/layout/_header.scss */
+/* line 41, ../sass/layout/_header.scss */
 .header-search {
   float: left;
+  margin: 0 0 0 15px;
 }
-/* line 32, ../sass/layout/_header.scss */
+/* line 45, ../sass/layout/_header.scss */
 .header-search .text-input input {
   width: 250px;
   height: 35px;
   font-size: 0.875em;
 }
-/* line 39, ../sass/layout/_header.scss */
+/* line 52, ../sass/layout/_header.scss */
 .header-search .search-btn {
   height: 35px;
   border-left: none;
   width: 40px;
 }
-/* line 45, ../sass/layout/_header.scss */
+/* line 58, ../sass/layout/_header.scss */
 .header-search .text-input, .header-search .search-btn {
   float: left;
 }
 
-/* line 50, ../sass/layout/_header.scss */
+/* line 63, ../sass/layout/_header.scss */
 .header-navigation {
   float: right;
   margin: 5px 15px 0 0;
 }
-/* line 55, ../sass/layout/_header.scss */
+/* line 68, ../sass/layout/_header.scss */
 .header-navigation .user a {
   margin: 3px 0 0 8px;
 }
-/* line 59, ../sass/layout/_header.scss */
+/* line 72, ../sass/layout/_header.scss */
 .header-navigation .user img {
   border: 1px solid #a7a1a1;
 }
-/* line 63, ../sass/layout/_header.scss */
+/* line 76, ../sass/layout/_header.scss */
 .header-navigation .user a, .header-navigation .user img {
   float: left;
 }
-/* line 68, ../sass/layout/_header.scss */
+/* line 81, ../sass/layout/_header.scss */
 .header-navigation .user {
   float: left;
 }
-/* line 72, ../sass/layout/_header.scss */
+/* line 85, ../sass/layout/_header.scss */
 .header-navigation .user-nav {
   margin: 3px 0 0 0;
 }
-/* line 75, ../sass/layout/_header.scss */
+/* line 88, ../sass/layout/_header.scss */
 .header-navigation .user-nav li {
   float: left;
   margin: 0 0 0 10px;
@@ -232,7 +272,7 @@ a:hover {
 }
 /* line 35, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li a:hover {
-  color: #00b4ff;
+  color: #3399ff;
 }
 /* line 42, ../sass/layout/_sidebar.scss */
 .sidebar .navigation .playlists li {
@@ -333,113 +373,6 @@ a:hover {
 .side-modules {
   margin: 15px 0 0 0;
   float: left;
-}
-
-/* line 1, ../sass/layout/_footer.scss */
-.footer {
-  border-top: 1px solid #d7d7d7;
-  position: fixed;
-  z-index: 1010;
-  bottom: 0;
-  height: 200px;
-  background: #eeeeee;
-  width: 100%;
-}
-
-/* line 12, ../sass/layout/_footer.scss */
-.player-container .controls-container {
-  margin: 0 15px 0 343px;
-}
-/* line 16, ../sass/layout/_footer.scss */
-.player-container #ytPlayer {
-  position: absolute;
-  width: 328px;
-}
-/* line 21, ../sass/layout/_footer.scss */
-.player-container .controls {
-  padding: 10px 0 10px 0;
-}
-/* line 24, ../sass/layout/_footer.scss */
-.player-container .controls .left-controls {
-  margin: 0 0 10px 0;
-}
-/* line 31, ../sass/layout/_footer.scss */
-.player-container .controls .timing {
-  float: right;
-  padding: 0 0 0 10px;
-}
-/* line 36, ../sass/layout/_footer.scss */
-.player-container .controls .Progress-container {
-  margin: 1px 0 0 0;
-}
-/* line 40, ../sass/layout/_footer.scss */
-.player-container .controls .Progress {
-  transition: all;
-  -webkit-transition: all;
-}
-/* line 45, ../sass/layout/_footer.scss */
-.player-container .controls .uk-progress .handle {
-  position: relative;
-  background: url("../img/test_handle.png") no-repeat;
-  height: 19px;
-}
-/* line 51, ../sass/layout/_footer.scss */
-.player-container .controls .Volume-indicator {
-  margin: 5px 0 0 25px;
-}
-/* line 55, ../sass/layout/_footer.scss */
-.player-container .controls .Volume {
-  position: absolute;
-  left: 500px;
-  bottom: 170px;
-  width: 100px;
-}
-/* line 63, ../sass/layout/_footer.scss */
-.player-container .queue {
-  height: 119px;
-  background: #FFF;
-  overflow: hidden;
-  clear: both;
-}
-/* line 70, ../sass/layout/_footer.scss */
-.player-container .queue.uk-panel-box {
-  padding: 8px;
-}
-/* line 74, ../sass/layout/_footer.scss */
-.player-container .queueItems {
-  width: 100%;
-  float: left;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-/* line 82, ../sass/layout/_footer.scss */
-.player-container .queueItem {
-  display: inline-block;
-  font-size: .875em;
-  margin: 0 10px 0 0;
-  width: 75px;
-}
-/* line 88, ../sass/layout/_footer.scss */
-.player-container .queueItem .Index {
-  display: none;
-}
-/* line 90, ../sass/layout/_footer.scss */
-.player-container .queueItem .small-thumb {
-  position: relative;
-  cursor: pointer;
-}
-/* line 94, ../sass/layout/_footer.scss */
-.player-container .queueItem .small-thumb img {
-  height: 75px;
-}
-/* line 100, ../sass/layout/_footer.scss */
-.player-container .queueItem .meta .title, .player-container .queueItem .meta .artist {
-  display: block;
-  width: 75px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 /* line 1, ../sass/modules/loading_icon.scss */
@@ -636,124 +569,14 @@ a:hover {
   }
 }
 
-/* line 4, ../sass/modules/_tracks_group.scss */
-.tracks-group .item:nth-child(8n+1) {
-  margin: 1% 1% 25px 0;
-}
-/* line 8, ../sass/modules/_tracks_group.scss */
-.tracks-group .item {
-  display: inline-block;
-  width: 10.6%;
-  margin: 1% 1% 25px 1%;
-}
-/* line 13, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .thumb {
-  position: relative;
-}
-/* line 17, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .thumb .uk-overlay-toggle > a:first-of-type {
-  width: 100%;
-}
-/* line 22, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .thumb img {
-  border: 5px solid #eeeeee;
-  width: 100%;
-}
-/* line 28, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .thumb .OverlayNav a {
-  color: #FFF;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 0 5px 0 0;
-}
-/* line 37, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .meta {
-  float: left;
-  margin: 5px 0 0 0;
-  width: 100%;
-}
-/* line 42, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .meta .title {
-  margin: 0 0 3px 0;
-}
-/* line 43, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .meta .artist {
-  color: #878787;
-}
-/* line 44, ../sass/modules/_tracks_group.scss */
-.tracks-group .item .meta .title, .tracks-group .item .meta .artist {
-  display: block;
-  height: 15px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-/* line 54, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem {
-  display: block;
-  width: 800px;
-  height: 50px;
-  margin: 0 0 15px 0;
-  clear: both;
-  overflow: hidden;
-}
-/* line 62, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem .track-item-container {
-  width: 700px;
-  float: left;
-}
-/* line 67, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem .thumb {
-  float: left;
-}
-/* line 70, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem .thumb img {
-  width: 50px;
-}
-/* line 75, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem .meta {
-  float: left;
-  width: auto;
-  margin: 8px 0 0 15px;
-}
-/* line 81, ../sass/modules/_tracks_group.scss */
-.tracks-group .item.listItem .track-options {
-  float: right;
-}
-
-/* line 87, ../sass/modules/_tracks_group.scss */
+/* line 1, ../sass/modules/_tracks_group.scss */
 .tracks-group-row {
   margin: 15px 0 0 0;
 }
 
 /* line 1, ../sass/modules/_login_page.scss */
-.login-container, .register-container {
-  margin: 10px 15px 10px 15px;
-  padding: 15px 5px 15px 5px;
-  border: 1px solid #d7d7d7;
-  margin: 35px auto 0 auto;
-  border-radius: .25em;
-  width: 600px;
-}
-
-/* line 10, ../sass/modules/_login_page.scss */
 #errors {
   margin: 0 0 15px 0;
-}
-
-/* line 14, ../sass/modules/_login_page.scss */
-.social-login-container, .social-register-container {
-  /*    border-left: 1px solid tint($base-font-color, 60%);
-  
-      ul {
-          li {
-              margin: 0 0 10px 0;
-  
-              .ui.small.button {
-                  width: 175px;
-              }
-          }
-      }*/
 }
 
 /* line 1, ../sass/modules/_main_page.scss */
@@ -766,6 +589,20 @@ a:hover {
   overflow: hidden;
 }
 
+/* line 1, ../sass/modules/_single_track_page.scss */
+.app-region {
+  	/*.track-content {
+  		padding: 10px 15px 10px 15px;
+  		margin: 15px 0 15px 15px;
+  		width: 960px;
+  		background: #EEE;
+  		border: 1px solid #d7d7d7;
+  		border-radius: 4px;
+  	}
+  
+  	.track-options {
+  	}*/
+}
 /* line 2, ../sass/modules/_single_track_page.scss */
 .app-region .player-container {
   margin: 15px;
@@ -781,14 +618,267 @@ a:hover {
   			position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   		}*/
 }
-/* line 16, ../sass/modules/_single_track_page.scss */
-.app-region .track-content {
-  padding: 10px 15px 10px 15px;
-  margin: 15px 0 15px 15px;
-  width: 960px;
-  background: #EEE;
+
+/* line 9, ../sass/modules/_containers.scss */
+.normal-container, .normal-container.large-container, .small-centered-container {
+  background: #f7f7f7;
   border: 1px solid #d7d7d7;
-  border-radius: 4px;
+  border-radius: .25em;
+  margin: 15px;
+  -webkit-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+}
+/* line 16, ../sass/modules/_containers.scss */
+.normal-container .heading, .small-centered-container .heading {
+  background: #FFF;
+  width: 100%;
+  height: 38px;
+  font-size: 1.25em;
+  border-bottom: 1px solid #d7d7d7;
+}
+/* line 23, ../sass/modules/_containers.scss */
+.normal-container .heading .title, .small-centered-container .heading .title {
+  margin: 10px;
+}
+/* line 28, ../sass/modules/_containers.scss */
+.normal-container .heading .push-right, .small-centered-container .heading .push-right {
+  margin: 6px 10px 8px 0;
+}
+/* line 33, ../sass/modules/_containers.scss */
+.normal-container .content, .small-centered-container .content {
+  padding: 15px 10px 15px 10px;
+}
+
+/* line 38, ../sass/modules/_containers.scss */
+.large-container.normal-container, .large-container.small-centered-container {
+  max-width: 960px;
+}
+
+/* line 43, ../sass/modules/_containers.scss */
+.centered-container {
+  margin: 0 auto 15px auto;
+}
+
+/* line 47, ../sass/modules/_containers.scss */
+.small-centered-container {
+  margin: 35px auto 0 auto;
+  max-width: 300px;
+}
+/* line 53, ../sass/modules/_containers.scss */
+.small-centered-container .content input {
+  width: 100%;
+}
+
+/*
+	Group of thumbnail items with meta data.
+	Used for tracks, and artists view
+*/
+/* line 11, ../sass/modules/_item-group.scss */
+.item-row {
+  margin: 15px 0 0 0;
+}
+
+/*
+	Responsive thumbnail items with captions
+*/
+/* line 18, ../sass/modules/_item-group.scss */
+.item-group .item, .item-group .small-item {
+  display: inline-block;
+  width: 10.6%;
+  margin: 1% 1% 25px 1%;
+}
+/* line 6, ../sass/modules/_item-group.scss */
+.item-group .item:nth-child(8n+1), .item-group .small-item:nth-child(8n+1) {
+  margin: 1% 1% 25px 0;
+}
+/* line 25, ../sass/modules/_item-group.scss */
+.item-group .item .thumb, .item-group .small-item .thumb {
+  position: relative;
+}
+/* line 29, ../sass/modules/_item-group.scss */
+.item-group .item .thumb .uk-overlay-toggle > a:first-of-type, .item-group .small-item .thumb .uk-overlay-toggle > a:first-of-type {
+  width: 100%;
+}
+/* line 34, ../sass/modules/_item-group.scss */
+.item-group .item .thumb img, .item-group .small-item .thumb img {
+  border: 5px solid #eeeeee;
+  width: 100%;
+}
+/* line 40, ../sass/modules/_item-group.scss */
+.item-group .item .thumb .OverlayNav a, .item-group .small-item .thumb .OverlayNav a {
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 5px 0 0;
+}
+/* line 49, ../sass/modules/_item-group.scss */
+.item-group .item .meta, .item-group .small-item .meta {
+  float: left;
+  margin: 5px 0 0 0;
+  width: 100%;
+}
+/* line 54, ../sass/modules/_item-group.scss */
+.item-group .item .meta .caption, .item-group .small-item .meta .caption {
+  margin: 0 0 3px 0;
+}
+/* line 55, ../sass/modules/_item-group.scss */
+.item-group .item .meta .sub-caption, .item-group .small-item .meta .sub-caption {
+  color: #878787;
+}
+/* line 56, ../sass/modules/_item-group.scss */
+.item-group .item .meta .caption, .item-group .small-item .meta .caption, .item-group .item .meta .sub-caption, .item-group .small-item .meta .sub-caption {
+  height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*
+	Non-responsive small thumbnail items with captions
+*/
+/* line 68, ../sass/modules/_item-group.scss */
+.item-group .small-item {
+  font-size: 0.875em;
+  margin: 0 10px 0 0;
+  width: 75px;
+}
+/* line 74, ../sass/modules/_item-group.scss */
+.item-group .small-item .thumb {
+  cursor: pointer;
+}
+/* line 77, ../sass/modules/_item-group.scss */
+.item-group .small-item .thumb img {
+  height: 75px;
+}
+/* line 82, ../sass/modules/_item-group.scss */
+.item-group .small-item .meta {
+  margin: 0;
+}
+/* line 84, ../sass/modules/_item-group.scss */
+.item-group .small-item .meta .caption, .item-group .small-item .meta .subcaption {
+  width: 75px;
+  height: auto;
+}
+
+/* line 92, ../sass/modules/_item-group.scss */
+.item-group .item.listItem, .item-group .listItem.small-item {
+  display: block;
+  width: 800px;
+  height: 50px;
+  margin: 0 0 15px 0;
+  clear: both;
+  overflow: hidden;
+}
+/* line 100, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .track-item-container, .item-group .listItem.small-item .track-item-container {
+  width: 700px;
+  float: left;
+}
+/* line 105, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .thumb, .item-group .listItem.small-item .thumb {
+  float: left;
+}
+/* line 108, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .thumb img, .item-group .listItem.small-item .thumb img {
+  width: 50px;
+}
+/* line 113, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .meta, .item-group .listItem.small-item .meta {
+  float: left;
+  width: auto;
+  margin: 8px 0 0 15px;
+}
+/* line 119, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .track-options, .item-group .listItem.small-item .track-options {
+  float: right;
+}
+
+/* line 1, ../sass/layout/_footer.scss */
+.footer {
+  border-top: 1px solid #d7d7d7;
+  position: fixed;
+  z-index: 1010;
+  bottom: 0;
+  height: 200px;
+  background: #eeeeee;
+  width: 100%;
+}
+
+/* line 12, ../sass/layout/_footer.scss */
+.player-container .controls-container {
+  margin: 0 15px 0 343px;
+}
+/* line 16, ../sass/layout/_footer.scss */
+.player-container #ytPlayer {
+  position: absolute;
+  width: 328px;
+}
+/* line 21, ../sass/layout/_footer.scss */
+.player-container .controls {
+  padding: 10px 0 10px 0;
+}
+/* line 24, ../sass/layout/_footer.scss */
+.player-container .controls .left-controls {
+  margin: 0 0 10px 0;
+}
+/* line 31, ../sass/layout/_footer.scss */
+.player-container .controls .timing {
+  float: right;
+  padding: 0 0 0 10px;
+}
+/* line 36, ../sass/layout/_footer.scss */
+.player-container .controls .Progress-container {
+  margin: 1px 0 0 0;
+}
+/* line 40, ../sass/layout/_footer.scss */
+.player-container .controls .Progress {
+  transition: all;
+  -webkit-transition: all;
+}
+/* line 45, ../sass/layout/_footer.scss */
+.player-container .controls .uk-progress .handle {
+  position: relative;
+  background: url("../img/test_handle.png") no-repeat;
+  height: 19px;
+}
+/* line 51, ../sass/layout/_footer.scss */
+.player-container .controls .Volume-indicator {
+  margin: 5px 0 0 25px;
+}
+/* line 55, ../sass/layout/_footer.scss */
+.player-container .controls .Volume {
+  position: absolute;
+  left: 500px;
+  bottom: 170px;
+  width: 100px;
+}
+/* line 63, ../sass/layout/_footer.scss */
+.player-container .queue {
+  height: 119px;
+  background: #FFF;
+  overflow: hidden;
+  clear: both;
+}
+/* line 70, ../sass/layout/_footer.scss */
+.player-container .queue.uk-panel-box {
+  padding: 8px;
+}
+/* line 74, ../sass/layout/_footer.scss */
+.player-container .queueItems {
+  width: 100%;
+  float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+/* line 83, ../sass/layout/_footer.scss */
+.player-container .queueItem:nth-child(8n+1) {
+  margin: 0 10px 0 0;
+}
+/* line 86, ../sass/layout/_footer.scss */
+.player-container .queueItem .Index {
+  display: none;
 }
 
 /* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */

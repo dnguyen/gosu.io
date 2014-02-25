@@ -5,13 +5,13 @@ define([
     "marionette",
     "text!../templates/PlayerQueueItemTemplate.html"
 ], function(namespace, _, Backbone, Marionette, PlayerQueueItemTemplate) {
-    
+
     var GosuApp = namespace.app;
-    
+
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
         tagName: "div",
-        className: "queueItem",
-        
+        className: "small-item queueItem",
+
         events: {
             "click .Play" : "play",
             "click .Remove" : "removeEvent",
@@ -19,7 +19,7 @@ define([
         },
 
         template: _.template(PlayerQueueItemTemplate),
-        
+
         initialize: function() {
             this.model.bind("destroy", this.destroyView, this);
         },
@@ -29,7 +29,7 @@ define([
             console.log(this.model);
             console.groupEnd();
         },
-        
+
         play: function(e) {
             GosuApp.vent.trigger("player:changeTrack", this.model);
         },
@@ -51,7 +51,7 @@ define([
             this.remove();
         }
     });
-    
+
     return PlayerQueueItemView;
-    
+
 });

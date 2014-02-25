@@ -29,8 +29,25 @@ a {
     box-shadow: 0 2px 5px rgba(0,0,0,.1);
     width: 150px;
     z-index: 1100;
-    
+
     a {
         cursor: pointer;
     }
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.push-left {
+    float: left;
+}
+
+.push-right {
+    float: right;
 }
