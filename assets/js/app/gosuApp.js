@@ -33,12 +33,12 @@ define([
     gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
         gosuApp.loadingIconView.close();
     });
-    
+
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
             $(".AddToMenu").remove();
             var newAddToMenuView = new AddToMenuView({ model : data.model });
-            
+
             $("body").append(newAddToMenuView.render().el);
             $(".AddToMenu").css({
                 "left" : ($(data.event.target).offset().left - 10) + "px",
@@ -90,10 +90,10 @@ define([
 
         var headerController = new HeaderController();
         headerController.render();
-        
+
         var playerController = new PlayerController();
         playerController.render();
-        
+
         gosuApp.sidebar.show(new SidebarView());
 
         gosuApp.contentLayout = new MainPageLayout();

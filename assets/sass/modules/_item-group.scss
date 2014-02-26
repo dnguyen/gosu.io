@@ -2,8 +2,8 @@
 	Group of thumbnail items with meta data.
 	Used for tracks, and artists view
 */
-@mixin nthChild() {
-    &:nth-child(8n+1) {
+@mixin nthChild($modifier) {
+    &:nth-child(#{$modifier}n+1) {
         margin: 1% 1% 25px 0;
     }
 }
@@ -20,7 +20,7 @@
     width: 10.6%;
     margin: 1% 1% 25px 1%;
 
-    @include nthChild();
+    @include nthChild(8);
 
     .thumb {
         position: relative;
@@ -120,3 +120,15 @@
         float: right;
     }
 }
+/*
+@media screen and (min-width: 1600px) {
+	.item-group .item {
+    	width: 8%;
+	}
+}
+
+@media screen and (min-width: 2100px) {
+	.item-group .item {
+		width: 5%;
+	}
+}*/

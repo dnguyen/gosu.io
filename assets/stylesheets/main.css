@@ -794,6 +794,18 @@ a:hover {
   float: right;
 }
 
+/*
+@media screen and (min-width: 1600px) {
+	.item-group .item {
+    	width: 8%;
+	}
+}
+
+@media screen and (min-width: 2100px) {
+	.item-group .item {
+		width: 5%;
+	}
+}*/
 /* line 1, ../sass/layout/_footer.scss */
 .footer {
   border-top: 1px solid #d7d7d7;
