@@ -38,6 +38,10 @@ require.config({
         marionette : {
             deps : ['backbone.wreqr', 'backbone.babysitter'],
             exports : 'Marionette'
+        },
+
+        jqueryui: {
+            deps : ['jquery']
         }
     }
 }, require(["gosuApp"], function(GosuApp) {

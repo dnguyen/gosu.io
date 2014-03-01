@@ -1,7 +1,5 @@
 /*global define,document,console*/
 define([
-    "jquery",
-    "backbone",
     "marionette",
     "namespace",
     "controllers/HeaderController",
@@ -10,7 +8,7 @@ define([
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function(Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;

@@ -1,11 +1,9 @@
 define([
     "namespace",
-    "jquery",
-    "backbone",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/SingleTrackPageView"
-], function(namespace, $, Backbone, Marionette, ApiHelper, SingleTrackPageView) {
+], function(namespace, Marionette, ApiHelper, SingleTrackPageView) {
 
     var GosuApp = namespace.app;
 

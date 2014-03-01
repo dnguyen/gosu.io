@@ -1,7 +1,6 @@
 define([
-    "underscore",
     "marionette"
-], function(_, Marionette) {
+], function(Marionette) {
 
     return {
         app : new Marionette.Application(),

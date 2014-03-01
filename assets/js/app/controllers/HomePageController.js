@@ -1,7 +1,5 @@
 define([
     "namespace",
-    "jquery",
-    "backbone",
     "marionette",
     "../views/TrackGroupCollectionView",
     "../views/side_modules/SOTWSideModuleView",
@@ -9,7 +7,7 @@ define([
     "../views/side_modules/ModuleListCompositeView",
     "../layouts/SideModulesLayout",
     "../layouts/MainPageLayout"
-], function(namespace, $, Backbone, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
+], function(namespace, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
     var GosuApp = namespace.app;
 

@@ -1,11 +1,8 @@
 define([
     "namespace",
-    "jquery",
-    "underscore",
-    "backbone",
     "marionette",
     "text!../../templates/SidebarTemplate.html"
-], function(namespace, $, _, Backbone, Marionette, SidebarTemplate) {
+], function(namespace, Marionette, SidebarTemplate) {
 
     var GosuApp = namespace.app;
 

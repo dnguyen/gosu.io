@@ -1,11 +1,9 @@
 define([
-    "underscore",
-    "backbone",
     "marionette",
     "views/TrackGroupItemView",
     "text!../templates/TrackGroupCollection_4_Template.html",
     "text!../templates/TrackGroupCollection_6_Template.html"
-], function(_, Backbone, Marionette, TrackGroupItemView, TrackGroupCollection_4_Template, TrackGroupCollection_6_Template) {
+], function(Marionette, TrackGroupItemView, TrackGroupCollection_4_Template, TrackGroupCollection_6_Template) {
 
     var TrackGroupCollectionView = Backbone.Marionette.CompositeView.extend({
         tagName: "div",

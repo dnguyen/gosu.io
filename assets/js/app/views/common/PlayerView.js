@@ -1,14 +1,11 @@
 /*global define,document,window,console,YT,localStorage,clearInterval,setInterval*/
 define([
     "namespace",
-    "jquery",
-    "underscore",
-    "backbone",
     "marionette",
     "jqueryui",
     "../PlayerQueueItemView",
     "text!../../templates/PlayerTemplate.html"
-], function (namespace, $, _, Backbone, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
+], function (namespace, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
     "use strict";
 
     var GosuApp = namespace.app;

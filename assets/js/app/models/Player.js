@@ -1,21 +1,19 @@
 define([
     "namespace",
-    "underscore",
-    "backbone",
     "marionette"
-], function(namespace, _, Backbone, Marionette) {
-    
+], function(namespace, Marionette) {
+
     var PlayerModel = Backbone.Model.extend({
-        
+
         defaults: {
             currentTrackIndex: 0,
             playing: false,
             tracks: new Backbone.Collection()
         },
-        
+
         initialize: function() {
         },
-        
+
         /*
             Loads model from localStorage
         */
@@ -36,16 +34,16 @@ define([
                 that.get("tracks").add(trackModel);
             });
         },
-        
+
         /*
             Saves model to localStorage
         */
         saveLocal: function() {
             localStorage.setItem("playerData", JSON.stringify(this));
         }
-        
+
     });
-    
+
     return PlayerModel;
-    
+
 });

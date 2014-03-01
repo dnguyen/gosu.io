@@ -1,10 +1,8 @@
 define([
     "namespace",
-    "underscore",
-    "backbone",
     "marionette",
     "text!../templates/PlayerQueueItemTemplate.html"
-], function(namespace, _, Backbone, Marionette, PlayerQueueItemTemplate) {
+], function(namespace, Marionette, PlayerQueueItemTemplate) {
 
     var GosuApp = namespace.app;
 
