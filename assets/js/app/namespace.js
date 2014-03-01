@@ -10,7 +10,8 @@ define([
         },
 
         config : {
-            serverUrl: 'http://localhost/gosukpop-api/public/'
+            serverUrl: 'http://localhost/gosukpop-api/public/',
+            title: 'gosu.io'
         },
 
         /**

@@ -21,12 +21,17 @@ define([
 
     SingleTrackPageController.prototype.render = function() {
         var that = this;
+        GosuApp.vent.trigger("StartLoadingNewPage", {
+            page : "tracks"
+        });
 
         $.when(ApiHelper.request(
             "GET",
             "tracks/" +  that.model.get("trackId"),
             {}
         )).then(function(data) {
+            GosuApp.vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
+            GosuApp.vent.trigger("FinishedLoadingNewPage");
             that.model.set("trackData", data);
             var singleTrackPageView = new SingleTrackPageView({ model : that.model });
             GosuApp.content.show(singleTrackPageView);

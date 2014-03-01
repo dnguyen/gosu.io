@@ -18,6 +18,8 @@ define([
     gosuApp.GlobalCache = new Backbone.Model();
 
     gosuApp.vent.on("StartLoadingNewPage", function(data) {
+        gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
+
         // Add blue indicator to sidebar link for current page
         $(".navigation").children().removeClass("selected");
         $("#" + data.page +"-nav-item").addClass("selected");
@@ -32,6 +34,11 @@ define([
         gosuApp.loadingIconView.close();
     });
 
+    // Updates document title
+    gosuApp.vent.on("UpdateTitle", function(title) {
+        document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
+    });
+
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
             $(".AddToMenu").remove();
@@ -43,6 +50,7 @@ define([
                 "top" : ($(data.event.target).offset().top - 15) + "px"
             });
 
+            // Close the menu if we click anywhere outside of the AddToMenu element.
             $(document).click(function(e) {
                 if ($(e.target).closest('.AddToMenu').length == 0) {
                     $(".AddToMenu").remove();
