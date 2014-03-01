@@ -66,11 +66,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 18, ../sass/partials/_colors.scss */
-.grey {
-  background: #f6f6f6;
-}
-
 /* line 1, ../sass/layout/_base.scss */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -794,6 +789,18 @@ a:hover {
   float: right;
 }
 
+/*
+@media screen and (min-width: 1600px) {
+	.item-group .item {
+    	width: 8%;
+	}
+}
+
+@media screen and (min-width: 2100px) {
+	.item-group .item {
+		width: 5%;
+	}
+}*/
 /* line 1, ../sass/layout/_footer.scss */
 .footer {
   border-top: 1px solid #d7d7d7;
@@ -879,61 +886,6 @@ a:hover {
 /* line 86, ../sass/layout/_footer.scss */
 .player-container .queueItem .Index {
   display: none;
-}
-
-/* line 1, ../sass/modules/content_side_modules/_content_side_module.scss */
-.side-module {
-  background: #f6f6f6;
-  padding: 10px;
-}
-/* line 5, ../sass/modules/content_side_modules/_content_side_module.scss */
-.side-module .module-item {
-  background: #FFF;
-  margin: 0 0 10px 0;
-  padding: 10px;
-  overflow: hidden;
-  clear: both;
-  border-bottom: 1px solid #d1d1d1;
-}
-/* line 13, ../sass/modules/content_side_modules/_content_side_module.scss */
-.side-module .module-item:last-child {
-  margin: 0;
-}
-
-/* line 2, ../sass/modules/content_side_modules/_radio.scss */
-#radio-side-module .radio-thumb {
-  float: left;
-}
-/* line 6, ../sass/modules/content_side_modules/_radio.scss */
-#radio-side-module .radio-meta {
-  float: left;
-  margin: 10px 0 0 12px;
-}
-/* line 11, ../sass/modules/content_side_modules/_radio.scss */
-#radio-side-module .radio-meta .radio-title {
-  margin: 0 0 3px 0;
-}
-/* line 12, ../sass/modules/content_side_modules/_radio.scss */
-#radio-side-module .radio-meta .radio-title, #radio-side-module .radio-meta .radio-artist {
-  display: block;
-}
-
-/* line 3, ../sass/modules/content_side_modules/_coming_soon.scss */
-#coming-soon-side-module .meta {
-  float: left;
-}
-/* line 6, ../sass/modules/content_side_modules/_coming_soon.scss */
-#coming-soon-side-module .meta .track-title {
-  margin: 0 0 3px 0;
-}
-/* line 7, ../sass/modules/content_side_modules/_coming_soon.scss */
-#coming-soon-side-module .meta .track-title, #coming-soon-side-module .meta .track-artist {
-  display: block;
-}
-/* line 12, ../sass/modules/content_side_modules/_coming_soon.scss */
-#coming-soon-side-module .track-date {
-  float: right;
-  margin: 8px 0 0 0;
 }
 
 /* line 2, ../sass/modules/content_main_modules/_options_bar.scss */
