@@ -1,18 +1,25 @@
 define([
     "namespace",
     "marionette",
+    "./CreatePlaylistModal",
     "text!../../templates/SidebarTemplate.html"
-], function(namespace, Marionette, SidebarTemplate) {
+], function(namespace, Marionette, CreatePlaylistModal, SidebarTemplate) {
 
     var GosuApp = namespace.app;
 
     var SidebarView = Backbone.Marionette.ItemView.extend({
         template: _.template(SidebarTemplate),
+        events: {
+            'click .add' : 'addNewPlaylist'
+        },
 
         initialize : function() {
         },
 
-        onRender : function() {
+        addNewPlaylist : function(e) {
+            console.log('add new playlist');
+            var newModal = new CreatePlaylistModal();
+            $("body").append(newModal.render().el);
         }
 
     });

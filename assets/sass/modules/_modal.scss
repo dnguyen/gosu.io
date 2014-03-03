@@ -1,0 +1,18 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 5000;
+    height: 100%;
+
+    .modal {
+    	position: relative;
+    	left: 40%;
+    	top: 15%;
+    	width: 600px;
+    	@include containerStyling();
+    	@include containerHeading();
+    }
+}
