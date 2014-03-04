@@ -81,7 +81,8 @@ define([
         header : "#header",
         sidebar : "#sidebar",
         content : "#content",
-        player : "#player"
+        player : "#player",
+        modals : ".modals"
     });
 
     gosuApp.on("initialize:after", function() {

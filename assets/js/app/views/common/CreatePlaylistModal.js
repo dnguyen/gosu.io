@@ -9,20 +9,26 @@ define([
 		className: "modal-container",
 		template: _.template(CreatePlaylistModalTemplate),
 		events: {
-			'blur .modal' : 'clicked',
 			'click .close' : 'close'
 		},
 
 		initialize: function(options) {
-			console.log('initialize createplaylistmodal');
-            var that = this;
-		},
-
-		clicked: function() {
-			console.log('blue modal');
 		},
 
 		onShow: function() {
+            var that = this;
+
+            // Clicking document fires after clicking the add button...so introduce a slight delay before
+            // assigning the click event. temporary fix?
+            setTimeout(function() {
+                // Close the menu if we click anywhere outside of the modal element.
+                $(document).click(function(e) {
+                    if ($(e.target).closest('.modal').length == 0) {
+                        that.close();
+                        $(document).unbind("click");
+                    }
+                });
+            }, 250);
 		}
 
 	});

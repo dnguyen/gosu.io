@@ -19,7 +19,7 @@ define([
         addNewPlaylist : function(e) {
             console.log('add new playlist');
             var newModal = new CreatePlaylistModal();
-            $("body").append(newModal.render().el);
+            GosuApp.modals.show(newModal);
         }
 
     });
