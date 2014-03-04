@@ -23,7 +23,7 @@ define([
             setTimeout(function() {
                 // Close the menu if we click anywhere outside of the modal element.
                 $(document).click(function(e) {
-                    if ($(e.target).closest('.modal').length == 0) {
+                    if ($(e.target).closest('.small-modal').length == 0) {
                         that.close();
                         $(document).unbind("click");
                     }

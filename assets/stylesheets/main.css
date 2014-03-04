@@ -122,7 +122,7 @@ a:hover {
 }
 
 /* line 47, ../sass/layout/_base.scss */
-.push-left, .normal-container .heading .title, .small-centered-container .heading .title, .modal-container .modal .heading .title {
+.push-left, .normal-container .heading .title, .small-centered-container .heading .title, .modal-container .modal .heading .title, .modal-container .small-modal .heading .title {
   float: left;
 }
 
@@ -628,7 +628,7 @@ a:hover {
   		}*/
 }
 
-/* line 35, ../sass/modules/_containers.scss */
+/* line 36, ../sass/modules/_containers.scss */
 .normal-container, .normal-container.large-container, .small-centered-container {
   background: #f7f7f7;
   border: 1px solid #d7d7d7;
@@ -640,41 +640,42 @@ a:hover {
 }
 /* line 17, ../sass/modules/_containers.scss */
 .normal-container .heading, .small-centered-container .heading {
-  background: #FFF;
   width: 100%;
   height: 38px;
-  font-size: 1.25em;
+  background: #FFF;
   border-bottom: 1px solid #d7d7d7;
+  font-size: 1.25em;
+  font-weight: bold;
 }
-/* line 24, ../sass/modules/_containers.scss */
+/* line 25, ../sass/modules/_containers.scss */
 .normal-container .heading .title, .small-centered-container .heading .title {
   margin: 10px;
 }
-/* line 29, ../sass/modules/_containers.scss */
+/* line 30, ../sass/modules/_containers.scss */
 .normal-container .heading .push-right, .small-centered-container .heading .push-right {
   margin: 6px 10px 8px 0;
 }
-/* line 41, ../sass/modules/_containers.scss */
+/* line 42, ../sass/modules/_containers.scss */
 .normal-container .content, .small-centered-container .content {
   padding: 15px 10px 15px 10px;
 }
 
-/* line 46, ../sass/modules/_containers.scss */
+/* line 47, ../sass/modules/_containers.scss */
 .large-container.normal-container, .large-container.small-centered-container {
   max-width: 960px;
 }
 
-/* line 51, ../sass/modules/_containers.scss */
+/* line 52, ../sass/modules/_containers.scss */
 .centered-container {
   margin: 0 auto 15px auto;
 }
 
-/* line 55, ../sass/modules/_containers.scss */
+/* line 56, ../sass/modules/_containers.scss */
 .small-centered-container {
   margin: 35px auto 0 auto;
   max-width: 300px;
 }
-/* line 61, ../sass/modules/_containers.scss */
+/* line 62, ../sass/modules/_containers.scss */
 .small-centered-container .content input {
   width: 100%;
 }
@@ -815,7 +816,7 @@ a:hover {
 		width: 5%;
 	}
 }*/
-/* line 1, ../sass/modules/_modal.scss */
+/* line 18, ../sass/modules/_modal.scss */
 .modal-container {
   position: fixed;
   top: 0;
@@ -824,12 +825,13 @@ a:hover {
   right: 0;
   z-index: 5000;
   height: 100%;
+  background: rgba(0, 0, 0, 0.3);
 }
-/* line 10, ../sass/modules/_modal.scss */
+/* line 28, ../sass/modules/_modal.scss */
 .modal-container .modal {
   position: relative;
   left: 40%;
-  top: 15%;
+  top: 20%;
   width: 600px;
   background: #f7f7f7;
   border: 1px solid #d7d7d7;
@@ -840,19 +842,70 @@ a:hover {
 }
 /* line 17, ../sass/modules/_containers.scss */
 .modal-container .modal .heading {
-  background: #FFF;
   width: 100%;
   height: 38px;
-  font-size: 1.25em;
+  background: #FFF;
   border-bottom: 1px solid #d7d7d7;
+  font-size: 1.25em;
+  font-weight: bold;
 }
-/* line 24, ../sass/modules/_containers.scss */
+/* line 25, ../sass/modules/_containers.scss */
 .modal-container .modal .heading .title {
   margin: 10px;
 }
-/* line 29, ../sass/modules/_containers.scss */
+/* line 30, ../sass/modules/_containers.scss */
 .modal-container .modal .heading .push-right {
   margin: 6px 10px 8px 0;
+}
+/* line 9, ../sass/modules/_modal.scss */
+.modal-container .modal .close {
+  cursor: pointer;
+}
+/* line 13, ../sass/modules/_modal.scss */
+.modal-container .modal .content {
+  padding: 15px 10px 15px 10px;
+}
+/* line 32, ../sass/modules/_modal.scss */
+.modal-container .small-modal {
+  position: relative;
+  left: 40%;
+  top: 20%;
+  width: 300px;
+  background: #f7f7f7;
+  border: 1px solid #d7d7d7;
+  border-radius: .25em;
+  -webkit-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
+}
+/* line 17, ../sass/modules/_containers.scss */
+.modal-container .small-modal .heading {
+  width: 100%;
+  height: 38px;
+  background: #FFF;
+  border-bottom: 1px solid #d7d7d7;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+/* line 25, ../sass/modules/_containers.scss */
+.modal-container .small-modal .heading .title {
+  margin: 10px;
+}
+/* line 30, ../sass/modules/_containers.scss */
+.modal-container .small-modal .heading .push-right {
+  margin: 6px 10px 8px 0;
+}
+/* line 9, ../sass/modules/_modal.scss */
+.modal-container .small-modal .close {
+  cursor: pointer;
+}
+/* line 13, ../sass/modules/_modal.scss */
+.modal-container .small-modal .content {
+  padding: 15px 10px 15px 10px;
+}
+/* line 36, ../sass/modules/_modal.scss */
+.modal-container .small-modal .content input[type=text] {
+  width: 100%;
 }
 
 /* line 1, ../sass/layout/_footer.scss */
