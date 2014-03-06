@@ -24,6 +24,8 @@ define([
                 uploaded: this.model.get("uploaded"),
                 viewCount: this.model.get("viewCount")
             }));
+
+            this.close();
         }
 
     });
