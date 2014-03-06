@@ -41,6 +41,7 @@
 
 	.content {
 		padding: 15px 10px 15px 10px;
+		@include clearfix;
 	}
 }
 
@@ -59,6 +60,8 @@
 	@include fixedWidthContainer(300px);
 
 	.content {
+		@include clearfix;
+
 		input {
 			width: 100%;
 		}
