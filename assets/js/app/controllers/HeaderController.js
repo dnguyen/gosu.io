@@ -12,9 +12,7 @@ define([
      * Get's login status from API
      */
     function getLoginStatus(model) {
-        model.url = config.serverUrl + "session";
-
-        return model.fetch();
+        return ApiHelper.request("GET", "auth", { token: localStorage.getItem("token") });
     }
 
     var HeaderController = function(options) {
@@ -32,12 +30,25 @@ define([
         $.when(
             getLoginStatus(that.loginModel)
         ).then(function(data) {
+            that.loginModel.set({
+                "loggedin" : true,
+                "id" : data.id,
+                "username" : data.username,
+                "token" : data.token
+            });
+            GosuApp.header.show(new HeaderView({ model : that.loginModel }));
+        })
+        .fail(function(data) {
+            that.loginModel.set({
+                "loggedin" : false
+            });
             GosuApp.header.show(new HeaderView({ model : that.loginModel }));
         });
     };
 
     HeaderController.prototype.logout = function() {
-        $.when(ApiHelper.request("DELETE", "auth"), { }).then(function(data) {
+        $.when(ApiHelper.request("DELETE", "auth", { "token" : localStorage.getItem("token") })).then(function(data) {
+            localStorage.setItem("token", "");
             window.location.reload();
         });
     };

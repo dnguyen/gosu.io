@@ -59,26 +59,23 @@ define([
         if (!errors) {
             $.when(
                 ApiHelper.request(
-                    "GET",
+                    "POST",
                     "auth",
                     {
                         username : data.username,
                         password : data.password
                     })
             ).then(function(data) {
-                // If the status is true, login was successful. Redirect user to home page.
-                if (data.status) {
-                    // TODO: CHange so we don't have to reload the entire page...
-                    //       Should just re render header view and update user model
-                    window.location = "#/";
-                    window.location.reload();
-                }
-                // Status is false, so login was unsuccesful. Display error message.
-                else {
-                    $("#login-form").addClass("error");
-                    $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
-                    $('.uk-form-help-block').remove();
-                }
+                localStorage.setItem("token", data.token);
+                // TODO: CHange so we don't have to reload the entire page...
+                //       Should just re render header view and update user model
+                window.location = "#/";
+                window.location.reload();
+            })
+            .fail(function(data) {
+                $("#login-form").addClass("error");
+                $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
+                $('.uk-form-help-block').remove();
             });
         }
 
