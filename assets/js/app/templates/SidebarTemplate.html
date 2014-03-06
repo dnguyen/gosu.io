@@ -9,20 +9,22 @@
     <li id="playlists-nav-item"><a href="#/playlists">Playlists</a></li>
 </ul>
 
-<div class="heading">
-    <h3>Library</h3>
-</div>
-<ul class="navigation">
-    <li><a href="#">Favorites</a></li>
-    <li class="options">
-        <a class="text push-left" href="#">Playlists</a>
-        <div class="option push-right">
-            <button class="add uk-button uk-button-mini">+</button>
-        </div>
-    </li>
-    <ul class="playlists">
-        <li><a href="#">Girls' Generation</a></li>
-        <li><a href="#">Big Bang</a></li>
-        <li><a href="#">IU</a></li>
+<% if (client.loggedin) { %>
+    <div class="heading">
+        <h3>Library</h3>
+    </div>
+    <ul class="navigation">
+        <li><a href="#">Favorites</a></li>
+        <li class="options">
+            <a class="text push-left" href="#">Playlists</a>
+            <div class="option push-right">
+                <button class="add uk-button uk-button-mini">+</button>
+            </div>
+        </li>
+        <ul class="playlists">
+            <li><a href="#">Girls' Generation</a></li>
+            <li><a href="#">Big Bang</a></li>
+            <li><a href="#">IU</a></li>
+        </ul>
     </ul>
-</ul>
+<% } %>

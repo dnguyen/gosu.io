@@ -14,6 +14,9 @@ define([
         },
 
         initialize : function() {
+            console.log("initialize sidebar view");
+            this.model = new Backbone.Model();
+            this.model.set("client", GosuApp.Client.toJSON());
         },
 
         addNewPlaylist : function(e) {

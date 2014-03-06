@@ -2,13 +2,14 @@
 define([
     "marionette",
     "namespace",
+    "models/Client",
     "controllers/HeaderController",
     "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function(Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -16,6 +17,7 @@ define([
     // Cache any data that was fetched from the server.
     // TODO: evict caches that haven't been accessed recently.
     gosuApp.GlobalCache = new Backbone.Model();
+    gosuApp.Client = new ClientModel();
 
     gosuApp.vent.on("StartLoadingNewPage", function(data) {
         gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
@@ -90,24 +92,48 @@ define([
         if (Backbone.history) {
             Backbone.history.start();
         }
+
+        var headerController = new HeaderController();
+        var playerController = new PlayerController();
+
+        // Verify authentication before rendering header, sidebar, and player
+        $.when(
+            gosuApp.Client.fetch({
+                data: $.param({ token: localStorage.getItem("token") })
+            })
+        ).then(function(data) {
+            gosuApp.Client.set({
+                "loggedin" : true,
+                "id" : data.id,
+                "username" : data.username,
+                "token" : data.token
+            });
+
+            headerController.render();
+            playerController.render();
+            gosuApp.sidebar.show(new SidebarView());
+
+        })
+        .fail(function(data) {
+            gosuApp.Client.set({
+                "loggedin" : false
+            });
+
+            headerController.render();
+            playerController.render();
+            gosuApp.sidebar.show(new SidebarView());
+        });
     });
 
     gosuApp.addInitializer(function() {
         console.log("initialize");
 
-        var headerController = new HeaderController();
-        headerController.render();
-
-        var playerController = new PlayerController();
-        playerController.render();
-
-        gosuApp.sidebar.show(new SidebarView());
-
-        gosuApp.contentLayout = new MainPageLayout();
-
         var mainRouter = new gosuApp.Router({
             controller : MainController
         });
+
+        gosuApp.contentLayout = new MainPageLayout();
+
 
     });
 
