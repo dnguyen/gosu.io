@@ -1,7 +1,6 @@
 define([
-    "underscore",
     "marionette"
-], function(_, Marionette) {
+], function(Marionette) {
 
     return {
         app : new Marionette.Application(),
@@ -11,7 +10,8 @@ define([
         },
 
         config : {
-            serverUrl: 'http://api.gosukpop.com/'
+            serverUrl: 'http://api.gosukpop.com/',
+            title: 'yourkpop'
         },
 
         /**

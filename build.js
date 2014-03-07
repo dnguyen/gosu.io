@@ -1,7 +1,7 @@
 ({
     baseUrl: "./assets/js/app",
     name: "GosuApp",
-    out: "build/gosuapp.js",
+    out: "gosuapp.js",
 
     paths : {
         backbone : '../../../bower_components/backbone/backbone-min',

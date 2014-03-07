@@ -1,9 +1,7 @@
 define([
-    "underscore",
-    "backbone",
     "marionette",
     "text!../templates/MainPageLayoutTemplate.html"
-], function(_, Backbone, Marionette, MainPageLayoutTemplate) {
+], function(Marionette, MainPageLayoutTemplate) {
 
     var MainPageLayout = Backbone.Marionette.Layout.extend({
         template: _.template(MainPageLayoutTemplate),

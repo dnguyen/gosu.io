@@ -1,9 +1,7 @@
 define([
-    "underscore",
-    "backbone",
     "marionette",
     "text!../templates/TracksPageLayoutTemplate.html"
-], function(_, Backbone, Marionette, TracksPageLayoutTemplate) {
+], function(Marionette, TracksPageLayoutTemplate) {
 
     var TracksPageLayout = Backbone.Marionette.Layout.extend({
         template : _.template(TracksPageLayoutTemplate),

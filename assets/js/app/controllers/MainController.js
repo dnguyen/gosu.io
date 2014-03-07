@@ -4,8 +4,6 @@
  *******************************************/
 define([
     "namespace",
-    "jquery",
-    "backbone",
     "marionette",
     "helpers/ApiHelper",
     "controllers/HomePageController",
@@ -13,7 +11,7 @@ define([
     "controllers/ArtistsPageController",
     "controllers/LoginPageController",
     "controllers/RegisterPageController"
-], function(namespace, $, Backbone, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
+], function(namespace, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
     var GosuApp = namespace.app,
         URLHelper = namespace.URLHelper;

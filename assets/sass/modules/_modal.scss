@@ -1,0 +1,41 @@
+@mixin modal($width) {
+    position: relative;
+    left: 40%;
+    top: 20%;
+    width: $width;
+    @include containerStyling();
+    @include containerHeading();
+
+    .close {
+        cursor: pointer;
+    }
+
+    .content {
+        padding: 15px 10px 15px 10px;
+    }
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 5000;
+    height: 100%;
+    background: rgba(0, 0, 0, .30);
+
+    .modal {
+        @include modal(600px);
+    }
+
+    .small-modal {
+        @include modal(300px);
+
+        .content {
+            input[type=text] {
+                width: 100%;
+            }
+        }
+    }
+}

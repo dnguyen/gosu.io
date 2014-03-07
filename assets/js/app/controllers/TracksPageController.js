@@ -1,11 +1,9 @@
 define([
     "namespace",
-    "jquery",
-    "backbone",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/TracksPageView"
-], function(namespace, $, Backbone, Marionette, ApiHelper, TracksPageView) {
+], function(namespace, Marionette, ApiHelper, TracksPageView) {
 
     var GosuApp = namespace.app;
 
@@ -61,7 +59,10 @@ define([
     TracksPageController.prototype.render = function(type) {
         var that = this;
 
-        GosuApp.vent.trigger("StartLoadingNewPage", { page : "tracks" });
+        GosuApp.vent.trigger("StartLoadingNewPage", {
+            title: "Tracks",
+            page : "tracks"
+        });
 
         $.when(that.getTrackCollection(type)).then(function(data) {
             that.model.get("tracksCollection").reset(data.tracks);

@@ -1,9 +1,7 @@
 define([
-    "underscore",
-    "backbone",
     "marionette",
     "text!../templates/MainPageSideModulesTemplate.html"
-], function(_, Backbone, Marionette, MainPageSideModulesTemplate) {
+], function(Marionette, MainPageSideModulesTemplate) {
 
     var SideModulesLayout = Backbone.Marionette.Layout.extend({
         template: _.template(MainPageSideModulesTemplate),

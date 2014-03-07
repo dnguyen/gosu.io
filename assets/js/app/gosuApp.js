@@ -1,16 +1,15 @@
 /*global define,document,console*/
 define([
-    "jquery",
-    "backbone",
     "marionette",
     "namespace",
+    "models/Client",
     "controllers/HeaderController",
     "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
     "views/common/LoadingIcon"
-], function($, Backbone, Marionette, namespace, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -18,8 +17,11 @@ define([
     // Cache any data that was fetched from the server.
     // TODO: evict caches that haven't been accessed recently.
     gosuApp.GlobalCache = new Backbone.Model();
+    gosuApp.Client = new ClientModel();
 
     gosuApp.vent.on("StartLoadingNewPage", function(data) {
+        gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
+
         // Add blue indicator to sidebar link for current page
         $(".navigation").children().removeClass("selected");
         $("#" + data.page +"-nav-item").addClass("selected");
@@ -34,6 +36,11 @@ define([
         gosuApp.loadingIconView.close();
     });
 
+    // Updates document title
+    gosuApp.vent.on("UpdateTitle", function(title) {
+        document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
+    });
+
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
         var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
             $(".AddToMenu").remove();
@@ -45,6 +52,7 @@ define([
                 "top" : ($(data.event.target).offset().top - 15) + "px"
             });
 
+            // Close the menu if we click anywhere outside of the AddToMenu element.
             $(document).click(function(e) {
                 if ($(e.target).closest('.AddToMenu').length == 0) {
                     $(".AddToMenu").remove();
@@ -75,7 +83,8 @@ define([
         header : "#header",
         sidebar : "#sidebar",
         content : "#content",
-        player : "#player"
+        player : "#player",
+        modals : ".modals"
     });
 
     gosuApp.on("initialize:after", function() {
@@ -83,24 +92,48 @@ define([
         if (Backbone.history) {
             Backbone.history.start();
         }
+
+        var headerController = new HeaderController();
+        var playerController = new PlayerController();
+
+        // Verify authentication before rendering header, sidebar, and player
+        $.when(
+            gosuApp.Client.fetch({
+                data: $.param({ token: localStorage.getItem("token") })
+            })
+        ).then(function(data) {
+            gosuApp.Client.set({
+                "loggedin" : true,
+                "id" : data.id,
+                "username" : data.username,
+                "token" : data.token
+            });
+
+            headerController.render();
+            playerController.render();
+            gosuApp.sidebar.show(new SidebarView());
+
+        })
+        .fail(function(data) {
+            gosuApp.Client.set({
+                "loggedin" : false
+            });
+
+            headerController.render();
+            playerController.render();
+            gosuApp.sidebar.show(new SidebarView());
+        });
     });
 
     gosuApp.addInitializer(function() {
         console.log("initialize");
 
-        var headerController = new HeaderController();
-        headerController.render();
-
-        var playerController = new PlayerController();
-        playerController.render();
-
-        gosuApp.sidebar.show(new SidebarView());
-
-        gosuApp.contentLayout = new MainPageLayout();
-
         var mainRouter = new gosuApp.Router({
             controller : MainController
         });
+
+        gosuApp.contentLayout = new MainPageLayout();
+
 
     });
 

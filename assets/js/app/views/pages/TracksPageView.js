@@ -1,12 +1,9 @@
 define([
     "namespace",
-    "jquery",
-    "underscore",
-    "backbone",
     "marionette",
     "../TrackGroupCollectionView",
     "text!../../templates/TracksPageLayoutTemplate.html"
-], function(namespace, $, _, Backbone, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
+], function(namespace, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var GosuApp = namespace.app;
 
