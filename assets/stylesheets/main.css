@@ -242,14 +242,14 @@ a:hover {
 }
 /* line 11, ../sass/layout/_sidebar.scss */
 .sidebar .heading {
-  background: #eeeeee;
+  background: #3399ff;
   height: 50px;
   padding: 15px;
 }
 /* line 16, ../sass/layout/_sidebar.scss */
 .sidebar .heading h3 {
   font-size: 1.125em;
-  color: #515151;
+  color: #FFF;
 }
 /* line 24, ../sass/layout/_sidebar.scss */
 .sidebar .navigation li {
