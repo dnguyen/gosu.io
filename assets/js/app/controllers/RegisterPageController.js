@@ -31,16 +31,15 @@ define([
                     confirm_password : data.confirmPassword
                 })
             ).then(function(data) {
-                // If registration was successfull, redirect to home page
-                if (data.status) {
-                    window.location = "#/";
-                    window.location.reload();
-                }
-                // Else, display error messages recieved
-                else {
-                    $("#login-form").addClass("error");
-                    $("#errors").prepend('<div id="error-segment" class="ui red segment"><p>' + data.message + '</p></div>');
-                }
+                console.log(data);
+                localStorage.setItem("token", data.token);
+                window.location = "#/";
+                window.location.reload();
+            })
+            .fail(function(data) {
+                console.log(data);
+                $("#login-form").addClass("error");
+                $("#errors").prepend('<div id="error-segment" class="ui red segment"><p>' + data.responseJSON.message + '</p></div>');
             });
         }
     };
