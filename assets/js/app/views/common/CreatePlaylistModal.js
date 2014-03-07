@@ -1,25 +1,25 @@
 define([
-	'namespace',
-	'marionette',
+    'namespace',
+    'marionette',
     "../../helpers/ApiHelper",
-	'text!../../templates/CreatePlaylistModal.html'
+    'text!../../templates/CreatePlaylistModal.html'
 ], function(namespace, Marionette, Api, CreatePlaylistModalTemplate) {
 
     var GosuApp = namespace.app;
 
-	var CreatePlaylistModal = Marionette.ItemView.extend({
+    var CreatePlaylistModal = Marionette.ItemView.extend({
 
-		className: "modal-container",
-		template: _.template(CreatePlaylistModalTemplate),
-		events: {
+        className: "modal-container",
+        template: _.template(CreatePlaylistModalTemplate),
+        events: {
             "click .create" : "create",
-			"click .close" : "close"
-		},
+            "click .close" : "close"
+        },
 
-		initialize: function(options) {
-		},
+        initialize: function(options) {
+        },
 
-		onShow: function() {
+        onShow: function() {
             var that = this;
 
             // Clicking document fires after clicking the add button...so add a slight delay before
@@ -33,7 +33,7 @@ define([
                     }
                 });
             }, 250);
-		},
+        },
 
         create: function(e) {
             var that = this;
@@ -51,8 +51,8 @@ define([
             });
         }
 
-	});
+    });
 
-	return CreatePlaylistModal;
+    return CreatePlaylistModal;
 
 });
