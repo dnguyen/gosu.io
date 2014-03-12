@@ -28,7 +28,8 @@ define([
                 {
                     username: data.username,
                     password : data.password,
-                    confirm_password : data.confirmPassword
+                    confirm_password : data.confirmPassword,
+                    email : data.email
                 })
             ).then(function(data) {
                 console.log(data);

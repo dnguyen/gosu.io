@@ -20,6 +20,7 @@ define([
                 {
                     username : $("#username").val(),
                     password : $("#password").val(),
+                    email : $("#email").val(),
                     confirmPassword : $("#confirm-password").val()
                 }
             );
