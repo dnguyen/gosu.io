@@ -10,7 +10,7 @@ define([
         },
 
         config : {
-            serverUrl: 'http://localhost/gosukpop-api/public/',
+            serverUrl: 'http://gosukpop.api/',
             title: 'yourkpop'
         },
 
