@@ -41,6 +41,7 @@
 
 	.content {
 		padding: 15px 10px 15px 10px;
+		clear: both;
 		@include clearfix;
 	}
 }

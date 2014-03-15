@@ -658,31 +658,32 @@ a:hover {
 /* line 42, ../sass/modules/_containers.scss */
 .normal-container .content, .small-centered-container .content {
   padding: 15px 10px 15px 10px;
+  clear: both;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 48, ../sass/modules/_containers.scss */
+/* line 49, ../sass/modules/_containers.scss */
 .large-container.normal-container, .large-container.small-centered-container {
   max-width: 960px;
 }
 
-/* line 53, ../sass/modules/_containers.scss */
+/* line 54, ../sass/modules/_containers.scss */
 .centered-container {
   margin: 0 auto 15px auto;
 }
 
-/* line 57, ../sass/modules/_containers.scss */
+/* line 58, ../sass/modules/_containers.scss */
 .small-centered-container {
   margin: 35px auto 0 auto;
   max-width: 300px;
 }
-/* line 62, ../sass/modules/_containers.scss */
+/* line 63, ../sass/modules/_containers.scss */
 .small-centered-container .content {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 65, ../sass/modules/_containers.scss */
+/* line 66, ../sass/modules/_containers.scss */
 .small-centered-container .content input {
   width: 100%;
 }
@@ -915,24 +916,38 @@ a:hover {
   width: 100%;
 }
 
-/* line 2, ../sass/modules/_voting.scss */
+/* line 1, ../sass/modules/_voting.scss */
+.vote {
+  display: inline-block;
+  margin: 0 0 5px 0;
+}
+/* line 5, ../sass/modules/_voting.scss */
 .vote a {
   cursor: pointer;
 }
-/* line 6, ../sass/modules/_voting.scss */
+/* line 9, ../sass/modules/_voting.scss */
 .vote .like, .vote .dislike {
   float: left;
-  margin: 0 10px 0 0;
 }
-
 /* line 13, ../sass/modules/_voting.scss */
-.vote.liked .thumbs-like {
-  color: #3399ff;
+.vote .dislike {
+  margin: 0 0 0 10px;
 }
 
 /* line 19, ../sass/modules/_voting.scss */
-.vote.disliked .thumbs-dislike {
+.vote.liked .thumbs-like, .stats .thumbs-like {
+  color: #3399ff;
+}
+
+/* line 25, ../sass/modules/_voting.scss */
+.vote.disliked .thumbs-dislike, .stats .thumbs-dislike {
   color: #ff3333;
+}
+
+/* line 30, ../sass/modules/_voting.scss */
+.likes.uk-badge, .dislikes.uk-badge {
+  background: #EEE;
+  color: #515151;
 }
 
 /* line 1, ../sass/layout/_footer.scss */

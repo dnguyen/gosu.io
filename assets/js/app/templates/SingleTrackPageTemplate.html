@@ -16,12 +16,23 @@
 	</div>
 
 	<div class="content">
-		<div class="vote">
-			<div class="like">
-				<a class="uk-button" title="Like"><i class="thumbs-like uk-icon-thumbs-up"></i> Like</a>
+		<div class="push-right">
+			<div class="vote">
+				<div class="like">
+					<a class="uk-button" title="Like"><i class="thumbs-like uk-icon-thumbs-up"></i> Like</a>
+				</div>
+				<div class="dislike">
+					<a class="uk-button" title="Dislike"><i class="thumbs-dislike uk-icon-thumbs-down"></i> Dislike</a>
+				</div>
 			</div>
-			<div class="dislike">
-				<a class="uk-button" title="Dislike"><i class="thumbs-dislike uk-icon-thumbs-down"></i> Dislike</a>
+
+			<div class="stats">
+				<div class="likes uk-badge">
+					<i class="thumbs-like uk-icon-thumbs-up"></i> <%= trackData.stats.likes %>
+				</div>
+				<div class="dislikes uk-badge">
+					<i class="thumbs-dislike uk-icon-thumbs-down"></i> <%= trackData.stats.dislikes %>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,22 +1,33 @@
 .vote {
+    display: inline-block;
+    margin: 0 0 5px 0;
+
     a {
         cursor: pointer;
     }
 
     .like, .dislike {
         float: left;
-        margin: 0 10px 0 0;
+    }
+
+    .dislike {
+        margin: 0 0 0 10px;
     }
 }
 
-.vote.liked {
+.vote.liked, .stats {
     .thumbs-like {
         color: $base-link-hover;
     }
 }
 
-.vote.disliked {
+.vote.disliked, .stats {
     .thumbs-dislike {
         color: $base-red;
     }
+}
+
+.likes.uk-badge, .dislikes.uk-badge {
+    background: #EEE;
+    color: $base-font-color;
 }

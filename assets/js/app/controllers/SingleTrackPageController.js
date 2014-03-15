@@ -47,6 +47,7 @@ define([
     SingleTrackPageController.prototype.vote = function(data) {
         var that = this;
         var voteEl = $(".vote");
+
         // Update colors of icons based on vote.
         //
         // If user selects same vote, reset vote to neutral
