@@ -33,8 +33,8 @@ define([
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.request("GET", "MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.request("GET", "NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
+                ApiHelper.request("GET", "tracks/filter", { sort: "viewCount", count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.request("GET", "tracks/filter", { sort: "uploaded", count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
                 ApiHelper.request("GET", "ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.

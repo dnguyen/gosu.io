@@ -1,0 +1,22 @@
+.vote {
+    a {
+        cursor: pointer;
+    }
+
+    .like, .dislike {
+        float: left;
+        margin: 0 10px 0 0;
+    }
+}
+
+.vote.liked {
+    .thumbs-like {
+        color: $base-link-hover;
+    }
+}
+
+.vote.disliked {
+    .thumbs-dislike {
+        color: $base-red;
+    }
+}

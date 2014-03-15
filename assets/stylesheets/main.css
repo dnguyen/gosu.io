@@ -915,6 +915,26 @@ a:hover {
   width: 100%;
 }
 
+/* line 2, ../sass/modules/_voting.scss */
+.vote a {
+  cursor: pointer;
+}
+/* line 6, ../sass/modules/_voting.scss */
+.vote .like, .vote .dislike {
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+/* line 13, ../sass/modules/_voting.scss */
+.vote.liked .thumbs-like {
+  color: #3399ff;
+}
+
+/* line 19, ../sass/modules/_voting.scss */
+.vote.disliked .thumbs-dislike {
+  color: #ff3333;
+}
+
 /* line 1, ../sass/layout/_footer.scss */
 .footer {
   border-top: 1px solid #d7d7d7;

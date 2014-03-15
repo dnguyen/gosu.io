@@ -28,13 +28,60 @@ define([
         $.when(ApiHelper.request(
             "GET",
             "tracks/" +  that.model.get("trackId"),
-            {}
+            {
+                token : localStorage.getItem("token")
+            }
         )).then(function(data) {
             GosuApp.vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
             GosuApp.vent.trigger("FinishedLoadingNewPage");
+
             that.model.set("trackData", data);
+
             var singleTrackPageView = new SingleTrackPageView({ model : that.model });
+            singleTrackPageView.on('vote', that.vote);
+
             GosuApp.content.show(singleTrackPageView);
+        });
+    };
+
+    SingleTrackPageController.prototype.vote = function(data) {
+        var that = this;
+        var voteEl = $(".vote");
+        // Update colors of icons based on vote.
+        //
+        // If user selects same vote, reset vote to neutral
+        if ((data.vote === 1 && voteEl.hasClass("liked")) || (data.vote === -1 && voteEl.hasClass("disliked"))) {
+            voteEl.removeClass("liked");
+            voteEl.removeClass("disliked");
+            voteEl.addClass("neutral");
+        }
+        // If user chooses like, but vote is currently disliked or neutral
+        else if (data.vote === 1 && (voteEl.hasClass("disliked") || voteEl.hasClass("neutral"))) {
+            voteEl.removeClass("neutral");
+            voteEl.removeClass("disliked");
+            voteEl.addClass("liked");
+        }
+        // If user chooses dislike, but vote is currently liked or neutral
+        else if (data.vote === -1 && (voteEl.hasClass("liked") || voteEl.hasClass("neutral"))) {
+            voteEl.removeClass("neutral");
+            voteEl.removeClass("liked");
+            voteEl.addClass("disliked");
+        }
+
+        $.when(ApiHelper.request(
+            "POST",
+            "votes",
+            {
+                liked : data.vote,
+                trackid : that.model.get("trackId"),
+                token : localStorage.getItem("token")
+            }
+        )).then(function(data) {
+            console.log('like vote done');
+            console.log(data);
+        })
+        .fail(function(e) {
+            console.log('like vote failed');
         });
     };
 
