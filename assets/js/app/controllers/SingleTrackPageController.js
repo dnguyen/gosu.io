@@ -48,25 +48,31 @@ define([
         var that = this;
         var voteEl = $(".vote");
 
-        // Update colors of icons based on vote.
-        //
-        // If user selects same vote, reset vote to neutral
-        if ((data.vote === 1 && voteEl.hasClass("liked")) || (data.vote === -1 && voteEl.hasClass("disliked"))) {
-            voteEl.removeClass("liked");
-            voteEl.removeClass("disliked");
-            voteEl.addClass("neutral");
-        }
-        // If user chooses like, but vote is currently disliked or neutral
-        else if (data.vote === 1 && (voteEl.hasClass("disliked") || voteEl.hasClass("neutral"))) {
-            voteEl.removeClass("neutral");
-            voteEl.removeClass("disliked");
-            voteEl.addClass("liked");
-        }
-        // If user chooses dislike, but vote is currently liked or neutral
-        else if (data.vote === -1 && (voteEl.hasClass("liked") || voteEl.hasClass("neutral"))) {
-            voteEl.removeClass("neutral");
-            voteEl.removeClass("liked");
-            voteEl.addClass("disliked");
+        // Just do a basic auth check. Server will check auth when doing a POST vote anyways.
+        if (localStorage.getItem("token")) {
+            // Update colors of icons based on vote.
+            //
+            // If user selects same vote, reset vote to neutral
+            if ((data.vote === 1 && voteEl.hasClass("liked")) || (data.vote === -1 && voteEl.hasClass("disliked"))) {
+                voteEl.removeClass("liked");
+                voteEl.removeClass("disliked");
+                voteEl.addClass("neutral");
+            }
+            // If user chooses like, but vote is currently disliked or neutral
+            else if (data.vote === 1 && (voteEl.hasClass("disliked") || voteEl.hasClass("neutral"))) {
+                voteEl.removeClass("neutral");
+                voteEl.removeClass("disliked");
+                voteEl.addClass("liked");
+            }
+            // If user chooses dislike, but vote is currently liked or neutral
+            else if (data.vote === -1 && (voteEl.hasClass("liked") || voteEl.hasClass("neutral"))) {
+                voteEl.removeClass("neutral");
+                voteEl.removeClass("liked");
+                voteEl.addClass("disliked");
+            }
+        } else {
+            // If user isn't logged in, redirect to login.
+            window.location = "#/signin";
         }
 
         $.when(ApiHelper.request(
@@ -77,9 +83,9 @@ define([
                 trackid : that.model.get("trackId"),
                 token : localStorage.getItem("token")
             }
-        )).then(function(data) {
+        )).then(function(rtrdata) {
             console.log('like vote done');
-            console.log(data);
+            console.log(rtrdata);
         })
         .fail(function(e) {
             console.log('like vote failed');

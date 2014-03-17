@@ -13,7 +13,6 @@ define([
         },
 
         onShow : function() {
-            console.log(this.model.get('trackData'));
             if (this.model.get("trackData").liked === 1) {
                 $(".vote").addClass("liked");
             } else if (this.model.get("trackData").liked === -1) {

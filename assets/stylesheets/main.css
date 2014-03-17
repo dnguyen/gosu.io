@@ -746,7 +746,7 @@ a:hover {
 }
 /* line 58, ../sass/modules/_item-group.scss */
 .item-group .item .meta .caption, .item-group .small-item .meta .caption, .item-group .item .meta .sub-caption, .item-group .small-item .meta .sub-caption {
-  height: 15px;
+  height: 16px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -948,6 +948,7 @@ a:hover {
 .likes.uk-badge, .dislikes.uk-badge {
   background: #EEE;
   color: #515151;
+  text-shadow: none;
 }
 
 /* line 1, ../sass/layout/_footer.scss */
