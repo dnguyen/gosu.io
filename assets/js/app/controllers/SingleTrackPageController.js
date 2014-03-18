@@ -40,7 +40,7 @@ define([
             var newDate = new Date(Date.parse(data.uploaded));
             data.uploaded = moment(newDate.getTime()).format("MMM DD, YYYY")
 
-            that.model.set("trackData", data);
+            that.model.set(data);
 
             var singleTrackPageView = new SingleTrackPageView({ model : that.model });
             singleTrackPageView.on('vote', that.vote);
