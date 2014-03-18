@@ -4408,6 +4408,45 @@ define('views/common/LoadingIcon',[
 
 });
 
+
+define('text!templates/AddToMenuTemplate.html',[],function () { return '\r\n<ul class="uk-nav uk-nav-dropdown">\r\n    <li><a class="AddToQueue">Add to Queue</a></li>\r\n    <li><a class="AddToPlaylist">Add to Playlist</a></li>\r\n</ul>';});
+
+define('views/common/AddToMenuView',[
+    "namespace",
+    "marionette",
+    "text!../../templates/AddToMenuTemplate.html"
+], function(namespace, Marionette, AddToMenuTemplate) {
+
+    var GosuApp = namespace.app;
+
+    var AddToMenuView = Backbone.Marionette.ItemView.extend({
+        className : "AddToMenu",
+        template: _.template(AddToMenuTemplate),
+
+        events: {
+            "click .AddToQueue" : "addToQueue"
+        },
+
+        addToQueue : function () {
+            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
+                trackId: this.model.get("trackId"),
+                title: this.model.get("title"),
+                artistId: this.model.get("artistId"),
+                artistName: this.model.get("artistName"),
+                videoId: this.model.get("videoId"),
+                uploaded: this.model.get("uploaded"),
+                viewCount: this.model.get("viewCount")
+            }));
+
+            this.close();
+        }
+
+    });
+
+    return AddToMenuView;
+
+});
+
 /*global define,document,console*/
 define('GosuApp',[
     "marionette",
@@ -4418,8 +4457,9 @@ define('GosuApp',[
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
-    "views/common/LoadingIcon"
-], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+    "views/common/LoadingIcon",
+    "views/common/AddToMenuView"
+], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView, AddToMenuView) {
 
 
     var gosuApp = namespace.app;
@@ -4452,23 +4492,21 @@ define('GosuApp',[
     });
 
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
-        var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
-            $(".AddToMenu").remove();
-            var newAddToMenuView = new AddToMenuView({ model : data.model });
+        $(".AddToMenu").remove();
+        var newAddToMenuView = new AddToMenuView({ model : data.model });
 
-            $("body").append(newAddToMenuView.render().el);
-            $(".AddToMenu").css({
-                "left" : ($(data.event.target).offset().left - 10) + "px",
-                "top" : ($(data.event.target).offset().top - 15) + "px"
-            });
+        $("body").append(newAddToMenuView.render().el);
+        $(".AddToMenu").css({
+            "left" : ($(data.event.target).offset().left - 10) + "px",
+            "top" : ($(data.event.target).offset().top - 15) + "px"
+        });
 
-            // Close the menu if we click anywhere outside of the AddToMenu element.
-            $(document).click(function(e) {
-                if ($(e.target).closest('.AddToMenu').length == 0) {
-                    $(".AddToMenu").remove();
-                    $(document).unbind("click");
-                }
-            });
+        // Close the menu if we click anywhere outside of the AddToMenu element.
+        $(document).click(function(e) {
+            if ($(e.target).closest('.AddToMenu').length == 0) {
+                $(".AddToMenu").remove();
+                $(document).unbind("click");
+            }
         });
     });
 

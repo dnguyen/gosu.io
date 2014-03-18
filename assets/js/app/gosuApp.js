@@ -8,8 +8,9 @@ define([
     "layouts/MainPageLayout",
     "controllers/MainController",
     "views/common/SidebarView",
-    "views/common/LoadingIcon"
-], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+    "views/common/LoadingIcon",
+    "views/common/AddToMenuView"
+], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView, AddToMenuView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -42,23 +43,21 @@ define([
     });
 
     gosuApp.vent.on("showTrackAddToMenu", function(data) {
-        var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
-            $(".AddToMenu").remove();
-            var newAddToMenuView = new AddToMenuView({ model : data.model });
+        $(".AddToMenu").remove();
+        var newAddToMenuView = new AddToMenuView({ model : data.model });
 
-            $("body").append(newAddToMenuView.render().el);
-            $(".AddToMenu").css({
-                "left" : ($(data.event.target).offset().left - 10) + "px",
-                "top" : ($(data.event.target).offset().top - 15) + "px"
-            });
+        $("body").append(newAddToMenuView.render().el);
+        $(".AddToMenu").css({
+            "left" : ($(data.event.target).offset().left - 10) + "px",
+            "top" : ($(data.event.target).offset().top - 15) + "px"
+        });
 
-            // Close the menu if we click anywhere outside of the AddToMenu element.
-            $(document).click(function(e) {
-                if ($(e.target).closest('.AddToMenu').length == 0) {
-                    $(".AddToMenu").remove();
-                    $(document).unbind("click");
-                }
-            });
+        // Close the menu if we click anywhere outside of the AddToMenu element.
+        $(document).click(function(e) {
+            if ($(e.target).closest('.AddToMenu').length == 0) {
+                $(".AddToMenu").remove();
+                $(document).unbind("click");
+            }
         });
     });
 
