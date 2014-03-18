@@ -16,8 +16,14 @@
 	</div>
 
 	<div class="content">
-		<div class="push-right">
-			<div class="vote">
+		<div class="row">
+			<div class="description push-left">
+				<div class="heading">
+					Uploaded: <%= trackData.uploaded %>
+				</div>
+			</div>
+
+			<div class="vote push-right">
 				<div class="like">
 					<a class="uk-button" title="Like"><i class="thumbs-like uk-icon-thumbs-up"></i> Like</a>
 				</div>
@@ -25,7 +31,9 @@
 					<a class="uk-button" title="Dislike"><i class="thumbs-dislike uk-icon-thumbs-down"></i> Dislike</a>
 				</div>
 			</div>
+		</div>
 
+		<div class="row">
 			<div class="stats">
 				<div class="likes uk-badge">
 					<i class="thumbs-like uk-icon-thumbs-up"></i> <%= trackData.stats.likes %>

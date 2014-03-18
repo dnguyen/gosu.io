@@ -122,13 +122,19 @@ a:hover {
 }
 
 /* line 47, ../sass/layout/_base.scss */
-.push-left, .normal-container .heading .title, .small-centered-container .heading .title, .modal-container .modal .heading .title, .modal-container .small-modal .heading .title {
+.push-left, .normal-container > .heading .title, .small-centered-container > .heading .title, .modal-container .modal > .heading .title, .modal-container .small-modal > .heading .title {
   float: left;
 }
 
 /* line 51, ../sass/layout/_base.scss */
 .push-right {
   float: right;
+}
+
+/* line 55, ../sass/layout/_base.scss */
+.row {
+  overflow: hidden;
+  *zoom: 1;
 }
 
 /* line 1, ../sass/layout/_header.scss */
@@ -639,7 +645,7 @@ a:hover {
   margin: 15px;
 }
 /* line 17, ../sass/modules/_containers.scss */
-.normal-container .heading, .small-centered-container .heading {
+.normal-container > .heading, .small-centered-container > .heading {
   width: 100%;
   height: 38px;
   background: #FFF;
@@ -648,11 +654,11 @@ a:hover {
   font-weight: bold;
 }
 /* line 25, ../sass/modules/_containers.scss */
-.normal-container .heading .title, .small-centered-container .heading .title {
+.normal-container > .heading .title, .small-centered-container > .heading .title {
   margin: 10px;
 }
 /* line 30, ../sass/modules/_containers.scss */
-.normal-container .heading .push-right, .small-centered-container .heading .push-right {
+.normal-container > .heading .push-right, .small-centered-container > .heading .push-right {
   margin: 6px 10px 8px 0;
 }
 /* line 42, ../sass/modules/_containers.scss */
@@ -686,6 +692,14 @@ a:hover {
 /* line 66, ../sass/modules/_containers.scss */
 .small-centered-container .content input {
   width: 100%;
+}
+
+/*
+    Descriptions for container content
+ */
+/* line 6, ../sass/modules/_description.scss */
+.description .heading {
+  font-weight: bold;
 }
 
 /*
@@ -849,7 +863,7 @@ a:hover {
   box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
 }
 /* line 17, ../sass/modules/_containers.scss */
-.modal-container .modal .heading {
+.modal-container .modal > .heading {
   width: 100%;
   height: 38px;
   background: #FFF;
@@ -858,11 +872,11 @@ a:hover {
   font-weight: bold;
 }
 /* line 25, ../sass/modules/_containers.scss */
-.modal-container .modal .heading .title {
+.modal-container .modal > .heading .title {
   margin: 10px;
 }
 /* line 30, ../sass/modules/_containers.scss */
-.modal-container .modal .heading .push-right {
+.modal-container .modal > .heading .push-right {
   margin: 6px 10px 8px 0;
 }
 /* line 9, ../sass/modules/_modal.scss */
@@ -887,7 +901,7 @@ a:hover {
   box-shadow: 0px 2px 8px -2px rgba(0, 0, 0, 0.1);
 }
 /* line 17, ../sass/modules/_containers.scss */
-.modal-container .small-modal .heading {
+.modal-container .small-modal > .heading {
   width: 100%;
   height: 38px;
   background: #FFF;
@@ -896,11 +910,11 @@ a:hover {
   font-weight: bold;
 }
 /* line 25, ../sass/modules/_containers.scss */
-.modal-container .small-modal .heading .title {
+.modal-container .small-modal > .heading .title {
   margin: 10px;
 }
 /* line 30, ../sass/modules/_containers.scss */
-.modal-container .small-modal .heading .push-right {
+.modal-container .small-modal > .heading .push-right {
   margin: 6px 10px 8px 0;
 }
 /* line 9, ../sass/modules/_modal.scss */
@@ -934,17 +948,21 @@ a:hover {
   margin: 0 0 0 10px;
 }
 
-/* line 19, ../sass/modules/_voting.scss */
+/* line 18, ../sass/modules/_voting.scss */
+.vote.liked, .stats {
+  float: right;
+}
+/* line 21, ../sass/modules/_voting.scss */
 .vote.liked .thumbs-like, .stats .thumbs-like {
   color: #3399ff;
 }
 
-/* line 25, ../sass/modules/_voting.scss */
+/* line 27, ../sass/modules/_voting.scss */
 .vote.disliked .thumbs-dislike, .stats .thumbs-dislike {
   color: #ff3333;
 }
 
-/* line 30, ../sass/modules/_voting.scss */
+/* line 32, ../sass/modules/_voting.scss */
 .likes.uk-badge, .dislikes.uk-badge {
   background: #EEE;
   color: #515151;

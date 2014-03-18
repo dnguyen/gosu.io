@@ -25,6 +25,7 @@
         "backbone.wreqr" : "latest",
         "underscore" : "latest",
         "requirejs" : "latest",
-        "requirejs-text" : "latest"
+        "requirejs-text" : "latest",
+        "momentjs" : "latest"
     }
 }

@@ -16,6 +16,8 @@
 }
 
 .vote.liked, .stats {
+    float: right;
+
     .thumbs-like {
         color: $base-link-hover;
     }

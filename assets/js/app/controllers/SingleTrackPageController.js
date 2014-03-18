@@ -1,9 +1,10 @@
 define([
     "namespace",
     "marionette",
+    "moment",
     "helpers/ApiHelper",
     "../views/pages/SingleTrackPageView"
-], function(namespace, Marionette, ApiHelper, SingleTrackPageView) {
+], function(namespace, Marionette, moment, ApiHelper, SingleTrackPageView) {
 
     var GosuApp = namespace.app;
 
@@ -34,6 +35,10 @@ define([
         )).then(function(data) {
             GosuApp.vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
             GosuApp.vent.trigger("FinishedLoadingNewPage");
+
+            // Parse and format YouTube's API date using momentjs
+            var newDate = new Date(Date.parse(data.uploaded));
+            data.uploaded = moment(newDate.getTime()).format("MMM DD, YYYY")
 
             that.model.set("trackData", data);
 

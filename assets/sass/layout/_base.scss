@@ -51,3 +51,7 @@ a {
 .push-right {
     float: right;
 }
+
+.row {
+    @include clearfix;
+}
