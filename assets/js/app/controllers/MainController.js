@@ -10,8 +10,9 @@ define([
     "controllers/TracksPageController",
     "controllers/ArtistsPageController",
     "controllers/LoginPageController",
-    "controllers/RegisterPageController"
-], function(namespace, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
+    "controllers/RegisterPageController",
+    "controllers/SingleTrackPageController"
+], function(namespace, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController, SingleTrackPageController) {
 
     var GosuApp = namespace.app,
         URLHelper = namespace.URLHelper;
@@ -69,13 +70,11 @@ define([
          * Single track page
          */
         singleTrackPage : function(id, name) {
-            var SingleTrackPageRoute = require(["controllers/SingleTrackPageController"], function(SingleTrackPageController) {
-                var singleTrackPageController = new SingleTrackPageController({
-                    id : id,
-                    name: name
-                });
-                singleTrackPageController.render();
+            var singleTrackPageController = new SingleTrackPageController({
+                id : id,
+                name: name
             });
+            singleTrackPageController.render();
         },
 
         artistsPage : function(page, query) {
