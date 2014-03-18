@@ -16,9 +16,9 @@ define([
         },
 
         onShow : function() {
-            if (this.model.get("liked") === 1) {
+            if (this.model.get("liked") == 1) {
                 $(".vote").addClass("liked");
-            } else if (this.model.get("liked") === -1) {
+            } else if (this.model.get("liked") == -1) {
                 $(".vote").addClass("disliked");
             } else {
                 $(".vote").addClass("neutral");
