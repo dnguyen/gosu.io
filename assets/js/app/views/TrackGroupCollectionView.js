@@ -23,6 +23,12 @@ define([
             return {
                 renderType: this.model.get("renderType")
             };
+        },
+
+        onRender: function() {
+            if (this.model.get("renderType") === "list") {
+                $(this.el).find(".item-group").addClass("list");
+            }
         }
 
         /*getTemplate : function() {

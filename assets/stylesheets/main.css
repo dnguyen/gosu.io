@@ -793,37 +793,50 @@ a:hover {
   height: auto;
 }
 
-/* line 94, ../sass/modules/_item-group.scss */
+/* line 95, ../sass/modules/_item-group.scss */
+.item-group.list {
+  padding: 0 13px 0 0;
+}
+
+/* line 99, ../sass/modules/_item-group.scss */
 .item-group .item.listItem, .item-group .listItem.small-item {
   display: block;
-  width: 800px;
-  height: 50px;
+  width: 100%;
   margin: 0 0 15px 0;
+  padding: 5px;
   clear: both;
   overflow: hidden;
+  background: #FAFAFA;
+  border: 1px solid #EEE;
+  border-bottom: 2px solid #EEE;
 }
-/* line 102, ../sass/modules/_item-group.scss */
+/* line 110, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .track-item-container, .item-group .listItem.small-item .track-item-container {
   width: 700px;
   float: left;
 }
-/* line 107, ../sass/modules/_item-group.scss */
+/* line 115, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .thumb, .item-group .listItem.small-item .thumb {
   float: left;
 }
-/* line 110, ../sass/modules/_item-group.scss */
+/* line 118, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .thumb img, .item-group .listItem.small-item .thumb img {
   width: 50px;
 }
-/* line 115, ../sass/modules/_item-group.scss */
+/* line 123, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .meta, .item-group .listItem.small-item .meta {
   float: left;
   width: auto;
-  margin: 8px 0 0 15px;
+  margin: 10px 0 0 15px;
 }
-/* line 121, ../sass/modules/_item-group.scss */
+/* line 128, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .meta .artist, .item-group .listItem.small-item .meta .artist {
+  margin: 3px 0 0 0;
+}
+/* line 133, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .track-options, .item-group .listItem.small-item .track-options {
   float: right;
+  margin: 10px 0 0 0;
 }
 
 /*
