@@ -33,25 +33,23 @@ define([
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.request("GET", "MostViewedTracks", { count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.request("GET", "NewTrackReleases", { count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage"),
-                ApiHelper.request("GET", "ComingSoonTracks", { count : 5 }, GosuApp.GlobalCache, "comingSoonMainPage")
+                ApiHelper.request("GET", "tracks/filter", { sort: "viewCount", count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
+                ApiHelper.request("GET", "tracks/filter", { sort: "uploaded", count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage")
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.
                 // TODO: status code check...make sure the requests were actually completed successfully
                 //       before trying to render the collection.
                 popularTracksCollection.add(mostViewed[0]);
                 newReleasesCollection.add(newTracks[0]);
-                comingSoonCollection.add(comingSoon[0]);
 
                 GosuApp.vent.trigger("FinishedLoadingNewPage");
 
                 // Pass all our collections to the home page controller, which will render all the views
                 var options = {
                     popularTracksCollection : popularTracksCollection,
-                    newReleasesCollection : newReleasesCollection,
-                    comingSoonCollection : comingSoonCollection
+                    newReleasesCollection : newReleasesCollection
                 };
+
                 var pageController = new HomePageController(options);
                 pageController.render();
             });

@@ -56,7 +56,7 @@
         .caption { margin: 0 0 3px 0; }
         .sub-caption { color: $base-light-font-color; }
         .caption, .sub-caption {
-            height: 15px;
+            height: 16px;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -91,13 +91,21 @@
     }
 }
 
+
+.item-group.list {
+    padding: 0 13px 0 0;
+}
+
 .item-group .item.listItem {
     display: block;
-    width: 800px;
-    height: 50px;
+    width: 100%;
     margin: 0 0 15px 0;
+    padding: 5px;
     clear: both;
     overflow: hidden;
+    background: #FAFAFA;
+    border: 1px solid #EEE;
+    border-bottom: 2px solid #EEE;
 
     .track-item-container {
         width: 700px;
@@ -115,11 +123,16 @@
     .meta {
         float: left;
         width: auto;
-        margin: 8px 0 0 15px;
+        margin: 10px 0 0 15px;
+
+        .artist {
+            margin: 3px 0 0 0;
+        }
     }
 
     .track-options {
         float: right;
+        margin: 10px 0 0 0;
     }
 }
 /*

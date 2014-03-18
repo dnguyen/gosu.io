@@ -4,7 +4,7 @@
     <form class="uk-form" onsubmit="return false;">
         <select id="sort-dropdown">
             <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>
-            <option value="popular" <% if (sortType === "popular") { %> selected <% } %>>Popular</option>
+            <option value="viewCount" <% if (sortType === "viewCount") { %> selected <% } %>>Popular</option>
             <option value="artistName" <% if (sortType === "artistName") { %> selected <% } %>>Artist</option>
             <option value="title" <% if (sortType === "title") { %> selected <% } %>>Title</option>
         </select>
@@ -41,7 +41,7 @@
                     <a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>
                 </li>
                 <% if (page - 1 > 0) { %>
-                    <li class="uk-paginationi-previous">
+                    <li class="uk-pagination-previous">
                         <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
                             Previous
                         </a>
@@ -54,7 +54,7 @@
                 <% } %>
 
                 <% if (page - 1 > 0) { %>
-                    <li class="uk-paginationi-previous">
+                    <li class="uk-pagination-previous">
                         <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
                             <%= page - 1 %>
                         </a>
