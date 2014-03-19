@@ -22,12 +22,6 @@ define([
             this.model.bind("destroy", this.destroyView, this);
         },
 
-        onRender: function() {
-            console.group("Rendering PlayerQueueItemView");
-            console.log(this.model);
-            console.groupEnd();
-        },
-
         play: function(e) {
             GosuApp.vent.trigger("player:changeTrack", this.model);
         },

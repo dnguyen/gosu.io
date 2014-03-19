@@ -7,9 +7,9 @@ define([
     "controllers/PlayerController",
     "layouts/MainPageLayout",
     "controllers/MainController",
+    "controllers/AppController",
     "views/common/SidebarView",
-    "views/common/LoadingIcon"
-], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView) {
+], function(Marionette, namespace, ClientModel, HeaderController, PlayerController, MainPageLayout, MainController, AppController, SidebarView) {
     "use strict";
 
     var gosuApp = namespace.app;
@@ -18,49 +18,13 @@ define([
     // TODO: evict caches that haven't been accessed recently.
     gosuApp.GlobalCache = new Backbone.Model();
     gosuApp.Client = new ClientModel();
+    gosuApp.appController = new AppController();
 
-    gosuApp.vent.on("StartLoadingNewPage", function(data) {
-        gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
-
-        // Add blue indicator to sidebar link for current page
-        $(".navigation").children().removeClass("selected");
-        $("#" + data.page +"-nav-item").addClass("selected");
-
-        // Show the loading icon
-        gosuApp.loadingIconView = new LoadingIconView();
-        $("#content").html("");
-        $("#content").append(gosuApp.loadingIconView.render().el);
-    });
-
-    gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
-        gosuApp.loadingIconView.close();
-    });
-
-    // Updates document title
-    gosuApp.vent.on("UpdateTitle", function(title) {
-        document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
-    });
-
-    gosuApp.vent.on("showTrackAddToMenu", function(data) {
-        var addToMenu = require(['views/common/AddToMenuView'], function(AddToMenuView) {
-            $(".AddToMenu").remove();
-            var newAddToMenuView = new AddToMenuView({ model : data.model });
-
-            $("body").append(newAddToMenuView.render().el);
-            $(".AddToMenu").css({
-                "left" : ($(data.event.target).offset().left - 10) + "px",
-                "top" : ($(data.event.target).offset().top - 15) + "px"
-            });
-
-            // Close the menu if we click anywhere outside of the AddToMenu element.
-            $(document).click(function(e) {
-                if ($(e.target).closest('.AddToMenu').length == 0) {
-                    $(".AddToMenu").remove();
-                    $(document).unbind("click");
-                }
-            });
-        });
-    });
+    // Setup global application events
+    gosuApp.vent.on("StartLoadingNewPage", gosuApp.appController.loadNewPage);
+    gosuApp.vent.on("FinishedLoadingNewPage", gosuApp.appController.doneLoadingNewPage);
+    gosuApp.vent.on("UpdateTitle", gosuApp.appController.updateTitle);
+    gosuApp.vent.on("showTrackAddToMenu", gosuApp.appController.showAddToMenu);
 
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
