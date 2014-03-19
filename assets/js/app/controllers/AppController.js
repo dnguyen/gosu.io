@@ -39,12 +39,19 @@ define([
     AppController.prototype.showAddToMenu = function(data) {
         $(".AddToMenu").remove();
         var newAddToMenuView = new AddToMenuView({ model : data.model });
+        var $clickedEl = $(data.event.target);
+        var offsetLeftAmt = 10;
 
         $("body").append(newAddToMenuView.render().el);
 
+        // Calculate where to place menu. We want to make sure it doesn't open off screen.
+        if ($clickedEl.offset().left + 150 > $(document).width()) {
+            offsetLeftAmt = 150;
+        }
+
         $(".AddToMenu").css({
-            "left" : ($(data.event.target).offset().left - 10) + "px",
-            "top" : ($(data.event.target).offset().top - 15) + "px"
+            "left" : ($clickedEl.offset().left - offsetLeftAmt) + "px",
+            "top" : ($clickedEl.offset().top - 15) + "px"
         });
 
         // Close the menu if we click anywhere outside of the AddToMenu element.
