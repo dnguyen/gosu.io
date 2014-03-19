@@ -1,11 +1,9 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../templates/TrackGroupItemTemplate.html",
     "text!../templates/TrackGroupListItemTemplate.html"
-], function(namespace, Marionette, TrackGroupItemTemplate, TrackGroupListItemTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, TrackGroupItemTemplate, TrackGroupListItemTemplate) {
 
     var TrackGroupItemView = Backbone.Marionette.ItemView.extend({
 
@@ -37,7 +35,7 @@ define([
         },
 
         playTrack: function (e) {
-            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
+            vent.trigger("player:addToQueue", new Backbone.Model({
                     trackId: this.model.get("trackId"),
                     title: this.model.get("title"),
                     artistId: this.model.get("artistId"),
@@ -51,7 +49,7 @@ define([
         addTrackTo: function (e) {
             console.log("add track to");
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger("showTrackAddToMenu", {
                 model : new Backbone.Model({
                     trackId: this.model.get("trackId"),
                     title: this.model.get("title"),

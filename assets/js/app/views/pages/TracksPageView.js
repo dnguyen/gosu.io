@@ -1,11 +1,9 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "../TrackGroupCollectionView",
     "text!../../templates/TracksPageLayoutTemplate.html"
-], function(namespace, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
@@ -54,19 +52,19 @@ define([
 
         addFilter : function(e) {
             var searchTerms = $("#filter-input").val();
-            GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+            vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
         },
 
         filterKeyPress : function(e) {
             // If enter key is entered while filter input box is focused, do a filter.
             if (e.which === 13) {
                 var searchTerms = $("#filter-input").val();
-                GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+                vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
             }
         },
 
         filterRemove : function(e) {
-            GosuApp.vent.trigger("tracks:removeFilter");
+            vent.trigger("tracks:removeFilter");
         },
 
         switchViewThumb : function(e) {

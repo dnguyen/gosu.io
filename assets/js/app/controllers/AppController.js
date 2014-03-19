@@ -4,48 +4,55 @@
  */
 
 define([
+    "gosuApp",
+    "helpers/vent",
     "namespace",
     "../views/common/AddToMenuView",
     "../views/common/LoadingIcon"
-], function(namespace, AddToMenuView, LoadingIconView) {
-
-    var gosuApp = namespace.app;
+], function(GosuApp, vent, namespace, AddToMenuView, LoadingIconView) {
 
     var AppController = function() {
         console.log('initialize appcontroller');
     };
 
     AppController.prototype.loadNewPage = function(data) {
-        gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
+        vent.trigger("UpdateTitle", data.title ? data.title : null);
 
         // Add blue indicator to sidebar link for current page
         $(".navigation").children().removeClass("selected");
         $("#" + data.page +"-nav-item").addClass("selected");
 
         // Show the loading icon
-        gosuApp.loadingIconView = new LoadingIconView();
-        $("#content").html("");
-        $("#content").append(gosuApp.loadingIconView.render().el);
+        GosuApp.loadingIconView = new LoadingIconView();
+        //$("#content").html("");
+        GosuApp.content.reset();
+        $("#content").append(GosuApp.loadingIconView.render().el);
     };
 
-    AppController.prototype.doneLoadingNewPage = function() {
-        gosuApp.loadingIconView.close();
+    AppController.prototype.doneLoadingNewPage = function(data) {
+        GosuApp.loadingIconView.close();
+        GosuApp.content.show(data.view);
     };
 
     AppController.prototype.updateTitle = function(title) {
         document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
     };
 
+    AppController.prototype.showHeader = function(data) {
+        GosuApp.header.show(data.view);
+    };
+
     AppController.prototype.showAddToMenu = function(data) {
         $(".AddToMenu").remove();
         var newAddToMenuView = new AddToMenuView({ model : data.model });
         var $clickedEl = $(data.event.target);
+        var $documentEl = $(document);
         var offsetLeftAmt = 10;
 
         $("body").append(newAddToMenuView.render().el);
 
         // Calculate where to place menu. We want to make sure it doesn't open off screen.
-        if ($clickedEl.offset().left + 150 > $(document).width()) {
+        if ($clickedEl.offset().left + 150 > $documentEl.width()) {
             offsetLeftAmt = 150;
         }
 
@@ -55,13 +62,17 @@ define([
         });
 
         // Close the menu if we click anywhere outside of the AddToMenu element.
-        $(document).click(function(e) {
+        $documentEl.click(function(e) {
             if ($(e.target).closest('.AddToMenu').length == 0) {
                 $(".AddToMenu").remove();
-                $(document).unbind("click");
+                $documentEl.unbind("click");
             }
         });
-    }
+    };
+
+    AppController.prototype.showNewModal = function(data) {
+        GosuApp.modals.show(data.view);
+    };
 
     return AppController;
 

@@ -1,10 +1,8 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../../templates/LoginPageTemplate.html"
-], function(namespace, Marionette, LoginPageTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, LoginPageTemplate) {
 
     var LoginPageView = Backbone.Marionette.ItemView.extend({
         className : "app-region",
@@ -14,7 +12,7 @@ define([
         },
 
         doLogin : function(e) {
-            GosuApp.vent.trigger("login:doLogin", { username : $("#username").val(), password : $("#password").val()});
+            vent.trigger("login:doLogin", { username : $("#username").val(), password : $("#password").val()});
         }
 
     });

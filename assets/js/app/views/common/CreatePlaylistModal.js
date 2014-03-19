@@ -1,11 +1,9 @@
 define([
-    'namespace',
+    'helpers/vent',
     'marionette',
     "../../helpers/ApiHelper",
     'text!../../templates/CreatePlaylistModal.html'
-], function(namespace, Marionette, Api, CreatePlaylistModalTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, Api, CreatePlaylistModalTemplate) {
 
     var CreatePlaylistModal = Marionette.ItemView.extend({
 
@@ -44,7 +42,7 @@ define([
                 private : $("#private").is(":checked") ? 1 : 0
             })).then(function(data) {
                 that.close();
-                GosuApp.vent.trigger("playlists:addPlaylist", data);
+                vent.trigger("playlists:addPlaylist", data);
             })
             .fail(function() {
                 console.log("failed to insert");

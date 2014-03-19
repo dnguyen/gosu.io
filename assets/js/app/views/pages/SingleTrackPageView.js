@@ -1,10 +1,8 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../../templates/SingleTrackPageTemplate.html"
-], function(namespace, Marionette, SingleTrackPageTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, SingleTrackPageTemplate) {
 
     var SingleTrackPageView = Backbone.Marionette.ItemView.extend({
         className : 'app-region',
@@ -35,7 +33,7 @@ define([
 
         addToClicked : function(e) {
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger("showTrackAddToMenu", {
                 model : this.model,
                 event : e
             });

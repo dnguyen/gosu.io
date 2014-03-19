@@ -1,11 +1,9 @@
 define([
-    "namespace",
+    "gosuApp",
     "marionette",
     "../models/Player",
     "../views/common/PlayerView"
-], function(namespace, Marionette, PlayerModel, PlayerView) {
-
-    var GosuApp = namespace.app;
+], function(GosuApp, Marionette, PlayerModel, PlayerView) {
 
     var PlayerController = function() {
         // Get data from localStorage for users who are not logged in.

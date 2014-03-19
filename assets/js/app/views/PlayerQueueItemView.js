@@ -1,10 +1,9 @@
 define([
+    "helpers/vent",
     "namespace",
     "marionette",
     "text!../templates/PlayerQueueItemTemplate.html"
-], function(namespace, Marionette, PlayerQueueItemTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, namespace, Marionette, PlayerQueueItemTemplate) {
 
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
         tagName: "div",
@@ -23,16 +22,16 @@ define([
         },
 
         play: function(e) {
-            GosuApp.vent.trigger("player:changeTrack", this.model);
+            vent.trigger("player:changeTrack", this.model);
         },
 
         removeEvent: function(e) {
-            GosuApp.vent.trigger("player:removeFromQueue", this.model);
+            vent.trigger("player:removeFromQueue", this.model);
         },
 
         addTo: function(e) {
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger("showTrackAddToMenu", {
                 model : this.model,
                 event : e
             });

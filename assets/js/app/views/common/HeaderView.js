@@ -1,10 +1,8 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../../templates/HeaderTemplate.html"
-], function(namespace, Marionette, HeaderTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, HeaderTemplate) {
 
     var HeaderView = Backbone.Marionette.ItemView.extend({
         template: _.template(HeaderTemplate),
@@ -16,16 +14,8 @@ define([
             console.log("Header view init");
         },
 
-        onRender : function() {
-            /*this.$el.find("#user-settings-dropdown").dropdown({
-                onChange : function(value, text) {
-                    GosuApp.vent.trigger("auth:logout");
-                }
-            });*/
-        },
-
         signOut : function(e) {
-            GosuApp.vent.trigger("auth:logout");
+            vent.trigger("auth:logout");
         }
 
     });

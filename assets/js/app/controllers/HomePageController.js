@@ -1,5 +1,5 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "../views/TrackGroupCollectionView",
     "../views/side_modules/SOTWSideModuleView",
@@ -7,9 +7,7 @@ define([
     "../views/side_modules/ModuleListCompositeView",
     "../layouts/SideModulesLayout",
     "../layouts/MainPageLayout"
-], function(namespace, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
     var HomePageController = function(options) {
         this.popularTracksCollection = options.popularTracksCollection;
@@ -33,10 +31,16 @@ define([
         });
 
         // Start rendering content region with our home page layout
-        GosuApp.contentLayout = new MainPageLayout();
-        GosuApp.content.show(GosuApp.contentLayout);
-        GosuApp.contentLayout.popular.show(popularTracksCompositeView);
-        GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
+        var newMainPageLayout = new MainPageLayout();
+
+        vent.trigger("FinishedLoadingNewPage", { view : newMainPageLayout });
+
+        newMainPageLayout.popular.show(popularTracksCompositeView);
+        newMainPageLayout.newReleases.show(newReleasesCollectionView);
+        //GosuApp.contentLayout = new MainPageLayout();
+        //GosuApp.content.show(GosuApp.contentLayout);
+        //GosuApp.contentLayout.popular.show(popularTracksCompositeView);
+        //GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
 
         // Render side modules
         /*var sideModulesLayout = new SideModulesLayout();

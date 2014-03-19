@@ -1,16 +1,16 @@
 define([
+    "gosuApp",
+    "helpers/vent",
     "namespace",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/LoginPageView"
-], function(namespace, Marionette, ApiHelper, LoginPageView) {
-
-    var GosuApp = namespace.app;
+], function(GosuApp, vent, namespace, Marionette, ApiHelper, LoginPageView) {
 
     var LoginPageController = function() {
 
         var that = this;
-        GosuApp.vent.on("login:doLogin", function(data) {
+        vent.on("login:doLogin", function(data) {
             that.doLogin(data);
         });
 

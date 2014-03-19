@@ -1,12 +1,10 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "moment",
     "helpers/ApiHelper",
     "../views/pages/SingleTrackPageView"
-], function(namespace, Marionette, moment, ApiHelper, SingleTrackPageView) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, moment, ApiHelper, SingleTrackPageView) {
 
     var SingleTrackPageController = function(options) {
         this.model = new Backbone.Model();
@@ -22,7 +20,7 @@ define([
 
     SingleTrackPageController.prototype.render = function() {
         var that = this;
-        GosuApp.vent.trigger("StartLoadingNewPage", {
+        vent.trigger("StartLoadingNewPage", {
             page : "tracks"
         });
 
@@ -33,8 +31,7 @@ define([
                 token : localStorage.getItem("token")
             }
         )).then(function(data) {
-            GosuApp.vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
-            GosuApp.vent.trigger("FinishedLoadingNewPage");
+            vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
 
             // Parse and format YouTube's API date using momentjs
             var newDate = new Date(Date.parse(data.uploaded));
@@ -45,7 +42,7 @@ define([
             var singleTrackPageView = new SingleTrackPageView({ model : that.model });
             singleTrackPageView.on('vote', that.vote);
 
-            GosuApp.content.show(singleTrackPageView);
+            vent.trigger("FinishedLoadingNewPage", { view : singleTrackPageView });
         });
     };
 

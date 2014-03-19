@@ -1,12 +1,11 @@
 define([
-    "namespace",
+    "helpers/vent",
+    "models/Client",
     "marionette",
     "../../helpers/ApiHelper",
     "./CreatePlaylistModal",
     "text!../../templates/SidebarTemplate.html"
-], function(namespace, Marionette, Api, CreatePlaylistModal, SidebarTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Client, Marionette, Api, CreatePlaylistModal, SidebarTemplate) {
 
     var SidebarView = Backbone.Marionette.ItemView.extend({
         template: _.template(SidebarTemplate),
@@ -17,15 +16,15 @@ define([
         initialize : function() {
             console.log("initialize sidebar view");
             this.model = new Backbone.Model();
-            this.model.set("client", GosuApp.Client.toJSON());
-            GosuApp.vent.on("playlists:addPlaylist", this.addPlaylist, this);
-            GosuApp.Client.get("playlists").on("add", this.addPlaylistToSidebar);
+            this.model.set("client", Client.toJSON());
+            vent.on("playlists:addPlaylist", this.addPlaylist, this);
+            Client.get("playlists").on("add", this.addPlaylistToSidebar);
         },
 
         onShow : function() {
             $.when(Api.request("GET", "user/playlists", { token: localStorage.getItem("token") })).then(function(data) {
                 _.each(data, function(playlist) {
-                    GosuApp.Client.get("playlists").add(new Backbone.Model({ id : playlist.id, name : playlist.name }));
+                    Client.get("playlists").add(new Backbone.Model({ id : playlist.id, name : playlist.name }));
                 });
             });
         },
@@ -33,11 +32,11 @@ define([
         showNewPlaylistModal : function(e) {
             console.log('add new playlist');
             // Make sure the user is authenticated before opening modal
-            GosuApp.Client.fetch({
+            Client.fetch({
                 data : $.param({ token : localStorage.getItem("token") }),
                 success: function(data) {
                     var newModal = new CreatePlaylistModal();
-                    GosuApp.modals.show(newModal);
+                    vent.trigger("showNewModal", { view : newModal });
                 },
                 error: function(data) {
                     window.location = "#/signin";
@@ -52,7 +51,7 @@ define([
                 "name" : data.name
             });
 
-            GosuApp.Client.get("playlists").add(newPlaylistModel);
+            Client.get("playlists").add(newPlaylistModel);
         },
 
         addPlaylistToSidebar : function(model) {

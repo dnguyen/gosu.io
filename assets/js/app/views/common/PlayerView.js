@@ -1,14 +1,12 @@
 /*global define,document,window,console,YT,localStorage,clearInterval,setInterval*/
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "jqueryui",
     "../PlayerQueueItemView",
     "text!../../templates/PlayerTemplate.html"
-], function (namespace, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
+], function (vent, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
     "use strict";
-
-    var GosuApp = namespace.app;
 
     var PlayerView = Backbone.Marionette.ItemView.extend({
         className: 'player-container',
@@ -28,20 +26,20 @@ define([
         },
 
         initialize: function () {
-            GosuApp.vent.on("player:ytPlayerReady", this.playerReady, this);
-            GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
-            GosuApp.vent.on("player:trackEnded", this.changeToNextTrack, this);
-            GosuApp.vent.on("player:playing", this.playerPlaying, this);
-            GosuApp.vent.on("player:paused", this.playerPaused, this);
-            GosuApp.vent.on("player:incProgress", this.playerIncProgress, this);
-            GosuApp.vent.on("player:seekPlayer", this.seekPlayer, this);
-            GosuApp.vent.on("player:stepBack", this.changeToPrevTrack, this);
-            GosuApp.vent.on("player:stepForward", this.changeToNextTrack, this);
-            GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
-            GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
-            GosuApp.vent.on("player:addToQueue", this.addToQueue, this);
-            GosuApp.vent.on("player:removeFromQueue", this.removeFromQueue, this);
-            GosuApp.vent.on("player:playTrackDirect", this.playTrackDirect, this);
+            vent.on("player:ytPlayerReady", this.playerReady, this);
+            vent.on("player:changeTrack", this.changeTrack, this);
+            vent.on("player:trackEnded", this.changeToNextTrack, this);
+            vent.on("player:playing", this.playerPlaying, this);
+            vent.on("player:paused", this.playerPaused, this);
+            vent.on("player:incProgress", this.playerIncProgress, this);
+            vent.on("player:seekPlayer", this.seekPlayer, this);
+            vent.on("player:stepBack", this.changeToPrevTrack, this);
+            vent.on("player:stepForward", this.changeToNextTrack, this);
+            vent.on("player:pausePlay", this.pauseOrPlay, this);
+            vent.on("player:changeVolume", this.changeVolume, this);
+            vent.on("player:addToQueue", this.addToQueue, this);
+            vent.on("player:removeFromQueue", this.removeFromQueue, this);
+            vent.on("player:playTrackDirect", this.playTrackDirect, this);
 
             this.model.get("tracks").bind("add", this.addToQueueCollection, this);
             this.model.get("tracks").bind("remove", this.removeFromQueueCollection, this);
@@ -98,7 +96,7 @@ define([
                 min: 0,
                 max: 100,
                 slide: function (event, ui) {
-                    GosuApp.vent.trigger("player:changeVolume", ui.value);
+                    vent.trigger("player:changeVolume", ui.value);
                 }
             });
         },
@@ -132,20 +130,20 @@ define([
         },
 
         progressBarClicked: function (e) {
-            GosuApp.vent.trigger("player:seekPlayer", e);
+            vent.trigger("player:seekPlayer", e);
 
         },
 
         stepBackWardClicked: function (e) {
-            GosuApp.vent.trigger("player:stepBack");
+            vent.trigger("player:stepBack");
         },
 
         stepForwardClicked: function (e) {
-            GosuApp.vent.trigger("player:stepForward");
+            vent.trigger("player:stepForward");
         },
 
         pausePlayBtnClicked: function (e) {
-            GosuApp.vent.trigger("player:pausePlay");
+            vent.trigger("player:pausePlay");
         },
 
         scrollQueue: function (e) {
@@ -180,16 +178,16 @@ define([
             YouTube API events
             ============================================================================ */
         onPlayerReady: function () {
-            GosuApp.vent.trigger("player:ytPlayerReady");
+            vent.trigger("player:ytPlayerReady");
         },
 
         onPlayerStateChange: function (e) {
             if (e.data === YT.PlayerState.PLAYING) {
-                GosuApp.vent.trigger("player:playing");
+                vent.trigger("player:playing");
             } else if (e.data === YT.PlayerState.PAUSED) {
-                GosuApp.vent.trigger("player:paused");
+                vent.trigger("player:paused");
             } else if (e.data === YT.PlayerState.ENDED) {
-                GosuApp.vent.trigger("player:trackEnded");
+                vent.trigger("player:trackEnded");
             }
         },
         /*  ============================================================================ */
@@ -218,7 +216,7 @@ define([
             this.model.set("playing", true);
             this.model.set("progressInterval", setInterval(
                 function() {
-                    GosuApp.vent.trigger("player:incProgress");
+                    vent.trigger("player:incProgress");
                 }, 250));
             $(".duration").text(this.secsToMinSec(this.ytplayer.getDuration()));
         },

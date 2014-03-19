@@ -45,5 +45,7 @@
             deps : ['backbone.wreqr', 'backbone.babysitter'],
             exports : 'Marionette'
         }
-    }
+    },
+
+    findNestedDependencies: true
 })

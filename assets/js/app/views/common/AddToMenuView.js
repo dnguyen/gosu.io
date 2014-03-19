@@ -1,10 +1,8 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../../templates/AddToMenuTemplate.html"
-], function(namespace, Marionette, AddToMenuTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, AddToMenuTemplate) {
 
     var AddToMenuView = Backbone.Marionette.ItemView.extend({
         className : "AddToMenu",
@@ -15,7 +13,7 @@ define([
         },
 
         addToQueue : function () {
-            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
+            vent.trigger("player:addToQueue", new Backbone.Model({
                 trackId: this.model.get("trackId"),
                 title: this.model.get("title"),
                 artistId: this.model.get("artistId"),

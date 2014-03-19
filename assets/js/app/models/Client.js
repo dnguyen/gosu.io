@@ -13,6 +13,6 @@ define([
         url: namespace.config.serverUrl + "auth"
     });
 
-    return ClientModel;
+    return new ClientModel();
 
 });

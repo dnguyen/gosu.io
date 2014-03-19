@@ -1,10 +1,8 @@
 define([
-    "namespace",
+    "helpers/vent",
     "marionette",
     "text!../../templates/RegisterPageTemplate.html"
-], function(namespace, Marionette, RegisterPageTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, RegisterPageTemplate) {
 
     var RegisterPageView = Backbone.Marionette.ItemView.extend({
 
@@ -15,7 +13,7 @@ define([
         },
 
         register : function(e) {
-            GosuApp.vent.trigger(
+            vent.trigger(
                 "auth:register",
                 {
                     username : $("#username").val(),

@@ -1,13 +1,13 @@
 define([
-    "namespace",
+    "helpers/vent",
+    "models/Cache",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/TracksPageView"
-], function(namespace, Marionette, ApiHelper, TracksPageView) {
-
-    var GosuApp = namespace.app;
+], function(vent, Cache, Marionette, ApiHelper, TracksPageView) {
 
     var TracksPageController = function(options, queryObj) {
+        console.log('new trackspagecontroller');
         this.model = new Backbone.Model();
 
         var tracksCollection = new Backbone.Collection();
@@ -43,13 +43,13 @@ define([
 
         var that = this;
 
-        GosuApp.vent.on("tracks:doFilter", function(data) {
+        vent.on("tracks:doFilter", function(data) {
             that.model.set("isFiltering", true);
             that.model.set("searchTerms", data.searchTerms);
             that.render("filter");
         });
 
-        GosuApp.vent.on("tracks:removeFilter", function() {
+        vent.on("tracks:removeFilter", function() {
             that.model.set("isFiltering", false);
             that.model.set("searchTerms", "");
             that.render();
@@ -59,7 +59,7 @@ define([
     TracksPageController.prototype.render = function(type) {
         var that = this;
 
-        GosuApp.vent.trigger("StartLoadingNewPage", {
+        vent.trigger("StartLoadingNewPage", {
             title: "Tracks",
             page : "tracks"
         });
@@ -69,10 +69,9 @@ define([
 
             that.model.set("pageCount", data.pageCount);
 
-            GosuApp.vent.trigger("FinishedLoadingNewPage");
-
             var tracksPageView = new TracksPageView({ model : that.model });
-            GosuApp.content.show(tracksPageView);
+
+            vent.trigger("FinishedLoadingNewPage", { view : tracksPageView });
         });
 
     };
@@ -86,7 +85,7 @@ define([
                             sort : this.model.get("sortType"),
                             order : this.model.get("orderBy")
                         },
-                        GosuApp.GlobalCache,
+                        Cache,
                         "tracks_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
         } else {
             return ApiHelper.request(
@@ -97,7 +96,7 @@ define([
                             sort : this.model.get("sortType"),
                             order : this.model.get("orderBy")
                         },
-                        GosuApp.GlobalCache,
+                        Cache,
                         "tracks_p" + this.model.get("page") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
         }
     };

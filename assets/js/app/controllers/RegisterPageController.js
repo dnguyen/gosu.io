@@ -1,15 +1,15 @@
 define([
+    "gosuApp",
+    "helpers/vent",
     "namespace",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/RegisterPageView"
-], function(namespace, Marionette, ApiHelper, RegisterPageView) {
-
-    var GosuApp = namespace.app;
+], function(GosuApp, vent, namespace, Marionette, ApiHelper, RegisterPageView) {
 
     var RegisterPageController = function() {
         var that = this;
-        GosuApp.vent.on("auth:register", function(data) {
+        vent.on("auth:register", function(data) {
             that.doRegister(data);
         });
     };
