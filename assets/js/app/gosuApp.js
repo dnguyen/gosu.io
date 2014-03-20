@@ -1,14 +1,17 @@
 /*global define,document,console*/
 define([
     "marionette",
-    "models/Client"
-], function(Marionette, Client) {
+    "models/Client",
+    "helpers/vent",
+    "controllers/HeaderController",
+    "controllers/PlayerController",
+    "controllers/MainController",
+    "controllers/AppController",
+    "views/common/SidebarView"
+], function(Marionette, Client, vent, HeaderController, PlayerController, MainController, AppController, SidebarView) {
     "use strict";
 
-    //var gosuApp = namespace.app;
     var gosuApp = new Backbone.Marionette.Application();
-
-    //gosuApp.Client = new ClientModel();
 
     gosuApp.addRegions({
         header : "#header",
@@ -37,15 +40,11 @@ define([
 
     gosuApp.on("initialize:after", function() {
         require([
-            "helpers/vent",
-            "controllers/HeaderController",
-            "controllers/PlayerController",
-            "controllers/MainController",
-            "layouts/MainPageLayout",
-            "controllers/AppController",
-            "views/common/SidebarView",
             "apps/player/PlayerModule"
-        ], function(vent, HeaderController, PlayerController, MainController, MainPageLayout, AppController, SidebarView, PlayerModule) {
+        ], function() {
+
+            var PlayerModule = gosuApp.module("PlayerModule");
+            PlayerModule.start();
 
             gosuApp.appController = new AppController();
             gosuApp.setUpAppEvents(vent, gosuApp.appController);
@@ -58,7 +57,6 @@ define([
                 Backbone.history.start();
             }
 
-            gosuApp.contentLayout = new MainPageLayout();
             var headerController = new HeaderController();
             var playerController = new PlayerController();
 
@@ -99,12 +97,13 @@ define([
 
     // Setup global application events
     gosuApp.setUpAppEvents = function(vent, appController) {
-        vent.on("StartLoadingNewPage", appController.loadNewPage);
-        vent.on("FinishedLoadingNewPage", appController.doneLoadingNewPage);
-        vent.on("UpdateTitle", appController.updateTitle);
-        vent.on("showHeader", appController.showHeader);
-        vent.on("showTrackAddToMenu", appController.showAddToMenu);
-        vent.on("showNewModal", appController.showNewModal);
+        vent.on("StartLoadingNewPage", appController.loadNewPage, this);
+        vent.on("FinishedLoadingNewPage", appController.doneLoadingNewPage, this);
+        vent.on("UpdateTitle", appController.updateTitle, this);
+        vent.on("showHeader", appController.showHeader, this);
+        vent.on("showTrackAddToMenu", appController.showAddToMenu, this);
+        vent.on("showNewModal", appController.showNewModal, this);
+        vent.on("renderPlayer", appController.renderPlayer, this);
     };
 
     return gosuApp;

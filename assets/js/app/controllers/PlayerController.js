@@ -1,9 +1,9 @@
 define([
-    "gosuApp",
+    "helpers/vent",
     "marionette",
     "../models/Player",
     "../views/common/PlayerView"
-], function(GosuApp, Marionette, PlayerModel, PlayerView) {
+], function(vent, Marionette, PlayerModel, PlayerView) {
 
     var PlayerController = function() {
         // Get data from localStorage for users who are not logged in.
@@ -27,7 +27,7 @@ define([
     };
 
     PlayerController.prototype.render = function() {
-        GosuApp.player.show(new PlayerView({ model: this.model }));
+        vent.trigger("renderPlayer", { view : new PlayerView({ model: this.model }) });
     };
 
     return PlayerController;

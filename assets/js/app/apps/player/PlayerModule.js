@@ -3,7 +3,7 @@ define([
     "marionette"
 ], function(GosuApp, Marionette) {
 
-    var PlayerModule = GosuApp.module('Player', { startWithParent: false });
+    var PlayerModule = GosuApp.module('PlayerModule', { startWithParent: false });
 
     PlayerModule.on('start', function() {
         console.log('starting player module');

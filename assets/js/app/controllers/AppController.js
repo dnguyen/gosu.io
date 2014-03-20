@@ -4,12 +4,11 @@
  */
 
 define([
-    "gosuApp",
     "helpers/vent",
     "namespace",
     "../views/common/AddToMenuView",
     "../views/common/LoadingIcon"
-], function(GosuApp, vent, namespace, AddToMenuView, LoadingIconView) {
+], function(vent, namespace, AddToMenuView, LoadingIconView) {
 
     var AppController = function() {
         console.log('initialize appcontroller');
@@ -23,15 +22,15 @@ define([
         $("#" + data.page +"-nav-item").addClass("selected");
 
         // Show the loading icon
-        GosuApp.loadingIconView = new LoadingIconView();
+        this.loadingIconView = new LoadingIconView();
         //$("#content").html("");
-        GosuApp.content.reset();
-        $("#content").append(GosuApp.loadingIconView.render().el);
+        this.content.reset();
+        $("#content").append(this.loadingIconView.render().el);
     };
 
     AppController.prototype.doneLoadingNewPage = function(data) {
-        GosuApp.loadingIconView.close();
-        GosuApp.content.show(data.view);
+        this.loadingIconView.close();
+        this.content.show(data.view);
     };
 
     AppController.prototype.updateTitle = function(title) {
@@ -39,7 +38,7 @@ define([
     };
 
     AppController.prototype.showHeader = function(data) {
-        GosuApp.header.show(data.view);
+        this.header.show(data.view);
     };
 
     AppController.prototype.showAddToMenu = function(data) {
@@ -71,8 +70,12 @@ define([
     };
 
     AppController.prototype.showNewModal = function(data) {
-        GosuApp.modals.show(data.view);
+        this.modals.show(data.view);
     };
+
+    AppController.prototype.renderPlayer = function(data) {
+        this.player.show(data.view);
+    }
 
     return AppController;
 
