@@ -1,11 +1,10 @@
 define([
-    "gosuApp",
     "helpers/vent",
     "namespace",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/LoginPageView"
-], function(GosuApp, vent, namespace, Marionette, ApiHelper, LoginPageView) {
+], function(vent, namespace, Marionette, ApiHelper, LoginPageView) {
 
     var LoginPageController = function() {
 
@@ -18,7 +17,13 @@ define([
 
     LoginPageController.prototype.render = function() {
         var loginPageView = new LoginPageView();
-        GosuApp.content.show(loginPageView);
+
+        vent.trigger("StartLoadingNewPage", {
+            title: "Sign In",
+            page : "login"
+        });
+
+        vent.trigger("FinishedLoadingNewPage", { view : loginPageView });
     };
 
     /**

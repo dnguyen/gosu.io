@@ -4,11 +4,12 @@
  */
 
 define([
+    "models/Client",
     "helpers/vent",
     "namespace",
     "../views/common/AddToMenuView",
     "../views/common/LoadingIcon"
-], function(vent, namespace, AddToMenuView, LoadingIconView) {
+], function(Client, vent, namespace, AddToMenuView, LoadingIconView) {
 
     var AppController = function() {
         console.log('initialize appcontroller');
@@ -44,6 +45,33 @@ define([
     AppController.prototype.doneLoadingNewPage = function(data) {
         this.loadingIconView.close();
         this.content.show(data.view);
+    };
+
+    AppController.prototype.handleSuccessfulAuthentication = function(data) {
+        Client.set({
+            "loggedin" : true,
+            "id" : data.id,
+            "username" : data.username,
+            "token" : data.token
+        });
+
+        this.headerController.render();
+        this.playerController.render();
+        this.sidebarController.render();
+
+        this.appController.setup();
+    };
+
+    AppController.prototype.handleFailedAuthentication = function(data) {
+        Client.set({
+            "loggedin" : false
+        });
+
+        this.headerController.render();
+        this.playerController.render();
+        this.sidebarController.render();
+
+        this.appController.setup();
     };
 
     AppController.prototype.updateTitle = function(title) {
@@ -88,7 +116,11 @@ define([
 
     AppController.prototype.renderPlayer = function(data) {
         this.player.show(data.view);
-    }
+    };
+
+    AppController.prototype.renderSidebar = function(data) {
+        this.sidebar.show(data.view);
+    };
 
     return AppController;
 

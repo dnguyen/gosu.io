@@ -1,11 +1,10 @@
 define([
-    "gosuApp",
     "helpers/vent",
     "namespace",
     "marionette",
     "helpers/ApiHelper",
     "../views/pages/RegisterPageView"
-], function(GosuApp, vent, namespace, Marionette, ApiHelper, RegisterPageView) {
+], function(vent, namespace, Marionette, ApiHelper, RegisterPageView) {
 
     var RegisterPageController = function() {
         var that = this;
@@ -16,7 +15,12 @@ define([
 
     RegisterPageController.prototype.render = function() {
         var registerView = new RegisterPageView();
-        GosuApp.content.show(registerView);
+
+        vent.trigger("StartLoadingNewPage", {
+            title: "Register"
+        });
+
+        vent.trigger("FinishedLoadingNewPage", { view : registerView });
     };
 
     RegisterPageController.prototype.doRegister = function(data) {

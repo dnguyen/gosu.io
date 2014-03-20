@@ -7,8 +7,8 @@ define([
     "controllers/PlayerController",
     "controllers/MainController",
     "controllers/AppController",
-    "views/common/SidebarView"
-], function(Marionette, Client, vent, HeaderController, PlayerController, MainController, AppController, SidebarView) {
+    "controllers/SidebarController"
+], function(Marionette, Client, vent, HeaderController, PlayerController, MainController, AppController, SidebarController) {
     "use strict";
 
     var gosuApp = new Backbone.Marionette.Application();
@@ -57,8 +57,9 @@ define([
                 Backbone.history.start();
             }
 
-            var headerController = new HeaderController();
-            var playerController = new PlayerController();
+            gosuApp.headerController = new HeaderController();
+            gosuApp.playerController = new PlayerController();
+            gosuApp.sidebarController = new SidebarController();
 
             // Verify authentication before rendering header, sidebar, and player
             $.when(
@@ -66,27 +67,10 @@ define([
                     data: $.param({ token: localStorage.getItem("token") })
                 })
             ).then(function(data) {
-                Client.set({
-                    "loggedin" : true,
-                    "id" : data.id,
-                    "username" : data.username,
-                    "token" : data.token
-                });
-
-                headerController.render();
-                playerController.render();
-                gosuApp.sidebar.show(new SidebarView());
-
-                gosuApp.appController.setup();
+                vent.trigger("handleSuccessfulAuth", data);
             })
             .fail(function(data) {
-                Client.set({
-                    "loggedin" : false
-                });
-
-                headerController.render();
-                playerController.render();
-                gosuApp.sidebar.show(new SidebarView());
+                vent.trigger("handleFailedAuth", data);
             });
         });
     });
@@ -105,6 +89,9 @@ define([
         vent.on("showTrackAddToMenu", appController.showAddToMenu, this);
         vent.on("showNewModal", appController.showNewModal, this);
         vent.on("renderPlayer", appController.renderPlayer, this);
+        vent.on("renderSidebar", appController.renderSidebar, this);
+        vent.on("handleSuccessfulAuth", appController.handleSuccessfulAuthentication, this);
+        vent.on("handleFailedAuth", appController.handleFailedAuthentication, this);
     };
 
     return gosuApp;
