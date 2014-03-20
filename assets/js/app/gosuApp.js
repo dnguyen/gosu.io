@@ -77,6 +77,7 @@ define([
                 playerController.render();
                 gosuApp.sidebar.show(new SidebarView());
 
+                gosuApp.appController.setup();
             })
             .fail(function(data) {
                 Client.set({

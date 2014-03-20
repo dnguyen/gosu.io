@@ -1,4 +1,3 @@
-/*global define,document,window,console,YT,localStorage,clearInterval,setInterval*/
 define([
     "helpers/vent",
     "marionette",

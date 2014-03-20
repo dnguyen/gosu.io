@@ -14,6 +14,19 @@ define([
         console.log('initialize appcontroller');
     };
 
+    AppController.prototype.setup = function() {
+
+        // Create scrollbar for playlists list on sidebar
+        $('.sidebar .scrollable-navigation').css('height', $(document).height() - 610);
+        $('.sidebar .scrollable-navigation .playlists').css('height', $(document).height() - 610);
+
+        // Resize playlists list on sidebar when window is resized.
+        $(window).on('resize', function() {
+            $('.sidebar .scrollable-navigation').css('height', $(this).height() - 610);
+            $('.sidebar .scrollable-navigation .playlists').css('height', $(this).height() - 610);
+        });
+    };
+
     AppController.prototype.loadNewPage = function(data) {
         vent.trigger("UpdateTitle", data.title ? data.title : null);
 
@@ -23,7 +36,7 @@ define([
 
         // Show the loading icon
         this.loadingIconView = new LoadingIconView();
-        //$("#content").html("");
+
         this.content.reset();
         $("#content").append(this.loadingIconView.render().el);
     };

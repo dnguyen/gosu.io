@@ -65,4 +65,14 @@
     }
 }
 
+.scrollable-navigation {
+    overflow: hidden;
+    height: 400px;
+
+    .playlists {
+        overflow-y: scroll;
+        height: 400px;
+    }
+}
+
 

@@ -298,6 +298,17 @@ a:hover {
   background: url("../img/selected_navigation_item.png") repeat-y scroll left center transparent;
 }
 
+/* line 68, ../sass/layout/_sidebar.scss */
+.scrollable-navigation {
+  overflow: hidden;
+  height: 400px;
+}
+/* line 72, ../sass/layout/_sidebar.scss */
+.scrollable-navigation .playlists {
+  overflow-y: scroll;
+  height: 400px;
+}
+
 /* line 2, ../sass/layout/_mainContent.scss */
 .row {
   margin: 0;
