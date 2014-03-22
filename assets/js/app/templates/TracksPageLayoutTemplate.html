@@ -41,7 +41,7 @@
                     <a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>
                 </li>
                 <% if (page - 1 > 0) { %>
-                    <li class="uk-pagination-previous">
+                    <li>
                         <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
                             Previous
                         </a>
@@ -54,7 +54,7 @@
                 <% } %>
 
                 <% if (page - 1 > 0) { %>
-                    <li class="uk-pagination-previous">
+                    <li>
                         <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">
                             <%= page - 1 %>
                         </a>

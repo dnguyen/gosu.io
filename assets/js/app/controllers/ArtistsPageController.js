@@ -21,7 +21,7 @@ define([
 
         this.model.set("isFiltering", false);
         this.model.set("searchTerms", "");
-        
+
         // Set up our model
         if (typeof queryObj == 'undefined') {
             queryObj = { };
@@ -57,6 +57,10 @@ define([
             that.model.set("searchTerms", "");
             that.render();
         });
+    };
+
+    ArtistsPageController.prototype.render = function() {
+
     };
 
     return ArtistsPageController;

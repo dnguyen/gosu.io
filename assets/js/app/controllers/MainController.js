@@ -82,8 +82,8 @@ define([
         },
 
         artistsPage : function(page, query) {
-          //var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
-           // artistsPage.render();
+            var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
+            artistsPage.render();
         },
 
         /**
