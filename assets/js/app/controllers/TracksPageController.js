@@ -7,41 +7,25 @@ define([
 ], function(vent, Cache, Marionette, ApiHelper, TracksPageView) {
 
     var TracksPageController = function(options, queryObj) {
-        console.log('new trackspagecontroller');
+        var tracksCollection = new Backbone.Collection(),
+            that = this;
+
+        queryObj || (queryObj = { sort: "uploaded", order: "desc" });
+
         this.model = new Backbone.Model();
 
-        var tracksCollection = new Backbone.Collection();
-
         this.model.set("tracksCollection", tracksCollection);
-
         this.model.set("page", parseInt(options.page, 10));
-
         this.model.set("isFiltering", false);
         this.model.set("searchTerms", "");
+        this.model.set("sortType", queryObj.sort);
+        this.model.set("orderBy", queryObj.order);
 
-        // Set up our model
-        if (typeof queryObj == 'undefined') {
-            queryObj = { };
-            queryObj.sort = "uploaded";
-            queryObj.order = "desc";
-        }
-
-        if (typeof options.page != 'undefined')
+        if (options.page) {
             this.model.set("page", parseInt(options.page, 10));
-        else
+        } else {
             this.model.set("page", 1);
-
-        if (typeof queryObj.sort != 'undefined')
-            this.model.set("sortType", queryObj.sort);
-        else
-            this.model.set("sortType", "uploaded");
-
-        if (typeof queryObj.order != 'undefined')
-            this.model.set("orderBy", queryObj.order);
-        else
-            this.model.set("orderBy", "desc");
-
-        var that = this;
+        }
 
         vent.on("tracks:doFilter", function(data) {
             that.model.set("isFiltering", true);

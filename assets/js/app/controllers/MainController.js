@@ -82,6 +82,7 @@ define([
         },
 
         artistsPage : function(page, query) {
+            console.log("artists route");
             var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
             artistsPage.render();
         },
