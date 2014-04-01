@@ -1,14 +1,16 @@
 define([
     "helpers/vent",
+    "models/Cache",
     "marionette",
+    "helpers/ApiHelper",
     "../views/pages/ArtistsPageView"
-], function(vent, Marionette, ArtistsPageView) {
+], function(vent, Cache, Marionette, ApiHelper, ArtistsPageView) {
 
     var ArtistsPageController = function(options, queryObj) {
         var artistsCollection = new Backbone.Collection(),
             that = this;
 
-        queryObj || (queryObj = { sort: "uploaded", order: "desc" });
+        queryObj || (queryObj = { sort: "name", order: "desc" });
 
         this.model = new Backbone.Model();
 
@@ -38,15 +40,46 @@ define([
         });
     };
 
-    ArtistsPageController.prototype.render = function() {
+    ArtistsPageController.prototype.render = function(type) {
+        var that = this;
         vent.trigger("StartLoadingNewPage", {
             title: "Artists",
             page : "artists"
         });
-        this.model.set("pageCount", 20);
-        var artistsPageView = new ArtistsPageView({ model : this.model });
-        vent.trigger("FinishedLoadingNewPage", { view : artistsPageView });
 
+        $.when(this.getArtistCollection(type)).then(function(data) {
+            that.model.get('artistsCollection').reset(data.artists);
+            that.model.set('pageCount', data.pageCount);
+
+            var artistsPageView = new ArtistsPageView({ model : that.model });
+            vent.trigger("FinishedLoadingNewPage", { view : artistsPageView });
+        });
+
+    };
+
+    ArtistsPageController.prototype.getArtistCollection = function(type, data) {
+        if (type === "filter") {
+            return ApiHelper.request(
+                        "GET",
+                        "artists/search/" + this.model.get("searchTerms"),
+                        {
+                            sort : this.model.get("sortType"),
+                            order : this.model.get("orderBy")
+                        },
+                        Cache,
+                        "artists_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
+        } else {
+            return ApiHelper.request(
+                        "GET",
+                        "artists",
+                        {
+                            page : this.model.get("page"),
+                            sort : this.model.get("sortType"),
+                            order : this.model.get("orderBy")
+                        },
+                        Cache,
+                        "artists_p" + this.model.get("page") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
+        }
     };
 
     return ArtistsPageController;

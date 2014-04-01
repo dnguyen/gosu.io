@@ -741,37 +741,41 @@ a:hover {
 .item-group .item .thumb, .item-group .small-item .thumb {
   position: relative;
 }
-/* line 31, ../sass/modules/_item-group.scss */
+/* line 30, ../sass/modules/_item-group.scss */
+.item-group .item .thumb > a:first-of-type, .item-group .small-item .thumb > a:first-of-type {
+  width: 100%;
+}
+/* line 35, ../sass/modules/_item-group.scss */
 .item-group .item .thumb .uk-overlay-toggle > a:first-of-type, .item-group .small-item .thumb .uk-overlay-toggle > a:first-of-type {
   width: 100%;
 }
-/* line 36, ../sass/modules/_item-group.scss */
+/* line 40, ../sass/modules/_item-group.scss */
 .item-group .item .thumb img, .item-group .small-item .thumb img {
   border: 5px solid #eeeeee;
   width: 100%;
 }
-/* line 42, ../sass/modules/_item-group.scss */
+/* line 46, ../sass/modules/_item-group.scss */
 .item-group .item .thumb .OverlayNav a, .item-group .small-item .thumb .OverlayNav a {
   color: #FFF;
   text-decoration: none;
   cursor: pointer;
   margin: 0 5px 0 0;
 }
-/* line 51, ../sass/modules/_item-group.scss */
+/* line 55, ../sass/modules/_item-group.scss */
 .item-group .item .meta, .item-group .small-item .meta {
   float: left;
   margin: 5px 0 0 0;
   width: 100%;
 }
-/* line 56, ../sass/modules/_item-group.scss */
+/* line 60, ../sass/modules/_item-group.scss */
 .item-group .item .meta .caption, .item-group .small-item .meta .caption {
   margin: 0 0 3px 0;
 }
-/* line 57, ../sass/modules/_item-group.scss */
+/* line 61, ../sass/modules/_item-group.scss */
 .item-group .item .meta .sub-caption, .item-group .small-item .meta .sub-caption {
   color: #878787;
 }
-/* line 58, ../sass/modules/_item-group.scss */
+/* line 62, ../sass/modules/_item-group.scss */
 .item-group .item .meta .caption, .item-group .small-item .meta .caption, .item-group .item .meta .sub-caption, .item-group .small-item .meta .sub-caption {
   height: 16px;
   text-overflow: ellipsis;
@@ -782,36 +786,36 @@ a:hover {
 /*
 	Non-responsive small thumbnail items with captions
 */
-/* line 70, ../sass/modules/_item-group.scss */
+/* line 74, ../sass/modules/_item-group.scss */
 .item-group .small-item {
   font-size: 0.875em;
   margin: 0 10px 0 0;
   width: 75px;
 }
-/* line 76, ../sass/modules/_item-group.scss */
+/* line 80, ../sass/modules/_item-group.scss */
 .item-group .small-item .thumb {
   cursor: pointer;
 }
-/* line 79, ../sass/modules/_item-group.scss */
+/* line 83, ../sass/modules/_item-group.scss */
 .item-group .small-item .thumb img {
   height: 75px;
 }
-/* line 84, ../sass/modules/_item-group.scss */
+/* line 88, ../sass/modules/_item-group.scss */
 .item-group .small-item .meta {
   margin: 0;
 }
-/* line 86, ../sass/modules/_item-group.scss */
+/* line 90, ../sass/modules/_item-group.scss */
 .item-group .small-item .meta .caption, .item-group .small-item .meta .subcaption {
   width: 75px;
   height: auto;
 }
 
-/* line 95, ../sass/modules/_item-group.scss */
+/* line 99, ../sass/modules/_item-group.scss */
 .item-group.list {
   padding: 0 13px 0 0;
 }
 
-/* line 99, ../sass/modules/_item-group.scss */
+/* line 103, ../sass/modules/_item-group.scss */
 .item-group .item.listItem, .item-group .listItem.small-item {
   display: block;
   width: 100%;
@@ -823,30 +827,30 @@ a:hover {
   border: 1px solid #EEE;
   border-bottom: 2px solid #EEE;
 }
-/* line 110, ../sass/modules/_item-group.scss */
+/* line 114, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .track-item-container, .item-group .listItem.small-item .track-item-container {
   width: 700px;
   float: left;
 }
-/* line 115, ../sass/modules/_item-group.scss */
+/* line 119, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .thumb, .item-group .listItem.small-item .thumb {
   float: left;
 }
-/* line 118, ../sass/modules/_item-group.scss */
+/* line 122, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .thumb img, .item-group .listItem.small-item .thumb img {
   width: 50px;
 }
-/* line 123, ../sass/modules/_item-group.scss */
+/* line 127, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .meta, .item-group .listItem.small-item .meta {
   float: left;
   width: auto;
   margin: 10px 0 0 15px;
 }
-/* line 128, ../sass/modules/_item-group.scss */
+/* line 132, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .meta .artist, .item-group .listItem.small-item .meta .artist {
   margin: 3px 0 0 0;
 }
-/* line 133, ../sass/modules/_item-group.scss */
+/* line 137, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .track-options, .item-group .listItem.small-item .track-options {
   float: right;
   margin: 10px 0 0 0;

@@ -3,10 +3,8 @@
 <div class="options row">
     <form class="uk-form" onsubmit="return false;">
         <select id="sort-dropdown">
-            <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>
-            <option value="viewCount" <% if (sortType === "viewCount") { %> selected <% } %>>Popular</option>
-            <option value="artistName" <% if (sortType === "artistName") { %> selected <% } %>>Artist</option>
-            <option value="title" <% if (sortType === "title") { %> selected <% } %>>Title</option>
+            <option value="name" <% if (sortType === "name") { %> selected <% } %>>Name</option>
+            <option value="popular" <% if (sortType === "popular") { %> selected <% } %>>Popular</option>
         </select>
 
         <select id="order-dropdown">
