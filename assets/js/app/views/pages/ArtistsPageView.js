@@ -1,13 +1,11 @@
 define([
-    "namespace",
     "marionette",
     "text!../../templates/ArtistsPageLayoutTemplate.html"
-], function(namespace, Marionette, ArtistsPageLayoutTemplate) {
-
-    var GosuApp = namespace.app;
+], function(Marionette, ArtistsPageLayoutTemplate) {
 
     var ArtistsPageView = Backbone.Marionette.ItemView.extend({
-
+        className: "app-region uk-animation-slide-left",
+        template: _.template(ArtistsPageLayoutTemplate)
     });
 
     return ArtistsPageView;

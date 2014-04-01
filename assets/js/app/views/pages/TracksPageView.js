@@ -16,8 +16,8 @@ define([
             "click .Filter" : "addFilter",
             "change #sort-dropdown" : "applySort",
             "change #order-dropdown" : "applyOrder",
-            "click .ThumbView" : "switchViewThumb",
-            "click .ListView" : "switchViewList"
+            "click .ThumbView" : "switchToThumbView",
+            "click .ListView" : "switchToListView"
         },
 
         initialize : function() {
@@ -31,7 +31,6 @@ define([
             // After rendering entire layout, start rendering the tracks
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
-                size : 6,
                 renderType : localStorage.getItem("tracksPage:renderType")
             });
 
@@ -67,30 +66,24 @@ define([
             vent.trigger("tracks:removeFilter");
         },
 
-        switchViewThumb : function(e) {
-            localStorage.setItem("tracksPage:renderType", "thumb");
-            $(this.el).find(".content .item-group").html('');
+        switchViewType : function(options) {
+            localStorage.setItem("tracksPage:renderType", options.viewType);
+            $(this.el).find(".content .item-group").empty();
 
             var trackGroupCollectionView = new TrackGroupCollectionView({
                 collection : this.model.get("tracksCollection"),
-                size : 6,
-                renderType : "thumb"
+                renderType : options.viewType
             });
 
             this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
         },
 
-        switchViewList : function(e) {
-            localStorage.setItem("tracksPage:renderType", "list");
-            $(this.el).find(".content .item-group").html('');
+        switchToThumbView : function(e) {
+            this.switchViewType({ viewType: "thumb" });
+        },
 
-            var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
-                size : 6,
-                renderType : "list"
-            });
-
-            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
+        switchToListView : function(e) {
+            this.switchViewType({ viewType: "list" });
         }
 
     });
