@@ -2041,7 +2041,7 @@ define('namespace',[
         },
 
         config : {
-            serverUrl: 'http://api.gosukpop.com/',
+            serverUrl: 'http://api.yourkpop.com/',
             title: 'yourkpop'
         },
 
