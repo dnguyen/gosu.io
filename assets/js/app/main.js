@@ -44,7 +44,10 @@ require.config({
         jqueryui: {
             deps : ['jquery']
         }
-    }
-}, require(["gosuApp"], function(GosuApp) {
-    return GosuApp.start();
-}));
+    },
+    findNestedDependencies: true
+});
+
+require(['gosuApp'], function(GosuApp) {
+    GosuApp.start();
+});

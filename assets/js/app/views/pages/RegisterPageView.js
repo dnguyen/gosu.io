@@ -1,27 +1,25 @@
 define([
-    "namespace",
-    "marionette",
-    "text!../../templates/RegisterPageTemplate.html"
-], function(namespace, Marionette, RegisterPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/RegisterPageTemplate.html'
+], function(vent, Marionette, RegisterPageTemplate) {
 
     var RegisterPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region",
+        className : 'app-region',
         template : _.template(RegisterPageTemplate),
         events : {
-            "click #register-btn" : "register"
+            'click #register-btn' : 'register'
         },
 
         register : function(e) {
-            GosuApp.vent.trigger(
-                "auth:register",
+            vent.trigger(
+                'auth:register',
                 {
-                    username : $("#username").val(),
-                    password : $("#password").val(),
-                    email : $("#email").val(),
-                    confirmPassword : $("#confirm-password").val()
+                    username : $('#username').val(),
+                    password : $('#password').val(),
+                    email : $('#email').val(),
+                    confirmPassword : $('#confirm-password').val()
                 }
             );
         }

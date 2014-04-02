@@ -1,6 +1,6 @@
 define([
-    "namespace",
-    "marionette"
+    'namespace',
+    'marionette'
 ], function(namespace, Marionette) {
 
     var config = namespace.config;
@@ -10,9 +10,9 @@ define([
             playlists : new Backbone.Collection()
         },
 
-        url: namespace.config.serverUrl + "auth"
+        url: namespace.config.serverUrl + 'auth'
     });
 
-    return ClientModel;
+    return new ClientModel();
 
 });

@@ -1,5 +1,5 @@
 define([
-    "marionette"
+    'marionette'
 ], function(Marionette) {
 
     return {

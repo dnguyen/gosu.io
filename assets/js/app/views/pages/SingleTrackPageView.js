@@ -1,27 +1,25 @@
 define([
-    "namespace",
-    "marionette",
-    "text!../../templates/SingleTrackPageTemplate.html"
-], function(namespace, Marionette, SingleTrackPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/SingleTrackPageTemplate.html'
+], function(vent, Marionette, SingleTrackPageTemplate) {
 
     var SingleTrackPageView = Backbone.Marionette.ItemView.extend({
         className : 'app-region',
         template : _.template(SingleTrackPageTemplate),
         events: {
-            "click .like" : "likeClicked",
-            "click .dislike" : "dislikeClicked",
-            "click .add" : "addToClicked"
+            'click .like' : 'likeClicked',
+            'click .dislike' : 'dislikeClicked',
+            'click .add' : 'addToClicked'
         },
 
         onShow : function() {
-            if (this.model.get("liked") == 1) {
-                $(".vote").addClass("liked");
-            } else if (this.model.get("liked") == -1) {
-                $(".vote").addClass("disliked");
+            if (this.model.get('liked') == 1) {
+                $('.vote').addClass('liked');
+            } else if (this.model.get('liked') == -1) {
+                $('.vote').addClass('disliked');
             } else {
-                $(".vote").addClass("neutral");
+                $('.vote').addClass('neutral');
             }
         },
 
@@ -35,7 +33,7 @@ define([
 
         addToClicked : function(e) {
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger('showTrackAddToMenu', {
                 model : this.model,
                 event : e
             });

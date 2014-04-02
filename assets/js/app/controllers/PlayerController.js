@@ -1,11 +1,9 @@
 define([
-    "namespace",
-    "marionette",
-    "../models/Player",
-    "../views/common/PlayerView"
-], function(namespace, Marionette, PlayerModel, PlayerView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    '../models/Player',
+    '../views/common/PlayerView'
+], function(vent, Marionette, PlayerModel, PlayerView) {
 
     var PlayerController = function() {
         // Get data from localStorage for users who are not logged in.
@@ -21,7 +19,7 @@ define([
         this.model = new PlayerModel();
 
         // If player_queue does not exist in localstorage, create it.
-        if (localStorage.getItem("playerData") === null) {
+        if (localStorage.getItem('playerData') === null) {
             this.model.saveLocal();
         } else {
             this.model.loadLocal();
@@ -29,7 +27,7 @@ define([
     };
 
     PlayerController.prototype.render = function() {
-        GosuApp.player.show(new PlayerView({ model: this.model }));
+        vent.trigger('renderPlayer', { view : new PlayerView({ model: this.model }) });
     };
 
     return PlayerController;

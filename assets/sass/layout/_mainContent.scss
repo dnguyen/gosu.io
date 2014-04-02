@@ -10,7 +10,7 @@
     overflow: hidden;
     clear: both;
     width: 100%;
-    
+
     h3, h4, h5 {
         color: $base-font-color;
         font-family: $base-font-family;
@@ -55,6 +55,7 @@
 }
 
 .content {
+    //@include clearfix;
     padding: 0 0 15px 15px;
 
     .modules {

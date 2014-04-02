@@ -2030,7 +2030,7 @@ _.extend(Marionette.Module, {
 }));
 
 define('namespace',[
-    "marionette"
+    'marionette'
 ], function(Marionette) {
 
     return {
@@ -2081,8 +2081,8 @@ define('namespace',[
 
 });
 define('models/Client',[
-    "namespace",
-    "marionette"
+    'namespace',
+    'marionette'
 ], function(namespace, Marionette) {
 
     var config = namespace.config;
@@ -2092,11 +2092,14 @@ define('models/Client',[
             playlists : new Backbone.Collection()
         },
 
-        url: namespace.config.serverUrl + "auth"
+        url: namespace.config.serverUrl + 'auth'
     });
 
-    return ClientModel;
+    return new ClientModel();
 
+});
+define('helpers/vent',['backbone.wreqr'], function(Wreqr){
+  return new Backbone.Wreqr.EventAggregator();
 });
 define('helpers/ApiHelper',[
 	'namespace'
@@ -2537,33 +2540,23 @@ define('text',['module'], function (module) {
 define('text!templates/HeaderTemplate.html',[],function () { return '<div class="logo">\r\n    <div class="brand">\r\n        <img src="assets/img/logo_main.png"/>\r\n    </div>\r\n    <div class="name">\r\n        <a href="#/">yourkpop</a>\r\n    </div>\r\n</div>\r\n<div class="header-menu">\r\n    <div class="header-search">\r\n        <form class="uk-form" data-uk-search>\r\n            <input type="text" class="uk-form-width-large" placeholder="Search artists, tracks, or playlists">\r\n            <button class="uk-button" type="button">Search</button>\r\n        </form>\r\n    </div>\r\n\r\n    <div class="header-navigation">\r\n        <% if (loggedin) { %>\r\n            <div class="uk-button-group">\r\n                <button class="uk-button"><%= username %></button>\r\n                <button class="Settings uk-button" title="Settings"><i class="uk-icon-cog"></i></button>\r\n                <button class="SignOut uk-button" title="Sign out"><i class="uk-icon-sign-out"></i></button>\r\n            </div>\r\n        <% } else { %>\r\n            <div class="uk-button-group">\r\n                <a class="uk-button" href="#/signin">Sign In</a>\r\n                <a class="uk-button" href="#/register">Register</a>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</div>';});
 
 define('views/common/HeaderView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/HeaderTemplate.html"
-], function(namespace, Marionette, HeaderTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/HeaderTemplate.html'
+], function(vent, Marionette, HeaderTemplate) {
 
     var HeaderView = Backbone.Marionette.ItemView.extend({
         template: _.template(HeaderTemplate),
         events: {
-            "click .SignOut" : "signOut"
+            'click .SignOut' : 'signOut'
         },
 
         initialize : function() {
-            console.log("Header view init");
-        },
-
-        onRender : function() {
-            /*this.$el.find("#user-settings-dropdown").dropdown({
-                onChange : function(value, text) {
-                    GosuApp.vent.trigger("auth:logout");
-                }
-            });*/
+            console.log('Header view init');
         },
 
         signOut : function(e) {
-            GosuApp.vent.trigger("auth:logout");
+            vent.trigger('auth:logout');
         }
 
     });
@@ -2572,33 +2565,33 @@ define('views/common/HeaderView',[
 
 });
 define('controllers/HeaderController',[
-    "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "views/common/HeaderView"
-], function(namespace, Marionette, ApiHelper, HeaderView) {
+    'helpers/vent',
+    'models/Client',
+    'namespace',
+    'marionette',
+    'helpers/ApiHelper',
+    'views/common/HeaderView'
+], function(vent, Client, namespace, Marionette, ApiHelper, HeaderView) {
 
-    var GosuApp = namespace.app,
-        config = namespace.config;
+    //var GosuApp = namespace.app,
+        var config = namespace.config;
 
     var HeaderController = function(options) {
         this.loginModel = new Backbone.Model();
 
         var that = this;
-        GosuApp.vent.on("auth:logout", function() {
+        vent.on('auth:logout', function() {
             that.logout();
         });
     };
 
     HeaderController.prototype.render = function() {
-        console.log('rendering');
-        GosuApp.header.show(new HeaderView({ model : GosuApp.Client }));
+        vent.trigger('showHeader', { view : new HeaderView({ model : Client })});
     };
 
     HeaderController.prototype.logout = function() {
-        $.when(ApiHelper.request("DELETE", "auth", { "token" : localStorage.getItem("token") })).then(function(data) {
-            localStorage.setItem("token", "");
-            GosuApp.Client = null;
+        $.when(ApiHelper.request('DELETE', 'auth', { token : localStorage.getItem('token') })).then(function(data) {
+            localStorage.setItem('token', '');
             window.location.reload();
         });
     };
@@ -2607,8 +2600,8 @@ define('controllers/HeaderController',[
 
 });
 define('models/Player',[
-    "namespace",
-    "marionette"
+    'namespace',
+    'marionette'
 ], function(namespace, Marionette) {
 
     var PlayerModel = Backbone.Model.extend({
@@ -2626,7 +2619,7 @@ define('models/Player',[
             Loads model from localStorage
         */
         loadLocal: function() {
-            var data = JSON.parse(localStorage.getItem("playerData"));
+            var data = JSON.parse(localStorage.getItem('playerData'));
             var that = this;
 
             _.each(data.tracks, function(track) {
@@ -2639,7 +2632,7 @@ define('models/Player',[
                     uploaded: track.uploaded,
                     viewCount: track.viewCount
                 });
-                that.get("tracks").add(trackModel);
+                that.get('tracks').add(trackModel);
             });
         },
 
@@ -2647,7 +2640,7 @@ define('models/Player',[
             Saves model to localStorage
         */
         saveLocal: function() {
-            localStorage.setItem("playerData", JSON.stringify(this));
+            localStorage.setItem('playerData', JSON.stringify(this));
         }
 
     });
@@ -2673,53 +2666,45 @@ define("jqueryui", function(){});
 define('text!templates/PlayerQueueItemTemplate.html',[],function () { return '<div class="Index"><%= collectionIndex %></div>\r\n\r\n<div class="thumb">\r\n    <figure class="uk-overlay-toggle">\r\n        <div class="uk-overlay">\r\n            <img src="assets/img/girlsday_thumb.png" />\r\n            <div class="uk-overlay-area">\r\n                <div class="OverlayNav uk-overlay-area-content">\r\n            \t\t<a class="Remove uk-icon-times uk-icon-xsmall"></a>\r\n                    <a class="Play uk-icon-play uk-icon-small"></a>\r\n                    <a class="AddTo uk-icon-plus uk-icon-xsmall"></a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </figure>\r\n</div>\r\n\r\n<div class="meta">\r\n    <div class="caption">\r\n        <a href="#/track/<%= trackId %>/<%= title %>" title="<%= artistName %> - <%= title %>"><%= title %></a>\r\n    </div>\r\n    <div class="sub-caption">\r\n        <%= artistName %>\r\n    </div>\r\n</div>';});
 
 define('views/PlayerQueueItemView',[
-    "namespace",
-    "marionette",
-    "text!../templates/PlayerQueueItemTemplate.html"
-], function(namespace, Marionette, PlayerQueueItemTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'namespace',
+    'marionette',
+    'text!../templates/PlayerQueueItemTemplate.html'
+], function(vent, namespace, Marionette, PlayerQueueItemTemplate) {
 
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
-        tagName: "div",
-        className: "small-item queueItem",
+        tagName: 'div',
+        className: 'small-item queueItem',
 
         events: {
-            "click .Play" : "play",
-            "click .Remove" : "removeEvent",
-            "click .AddTo" : "addTo"
+            'click .Play' : 'play',
+            'click .Remove' : 'removeEvent',
+            'click .AddTo' : 'addTo'
         },
 
         template: _.template(PlayerQueueItemTemplate),
 
         initialize: function() {
-            this.model.bind("destroy", this.destroyView, this);
-        },
-
-        onRender: function() {
-            console.group("Rendering PlayerQueueItemView");
-            console.log(this.model);
-            console.groupEnd();
+            this.model.bind('destroy', this.destroyView, this);
         },
 
         play: function(e) {
-            GosuApp.vent.trigger("player:changeTrack", this.model);
+            vent.trigger('player:changeTrack', this.model);
         },
 
         removeEvent: function(e) {
-            GosuApp.vent.trigger("player:removeFromQueue", this.model);
+            vent.trigger('player:removeFromQueue', this.model);
         },
 
         addTo: function(e) {
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger('showTrackAddToMenu', {
                 model : this.model,
                 event : e
             });
         },
 
         destroyView: function(e) {
-            console.log("destroy view");
             this.remove();
         }
     });
@@ -2730,57 +2715,54 @@ define('views/PlayerQueueItemView',[
 
 define('text!templates/PlayerTemplate.html',[],function () { return '<div id="ytPlayer">\r\n</div>\r\n<div class="controls-container">\r\n    <div class="controls">\r\n        <div class="left-controls">\r\n            <div class="uk-button-group">\r\n                <button class="StepBackward uk-button"><i class="uk-icon-step-backward"></i></button>\r\n                <button class="PausePlay uk-button"><i class="uk-icon-play"></i></button>\r\n                <button class="StepForward uk-button"><i class="uk-icon-step-forward"></i></button>\r\n            </div>\r\n            <span class="Volume-indicator"></span>\r\n            <!--<input id="volume" type="range" max="100" value="50" step="1">-->\r\n            <div class="Volume"></div>\r\n        </div>\r\n\r\n        <div class="right-controls">\r\n        </div>\r\n\r\n        <div class="timing">\r\n            <span class="time">0:00</span> /\r\n            <span class="duration">0:00</span>\r\n        </div>\r\n\r\n        <div class="Progress-container uk-progress uk-progress-small">\r\n            <div class="Progress uk-progress-bar"></div>\r\n            <div class="handle" draggable="true"></div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class="queue uk-panel-box">\r\n        <div class="queueItems item-group">\r\n        </div>\r\n    </div>\r\n</div>';});
 
-/*global define,document,window,console,YT,localStorage,clearInterval,setInterval*/
 define('views/common/PlayerView',[
-    "namespace",
-    "marionette",
-    "jqueryui",
-    "../PlayerQueueItemView",
-    "text!../../templates/PlayerTemplate.html"
-], function (namespace, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
+    'helpers/vent',
+    'marionette',
+    'jqueryui',
+    '../PlayerQueueItemView',
+    'text!../../templates/PlayerTemplate.html'
+], function (vent, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
 
-
-    var GosuApp = namespace.app;
 
     var PlayerView = Backbone.Marionette.ItemView.extend({
         className: 'player-container',
         template: _.template(PlayerTemplate),
 
         events: {
-            "click .uk-progress" : "progressBarClicked",
-            "click .StepBackward" : "stepBackWardClicked",
-            "click .StepForward" : "stepForwardClicked",
-            "click .PausePlay" : "pausePlayBtnClicked",
-            "mousewheel .queueItems" : "scrollQueue"
+            'click .uk-progress' : 'progressBarClicked',
+            "click .StepBackward" : 'stepBackWardClicked',
+            'click .StepForward' : 'stepForwardClicked',
+            'click .PausePlay' : 'pausePlayBtnClicked',
+            'mousewheel .queueItems' : 'scrollQueue'
         },
 
         modelEvents: {
-            "change:currentTrackIndex" : "currentTrackIndexChanged",
-            "change:playing" : "playingStateChanged"
+            'change:currentTrackIndex' : 'currentTrackIndexChanged',
+            'change:playing' : 'playingStateChanged'
         },
 
         initialize: function () {
-            GosuApp.vent.on("player:ytPlayerReady", this.playerReady, this);
-            GosuApp.vent.on("player:changeTrack", this.changeTrack, this);
-            GosuApp.vent.on("player:trackEnded", this.changeToNextTrack, this);
-            GosuApp.vent.on("player:playing", this.playerPlaying, this);
-            GosuApp.vent.on("player:paused", this.playerPaused, this);
-            GosuApp.vent.on("player:incProgress", this.playerIncProgress, this);
-            GosuApp.vent.on("player:seekPlayer", this.seekPlayer, this);
-            GosuApp.vent.on("player:stepBack", this.changeToPrevTrack, this);
-            GosuApp.vent.on("player:stepForward", this.changeToNextTrack, this);
-            GosuApp.vent.on("player:pausePlay", this.pauseOrPlay, this);
-            GosuApp.vent.on("player:changeVolume", this.changeVolume, this);
-            GosuApp.vent.on("player:addToQueue", this.addToQueue, this);
-            GosuApp.vent.on("player:removeFromQueue", this.removeFromQueue, this);
-            GosuApp.vent.on("player:playTrackDirect", this.playTrackDirect, this);
+            vent.on('player:ytPlayerReady', this.playerReady, this);
+            vent.on('player:changeTrack', this.changeTrack, this);
+            vent.on('player:trackEnded', this.changeToNextTrack, this);
+            vent.on('player:playing', this.playerPlaying, this);
+            vent.on('player:paused', this.playerPaused, this);
+            vent.on('player:incProgress', this.playerIncProgress, this);
+            vent.on('player:seekPlayer', this.seekPlayer, this);
+            vent.on('player:stepBack', this.changeToPrevTrack, this);
+            vent.on('player:stepForward', this.changeToNextTrack, this);
+            vent.on('player:pausePlay', this.pauseOrPlay, this);
+            vent.on('player:changeVolume', this.changeVolume, this);
+            vent.on('player:addToQueue', this.addToQueue, this);
+            vent.on('player:removeFromQueue', this.removeFromQueue, this);
+            vent.on('player:playTrackDirect', this.playTrackDirect, this);
 
-            this.model.get("tracks").bind("add", this.addToQueueCollection, this);
-            this.model.get("tracks").bind("remove", this.removeFromQueueCollection, this);
-            this.model.get("tracks").bind("reset", this.resetQueueCollection, this);
+            this.model.get('tracks').bind('add', this.addToQueueCollection, this);
+            this.model.get('tracks').bind('remove', this.removeFromQueueCollection, this);
+            this.model.get('tracks').bind('reset', this.resetQueueCollection, this);
 
-            if (localStorage.getItem("playerVolume") === null) {
-                localStorage.setItem("playerVolume", 50);
+            if (localStorage.getItem('playerVolume') === null) {
+                localStorage.setItem('playerVolume', 50);
             }
         },
 
@@ -2794,19 +2776,19 @@ define('views/common/PlayerView',[
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 // Load the player once the API is ready.
                 window.onYouTubeIframeAPIReady = function () {
-                    if (that.model.get("tracks").length <= 0) {
-                        that.loadPlayer("");
+                    if (that.model.get('tracks').length <= 0) {
+                        that.loadPlayer('');
                     } else {
-                        that.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
+                        that.loadPlayer(that.model.get('tracks').at(0).get('videoId'));
                     }
                 };
                 // Load YouTube API. When finished window.onYouTubeIframeAPIReady is called.
                 $.getScript('//www.youtube.com/iframe_api');
             } else {
-                if (this.get("tracks").length <= 0) {
-                    this.loadPlayer("");
+                if (this.get('tracks').length <= 0) {
+                    this.loadPlayer('');
                 } else {
-                    this.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
+                    this.loadPlayer(that.model.get('tracks').at(0).get('videoId'));
                 }
             }
 
@@ -2815,36 +2797,36 @@ define('views/common/PlayerView',[
                 index = 0,
                 that = this;
 
-            this.model.get("tracks").forEach(function (track) {
-                track.set("collectionIndex", index);
+            this.model.get('tracks').forEach(function (track) {
+                track.set('collectionIndex', index);
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
                 queueFragment.appendChild(playerQueueItem.render().el);
                 index++;
             });
-            $(".queueItems").append(queueFragment);
+            $('.queueItems').append(queueFragment);
 
             this.setQueueItemsScrollbar();
 
             // Render volume slider
-            $(".Volume").slider({
+            $('.Volume').slider({
                 min: 0,
                 max: 100,
                 slide: function (event, ui) {
-                    GosuApp.vent.trigger("player:changeVolume", ui.value);
+                    vent.trigger('player:changeVolume', ui.value);
                 }
             });
         },
 
         changeVolume: function (audioLevel) {
             this.ytplayer.setVolume(audioLevel);
-            localStorage.setItem("playerVolume", audioLevel);
+            localStorage.setItem('playerVolume', audioLevel);
 
             if (audioLevel === 0) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
             } else if (audioLevel > 0 && audioLevel < 50) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
             } else if (audioLevel >= 50) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-up .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-up .uk-icon-medium"></i>');
             }
         },
 
@@ -2864,20 +2846,20 @@ define('views/common/PlayerView',[
         },
 
         progressBarClicked: function (e) {
-            GosuApp.vent.trigger("player:seekPlayer", e);
+            vent.trigger('player:seekPlayer', e);
 
         },
 
         stepBackWardClicked: function (e) {
-            GosuApp.vent.trigger("player:stepBack");
+            vent.trigger('player:stepBack');
         },
 
         stepForwardClicked: function (e) {
-            GosuApp.vent.trigger("player:stepForward");
+            vent.trigger('player:stepForward');
         },
 
         pausePlayBtnClicked: function (e) {
-            GosuApp.vent.trigger("player:pausePlay");
+            vent.trigger('player:pausePlay');
         },
 
         scrollQueue: function (e) {
@@ -2888,10 +2870,10 @@ define('views/common/PlayerView',[
         },
 
         seekPlayer: function (e) {
-            var fullProgressbarWidth = $(".handle").parent().css("width");
+            var fullProgressbarWidth = $('.handle').parent().css('width');
             fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             // leftAmt -> left % of handle
-            var leftAmt = ((e.pageX - $(".Progress").offset().left) / fullProgressbarWidth) * 100;
+            var leftAmt = ((e.pageX - $('.Progress').offset().left) / fullProgressbarWidth) * 100;
             // seekTo -> seconds to jump to in the video
             var seekTo = Math.floor((leftAmt / 100) * this.ytplayer.getDuration());
 
@@ -2912,52 +2894,52 @@ define('views/common/PlayerView',[
             YouTube API events
             ============================================================================ */
         onPlayerReady: function () {
-            GosuApp.vent.trigger("player:ytPlayerReady");
+            vent.trigger('player:ytPlayerReady');
         },
 
         onPlayerStateChange: function (e) {
             if (e.data === YT.PlayerState.PLAYING) {
-                GosuApp.vent.trigger("player:playing");
+                vent.trigger('player:playing');
             } else if (e.data === YT.PlayerState.PAUSED) {
-                GosuApp.vent.trigger("player:paused");
+                vent.trigger('player:paused');
             } else if (e.data === YT.PlayerState.ENDED) {
-                GosuApp.vent.trigger("player:trackEnded");
+                vent.trigger('player:trackEnded');
             }
         },
         /*  ============================================================================ */
 
         playerReady: function() {
-            this.changeVolume(localStorage.getItem("playerVolume"));
-            $(".Volume").slider("value", localStorage.getItem("playerVolume"));
+            this.changeVolume(localStorage.getItem('playerVolume'));
+            $('.Volume').slider('value', localStorage.getItem('playerVolume'));
         },
 
         /*
             Event handler for when 'playing' model property changes
         */
         playingStateChanged: function () {
-            this.ytplayer.setPlaybackQuality("hd720");
+            this.ytplayer.setPlaybackQuality('hd720');
 
             // If player is playing something, show pause button, else show play button
-            if (this.model.get("playing")) {
-                $(".PausePlay").html('<i class="uk-icon-pause"></i>');
+            if (this.model.get('playing')) {
+                $('.PausePlay').html('<i class="uk-icon-pause"></i>');
             } else {
-                $(".PausePlay").html('<i class="uk-icon-play"></i>');
+                $('.PausePlay').html('<i class="uk-icon-play"></i>');
             }
         },
 
         playerPlaying: function () {
-            this.ytplayer.setPlaybackQuality("hd720");
-            this.model.set("playing", true);
-            this.model.set("progressInterval", setInterval(
+            this.ytplayer.setPlaybackQuality('hd720');
+            this.model.set('playing', true);
+            this.model.set('progressInterval', setInterval(
                 function() {
-                    GosuApp.vent.trigger("player:incProgress");
+                    vent.trigger('player:incProgress');
                 }, 250));
-            $(".duration").text(this.secsToMinSec(this.ytplayer.getDuration()));
+            $('.duration').text(this.secsToMinSec(this.ytplayer.getDuration()));
         },
 
         playerPaused: function () {
-            clearInterval(this.model.get("progressInterval"));
-            this.model.set("playing", false);
+            clearInterval(this.model.get('progressInterval'));
+            this.model.set('playing', false);
         },
 
         playerIncProgress: function () {
@@ -2970,10 +2952,10 @@ define('views/common/PlayerView',[
             $('.Progress.uk-progress-bar').attr('style', 'width: ' + incrementAmount + '%');
 
             // Move handle with progress bar
-            var fullProgressbarWidth = $(".handle").parent().css("width");
+            var fullProgressbarWidth = $('.handle').parent().css('width');
                 fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             var leftAmount = fullProgressbarWidth * (this.ytplayer.getCurrentTime() / this.ytplayer.getDuration()) - 10;
-            $(".handle").css("left", leftAmount + "px");
+            $('.handle').css('left', leftAmount + "px");
 
             // Increment current time
             $(".time").text(this.secsToMinSec(this.ytplayer.getCurrentTime()));
@@ -2983,15 +2965,15 @@ define('views/common/PlayerView',[
             When currentTrackIndex changes, load the new track into the Youtube player
         */
         currentTrackIndexChanged: function () {
-            var trackAtCurrentIndex = this.model.get("tracks").at(this.model.get("currentTrackIndex"));
-            this.ytplayer.loadVideoById(trackAtCurrentIndex.get("videoId"), 0, "hd720");
+            var trackAtCurrentIndex = this.model.get('tracks').at(this.model.get('currentTrackIndex'));
+            this.ytplayer.loadVideoById(trackAtCurrentIndex.get('videoId'), 0, 'hd720');
         },
 
         /*
             Click event for clicking a track on the queue
         */
         changeTrack: function (trackModel) {
-            this.model.set("currentTrackIndex", trackModel.get("collectionIndex"));
+            this.model.set('currentTrackIndex', trackModel.get('collectionIndex'));
         },
 
         /*
@@ -2999,36 +2981,36 @@ define('views/common/PlayerView',[
             If we're on the last track in the queue reset the currentTrackIndex to 0
         */
         changeToNextTrack: function () {
-            console.log("changing to next track");
+            console.log('changing to next track');
 
             // Reset the progress bar and interval
-            clearInterval(this.model.get("progressInterval"));
-            $(".Progress.uk-progress-bar").attr("style", "width: 0%");
+            clearInterval(this.model.get('progressInterval'));
+            $('.Progress.uk-progress-bar').attr('style', 'width: 0%');
 
             // Change model's currentTrackIndex
-            var currentTrackIndex = this.model.get("currentTrackIndex");
-            if (currentTrackIndex + 1 >= this.model.get("tracks").length) {
-                console.log("reset queue to 0");
-                this.model.set("currentTrackIndex", 0);
+            var currentTrackIndex = this.model.get('currentTrackIndex');
+            if (currentTrackIndex + 1 >= this.model.get('tracks').length) {
+                console.log('reset queue to 0');
+                this.model.set('currentTrackIndex', 0);
             } else {
-                this.model.set("currentTrackIndex", currentTrackIndex + 1);
+                this.model.set('currentTrackIndex', currentTrackIndex + 1);
             }
         },
 
         changeToPrevTrack: function () {
-            clearInterval(this.model.get("progressInterval"));
-            $(".Progress.uk-progress-bar").attr("style", "width: 0%");
+            clearInterval(this.model.get('progressInterval'));
+            $('.Progress.uk-progress-bar').attr('style', 'width: 0%');
 
-            var currentTrackIndex = this.model.get("currentTrackIndex");
+            var currentTrackIndex = this.model.get('currentTrackIndex');
             if (currentTrackIndex - 1 < 0) {
-                this.model.set("currentTrackIndex", this.model.get("tracks").length - 1);
+                this.model.set('currentTrackIndex', this.model.get('tracks').length - 1);
             } else {
-                this.model.set("currentTrackIndex", currentTrackIndex - 1);
+                this.model.set('currentTrackIndex', currentTrackIndex - 1);
             }
         },
 
         pauseOrPlay: function () {
-            if (this.model.get("playing")) {
+            if (this.model.get('playing')) {
                 this.ytplayer.pauseVideo();
             } else {
                 this.ytplayer.playVideo();
@@ -3036,19 +3018,19 @@ define('views/common/PlayerView',[
         },
 
         addToQueue: function(trackModel) {
-            this.model.get("tracks").add(trackModel);
+            this.model.get('tracks').add(trackModel);
             this.model.saveLocal();
         },
 
         removeFromQueue: function(trackModel) {
-            this.model.get("tracks").remove(trackModel);
+            this.model.get('tracks').remove(trackModel);
             this.model.saveLocal();
         },
 
         addToQueueCollection: function(trackModel) {
-            trackModel.set("collectionIndex", (this.model.get("tracks").length) >= 0 ? this.model.get("tracks").length - 1 : 0);
+            trackModel.set('collectionIndex', (this.model.get('tracks').length) >= 0 ? this.model.get('tracks').length - 1 : 0);
             var playerQueueItem = new PlayerQueueItemView({ model: trackModel });
-            $(".queueItems").append(playerQueueItem.render().el);
+            $('.queueItems').append(playerQueueItem.render().el);
 
             // Determine if we need to add a horizontal scrollbar to queue
             this.setQueueItemsScrollbar();
@@ -3060,7 +3042,7 @@ define('views/common/PlayerView',[
         },
 
         resetQueueCollection: function() {
-            $(".queueItems").html("");
+            $('.queueItems').html("");
         },
 
         /*
@@ -3068,17 +3050,17 @@ define('views/common/PlayerView',[
             Should clear queue, and add the track that was asked to be played to the new queue.
         */
         playTrackDirect: function(trackModel) {
-            this.model.get("tracks").reset();
-            this.model.get("tracks").add(trackModel);
-            this.model.set({ "currentTrackIndex" : 0 }, { silent: true });
-            this.ytplayer.loadVideoById(trackModel.get("videoId"), 0, "hd720");
+            this.model.get('tracks').reset();
+            this.model.get('tracks').add(trackModel);
+            this.model.set({ 'currentTrackIndex' : 0 }, { silent: true });
+            this.ytplayer.loadVideoById(trackModel.get('videoId'), 0, 'hd720');
         },
 
         setQueueItemsScrollbar: function() {
-            if ((75 * this.model.get("tracks").length) >= ($(".queue").width() - 75)) {
-                $(".queueItems").css("overflow-x", "scroll");
+            if ((75 * this.model.get('tracks').length) >= ($('.queue').width() - 75)) {
+                $('.queueItems').css('overflow-x', 'scroll');
             } else {
-                $(".queueItems").css("overflow-x", "hidden");
+                $('.queueItems').css('overflow-x', 'hidden');
             }
         }
 
@@ -3088,13 +3070,11 @@ define('views/common/PlayerView',[
 
 });
 define('controllers/PlayerController',[
-    "namespace",
-    "marionette",
-    "../models/Player",
-    "../views/common/PlayerView"
-], function(namespace, Marionette, PlayerModel, PlayerView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    '../models/Player',
+    '../views/common/PlayerView'
+], function(vent, Marionette, PlayerModel, PlayerView) {
 
     var PlayerController = function() {
         // Get data from localStorage for users who are not logged in.
@@ -3110,7 +3090,7 @@ define('controllers/PlayerController',[
         this.model = new PlayerModel();
 
         // If player_queue does not exist in localstorage, create it.
-        if (localStorage.getItem("playerData") === null) {
+        if (localStorage.getItem('playerData') === null) {
             this.model.saveLocal();
         } else {
             this.model.loadLocal();
@@ -3118,34 +3098,17 @@ define('controllers/PlayerController',[
     };
 
     PlayerController.prototype.render = function() {
-        GosuApp.player.show(new PlayerView({ model: this.model }));
+        vent.trigger('renderPlayer', { view : new PlayerView({ model: this.model }) });
     };
 
     return PlayerController;
 
 });
-
-define('text!templates/MainPageLayoutTemplate.html',[],function () { return '                <div class="featured">\r\n                    <ul>\r\n                        <li><img src="assets/img/featured_1.png" /></li>\r\n                        <li><img src="assets/img/featured_2.png" /></li>\r\n                    </ul>\r\n                </div>\r\n                <div class="content">\r\n                    <div class="modules">\r\n                        <div class="module">\r\n                            <h3>Popular</h3>\r\n                            <div id="popular-group">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class="module">\r\n                            <h3>New Releases</h3>\r\n                            <div id="new-releases-group">\r\n\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class="side-modules">\r\n\r\n                    </div>\r\n\r\n                </div>\r\n                <div class="push"></div>\r\n            </div>';});
-
-define('layouts/MainPageLayout',[
-    "marionette",
-    "text!../templates/MainPageLayoutTemplate.html"
-], function(Marionette, MainPageLayoutTemplate) {
-
-    var MainPageLayout = Backbone.Marionette.Layout.extend({
-        template: _.template(MainPageLayoutTemplate),
-        className : "app-region uk-animation-slide-left",
-        regions : {
-            featured : ".featured",
-            content : ".content",
-            popular : "#popular-group",
-            newReleases : "#new-releases-group"
-            //sideModules : ".side-modules"
-        }
-    });
-
-    return MainPageLayout;
-
+// Global cache object. Just use a default backbone model for now.
+define('models/Cache',[
+    'marionette'
+], function() {
+    return new Backbone.Model();
 });
 
 define('text!templates/TrackGroupItemTemplate.html',[],function () { return '\r\n<div class="thumb">\r\n    <figure class="uk-overlay-toggle">\r\n        <a href="#/track/<%= trackId %>/<%= title %>" class="uk-overlay">\r\n            <img src="assets/img/girlsday_thumb.png" />\r\n            <div class="uk-overlay-area">\r\n                <div class="OverlayNav uk-overlay-area-content">\r\n                    <a class="Play uk-icon-play uk-icon-small"></a>\r\n                    <a class="AddTo uk-icon-plus uk-icon-small"></a>\r\n                </div>\r\n            </div>\r\n        </a>\r\n    </figure>\r\n\r\n</div>\r\n<div class="meta">\r\n    <div class="caption">\r\n        <a href="#/track/<%= trackId %>/<%= title %>" title="<%= artistName %> - <%= title %>"><%= title %></a>\r\n    </div>\r\n    <div class="sub-caption">\r\n        <%= artistName %>\r\n    </div>\r\n</div>';});
@@ -3154,13 +3117,11 @@ define('text!templates/TrackGroupItemTemplate.html',[],function () { return '\r\
 define('text!templates/TrackGroupListItemTemplate.html',[],function () { return '\r\n<div class="track-item-container">\r\n\t<div class="thumb">\r\n\t\t<img src="assets/img/girlsday_thumb.png" />\r\n\t</div>\r\n\t<div class="meta">\r\n\t\t<div class="title"><a href="#/track/<%= trackId %>/<%= title %>"><%= title %></a></div>\r\n\t\t<div class="artist"><%= artistName %></div>\r\n\t</div>\r\n</div>\r\n\r\n<div class="track-options">\r\n    <div class="uk-button-group">\r\n        <button class="Play uk-button" title="Play"><i class="uk-icon-play"></i></button>\r\n        <button class="AddTo uk-button" title="Add to..."><i class="uk-icon-plus"></i></button>\r\n    </div>\r\n</div>';});
 
 define('views/TrackGroupItemView',[
-    "namespace",
-    "marionette",
-    "text!../templates/TrackGroupItemTemplate.html",
-    "text!../templates/TrackGroupListItemTemplate.html"
-], function(namespace, Marionette, TrackGroupItemTemplate, TrackGroupListItemTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../templates/TrackGroupItemTemplate.html',
+    'text!../templates/TrackGroupListItemTemplate.html'
+], function(vent, Marionette, TrackGroupItemTemplate, TrackGroupListItemTemplate) {
 
     var TrackGroupItemView = Backbone.Marionette.ItemView.extend({
 
@@ -3170,21 +3131,21 @@ define('views/TrackGroupItemView',[
         template: _.template(TrackGroupItemTemplate),
 
         events : {
-            "click .Play" : "playTrack",
-            "click .AddTo" : "addTrackTo"
+            'click .Play' : 'playTrack',
+            'click .AddTo' : 'addTrackTo'
         },
 
         initialize: function() {
         },
 
         onRender: function() {
-            if (this.options.renderType === "list") {
-                $(this.el).addClass("listItem");
+            if (this.options.renderType === 'list') {
+                $(this.el).addClass('listItem');
             }
         },
 
         getTemplate: function() {
-            if (this.options.renderType === "list") {
+            if (this.options.renderType === 'list') {
                 return _.template(TrackGroupListItemTemplate);
             } else {
                 return _.template(TrackGroupItemTemplate);
@@ -3192,29 +3153,28 @@ define('views/TrackGroupItemView',[
         },
 
         playTrack: function (e) {
-            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
-                    trackId: this.model.get("trackId"),
-                    title: this.model.get("title"),
-                    artistId: this.model.get("artistId"),
-                    artistName: this.model.get("artistName"),
-                    videoId: this.model.get("videoId"),
-                    uploaded: this.model.get("uploaded"),
-                    viewCount: this.model.get("viewCount")
+            vent.trigger('player:addToQueue', new Backbone.Model({
+                    trackId: this.model.get('trackId'),
+                    title: this.model.get('title'),
+                    artistId: this.model.get('artistId'),
+                    artistName: this.model.get('artistName'),
+                    videoId: this.model.get('videoId'),
+                    uploaded: this.model.get('uploaded'),
+                    viewCount: this.model.get('viewCount')
                 }));
         },
 
         addTrackTo: function (e) {
-            console.log("add track to");
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger('showTrackAddToMenu', {
                 model : new Backbone.Model({
-                    trackId: this.model.get("trackId"),
-                    title: this.model.get("title"),
-                    artistId: this.model.get("artistId"),
-                    artistName: this.model.get("artistName"),
-                    videoId: this.model.get("videoId"),
-                    uploaded: this.model.get("uploaded"),
-                    viewCount: this.model.get("viewCount")
+                    trackId: this.model.get('trackId'),
+                    title: this.model.get('title'),
+                    artistId: this.model.get('artistId'),
+                    artistName: this.model.get('artistName'),
+                    videoId: this.model.get('videoId'),
+                    uploaded: this.model.get('uploaded'),
+                    viewCount: this.model.get('viewCount')
                 }),
                 event : e
             });
@@ -3225,41 +3185,36 @@ define('views/TrackGroupItemView',[
 
 });
 
-define('text!templates/TrackGroupCollection_4_Template.html',[],function () { return '                        <div class="tracks-group-container">\r\n                            <ul class="tracks-group large-block-grid-4">\r\n                            </ul>\r\n                        </div>';});
-
-
-define('text!templates/TrackGroupCollection_6_Template.html',[],function () { return '\r\n<div class="item-group">\r\n</div>';});
+define('text!templates/TrackGroupCollectionTemplate.html',[],function () { return '\r\n<div class="item-group">\r\n</div>';});
 
 define('views/TrackGroupCollectionView',[
-    "marionette",
-    "views/TrackGroupItemView",
-    "text!../templates/TrackGroupCollection_4_Template.html",
-    "text!../templates/TrackGroupCollection_6_Template.html"
-], function(Marionette, TrackGroupItemView, TrackGroupCollection_4_Template, TrackGroupCollection_6_Template) {
+    'marionette',
+    'views/TrackGroupItemView',
+    'text!../templates/TrackGroupCollectionTemplate.html'
+], function(Marionette, TrackGroupItemView, TrackGroupCollectionTemplate) {
 
     var TrackGroupCollectionView = Backbone.Marionette.CompositeView.extend({
-        tagName: "div",
-        className: "tracks-group-container",
-        template: _.template(TrackGroupCollection_6_Template),
+        tagName: 'div',
+        className: 'tracks-group-container',
+        template: _.template(TrackGroupCollectionTemplate),
         itemView: TrackGroupItemView,
-        itemViewContainer : ".item-group",
+        itemViewContainer : '.item-group',
 
         initialize : function(options) {
             var GroupModel = new Backbone.Model();
-            GroupModel.set("size", options.size);
-            GroupModel.set("renderType", options.renderType);
+            GroupModel.set('renderType', options.renderType);
             this.model = GroupModel;
         },
 
         itemViewOptions: function(model, index) {
             return {
-                renderType: this.model.get("renderType")
+                renderType: this.model.get('renderType')
             };
         },
 
         onRender: function() {
-            if (this.model.get("renderType") === "list") {
-                $(this.el).find(".item-group").addClass("list");
+            if (this.model.get('renderType') === 'list') {
+                $(this.el).find('.item-group').addClass('list');
             }
         }
 
@@ -3283,11 +3238,11 @@ define('views/TrackGroupCollectionView',[
 define('text!templates/SOTWSideModuleTemplate.html',[],function () { return '\r\n                            <img src="assets/img/song_of_the_week.png" />';});
 
 define('views/side_modules/SOTWSideModuleView',[
-    "jquery",
-    "underscore",
-    "backbone",
-    "marionette",
-    "text!../../templates/SOTWSideModuleTemplate.html"
+    'jquery',
+    'underscore',
+    'backbone',
+    'marionette',
+    'text!../../templates/SOTWSideModuleTemplate.html'
 ], function($, _, Backbone, Marionette, SOTWSideModuleTemplate) {
 
     var SOTWSideModuleView = Backbone.Marionette.ItemView.extend({
@@ -3303,11 +3258,11 @@ define('views/side_modules/SOTWSideModuleView',[
 define('text!templates/RadioSideModuleTemplate.html',[],function () { return '\r\n                            <div class="module-item">\r\n                                <div class="radio-thumb">\r\n                                    <img src="assets/img/radio_thumb.png"/>\r\n                                </div>\r\n                                <div class="radio-meta">\r\n                                    <span class="radio-title">Wedding Dress</span>\r\n                                    <span class="radio-artist">Taeyang</span>\r\n                                </div>\r\n                            </div>';});
 
 define('views/side_modules/RadioSideModuleView',[
-    "jquery",
-    "underscore",
-    "backbone",
-    "marionette",
-    "text!../../templates/RadioSideModuleTemplate.html"
+    'jquery',
+    'underscore',
+    'backbone',
+    'marionette',
+    'text!../../templates/RadioSideModuleTemplate.html'
 ], function($, _, Backbone, Marionette, RadioSideModuleTemplate) {
 
     var RadioSideModuleView = Backbone.Marionette.ItemView.extend({
@@ -3329,11 +3284,11 @@ define('text!templates/ModuleItemTemplate.html',[],function () { return '       
 define('text!templates/ComingSoonModuleItemTemplate.html',[],function () { return '<div class="meta">\r\n    <span class="track-title"><%= title %></span>\r\n    <span class="track-artist"><%= artistName %></span>\r\n</div>\r\n<div class="track-date">\r\n    Oct. 7, 2013\r\n</div>';});
 
 define('views/side_modules/ModuleItemView',[
-    "underscore",
-    "backbone",
-    "marionette",
-    "text!../../templates/ModuleItemTemplate.html",
-    "text!../../templates/ComingSoonModuleItemTemplate.html"
+    'underscore',
+    'backbone',
+    'marionette',
+    'text!../../templates/ModuleItemTemplate.html',
+    'text!../../templates/ComingSoonModuleItemTemplate.html'
 ], function(_, Backbone, Marionette, ModuleItemTemplate, ComingSoonModuleItemTemplate) {
 
     var ModuleItemView = Backbone.Marionette.ItemView.extend({
@@ -3342,15 +3297,15 @@ define('views/side_modules/ModuleItemView',[
         className : 'module-item',
 
         initialize : function(options) {
-            this.model.set("moduleType", options.moduleType);
+            this.model.set('moduleType', options.moduleType);
         },
 
         /*
             Change template based on the module type option when initializing ModuleListCompositeView
          */
         getTemplate : function() {
-            var moduleType = this.model.get("moduleType");
-            if (moduleType === "coming-soon") {
+            var moduleType = this.model.get('moduleType');
+            if (moduleType === 'coming-soon') {
                 return _.template(ComingSoonModuleItemTemplate);
             } else {
                 return _.template(ModuleItemTemplate);
@@ -3363,18 +3318,18 @@ define('views/side_modules/ModuleItemView',[
 
 });
 define('views/side_modules/ModuleListCompositeView',[
-    "underscore",
-    "backbone",
-    "marionette",
-    "text!../../templates/ModuleListTemplate.html",
-    "views/side_modules/ModuleItemView"
+    'underscore',
+    'backbone',
+    'marionette',
+    'text!../../templates/ModuleListTemplate.html',
+    'views/side_modules/ModuleItemView'
 ], function(_, Backbone, Marionette, ModuleListTemplate, ModuleItemView) {
 
     var ModuleListCompositeView = Backbone.Marionette.CompositeView.extend({
 
         template: _.template(ModuleListTemplate),
         itemView: ModuleItemView,
-        itemViewContainer : ".module-list"
+        itemViewContainer : '.module-list'
 
     });
 
@@ -3385,35 +3340,56 @@ define('views/side_modules/ModuleListCompositeView',[
 define('text!templates/MainPageSideModulesTemplate.html',[],function () { return '                        <div id="sotw">\r\n                        </div>\r\n\r\n                        <h4>Radio</h4>\r\n                        <div id="radio-side-module" class="side-module">\r\n                        </div>\r\n\r\n                        <h4>Coming Soon</h4>\r\n                        <div id="coming-soon-side-module" class="side-module">\r\n                        </div>';});
 
 define('layouts/SideModulesLayout',[
-    "marionette",
-    "text!../templates/MainPageSideModulesTemplate.html"
+    'marionette',
+    'text!../templates/MainPageSideModulesTemplate.html'
 ], function(Marionette, MainPageSideModulesTemplate) {
 
     var SideModulesLayout = Backbone.Marionette.Layout.extend({
         template: _.template(MainPageSideModulesTemplate),
 
         regions : {
-            sotw : "#sotw",
-            radio : "#radio-side-module",
-            comingSoon : "#coming-soon-side-module"
+            sotw : '#sotw',
+            radio : '#radio-side-module',
+            comingSoon : '#coming-soon-side-module'
         }
     });
 
     return SideModulesLayout;
 
 });
-define('controllers/HomePageController',[
-    "namespace",
-    "marionette",
-    "../views/TrackGroupCollectionView",
-    "../views/side_modules/SOTWSideModuleView",
-    "../views/side_modules/RadioSideModuleView",
-    "../views/side_modules/ModuleListCompositeView",
-    "../layouts/SideModulesLayout",
-    "../layouts/MainPageLayout"
-], function(namespace, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
-    var GosuApp = namespace.app;
+define('text!templates/MainPageLayoutTemplate.html',[],function () { return '                <div class="featured">\r\n                    <ul>\r\n                        <li><img src="assets/img/featured_1.png" /></li>\r\n                        <li><img src="assets/img/featured_2.png" /></li>\r\n                    </ul>\r\n                </div>\r\n                <div class="content">\r\n                    <div class="modules">\r\n                        <div class="module">\r\n                            <h3>Popular</h3>\r\n                            <div id="popular-group">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class="module">\r\n                            <h3>New Releases</h3>\r\n                            <div id="new-releases-group">\r\n\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class="side-modules">\r\n\r\n                    </div>\r\n\r\n                </div>\r\n                <div class="push"></div>\r\n            </div>';});
+
+define('layouts/MainPageLayout',[
+    'marionette',
+    'text!../templates/MainPageLayoutTemplate.html'
+], function(Marionette, MainPageLayoutTemplate) {
+
+    var MainPageLayout = Backbone.Marionette.Layout.extend({
+        template: _.template(MainPageLayoutTemplate),
+        className : 'app-region uk-animation-slide-left',
+        regions : {
+            featured : '.featured',
+            content : '.content',
+            popular : '#popular-group',
+            newReleases : '#new-releases-group'
+            //sideModules : ".side-modules"
+        }
+    });
+
+    return MainPageLayout;
+
+});
+define('controllers/HomePageController',[
+    'helpers/vent',
+    "marionette",
+    '../views/TrackGroupCollectionView',
+    '../views/side_modules/SOTWSideModuleView',
+    '../views/side_modules/RadioSideModuleView',
+    '../views/side_modules/ModuleListCompositeView',
+    '../layouts/SideModulesLayout',
+    '../layouts/MainPageLayout'
+], function(vent, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
     var HomePageController = function(options) {
         this.popularTracksCollection = options.popularTracksCollection;
@@ -3422,7 +3398,7 @@ define('controllers/HomePageController',[
     };
 
     HomePageController.prototype.render = function() {
-        console.log("Home page controller render");
+        console.log('Home page controller render');
 
         // Render popular tracks
         var popularTracksCompositeView = new TrackGroupCollectionView({
@@ -3437,10 +3413,16 @@ define('controllers/HomePageController',[
         });
 
         // Start rendering content region with our home page layout
-        GosuApp.contentLayout = new MainPageLayout();
-        GosuApp.content.show(GosuApp.contentLayout);
-        GosuApp.contentLayout.popular.show(popularTracksCompositeView);
-        GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
+        var newMainPageLayout = new MainPageLayout();
+
+        vent.trigger('FinishedLoadingNewPage', { view : newMainPageLayout });
+
+        newMainPageLayout.popular.show(popularTracksCompositeView);
+        newMainPageLayout.newReleases.show(newReleasesCollectionView);
+        //GosuApp.contentLayout = new MainPageLayout();
+        //GosuApp.content.show(GosuApp.contentLayout);
+        //GosuApp.contentLayout.popular.show(popularTracksCompositeView);
+        //GosuApp.contentLayout.newReleases.show(newReleasesCollectionView);
 
         // Render side modules
         /*var sideModulesLayout = new SideModulesLayout();
@@ -3465,103 +3447,94 @@ define('controllers/HomePageController',[
     return HomePageController;
 });
 
-define('text!templates/TracksPageLayoutTemplate.html',[],function () { return '<h5>Tracks</h5>\r\n\r\n<div class="options row">\r\n    <form class="uk-form" onsubmit="return false;">\r\n        <select id="sort-dropdown">\r\n            <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>\r\n            <option value="viewCount" <% if (sortType === "viewCount") { %> selected <% } %>>Popular</option>\r\n            <option value="artistName" <% if (sortType === "artistName") { %> selected <% } %>>Artist</option>\r\n            <option value="title" <% if (sortType === "title") { %> selected <% } %>>Title</option>\r\n        </select>\r\n\r\n        <select id="order-dropdown">\r\n            <option value="desc" <% if (orderBy === "desc") { %> selected <% } %>>Descending</option>\r\n            <option value="ascd" <% if (orderBy !== "desc") { %> selected <% } %>>Ascending</option>\r\n        </select>\r\n\r\n        <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">\r\n\r\n        <% if (!isFiltering) { %>\r\n            <button class="Filter uk-button"><i class="uk-icon-search"></i></button>\r\n        <% } else { %>\r\n            <button class="Remove uk-button"><i class="uk-icon-times"></i></button>\r\n        <% } %>\r\n\r\n        <div class="view-types uk-button-group">\r\n            <button class="ThumbView uk-button" title="Thumbnail view"><i class="uk-icon-th"></i></button>\r\n            <button class="ListView uk-button" title="List view"><i class="uk-icon-list"></i></button>\r\n        </div>\r\n    </form>\r\n\r\n</div>\r\n\r\n<div class="content">\r\n</div>\r\n\r\n<div class="content-footer row">\r\n    <div class="large-4 large-centered columns">\r\n        <% if (!isFiltering) { %>\r\n            <ul class="uk-pagination">\r\n                <li>\r\n                    <a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>\r\n                </li>\r\n                <% if (page - 1 > 0) { %>\r\n                    <li class="uk-pagination-previous">\r\n                        <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                            Previous\r\n                        </a>\r\n                    </li>\r\n                <% } %>\r\n                <% if (page - 2 > 0) { %>\r\n                    <li>\r\n                        <a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a>\r\n                    </li>\r\n                <% } %>\r\n\r\n                <% if (page - 1 > 0) { %>\r\n                    <li class="uk-pagination-previous">\r\n                        <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                            <%= page - 1 %>\r\n                        </a>\r\n                    </li>\r\n                <% } %>\r\n\r\n                <li class="uk-active">\r\n                    <span><%= page %></span>\r\n                </li>\r\n\r\n                <% if (page + 1 <= pageCount) { %>\r\n                    <li>\r\n                        <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a>\r\n                    </li>\r\n                <% } %>\r\n\r\n                <% if (page + 2 <= pageCount) { %>\r\n                    <li>\r\n                        <a href="#/tracks/<%= page + 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 2 %></a>\r\n                    </li>\r\n                <% } %>\r\n\r\n                <% if (page + 1 <= pageCount) { %>\r\n                    <li>\r\n                        <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">Next</a>\r\n                    </li>\r\n                <% } %>\r\n\r\n                <li>\r\n                    <a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                        <i class="uk-icon-angle-double-right"></i>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        <% } %>\r\n    </div>\r\n</div>\r\n\r\n<div class="push"></div>';});
+define('text!templates/TracksPageLayoutTemplate.html',[],function () { return '<h5>Tracks</h5>\r\n\r\n<div class="options row">\r\n    <form class="uk-form" onsubmit="return false;">\r\n        <select id="sort-dropdown">\r\n            <option value="uploaded" <% if (sortType === "uploaded") { %> selected <% } %>>Date</option>\r\n            <option value="viewCount" <% if (sortType === "viewCount") { %> selected <% } %>>Popular</option>\r\n            <option value="artistName" <% if (sortType === "artistName") { %> selected <% } %>>Artist</option>\r\n            <option value="title" <% if (sortType === "title") { %> selected <% } %>>Title</option>\r\n        </select>\r\n\r\n        <select id="order-dropdown">\r\n            <option value="desc" <% if (orderBy === "desc") { %> selected <% } %>>Descending</option>\r\n            <option value="ascd" <% if (orderBy !== "desc") { %> selected <% } %>>Ascending</option>\r\n        </select>\r\n\r\n        <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">\r\n\r\n        <% if (!isFiltering) { %>\r\n            <button class="Filter uk-button"><i class="uk-icon-search"></i></button>\r\n        <% } else { %>\r\n            <button class="Remove uk-button"><i class="uk-icon-times"></i></button>\r\n        <% } %>\r\n\r\n        <div class="view-types uk-button-group">\r\n            <button class="ThumbView uk-button" title="Thumbnail view"><i class="uk-icon-th"></i></button>\r\n            <button class="ListView uk-button" title="List view"><i class="uk-icon-list"></i></button>\r\n        </div>\r\n    </form>\r\n\r\n</div>\r\n\r\n<div class="content">\r\n</div>\r\n\r\n<div class="content-footer row">\r\n    <% if (!isFiltering) { %>\r\n        <ul class="uk-pagination">\r\n            <li>\r\n                <a href="#/tracks/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>\r\n            </li>\r\n            <% if (page - 1 > 0) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                        Previous\r\n                    </a>\r\n                </li>\r\n            <% } %>\r\n            <% if (page - 2 > 0) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page - 1 > 0) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                        <%= page - 1 %>\r\n                    </a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <li class="uk-active">\r\n                <span><%= page %></span>\r\n            </li>\r\n\r\n            <% if (page + 1 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page + 2 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page + 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 2 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page + 1 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/tracks/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">Next</a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <li>\r\n                <a href="#/tracks/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                    <i class="uk-icon-angle-double-right"></i>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    <% } %>\r\n</div>';});
 
 define('views/pages/TracksPageView',[
-    "namespace",
-    "marionette",
-    "../TrackGroupCollectionView",
-    "text!../../templates/TracksPageLayoutTemplate.html"
-], function(namespace, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    '../TrackGroupCollectionView',
+    'text!../../templates/TracksPageLayoutTemplate.html'
+], function(vent, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region uk-animation-slide-left",
+        className : 'app-region uk-animation-slide-left',
         template : _.template(TracksPageTemplate),
 
         events : {
-            "keypress #filter-input" : "filterKeyPress",
-            "click .Remove" : "filterRemove",
-            "click .Filter" : "addFilter",
-            "change #sort-dropdown" : "applySort",
-            "change #order-dropdown" : "applyOrder",
-            "click .ThumbView" : "switchViewThumb",
-            "click .ListView" : "switchViewList"
+            'keypress #filter-input' : 'filterKeyPress',
+            'click .Remove' : 'filterRemove',
+            'click .Filter' : 'addFilter',
+            'change #sort-dropdown' : 'applySort',
+            'change #order-dropdown' : 'applyOrder',
+            'click .ThumbView' : 'switchToThumbView',
+            'click .ListView' : 'switchToListView'
         },
 
         initialize : function() {
         },
 
         onRender : function() {
-            if (localStorage.getItem("tracksPage:renderType") === null) {
-                localStorage.setItem("tracksPage:renderType", "thumb");
+            if (localStorage.getItem('tracksPage:renderType') === null) {
+                localStorage.setItem('tracksPage:renderType', 'thumb');
             }
 
             // After rendering entire layout, start rendering the tracks
             var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
-                size : 6,
-                renderType : localStorage.getItem("tracksPage:renderType")
+                collection : this.model.get('tracksCollection'),
+                renderType : localStorage.getItem('tracksPage:renderType')
             });
 
-            this.$el.find(".content").append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content').append(trackGroupCollectionView.render().$el);
         },
 
         applySort : function() {
-            var sort = $("#sort-dropdown").val();
-            this.model.set("sortType", sort);
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + sort + "&order=" + this.model.get("orderBy");
+            var sort = $('#sort-dropdown').val();
+            this.model.set('sortType', sort);
+            window.location = '#/tracks/' + this.model.get('page') + '?sort=' + sort + '&order=' + this.model.get('orderBy');
         },
 
         applyOrder : function() {
-            var order = $("#order-dropdown").val();
-            this.model.set("orderBy", order);
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + order;
+            var order = $('#order-dropdown').val();
+            this.model.set('orderBy', order);
+            window.location = '#/tracks/' + this.model.get('page') + '?sort=' + this.model.get('sortType') + '&order=' + order;
         },
 
         addFilter : function(e) {
             var searchTerms = $("#filter-input").val();
-            GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+            vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
         },
 
         filterKeyPress : function(e) {
             // If enter key is entered while filter input box is focused, do a filter.
             if (e.which === 13) {
-                var searchTerms = $("#filter-input").val();
-                GosuApp.vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+                var searchTerms = $('#filter-input').val();
+                vent.trigger('tracks:doFilter', { searchTerms : searchTerms });
             }
         },
 
         filterRemove : function(e) {
-            GosuApp.vent.trigger("tracks:removeFilter");
+            vent.trigger('tracks:removeFilter');
         },
 
-        switchViewThumb : function(e) {
-            localStorage.setItem("tracksPage:renderType", "thumb");
-            $(this.el).find(".content .item-group").html('');
+        switchViewType : function(options) {
+            localStorage.setItem('tracksPage:renderType', options.viewType);
+            $(this.el).find('.content .item-group').empty();
 
             var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
-                size : 6,
-                renderType : "thumb"
+                collection : this.model.get('tracksCollection'),
+                renderType : options.viewType
             });
 
-            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content .item-group').append(trackGroupCollectionView.render().$el);
         },
 
-        switchViewList : function(e) {
-            localStorage.setItem("tracksPage:renderType", "list");
-            $(this.el).find(".content .item-group").html('');
+        switchToThumbView : function(e) {
+            this.switchViewType({ viewType: 'thumb' });
+        },
 
-            var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
-                size : 6,
-                renderType : "list"
-            });
-
-            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
+        switchToListView : function(e) {
+            this.switchViewType({ viewType: 'list' });
         }
 
     });
@@ -3570,59 +3543,43 @@ define('views/pages/TracksPageView',[
 
 });
 define('controllers/TracksPageController',[
-    "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "../views/pages/TracksPageView"
-], function(namespace, Marionette, ApiHelper, TracksPageView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'models/Cache',
+    'marionette',
+    'helpers/ApiHelper',
+    '../views/pages/TracksPageView'
+], function(vent, Cache, Marionette, ApiHelper, TracksPageView) {
 
     var TracksPageController = function(options, queryObj) {
+        var tracksCollection = new Backbone.Collection(),
+            that = this;
+
+        queryObj || (queryObj = { sort: 'uploaded', order: 'desc' });
+
         this.model = new Backbone.Model();
 
-        var tracksCollection = new Backbone.Collection();
+        this.model.set('tracksCollection', tracksCollection);
+        this.model.set('page', parseInt(options.page, 10));
+        this.model.set('isFiltering', false);
+        this.model.set('searchTerms', '');
+        this.model.set('sortType', queryObj.sort);
+        this.model.set('orderBy', queryObj.order);
 
-        this.model.set("tracksCollection", tracksCollection);
-
-        this.model.set("page", parseInt(options.page, 10));
-
-        this.model.set("isFiltering", false);
-        this.model.set("searchTerms", "");
-
-        // Set up our model
-        if (typeof queryObj == 'undefined') {
-            queryObj = { };
-            queryObj.sort = "uploaded";
-            queryObj.order = "desc";
+        if (options.page) {
+            this.model.set('page', parseInt(options.page, 10));
+        } else {
+            this.model.set('page', 1);
         }
 
-        if (typeof options.page != 'undefined')
-            this.model.set("page", parseInt(options.page, 10));
-        else
-            this.model.set("page", 1);
-
-        if (typeof queryObj.sort != 'undefined')
-            this.model.set("sortType", queryObj.sort);
-        else
-            this.model.set("sortType", "uploaded");
-
-        if (typeof queryObj.order != 'undefined')
-            this.model.set("orderBy", queryObj.order);
-        else
-            this.model.set("orderBy", "desc");
-
-        var that = this;
-
-        GosuApp.vent.on("tracks:doFilter", function(data) {
-            that.model.set("isFiltering", true);
-            that.model.set("searchTerms", data.searchTerms);
-            that.render("filter");
+        vent.on('tracks:doFilter', function(data) {
+            that.model.set('isFiltering', true);
+            that.model.set('searchTerms', data.searchTerms);
+            that.render('filter');
         });
 
-        GosuApp.vent.on("tracks:removeFilter", function() {
-            that.model.set("isFiltering", false);
-            that.model.set("searchTerms", "");
+        vent.on('tracks:removeFilter', function() {
+            that.model.set('isFiltering', false);
+            that.model.set('searchTerms', '');
             that.render();
         });
     };
@@ -3630,46 +3587,45 @@ define('controllers/TracksPageController',[
     TracksPageController.prototype.render = function(type) {
         var that = this;
 
-        GosuApp.vent.trigger("StartLoadingNewPage", {
-            title: "Tracks",
-            page : "tracks"
+        vent.trigger('StartLoadingNewPage', {
+            title: 'Tracks',
+            page : 'tracks'
         });
 
         $.when(that.getTrackCollection(type)).then(function(data) {
-            that.model.get("tracksCollection").reset(data.tracks);
+            that.model.get('tracksCollection').reset(data.tracks);
 
-            that.model.set("pageCount", data.pageCount);
-
-            GosuApp.vent.trigger("FinishedLoadingNewPage");
+            that.model.set('pageCount', data.pageCount);
 
             var tracksPageView = new TracksPageView({ model : that.model });
-            GosuApp.content.show(tracksPageView);
+
+            vent.trigger('FinishedLoadingNewPage', { view : tracksPageView });
         });
 
     };
 
     TracksPageController.prototype.getTrackCollection = function(type, data) {
-        if (type === "filter") {
+        if (type === 'filter') {
             return ApiHelper.request(
-                        "GET",
-                        "tracks/search/" + this.model.get("searchTerms"),
+                        'GET',
+                        'tracks/search/' + this.model.get('searchTerms'),
                         {
                             sort : this.model.get("sortType"),
                             order : this.model.get("orderBy")
                         },
-                        GosuApp.GlobalCache,
-                        "tracks_filter_" + this.model.get("searchTerms") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
+                        Cache,
+                        'tracks_filter_' + this.model.get('searchTerms') + '_s' + this.model.get('sortType') + '_o' + this.model.get('orderBy'));
         } else {
             return ApiHelper.request(
-                        "GET",
-                        "tracks",
+                        'GET',
+                        'tracks',
                         {
-                            page : this.model.get("page"),
-                            sort : this.model.get("sortType"),
-                            order : this.model.get("orderBy")
+                            page : this.model.get('page'),
+                            sort : this.model.get('sortType'),
+                            order : this.model.get('orderBy')
                         },
-                        GosuApp.GlobalCache,
-                        "tracks_p" + this.model.get("page") + "_s" + this.model.get("sortType") + "_o" + this.model.get("orderBy"));
+                        Cache,
+                        'tracks_p' + this.model.get('page') + '_s' + this.model.get('sortType') + '_o' + this.model.get('orderBy'));
         }
     };
 
@@ -3677,81 +3633,263 @@ define('controllers/TracksPageController',[
 
 });
 
-define('text!templates/ArtistsPageLayoutTemplate.html',[],function () { return '';});
+define('text!templates/ArtistGroupItemTemplate.html',[],function () { return '<div class="thumb">\r\n    <a href="#/artist/<%= id %>/<%= name %>" class="uk-overlay">\r\n        <img src="assets/img/girlsday_thumb.png" />\r\n    </a>\r\n</div>\r\n\r\n<div class="meta">\r\n    <div class="caption">\r\n        <a href="#/artist/<%= id %>/<%= name %>" title="<%= name %>"><%= name %></a>\r\n    </div>\r\n</div>';});
+
+
+define('text!templates/ArtistGroupListItemTemplate.html',[],function () { return 'listitem';});
+
+define('views/ArtistsGroupItemView',[
+    'helpers/vent',
+    'marionette',
+    'text!../templates/ArtistGroupItemTemplate.html',
+    'text!../templates/ArtistGroupListItemTemplate.html'
+], function(vent, Marionette, ArtistGroupItemTemplate, ArtistGroupListItemTemplate) {
+
+    var ArtistsGroupItemView = Backbone.Marionette.ItemView.extend({
+
+        tagName : 'div',
+        className : 'item',
+
+        template: _.template(ArtistGroupItemTemplate),
+
+        events : {
+        },
+
+        initialize: function() {
+        },
+
+        onRender: function() {
+            if (this.options.renderType === 'list') {
+                $(this.el).addClass('listItem');
+            }
+        },
+
+        getTemplate: function() {
+            if (this.options.renderType === 'list') {
+                return _.template(ArtistGroupListItemTemplate);
+            } else {
+                return _.template(ArtistGroupItemTemplate);
+            }
+        }
+    });
+
+    return ArtistsGroupItemView;
+
+});
+
+define('text!templates/ArtistGroupCompositeTemplate.html',[],function () { return '<div class="item-group">\r\n</div>';});
+
+define('views/ArtistsGroupCompositeView',[
+    'marionette',
+    'views/ArtistsGroupItemView',
+    'text!../templates/ArtistGroupCompositeTemplate.html'
+], function(Marionette, ArtistGroupItemView, ArtistGroupCompositeTemplate) {
+
+    var ArtistsGroupCompositeView = Backbone.Marionette.CompositeView.extend({
+        tagName: 'div',
+        className: 'tracks-group-container',
+        template: _.template(ArtistGroupCompositeTemplate),
+        itemView: ArtistGroupItemView,
+        itemViewContainer : '.item-group',
+
+        initialize : function(options) {
+            var GroupModel = new Backbone.Model();
+            GroupModel.set('renderType', options.renderType);
+            this.model = GroupModel;
+        },
+
+        itemViewOptions: function(model, index) {
+            return {
+                renderType: this.model.get('renderType')
+            };
+        },
+
+        onRender: function() {
+            if (this.model.get('renderType') === 'list') {
+                $(this.el).find('.item-group').addClass('list');
+            }
+        }
+    });
+
+    return ArtistsGroupCompositeView;
+
+});
+
+define('text!templates/ArtistsPageLayoutTemplate.html',[],function () { return '<h5>Artists</h5>\r\n\r\n<div class="options row">\r\n    <form class="uk-form" onsubmit="return false;">\r\n        <select id="sort-dropdown">\r\n            <option value="name" <% if (sortType === "name") { %> selected <% } %>>Name</option>\r\n            <option value="popular" <% if (sortType === "popular") { %> selected <% } %>>Popular</option>\r\n        </select>\r\n\r\n        <select id="order-dropdown">\r\n            <option value="desc" <% if (orderBy === "desc") { %> selected <% } %>>Descending</option>\r\n            <option value="ascd" <% if (orderBy !== "desc") { %> selected <% } %>>Ascending</option>\r\n        </select>\r\n\r\n        <input id="filter-input" type="text" placeholder="Filter..." value="<%= searchTerms %>">\r\n\r\n        <% if (!isFiltering) { %>\r\n            <button class="Filter uk-button"><i class="uk-icon-search"></i></button>\r\n        <% } else { %>\r\n            <button class="Remove uk-button"><i class="uk-icon-times"></i></button>\r\n        <% } %>\r\n\r\n        <div class="view-types uk-button-group">\r\n            <button class="ThumbView uk-button" title="Thumbnail view"><i class="uk-icon-th"></i></button>\r\n            <button class="ListView uk-button" title="List view"><i class="uk-icon-list"></i></button>\r\n        </div>\r\n    </form>\r\n\r\n</div>\r\n\r\n<div class="content">\r\n</div>\r\n\r\n<div class="content-footer row">\r\n    <% if (!isFiltering) { %>\r\n        <ul class="uk-pagination">\r\n            <li>\r\n                <a href="#/artists/1?sort=<%= sortType %>&order=<%= orderBy %>"><i class="uk-icon-angle-double-left"></i></a>\r\n            </li>\r\n            <% if (page - 1 > 0) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                        Previous\r\n                    </a>\r\n                </li>\r\n            <% } %>\r\n            <% if (page - 2 > 0) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page - 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page - 2 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page - 1 > 0) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page - 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                        <%= page - 1 %>\r\n                    </a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <li class="uk-active">\r\n                <span><%= page %></span>\r\n            </li>\r\n\r\n            <% if (page + 1 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 1 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page + 2 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page + 2 %>?sort=<%= sortType %>&order=<%= orderBy %>"><%= page + 2 %></a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <% if (page + 1 <= pageCount) { %>\r\n                <li>\r\n                    <a href="#/artists/<%= page + 1 %>?sort=<%= sortType %>&order=<%= orderBy %>">Next</a>\r\n                </li>\r\n            <% } %>\r\n\r\n            <li>\r\n                <a href="#/artists/<%= pageCount %>?sort=<%= sortType %>&order=<%= orderBy %>">\r\n                    <i class="uk-icon-angle-double-right"></i>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n    <% } %>\r\n</div>';});
 
 define('views/pages/ArtistsPageView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/ArtistsPageLayoutTemplate.html"
-], function(namespace, Marionette, ArtistsPageLayoutTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    '../ArtistsGroupCompositeView',
+    'text!../../templates/ArtistsPageLayoutTemplate.html'
+], function(vent, Marionette, ArtistsGroupCompositeView, ArtistsPageLayoutTemplate) {
 
     var ArtistsPageView = Backbone.Marionette.ItemView.extend({
+        className: 'app-region uk-animation-slide-left',
+        template: _.template(ArtistsPageLayoutTemplate),
+        events : {
+            'keypress #filter-input' : 'filterKeyPress',
+            'click .Remove' : 'filterRemove',
+            'click .Filter' : 'addFilter',
+            'change #sort-dropdown' : 'applySort',
+            'change #order-dropdown' : 'applyOrder',
+            'click .ThumbView' : 'switchToThumbView',
+            'click .ListView' : 'switchToListView'
+        },
 
+        initialize : function() {
+
+        },
+
+        onRender : function() {
+            console.log(this.model.get('artistsCollection'));
+            if (localStorage.getItem('artistsPage:renderType') === null) {
+                localStorage.setItem('artistsPage:renderType', "thumb");
+            }
+
+            var trackGroupCollectionView = new ArtistsGroupCompositeView({
+                collection : this.model.get('artistsCollection'),
+                renderType : localStorage.getItem('artistsPage:renderType')
+            });
+
+            this.$el.find('.content').append(trackGroupCollectionView.render().$el);
+        },
+
+        applySort : function() {
+            var sort = $('#sort-dropdown').val();
+            this.model.set('sortType', sort);
+            window.location = '#/artists/' + this.model.get('page') + '?sort=' + sort + '&order=' + this.model.get('orderBy');
+        },
+
+        applyOrder : function() {
+            var order = $('#order-dropdown').val();
+            this.model.set('orderBy', order);
+            window.location = '#/artists/' + this.model.get('page') + '?sort=' + this.model.get('sortType') + '&order=' + order;
+        },
+
+        addFilter : function(e) {
+            var searchTerms = $('#filter-input').val();
+            vent.trigger('artists:doFilter', { searchTerms : searchTerms });
+        },
+
+        filterKeyPress : function(e) {
+            // If enter key is entered while filter input box is focused, do a filter.
+            if (e.which === 13) {
+                var searchTerms = $('#filter-input').val();
+                vent.trigger('artists:doFilter', { searchTerms : searchTerms });
+            }
+        },
+
+        filterRemove : function(e) {
+            vent.trigger('artists:removeFilter');
+        },
+
+        switchViewType : function(options) {
+            localStorage.setItem('tracksPage:renderType', options.viewType);
+            $(this.el).find('.content .item-group').empty();
+
+            var trackGroupCollectionView = new TrackGroupCollectionView({
+                collection : this.model.get('tracksCollection'),
+                renderType : options.viewType
+            });
+
+            this.$el.find('.content .item-group').append(trackGroupCollectionView.render().$el);
+        },
+
+        switchToThumbView : function(e) {
+            this.switchViewType({ viewType: 'thumb' });
+        },
+
+        switchToListView : function(e) {
+            this.switchViewType({ viewType: 'list' });
+        }
     });
 
     return ArtistsPageView;
 });
-/*global define*/
 define('controllers/ArtistsPageController',[
-    "namespace",
-    "jquery",
-    "backbone",
-    "marionette",
-    "../views/pages/ArtistsPageView"
-], function(namespace, $, Backbone, Marionette, ArtistsPageView) {
-
-    var GosuApp = namespace.app;
-    var ApiHelper = namespace.ApiHelper;
+    'helpers/vent',
+    'models/Cache',
+    'marionette',
+    'helpers/ApiHelper',
+    '../views/pages/ArtistsPageView'
+], function(vent, Cache, Marionette, ApiHelper, ArtistsPageView) {
 
     var ArtistsPageController = function(options, queryObj) {
+        var artistsCollection = new Backbone.Collection(),
+            that = this;
+
+        queryObj || (queryObj = { sort: 'name', order: 'desc' });
+
         this.model = new Backbone.Model();
 
-        var artistsCollection = new Backbone.Collection();
+        this.model.set('artistsCollection', artistsCollection);
+        this.model.set('page', parseInt(options.page, 10));
+        this.model.set('isFiltering', false);
+        this.model.set('searchTerms', '');
+        this.model.set('sortType', queryObj.sort);
+        this.model.set('orderBy', queryObj.order);
 
-        this.model.set("artistsCollection", artistsCollection);
-
-        this.model.set("page", parseInt(options.page, 10));
-
-        this.model.set("isFiltering", false);
-        this.model.set("searchTerms", "");
-
-        // Set up our model
-        if (typeof queryObj == 'undefined') {
-            queryObj = { };
-            queryObj.sort = "uploaded";
-            queryObj.order = "desc";
+        if (options.page) {
+            this.model.set('page', parseInt(options.page, 10));
+        } else {
+            this.model.set('page', 1);
         }
 
-        if (typeof options.page != 'undefined')
-            this.model.set("page", parseInt(options.page, 10));
-        else
-            this.model.set("page", 1);
-
-        if (typeof queryObj.sort != 'undefined')
-            this.model.set("sortType", queryObj.sort);
-        else
-            this.model.set("sortType", "uploaded");
-
-        if (typeof queryObj.order != 'undefined')
-            this.model.set("orderBy", queryObj.order);
-        else
-            this.model.set("orderBy", "desc");
-
-        var that = this;
-
-        GosuApp.vent.on("artists:doFilter", function(data) {
-            that.model.set("isFiltering", true);
-            that.model.set("searchTerms", data.searchTerms);
-            that.render("filter");
+        vent.on('artists:doFilter', function(data) {
+            that.model.set('isFiltering', true);
+            that.model.set('searchTerms', data.searchTerms);
+            that.render('filter');
         });
 
-        GosuApp.vent.on("artists:removeFilter", function() {
-            that.model.set("isFiltering", false);
-            that.model.set("searchTerms", "");
+        vent.on('artists:removeFilter', function() {
+            that.model.set('isFiltering', false);
+            that.model.set('searchTerms', '');
             that.render();
         });
+    };
+
+    ArtistsPageController.prototype.render = function(type) {
+        var artistsPageView = new ArtistsPageView({ model : this.model }),
+            that = this;
+
+        vent.trigger('StartLoadingNewPage', {
+            title: 'Artists',
+            page : 'artists'
+        });
+
+        $.when(this.getArtistCollection(type)).then(function(data) {
+            that.model.get('artistsCollection').reset(data.artists);
+            that.model.set('pageCount', data.pageCount);
+
+            vent.trigger('FinishedLoadingNewPage', { view : artistsPageView });
+        });
+
+    };
+
+    ArtistsPageController.prototype.getArtistCollection = function(type, data) {
+        if (type === 'filter') {
+            return ApiHelper.request(
+                        'GET',
+                        'artists/search/' + this.model.get('searchTerms'),
+                        {
+                            sort : this.model.get('sortType'),
+                            order : this.model.get('orderBy')
+                        },
+                        Cache,
+                        'artists_filter_' + this.model.get('searchTerms') + '_s' + this.model.get('sortType') + '_o' + this.model.get('orderBy'));
+        } else {
+            return ApiHelper.request(
+                        'GET',
+                        'artists',
+                        {
+                            page : this.model.get('page'),
+                            sort : this.model.get('sortType'),
+                            order : this.model.get('orderBy')
+                        },
+                        Cache,
+                        'artists_p' + this.model.get('page') + '_s' + this.model.get('sortType') + '_o' + this.model.get('orderBy'));
+        }
     };
 
     return ArtistsPageController;
@@ -3760,22 +3898,23 @@ define('controllers/ArtistsPageController',[
 define('text!templates/LoginPageTemplate.html',[],function () { return '<div class="content">\r\n    <div class="small-centered-container">\r\n        <div class="heading">\r\n            <div class="title">\r\n                Sign In\r\n            </div>\r\n        </div>\r\n        <div class="content">\r\n            <div class="centered-container small-logo">\r\n                <img src="assets/img/logo_main.png"/>\r\n            </div>\r\n\r\n            <div id="errors">\r\n            </div>\r\n\r\n            <form class="uk-form uk-form-stacked" onsubmit="return false;">\r\n                <div class="uk-form-row">\r\n                    <input id="username" type="text" placeholder="Username">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <input id="password" type="password" placeholder="Password">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <button id="login-btn" class="uk-button uk-button-primary btn-block">Sign In</button>\r\n                </div>\r\n\r\n            </form>\r\n\r\n            <hr>\r\n            <div class="text-center">\r\n                <a href="#">Forget your password?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>';});
 
 define('views/pages/LoginPageView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/LoginPageTemplate.html"
-], function(namespace, Marionette, LoginPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/LoginPageTemplate.html'
+], function(vent, Marionette, LoginPageTemplate) {
 
     var LoginPageView = Backbone.Marionette.ItemView.extend({
-        className : "app-region",
+        className : 'app-region',
         template: _.template(LoginPageTemplate),
         events: {
-            "click #login-btn" : "doLogin"
+            'click #login-btn' : 'doLogin'
         },
 
         doLogin : function(e) {
-            GosuApp.vent.trigger("login:doLogin", { username : $("#username").val(), password : $("#password").val()});
+            vent.trigger('login:doLogin', {
+                username : $('#username').val(),
+                password : $('#password').val()
+            });
         }
 
     });
@@ -3784,18 +3923,17 @@ define('views/pages/LoginPageView',[
 
 });
 define('controllers/LoginPageController',[
-    "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "../views/pages/LoginPageView"
-], function(namespace, Marionette, ApiHelper, LoginPageView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'namespace',
+    'marionette',
+    'helpers/ApiHelper',
+    '../views/pages/LoginPageView'
+], function(vent, namespace, Marionette, ApiHelper, LoginPageView) {
 
     var LoginPageController = function() {
 
         var that = this;
-        GosuApp.vent.on("login:doLogin", function(data) {
+        vent.on('login:doLogin', function(data) {
             that.doLogin(data);
         });
 
@@ -3803,7 +3941,13 @@ define('controllers/LoginPageController',[
 
     LoginPageController.prototype.render = function() {
         var loginPageView = new LoginPageView();
-        GosuApp.content.show(loginPageView);
+
+        vent.trigger('StartLoadingNewPage', {
+            title: 'Sign In',
+            page : 'login'
+        });
+
+        vent.trigger('FinishedLoadingNewPage', { view : loginPageView });
     };
 
     /**
@@ -3815,27 +3959,27 @@ define('controllers/LoginPageController',[
      *           fail with errors.
      */
     LoginPageController.prototype.doLogin = function(data) {
-        var usernameInput = $("#username");
-        var passwordInput = $("#password");
+        var usernameInput = $('#username');
+        var passwordInput = $('#password');
         var errors = false;
 
         // Clear out any error messages
-        $(".error-message").remove();
-        $("#error-segment").remove();
-        $("#login-form").removeClass("error");
-        usernameInput.removeClass("uk-form-danger");
-        passwordInput.removeClass("uk-form-danger");
+        $('.error-message').remove();
+        $('#error-segment').remove();
+        $('#login-form').removeClass('error');
+        usernameInput.removeClass('uk-form-danger');
+        passwordInput.removeClass('uk-form-danger');
 
         // Check if there's anything in username input
-        if (data.username === "") {
-            usernameInput.addClass("uk-form-danger");
+        if (data.username === '') {
+            usernameInput.addClass('uk-form-danger');
             usernameInput.parent().append('<p class="uk-form-help-block">Please enter a username.</p>');
             errors = true;
         }
 
         // Check if there's anything in password input
-        if (data.password === "") {
-            passwordInput.addClass("uk-form-danger");
+        if (data.password === '') {
+            passwordInput.addClass('uk-form-danger');
             passwordInput.parent().append('<p class="uk-form-help-block">Please enter a password.</p>');
             errors = true;
         }
@@ -3844,22 +3988,22 @@ define('controllers/LoginPageController',[
         if (!errors) {
             $.when(
                 ApiHelper.request(
-                    "POST",
-                    "auth",
+                    'POST',
+                    'auth',
                     {
                         username : data.username,
                         password : data.password
                     })
             ).then(function(data) {
-                localStorage.setItem("token", data.token);
+                localStorage.setItem('token', data.token);
                 // TODO: CHange so we don't have to reload the entire page...
                 //       Should just re render header view and update user model
-                window.location = "#/";
+                window.location = '#/';
                 window.location.reload();
             })
             .fail(function(data) {
-                $("#login-form").addClass("error");
-                $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
+                $('#login-form').addClass('error');
+                $('#errors').prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
                 $('.uk-form-help-block').remove();
             });
         }
@@ -3872,29 +4016,27 @@ define('controllers/LoginPageController',[
 define('text!templates/RegisterPageTemplate.html',[],function () { return '<div class="content">\r\n    <div class="small-centered-container">\r\n        <div class="heading">\r\n            <div class="title">\r\n                Register\r\n            </div>\r\n        </div>\r\n        <div class="content">\r\n            <div class="centered-container small-logo">\r\n                <img src="assets/img/logo_main.png"/>\r\n            </div>\r\n\r\n            <div id="errors">\r\n            </div>\r\n\r\n            <form class="uk-form uk-form-stacked" onsubmit="return false;">\r\n                <div class="uk-form-row">\r\n                    <input id="username" type="text" placeholder="Username">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <input id="email" type="email" placeholder="Email (Optional)">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <input id="password" type="password" placeholder="Password">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <input id="confirm-password" type="password" placeholder="Confirm password">\r\n                </div>\r\n\r\n                <div class="uk-form-row">\r\n                    <button id="register-btn" class="uk-button uk-button-primary btn-block">Register</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n';});
 
 define('views/pages/RegisterPageView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/RegisterPageTemplate.html"
-], function(namespace, Marionette, RegisterPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/RegisterPageTemplate.html'
+], function(vent, Marionette, RegisterPageTemplate) {
 
     var RegisterPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region",
+        className : 'app-region',
         template : _.template(RegisterPageTemplate),
         events : {
-            "click #register-btn" : "register"
+            'click #register-btn' : 'register'
         },
 
         register : function(e) {
-            GosuApp.vent.trigger(
-                "auth:register",
+            vent.trigger(
+                'auth:register',
                 {
-                    username : $("#username").val(),
-                    password : $("#password").val(),
-                    email : $("#email").val(),
-                    confirmPassword : $("#confirm-password").val()
+                    username : $('#username').val(),
+                    password : $('#password').val(),
+                    email : $('#email').val(),
+                    confirmPassword : $('#confirm-password').val()
                 }
             );
         }
@@ -3905,32 +4047,36 @@ define('views/pages/RegisterPageView',[
 
 });
 define('controllers/RegisterPageController',[
+    'helpers/vent',
     "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "../views/pages/RegisterPageView"
-], function(namespace, Marionette, ApiHelper, RegisterPageView) {
-
-    var GosuApp = namespace.app;
+    'marionette',
+    'helpers/ApiHelper',
+    '../views/pages/RegisterPageView'
+], function(vent, namespace, Marionette, ApiHelper, RegisterPageView) {
 
     var RegisterPageController = function() {
         var that = this;
-        GosuApp.vent.on("auth:register", function(data) {
+        vent.on('auth:register', function(data) {
             that.doRegister(data);
         });
     };
 
     RegisterPageController.prototype.render = function() {
         var registerView = new RegisterPageView();
-        GosuApp.content.show(registerView);
+
+        vent.trigger('StartLoadingNewPage', {
+            title: 'Register'
+        });
+
+        vent.trigger('FinishedLoadingNewPage', { view : registerView });
     };
 
     RegisterPageController.prototype.doRegister = function(data) {
         if (this.validateForm(data)) {
-            console.log("valid registeration");
+            console.log('valid registeration');
             $.when(ApiHelper.request(
-                "POST",
-                "users",
+                'POST',
+                'users',
                 {
                     username: data.username,
                     password : data.password,
@@ -3939,56 +4085,56 @@ define('controllers/RegisterPageController',[
                 })
             ).then(function(data) {
                 console.log(data);
-                localStorage.setItem("token", data.token);
-                window.location = "#/";
+                localStorage.setItem('token', data.token);
+                window.location = '#/';
                 window.location.reload();
             })
             .fail(function(data) {
                 console.log(data);
-                $("#login-form").addClass("error");
-                $("#errors").prepend('<div id="error-segment" class="ui red segment"><p>' + data.responseJSON.message + '</p></div>');
+                $('#login-form').addClass('error');
+                $('#errors').prepend('<div id="error-segment" class="ui red segment"><p>' + data.responseJSON.message + '</p></div>');
             });
         }
     };
 
     RegisterPageController.prototype.validateForm = function(data) {
         var usernameField = $("#username").parent();
-        var passwordField = $("#password").parent();
-        var confirmPasswordField = $("#confirm-password").parent();
+        var passwordField = $('#password').parent();
+        var confirmPasswordField = $('#confirm-password').parent();
 
         var errors = false;
 
         // Clear any previous errors
-        $("#error-segment").remove();
-        $("#login-form").removeClass("error");
-        $(".error-message").remove();
-        usernameField.removeClass("error");
-        passwordField.removeClass("error");
-        confirmPasswordField.removeClass("error");
+        $('#error-segment').remove();
+        $('#login-form').removeClass('error');
+        $('.error-message').remove();
+        usernameField.removeClass('error');
+        passwordField.removeClass('error');
+        confirmPasswordField.removeClass('error');
 
         // Check if username is filled
-        if (data.username === "") {
-            usernameField.addClass("error");
+        if (data.username === '') {
+            usernameField.addClass('error');
             usernameField.append('<div class="error-message ui red pointing above ui label">Please enter a username.</div>');
             errors = true;
         }
 
         // Check if password is filled
-        if (data.password === "") {
-            passwordField.addClass("error");
+        if (data.password === '') {
+            passwordField.addClass('error');
             passwordField.append('<div class="error-message ui red pointing above ui label">Please enter a password.</div>');
             errors = true;
         }
 
         // Check if confirm password is filled
-        if (data.confirmPassword === "") {
-            confirmPasswordField.addClass("error");
+        if (data.confirmPassword === '') {
+            confirmPasswordField.addClass('error');
             confirmPasswordField.append('<div class="error-message ui red pointing above ui label">Please confirm your password.</div>');
             errors = true;
         }
 
         if (data.confirmPassword !== data.password) {
-            confirmPasswordField.addClass("error");
+            confirmPasswordField.addClass('error');
             confirmPasswordField.append('<div class="error-message ui red pointing above ui label">Passwords do not match.</div>');
             errors = true;
         }
@@ -4012,29 +4158,27 @@ define('controllers/RegisterPageController',[
 define('text!templates/SingleTrackPageTemplate.html',[],function () { return '<div class="player-container">\r\n\t<div class="player">\r\n\t    <iframe width="960" height="540" src="//www.youtube.com/embed/<%= videoId %>" frameborder="0" allowfullscreen></iframe>\r\n\t</div>\r\n</div>\r\n\r\n<div class="normal-container large-container">\r\n\t<div class="heading">\r\n\t\t<div class="title">\r\n\t\t\t<%= artistName %> - <%= title %>\r\n\t\t</div>\r\n\r\n\t\t<div class="push-right">\r\n\t\t\t<a class="add uk-button uk-button-small"><i class="uk-icon-plus"></i></a>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class="content">\r\n\t\t<div class="row">\r\n\t\t\t<div class="description push-left">\r\n\t\t\t\t<div class="heading">\r\n\t\t\t\t\tUploaded: <%= uploaded %>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class="vote push-right">\r\n\t\t\t\t<div class="like">\r\n\t\t\t\t\t<a class="uk-button" title="Like"><i class="thumbs-like uk-icon-thumbs-up"></i> Like</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="dislike">\r\n\t\t\t\t\t<a class="uk-button" title="Dislike"><i class="thumbs-dislike uk-icon-thumbs-down"></i> Dislike</a>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class="row">\r\n\t\t\t<div class="stats">\r\n\t\t\t\t<div class="likes uk-badge">\r\n\t\t\t\t\t<i class="thumbs-like uk-icon-thumbs-up"></i> <%= stats.likes %>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class="dislikes uk-badge">\r\n\t\t\t\t\t<i class="thumbs-dislike uk-icon-thumbs-down"></i> <%= stats.dislikes %>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>';});
 
 define('views/pages/SingleTrackPageView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/SingleTrackPageTemplate.html"
-], function(namespace, Marionette, SingleTrackPageTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/SingleTrackPageTemplate.html'
+], function(vent, Marionette, SingleTrackPageTemplate) {
 
     var SingleTrackPageView = Backbone.Marionette.ItemView.extend({
         className : 'app-region',
         template : _.template(SingleTrackPageTemplate),
         events: {
-            "click .like" : "likeClicked",
-            "click .dislike" : "dislikeClicked",
-            "click .add" : "addToClicked"
+            'click .like' : 'likeClicked',
+            'click .dislike' : 'dislikeClicked',
+            'click .add' : 'addToClicked'
         },
 
         onShow : function() {
-            if (this.model.get("liked") == 1) {
-                $(".vote").addClass("liked");
-            } else if (this.model.get("liked") == -1) {
-                $(".vote").addClass("disliked");
+            if (this.model.get('liked') == 1) {
+                $('.vote').addClass('liked');
+            } else if (this.model.get('liked') == -1) {
+                $('.vote').addClass('disliked');
             } else {
-                $(".vote").addClass("neutral");
+                $('.vote').addClass('neutral');
             }
         },
 
@@ -4048,7 +4192,7 @@ define('views/pages/SingleTrackPageView',[
 
         addToClicked : function(e) {
             e.stopPropagation();
-            GosuApp.vent.trigger("showTrackAddToMenu", {
+            vent.trigger('showTrackAddToMenu', {
                 model : this.model,
                 event : e
             });
@@ -4059,94 +4203,91 @@ define('views/pages/SingleTrackPageView',[
 
 });
 define('controllers/SingleTrackPageController',[
-    "namespace",
-    "marionette",
-    "moment",
-    "helpers/ApiHelper",
-    "../views/pages/SingleTrackPageView"
-], function(namespace, Marionette, moment, ApiHelper, SingleTrackPageView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'marionette',
+    'moment',
+    'helpers/ApiHelper',
+    '../views/pages/SingleTrackPageView'
+], function(vent, Marionette, moment, ApiHelper, SingleTrackPageView) {
 
     var SingleTrackPageController = function(options) {
         this.model = new Backbone.Model();
 
         // Redirect to home page if no id is given in the url
-        if (typeof options.id === "undefined") {
-            window.location = "#";
+        if (typeof options.id === 'undefined') {
+            window.location = '#';
             return;
         }
 
-        this.model.set("trackId", options.id);
+        this.model.set('trackId', options.id);
     };
 
     SingleTrackPageController.prototype.render = function() {
         var that = this;
-        GosuApp.vent.trigger("StartLoadingNewPage", {
-            page : "tracks"
+        vent.trigger('StartLoadingNewPage', {
+            page : 'tracks'
         });
 
         $.when(ApiHelper.request(
-            "GET",
-            "tracks/" +  that.model.get("trackId"),
+            'GET',
+            'tracks/' +  that.model.get('trackId'),
             {
-                token : localStorage.getItem("token")
+                token : localStorage.getItem('token')
             }
         )).then(function(data) {
-            GosuApp.vent.trigger("UpdateTitle", data.artistName + " - " + data.title);
-            GosuApp.vent.trigger("FinishedLoadingNewPage");
+            vent.trigger('UpdateTitle', data.artistName + ' - ' + data.title);
 
             // Parse and format YouTube's API date using momentjs
             var newDate = new Date(Date.parse(data.uploaded));
-            data.uploaded = moment(newDate.getTime()).format("MMM DD, YYYY")
+            data.uploaded = moment(newDate.getTime()).format('MMM DD, YYYY')
 
             that.model.set(data);
 
             var singleTrackPageView = new SingleTrackPageView({ model : that.model });
             singleTrackPageView.on('vote', that.vote);
 
-            GosuApp.content.show(singleTrackPageView);
+            vent.trigger('FinishedLoadingNewPage', { view : singleTrackPageView });
         });
     };
 
     SingleTrackPageController.prototype.vote = function(data) {
         var that = this;
-        var voteEl = $(".vote");
+        var voteEl = $('.vote');
 
         // Just do a basic auth check. Server will check auth when doing a POST vote anyways.
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem('token')) {
             // Update colors of icons based on vote.
             //
             // If user selects same vote, reset vote to neutral
-            if ((data.vote === 1 && voteEl.hasClass("liked")) || (data.vote === -1 && voteEl.hasClass("disliked"))) {
-                voteEl.removeClass("liked");
-                voteEl.removeClass("disliked");
-                voteEl.addClass("neutral");
+            if ((data.vote === 1 && voteEl.hasClass('liked')) || (data.vote === -1 && voteEl.hasClass('disliked'))) {
+                voteEl.removeClass('liked');
+                voteEl.removeClass('disliked');
+                voteEl.addClass('neutral');
             }
             // If user chooses like, but vote is currently disliked or neutral
-            else if (data.vote === 1 && (voteEl.hasClass("disliked") || voteEl.hasClass("neutral"))) {
-                voteEl.removeClass("neutral");
-                voteEl.removeClass("disliked");
-                voteEl.addClass("liked");
+            else if (data.vote === 1 && (voteEl.hasClass('disliked') || voteEl.hasClass('neutral'))) {
+                voteEl.removeClass('neutral');
+                voteEl.removeClass('disliked');
+                voteEl.addClass('liked');
             }
             // If user chooses dislike, but vote is currently liked or neutral
-            else if (data.vote === -1 && (voteEl.hasClass("liked") || voteEl.hasClass("neutral"))) {
-                voteEl.removeClass("neutral");
-                voteEl.removeClass("liked");
-                voteEl.addClass("disliked");
+            else if (data.vote === -1 && (voteEl.hasClass('liked') || voteEl.hasClass('neutral'))) {
+                voteEl.removeClass('neutral');
+                voteEl.removeClass('liked');
+                voteEl.addClass('disliked');
             }
         } else {
             // If user isn't logged in, redirect to login.
-            window.location = "#/signin";
+            window.location = '#/signin';
         }
 
         $.when(ApiHelper.request(
-            "POST",
-            "votes",
+            'POST',
+            'votes',
             {
                 liked : data.vote,
-                trackid : that.model.get("trackId"),
-                token : localStorage.getItem("token")
+                trackid : that.model.get('trackId'),
+                token : localStorage.getItem('token')
             }
         )).then(function(rtrdata) {
             console.log('like vote done');
@@ -4164,39 +4305,41 @@ define('controllers/SingleTrackPageController',[
  * Redirects to each page's controller.
  *******************************************/
 define('controllers/MainController',[
-    "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "controllers/HomePageController",
-    "controllers/TracksPageController",
-    "controllers/ArtistsPageController",
-    "controllers/LoginPageController",
-    "controllers/RegisterPageController",
-    "controllers/SingleTrackPageController"
-], function(namespace, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController, SingleTrackPageController) {
+    'helpers/vent',
+    'models/Cache',
+    'namespace',
+    'marionette',
+    'helpers/ApiHelper',
+    'controllers/HomePageController',
+    'controllers/TracksPageController',
+    'controllers/ArtistsPageController',
+    'controllers/LoginPageController',
+    'controllers/RegisterPageController'
+], function(vent, Cache, namespace, Marionette, ApiHelper, HomePageController, TracksPageController, ArtistsPageController, LoginPageController, RegisterPageController) {
 
-    var GosuApp = namespace.app,
-        URLHelper = namespace.URLHelper;
+    var URLHelper = namespace.URLHelper;
 
     return {
         /**
          *  Home Page
          */
         mainPage : function() {
+            console.log('MainPage route');
+
             var popularTracksCollection = new Backbone.Collection(),
                 newReleasesCollection = new Backbone.Collection(),
                 comingSoonCollection = new Backbone.Collection();
 
             // Display the loading icon
-            GosuApp.vent.trigger("StartLoadingNewPage", { page : "explore" });
+            vent.trigger('StartLoadingNewPage', { page : 'explore' });
 
             /**
              *  Only start rendering page once all of the data is ready.
              *  TODO: Move to HomePageController?
              */
             $.when(
-                ApiHelper.request("GET", "tracks/filter", { sort: "viewCount", count : 8 }, GosuApp.GlobalCache, "mostViewedTracksMainPage"),
-                ApiHelper.request("GET", "tracks/filter", { sort: "uploaded", count : 8 }, GosuApp.GlobalCache, "newReleaesMainPage")
+                ApiHelper.request('GET', 'tracks/filter', { sort: 'viewCount', count : 8 }, Cache, 'mostViewedTracksMainPage'),
+                ApiHelper.request('GET', 'tracks/filter', { sort: 'uploaded', count : 8 }, Cache, 'newReleaesMainPage')
             ).then(function(mostViewed, newTracks, comingSoon) {
                 // Array of models should always be at 0th index..so just add those to the collections.
                 // TODO: status code check...make sure the requests were actually completed successfully
@@ -4204,7 +4347,7 @@ define('controllers/MainController',[
                 popularTracksCollection.add(mostViewed[0]);
                 newReleasesCollection.add(newTracks[0]);
 
-                GosuApp.vent.trigger("FinishedLoadingNewPage");
+                //vent.trigger("FinishedLoadingNewPage");
 
                 // Pass all our collections to the home page controller, which will render all the views
                 var options = {
@@ -4222,7 +4365,7 @@ define('controllers/MainController',[
          *  Tracks page
          */
         tracksPage : function(page, query) {
-            console.log("tracks route");
+            console.log('tracks route');
             var tracksPage = new TracksPageController({ page : page }, URLHelper.getQueryObj(query));
             tracksPage.render();
         },
@@ -4231,15 +4374,18 @@ define('controllers/MainController',[
          * Single track page
          */
         singleTrackPage : function(id, name) {
-            var singleTrackPageController = new SingleTrackPageController({
-                id : id,
-                name: name
+            var SingleTrackPageRoute = require(['controllers/SingleTrackPageController'], function(SingleTrackPageController) {
+                var singleTrackPageController = new SingleTrackPageController({
+                    id : id,
+                    name: name
+                });
+                singleTrackPageController.render();
             });
-            singleTrackPageController.render();
         },
 
         artistsPage : function(page, query) {
-          var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
+            console.log('artists route');
+            var artistsPage = new ArtistsPageController({ page : page }, URLHelper.getQueryObj(query));
             artistsPage.render();
         },
 
@@ -4262,24 +4408,206 @@ define('controllers/MainController',[
 
 });
 
+define('text!templates/AddToMenuTemplate.html',[],function () { return '\r\n<ul class="uk-nav uk-nav-dropdown">\r\n    <li><a class="AddToQueue">Add to Queue</a></li>\r\n    <li><a class="AddToPlaylist">Add to Playlist</a></li>\r\n</ul>';});
+
+define('views/common/AddToMenuView',[
+    'helpers/vent',
+    'marionette',
+    'text!../../templates/AddToMenuTemplate.html'
+], function(vent, Marionette, AddToMenuTemplate) {
+
+    var AddToMenuView = Backbone.Marionette.ItemView.extend({
+        className : 'AddToMenu',
+        template: _.template(AddToMenuTemplate),
+
+        events: {
+            'click .AddToQueue' : 'addToQueue'
+        },
+
+        addToQueue : function () {
+            vent.trigger('player:addToQueue', new Backbone.Model({
+                trackId: this.model.get('trackId'),
+                title: this.model.get('title'),
+                artistId: this.model.get('artistId'),
+                artistName: this.model.get('artistName'),
+                videoId: this.model.get('videoId'),
+                uploaded: this.model.get('uploaded'),
+                viewCount: this.model.get('viewCount')
+            }));
+
+            this.close();
+        }
+
+    });
+
+    return AddToMenuView;
+
+});
+
+
+define('text!templates/LoadingIconTemplate.html',[],function () { return '<div class="small-3 small-centered columns">\r\n    <div class="loading-icon">\r\n        <div id="circularG">\r\n            <div id="circularG_1" class="circularG"></div>\r\n            <div id="circularG_2" class="circularG"></div>\r\n            <div id="circularG_3" class="circularG"></div>\r\n            <div id="circularG_4" class="circularG"></div>\r\n            <div id="circularG_5" class="circularG"></div>\r\n            <div id="circularG_6" class="circularG"></div>\r\n            <div id="circularG_7" class="circularG"></div>\r\n            <div id="circularG_8" class="circularG"></div>\r\n        </div>\r\n    </div>\r\n</div>';});
+
+define('views/common/LoadingIcon',[
+    'marionette',
+    'text!../../templates/LoadingIconTemplate.html'
+], function(Marionette, LoadingIconTemplate) {
+
+    var LoadingIcon = Backbone.Marionette.ItemView.extend({
+        className : 'row',
+        template: _.template(LoadingIconTemplate)
+    });
+
+    return LoadingIcon;
+
+});
+
+/**
+ * Controller that handles application level events.
+ *     ex: Showing loading icon, updating document title, and opening addtomenu
+ */
+
+define('controllers/AppController',[
+    'models/Client',
+    'helpers/vent',
+    'namespace',
+    '../views/common/AddToMenuView',
+    '../views/common/LoadingIcon'
+], function(Client, vent, namespace, AddToMenuView, LoadingIconView) {
+
+    var AppController = function() {
+        console.log('initialize appcontroller');
+    };
+
+    AppController.prototype.setup = function() {
+        var $sidebarNavigation = $('.sidebar .scrollable-navigation'),
+            $sidebarPlaylists = $('.sidebar .scrollable-navigation .playlists');
+
+        // Create scrollbar for playlists list on sidebar
+        $sidebarNavigation.css('height', $(document).height() - 610);
+        $sidebarPlaylists.css('height', $(document).height() - 610);
+
+        // Resize playlists list on sidebar when window is resized.
+        $(window).on('resize', function() {
+            $sidebarNavigation.css('height', $(this).height() - 610);
+            $sidebarPlaylists.css('height', $(this).height() - 610);
+        });
+    };
+
+    AppController.prototype.loadNewPage = function(data) {
+        vent.trigger('UpdateTitle', data.title ? data.title : null);
+
+        // Add blue indicator to sidebar link for current page
+        $('.navigation').children().removeClass('selected');
+        $('#' + data.page +'-nav-item').addClass('selected');
+
+        // Show the loading icon
+        this.loadingIconView = new LoadingIconView();
+
+        this.content.reset();
+        $('#content').append(this.loadingIconView.render().el);
+    };
+
+    AppController.prototype.doneLoadingNewPage = function(data) {
+        this.loadingIconView.close();
+        this.content.show(data.view);
+    };
+
+    AppController.prototype.handleSuccessfulAuthentication = function(data) {
+        Client.set({
+            loggedin : true,
+            id : data.id,
+            username : data.username,
+            token : data.token
+        });
+
+        this.headerController.render();
+        this.playerController.render();
+        this.sidebarController.render();
+
+        this.appController.setup();
+    };
+
+    AppController.prototype.handleFailedAuthentication = function(data) {
+        Client.set({
+            loggedin : false
+        });
+
+        this.headerController.render();
+        this.playerController.render();
+        this.sidebarController.render();
+
+        this.appController.setup();
+    };
+
+    AppController.prototype.updateTitle = function(title) {
+        document.title = title ? title + ' – ' + namespace.config.title : namespace.config.title;
+    };
+
+    AppController.prototype.showHeader = function(data) {
+        this.header.show(data.view);
+    };
+
+    AppController.prototype.showAddToMenu = function(data) {
+        var newAddToMenuView = new AddToMenuView({ model : data.model }),
+            $clickedEl = $(data.event.target),
+            $documentEl = $(document),
+            offsetLeftAmt = 10;
+
+        $('.AddToMenu').remove();
+
+        $('body').append(newAddToMenuView.render().el);
+
+        // Calculate where to place menu. We want to make sure it doesn't open off screen.
+        if ($clickedEl.offset().left + 150 > $documentEl.width()) {
+            offsetLeftAmt = 150;
+        }
+
+        $('.AddToMenu').css({
+            'left' : ($clickedEl.offset().left - offsetLeftAmt) + 'px',
+            'top' : ($clickedEl.offset().top - 15) + 'px'
+        });
+
+        // Close the menu if we click anywhere outside of the AddToMenu element.
+        $documentEl.click(function(e) {
+            if ($(e.target).closest('.AddToMenu').length == 0) {
+                $('.AddToMenu').remove();
+                $documentEl.unbind("click");
+            }
+        });
+    };
+
+    AppController.prototype.showNewModal = function(data) {
+        this.modals.show(data.view);
+    };
+
+    AppController.prototype.renderPlayer = function(data) {
+        this.player.show(data.view);
+    };
+
+    AppController.prototype.renderSidebar = function(data) {
+        this.sidebar.show(data.view);
+    };
+
+    return AppController;
+
+});
+
 define('text!templates/CreatePlaylistModal.html',[],function () { return '<div class="small-modal">\r\n\t<div class="heading">\r\n\t\t<div class="title">Create a Playlist</div>\r\n\t\t<div class="push-right">\r\n\t\t\t<a class="close uk-button uk-button-small">\r\n\t\t\t\t<i class="uk-icon-times"></i>\r\n\t\t\t</a>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class="content">\r\n        <form class="uk-form uk-form-stacked" onsubmit="return false;">\r\n            <div class="uk-form-row">\r\n                <label class="uk-form-label" for="name">Name</label>\r\n                <input id="name" type="text" placeholder="Enter a name">\r\n            </div>\r\n\r\n            <div class="uk-form-row">\r\n                <label>\r\n                    <input id="private" type="checkbox"> Private</input>\r\n                </label>\r\n            </div>\r\n\r\n            <div class="uk-form-row">\r\n                <button class="create uk-button uk-button-primary btn-block">Create</button>\r\n            </div>\r\n\r\n        </form>\r\n\t</div>\r\n</div>';});
 
 define('views/common/CreatePlaylistModal',[
-    'namespace',
+    'helpers/vent',
     'marionette',
-    "../../helpers/ApiHelper",
+    '../../helpers/ApiHelper',
     'text!../../templates/CreatePlaylistModal.html'
-], function(namespace, Marionette, Api, CreatePlaylistModalTemplate) {
-
-    var GosuApp = namespace.app;
+], function(vent, Marionette, Api, CreatePlaylistModalTemplate) {
 
     var CreatePlaylistModal = Marionette.ItemView.extend({
 
-        className: "modal-container",
+        className: 'modal-container',
         template: _.template(CreatePlaylistModalTemplate),
         events: {
-            "click .create" : "create",
-            "click .close" : "close"
+            'click .create' : 'create',
+            'click .close' : 'close'
         },
 
         initialize: function(options) {
@@ -4293,9 +4621,9 @@ define('views/common/CreatePlaylistModal',[
             setTimeout(function() {
                 // Close the menu if we click anywhere outside of the modal element.
                 $(document).click(function(e) {
-                    if ($(e.target).closest(".small-modal").length == 0) {
+                    if ($(e.target).closest('.small-modal').length == 0) {
                         that.close();
-                        $(document).unbind("click");
+                        $(document).unbind('click');
                     }
                 });
             }, 250);
@@ -4304,16 +4632,16 @@ define('views/common/CreatePlaylistModal',[
         create: function(e) {
             var that = this;
 
-            $.when(Api.request("POST", "playlists", {
-                token : localStorage.getItem("token"),
-                name : $("#name").val(),
-                private : $("#private").is(":checked") ? 1 : 0
+            $.when(Api.request('POST', 'playlists', {
+                token : localStorage.getItem('token'),
+                name : $('#name').val(),
+                private : $('#private').is(':checked') ? 1 : 0
             })).then(function(data) {
                 that.close();
-                GosuApp.vent.trigger("playlists:addPlaylist", data);
+                vent.trigger('playlists:addPlaylist', data);
             })
             .fail(function() {
-                console.log("failed to insert");
+                console.log('failed to insert');
             });
         }
 
@@ -4323,17 +4651,16 @@ define('views/common/CreatePlaylistModal',[
 
 });
 
-define('text!templates/SidebarTemplate.html',[],function () { return '\r\n<div class="heading">\r\n    <h3>Menu</h3>\r\n</div>\r\n<ul class="navigation">\r\n    <li id="explore-nav-item"><a href="#">Explore</a></li>\r\n    <li id="tracks-nav-item"><a href="#/tracks">Tracks</a></li>\r\n    <li id="artists-nav-item"><a href="#/artists">Artists</a></li>\r\n    <li id="playlists-nav-item"><a href="#/playlists">Playlists</a></li>\r\n</ul>\r\n\r\n<% if (client.loggedin) { %>\r\n    <div class="heading">\r\n        <h3>Library</h3>\r\n    </div>\r\n    <ul class="navigation">\r\n        <li><a href="#">Favorites</a></li>\r\n        <li class="options">\r\n            <a class="text push-left" href="#">Playlists</a>\r\n            <div class="option push-right">\r\n                <button class="add uk-button uk-button-mini">+</button>\r\n            </div>\r\n        </li>\r\n        <ul class="playlists">\r\n        </ul>\r\n    </ul>\r\n<% } %>';});
+define('text!templates/SidebarTemplate.html',[],function () { return '\r\n<div class="heading">\r\n    <h3>Menu</h3>\r\n</div>\r\n<ul class="navigation">\r\n    <li id="explore-nav-item"><a href="#">Explore</a></li>\r\n    <li id="tracks-nav-item"><a href="#/tracks">Tracks</a></li>\r\n    <li id="artists-nav-item"><a href="#/artists">Artists</a></li>\r\n    <li id="playlists-nav-item"><a href="#/playlists">Playlists</a></li>\r\n</ul>\r\n\r\n<% if (client.loggedin) { %>\r\n    <div class="heading">\r\n        <h3>Library</h3>\r\n    </div>\r\n        <ul class="navigation">\r\n            <li><a href="#">Favorites</a></li>\r\n            <li class="options">\r\n                <a class="text push-left" href="#">Playlists</a>\r\n                <div class="option push-right">\r\n                    <button class="add uk-button uk-button-mini">+</button>\r\n                </div>\r\n            </li>\r\n            <div class="scrollable-navigation">\r\n                <ul class="playlists">\r\n                </ul>\r\n            </div>\r\n        </ul>\r\n<% } %>';});
 
 define('views/common/SidebarView',[
-    "namespace",
-    "marionette",
-    "../../helpers/ApiHelper",
-    "./CreatePlaylistModal",
-    "text!../../templates/SidebarTemplate.html"
-], function(namespace, Marionette, Api, CreatePlaylistModal, SidebarTemplate) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'models/Client',
+    'marionette',
+    '../../helpers/ApiHelper',
+    './CreatePlaylistModal',
+    'text!../../templates/SidebarTemplate.html'
+], function(vent, Client, Marionette, Api, CreatePlaylistModal, SidebarTemplate) {
 
     var SidebarView = Backbone.Marionette.ItemView.extend({
         template: _.template(SidebarTemplate),
@@ -4342,32 +4669,31 @@ define('views/common/SidebarView',[
         },
 
         initialize : function() {
-            console.log("initialize sidebar view");
+            console.log('initialize sidebar view');
             this.model = new Backbone.Model();
-            this.model.set("client", GosuApp.Client.toJSON());
-            GosuApp.vent.on("playlists:addPlaylist", this.addPlaylist, this);
-            GosuApp.Client.get("playlists").on("add", this.addPlaylistToSidebar);
+            this.model.set('client', Client.toJSON());
+            vent.on('playlists:addPlaylist', this.addPlaylist, this);
+            Client.get('playlists').on('add', this.addPlaylistToSidebar);
         },
 
         onShow : function() {
-            $.when(Api.request("GET", "user/playlists", { token: localStorage.getItem("token") })).then(function(data) {
+            $.when(Api.request('GET', 'user/playlists', { token: localStorage.getItem('token') })).then(function(data) {
                 _.each(data, function(playlist) {
-                    GosuApp.Client.get("playlists").add(new Backbone.Model({ id : playlist.id, name : playlist.name }));
+                    Client.get('playlists').add(new Backbone.Model({ id : playlist.id, name : playlist.name }));
                 });
             });
         },
 
         showNewPlaylistModal : function(e) {
-            console.log('add new playlist');
             // Make sure the user is authenticated before opening modal
-            GosuApp.Client.fetch({
-                data : $.param({ token : localStorage.getItem("token") }),
+            Client.fetch({
+                data : $.param({ token : localStorage.getItem('token') }),
                 success: function(data) {
                     var newModal = new CreatePlaylistModal();
-                    GosuApp.modals.show(newModal);
+                    vent.trigger('showNewModal', { view : newModal });
                 },
                 error: function(data) {
-                    window.location = "#/signin";
+                    window.location = '#/signin';
                     window.location.reload();
                 }
             });
@@ -4375,15 +4701,15 @@ define('views/common/SidebarView',[
 
         addPlaylist : function(data) {
             var newPlaylistModel = new Backbone.Model({
-                "id" : data.id,
-                "name" : data.name
+                id : data.id,
+                name : data.name
             });
 
-            GosuApp.Client.get("playlists").add(newPlaylistModel);
+            Client.get('playlists').add(newPlaylistModel);
         },
 
         addPlaylistToSidebar : function(model) {
-            $(".playlists").append('<li><a href="#/playlists/' + model.get("id") + '">' + model.get("name") + '</a></li>');
+            $('.playlists').append('<li><a href="#/playlists/' + model.get('id') + '">' + model.get('name') + '</a></li>');
         }
 
     });
@@ -4391,204 +4717,242 @@ define('views/common/SidebarView',[
     return SidebarView;
 
 });
+define('controllers/SidebarController',[
+    'helpers/vent',
+    'marionette',
+    '../views/common/SidebarView'
+], function(vent, Marionette, SidebarView) {
 
-define('text!templates/LoadingIconTemplate.html',[],function () { return '<div class="small-3 small-centered columns">\r\n    <div class="loading-icon">\r\n        <div id="circularG">\r\n            <div id="circularG_1" class="circularG"></div>\r\n            <div id="circularG_2" class="circularG"></div>\r\n            <div id="circularG_3" class="circularG"></div>\r\n            <div id="circularG_4" class="circularG"></div>\r\n            <div id="circularG_5" class="circularG"></div>\r\n            <div id="circularG_6" class="circularG"></div>\r\n            <div id="circularG_7" class="circularG"></div>\r\n            <div id="circularG_8" class="circularG"></div>\r\n        </div>\r\n    </div>\r\n</div>';});
+    var SidebarController = function() {
+    };
 
-define('views/common/LoadingIcon',[
-    "marionette",
-    "text!../../templates/LoadingIconTemplate.html"
-], function(Marionette, LoadingIconTemplate) {
+    SidebarController.prototype.render = function() {
+        vent.trigger('renderSidebar', { view : new SidebarView() });
+    };
 
-    var LoadingIcon = Backbone.Marionette.ItemView.extend({
-        className : "row",
-        template: _.template(LoadingIconTemplate)
-    });
-
-    return LoadingIcon;
-
-});
-
-
-define('text!templates/AddToMenuTemplate.html',[],function () { return '\r\n<ul class="uk-nav uk-nav-dropdown">\r\n    <li><a class="AddToQueue">Add to Queue</a></li>\r\n    <li><a class="AddToPlaylist">Add to Playlist</a></li>\r\n</ul>';});
-
-define('views/common/AddToMenuView',[
-    "namespace",
-    "marionette",
-    "text!../../templates/AddToMenuTemplate.html"
-], function(namespace, Marionette, AddToMenuTemplate) {
-
-    var GosuApp = namespace.app;
-
-    var AddToMenuView = Backbone.Marionette.ItemView.extend({
-        className : "AddToMenu",
-        template: _.template(AddToMenuTemplate),
-
-        events: {
-            "click .AddToQueue" : "addToQueue"
-        },
-
-        addToQueue : function () {
-            GosuApp.vent.trigger("player:addToQueue", new Backbone.Model({
-                trackId: this.model.get("trackId"),
-                title: this.model.get("title"),
-                artistId: this.model.get("artistId"),
-                artistName: this.model.get("artistName"),
-                videoId: this.model.get("videoId"),
-                uploaded: this.model.get("uploaded"),
-                viewCount: this.model.get("viewCount")
-            }));
-
-            this.close();
-        }
-
-    });
-
-    return AddToMenuView;
+    return SidebarController;
 
 });
-
 /*global define,document,console*/
-define('GosuApp',[
-    "marionette",
-    "namespace",
-    "models/Client",
-    "controllers/HeaderController",
-    "controllers/PlayerController",
-    "layouts/MainPageLayout",
-    "controllers/MainController",
-    "views/common/SidebarView",
-    "views/common/LoadingIcon",
-    "views/common/AddToMenuView"
-], function(Marionette, namespace, ClientModel, PlayerController, HeaderController, MainPageLayout, MainController, SidebarView, LoadingIconView, AddToMenuView) {
+define('gosuApp',[
+    'marionette',
+    'models/Client',
+    'helpers/vent',
+    'controllers/HeaderController',
+    'controllers/PlayerController',
+    'controllers/MainController',
+    'controllers/AppController',
+    'controllers/SidebarController'
+], function(Marionette, Client, vent, HeaderController, PlayerController, MainController, AppController, SidebarController) {
 
 
-    var gosuApp = namespace.app;
+    var gosuApp = new Backbone.Marionette.Application();
 
-    // Cache any data that was fetched from the server.
-    // TODO: evict caches that haven't been accessed recently.
-    gosuApp.GlobalCache = new Backbone.Model();
-    gosuApp.Client = new ClientModel();
-
-    gosuApp.vent.on("StartLoadingNewPage", function(data) {
-        gosuApp.vent.trigger("UpdateTitle", data.title ? data.title : null);
-
-        // Add blue indicator to sidebar link for current page
-        $(".navigation").children().removeClass("selected");
-        $("#" + data.page +"-nav-item").addClass("selected");
-
-        // Show the loading icon
-        gosuApp.loadingIconView = new LoadingIconView();
-        $("#content").html("");
-        $("#content").append(gosuApp.loadingIconView.render().el);
-    });
-
-    gosuApp.vent.on("FinishedLoadingNewPage", function(data) {
-        gosuApp.loadingIconView.close();
-    });
-
-    // Updates document title
-    gosuApp.vent.on("UpdateTitle", function(title) {
-        document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
-    });
-
-    gosuApp.vent.on("showTrackAddToMenu", function(data) {
-        $(".AddToMenu").remove();
-        var newAddToMenuView = new AddToMenuView({ model : data.model });
-
-        $("body").append(newAddToMenuView.render().el);
-        $(".AddToMenu").css({
-            "left" : ($(data.event.target).offset().left - 10) + "px",
-            "top" : ($(data.event.target).offset().top - 15) + "px"
-        });
-
-        // Close the menu if we click anywhere outside of the AddToMenu element.
-        $(document).click(function(e) {
-            if ($(e.target).closest('.AddToMenu').length == 0) {
-                $(".AddToMenu").remove();
-                $(document).unbind("click");
-            }
-        });
+    gosuApp.addRegions({
+        header : '#header',
+        sidebar : '#sidebar',
+        content : '#content',
+        player : '#player',
+        modals : '.modals'
     });
 
     gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
         appRoutes: {
-            "" : "mainPage",
-            "signin" : "login",
-            "register" : "register",
-            "tracks/:page?*query" : "tracksPage",
-            "tracks/:page" : "tracksPage",
-            "tracks" : "tracksPage",
-            "track" : "singleTrackPage",
-            "track/:id" : "singleTrackPage",
-            "track/:id/*name" : "singleTrackPage",
-            "artists/:page?*query" : "artistsPage",
-            "artists/:page" : "artistsPage",
-            "artists" : "artistsPage"
+            '' : 'mainPage',
+            'signin' : 'login',
+            'register' : 'register',
+            'tracks/:page?*query' : 'tracksPage',
+            'tracks/:page' : 'tracksPage',
+            'tracks' : 'tracksPage',
+            'track' : 'singleTrackPage',
+            'track/:id' : 'singleTrackPage',
+            'track/:id/*name' : 'singleTrackPage',
+            'artists/:page?*query' : 'artistsPage',
+            'artists/:page' : 'artistsPage',
+            'artists' : 'artistsPage'
         }
     });
 
-    gosuApp.addRegions({
-        header : "#header",
-        sidebar : "#sidebar",
-        content : "#content",
-        player : "#player",
-        modals : ".modals"
-    });
+    gosuApp.on('initialize:after', function() {
+        require([
+            'apps/player/PlayerModule'
+        ], function() {
 
-    gosuApp.on("initialize:after", function() {
-        console.log("after initialize");
-        if (Backbone.history) {
-            Backbone.history.start();
-        }
+            var PlayerModule = gosuApp.module('PlayerModule');
+            PlayerModule.start();
 
-        var headerController = new HeaderController();
-        var playerController = new PlayerController();
+            gosuApp.appController = new AppController();
+            gosuApp.setUpAppEvents(vent, gosuApp.appController);
 
-        // Verify authentication before rendering header, sidebar, and player
-        $.when(
-            gosuApp.Client.fetch({
-                data: $.param({ token: localStorage.getItem("token") })
+            var mainRouter = new gosuApp.Router({
+                controller : MainController
+            });
+
+            if (Backbone.history) {
+                Backbone.history.start();
+            }
+
+            gosuApp.headerController = new HeaderController();
+            gosuApp.playerController = new PlayerController();
+            gosuApp.sidebarController = new SidebarController();
+
+            // Verify authentication before rendering header, sidebar, and player
+            $.when(
+                Client.fetch({
+                    data: $.param({ token: localStorage.getItem('token') })
+                })
+            ).then(function(data) {
+                vent.trigger('handleSuccessfulAuth', data);
             })
-        ).then(function(data) {
-            gosuApp.Client.set({
-                "loggedin" : true,
-                "id" : data.id,
-                "username" : data.username,
-                "token" : data.token
+            .fail(function(data) {
+                vent.trigger('handleFailedAuth', data);
             });
-
-            headerController.render();
-            playerController.render();
-            gosuApp.sidebar.show(new SidebarView());
-
-        })
-        .fail(function(data) {
-            gosuApp.Client.set({
-                "loggedin" : false
-            });
-
-            headerController.render();
-            playerController.render();
-            gosuApp.sidebar.show(new SidebarView());
         });
     });
 
     gosuApp.addInitializer(function() {
-        console.log("initialize");
-
-        var mainRouter = new gosuApp.Router({
-            controller : MainController
-        });
-
-        gosuApp.contentLayout = new MainPageLayout();
-
+        console.log('initialize');
 
     });
+
+    // Setup global application events
+    gosuApp.setUpAppEvents = function(vent, appController) {
+        vent.on('StartLoadingNewPage', appController.loadNewPage, this);
+        vent.on('FinishedLoadingNewPage', appController.doneLoadingNewPage, this);
+        vent.on('UpdateTitle', appController.updateTitle, this);
+        vent.on('showHeader', appController.showHeader, this);
+        vent.on('showTrackAddToMenu', appController.showAddToMenu, this);
+        vent.on('showNewModal', appController.showNewModal, this);
+        vent.on('renderPlayer', appController.renderPlayer, this);
+        vent.on('renderSidebar', appController.renderSidebar, this);
+        vent.on('handleSuccessfulAuth', appController.handleSuccessfulAuthentication, this);
+        vent.on('handleFailedAuth', appController.handleFailedAuthentication, this);
+    };
+
+    return gosuApp;
+
+});
+define('apps/player/PlayerModule',[
+    "gosuApp",
+    "marionette"
+], function(GosuApp, Marionette) {
+
+    var PlayerModule = GosuApp.module('PlayerModule', { startWithParent: false });
+
+    PlayerModule.on('start', function() {
+        console.log('starting player module');
+    });
+
+    PlayerModule.on('stop', function() {
+        console.log('stopping player module');
+    });
+
+    GosuApp.addInitializer(function() {
+        console.log('add player module initializer');
+    });
+
+    return PlayerModule;
+});
+/*global define,document,console*/
+define('GosuApp',[
+    'marionette',
+    'models/Client',
+    'helpers/vent',
+    'controllers/HeaderController',
+    'controllers/PlayerController',
+    'controllers/MainController',
+    'controllers/AppController',
+    'controllers/SidebarController'
+], function(Marionette, Client, vent, HeaderController, PlayerController, MainController, AppController, SidebarController) {
+
+
+    var gosuApp = new Backbone.Marionette.Application();
+
+    gosuApp.addRegions({
+        header : '#header',
+        sidebar : '#sidebar',
+        content : '#content',
+        player : '#player',
+        modals : '.modals'
+    });
+
+    gosuApp.Router = Backbone.Marionette.AppRouter.extend( {
+        appRoutes: {
+            '' : 'mainPage',
+            'signin' : 'login',
+            'register' : 'register',
+            'tracks/:page?*query' : 'tracksPage',
+            'tracks/:page' : 'tracksPage',
+            'tracks' : 'tracksPage',
+            'track' : 'singleTrackPage',
+            'track/:id' : 'singleTrackPage',
+            'track/:id/*name' : 'singleTrackPage',
+            'artists/:page?*query' : 'artistsPage',
+            'artists/:page' : 'artistsPage',
+            'artists' : 'artistsPage'
+        }
+    });
+
+    gosuApp.on('initialize:after', function() {
+        require([
+            'apps/player/PlayerModule'
+        ], function() {
+
+            var PlayerModule = gosuApp.module('PlayerModule');
+            PlayerModule.start();
+
+            gosuApp.appController = new AppController();
+            gosuApp.setUpAppEvents(vent, gosuApp.appController);
+
+            var mainRouter = new gosuApp.Router({
+                controller : MainController
+            });
+
+            if (Backbone.history) {
+                Backbone.history.start();
+            }
+
+            gosuApp.headerController = new HeaderController();
+            gosuApp.playerController = new PlayerController();
+            gosuApp.sidebarController = new SidebarController();
+
+            // Verify authentication before rendering header, sidebar, and player
+            $.when(
+                Client.fetch({
+                    data: $.param({ token: localStorage.getItem('token') })
+                })
+            ).then(function(data) {
+                vent.trigger('handleSuccessfulAuth', data);
+            })
+            .fail(function(data) {
+                vent.trigger('handleFailedAuth', data);
+            });
+        });
+    });
+
+    gosuApp.addInitializer(function() {
+        console.log('initialize');
+
+    });
+
+    // Setup global application events
+    gosuApp.setUpAppEvents = function(vent, appController) {
+        vent.on('StartLoadingNewPage', appController.loadNewPage, this);
+        vent.on('FinishedLoadingNewPage', appController.doneLoadingNewPage, this);
+        vent.on('UpdateTitle', appController.updateTitle, this);
+        vent.on('showHeader', appController.showHeader, this);
+        vent.on('showTrackAddToMenu', appController.showAddToMenu, this);
+        vent.on('showNewModal', appController.showNewModal, this);
+        vent.on('renderPlayer', appController.renderPlayer, this);
+        vent.on('renderSidebar', appController.renderSidebar, this);
+        vent.on('handleSuccessfulAuth', appController.handleSuccessfulAuthentication, this);
+        vent.on('handleFailedAuth', appController.handleFailedAuthentication, this);
+    };
 
     return gosuApp;
 
 });
 
-require(['GosuApp'], function(GosuApp) {
-    return GosuApp.start();
+require(['gosuApp'], function(GosuApp) {
+    GosuApp.start();
 });

@@ -1,16 +1,15 @@
 define([
-    "namespace",
-    "marionette",
-    "helpers/ApiHelper",
-    "../views/pages/LoginPageView"
-], function(namespace, Marionette, ApiHelper, LoginPageView) {
-
-    var GosuApp = namespace.app;
+    'helpers/vent',
+    'namespace',
+    'marionette',
+    'helpers/ApiHelper',
+    '../views/pages/LoginPageView'
+], function(vent, namespace, Marionette, ApiHelper, LoginPageView) {
 
     var LoginPageController = function() {
 
         var that = this;
-        GosuApp.vent.on("login:doLogin", function(data) {
+        vent.on('login:doLogin', function(data) {
             that.doLogin(data);
         });
 
@@ -18,7 +17,13 @@ define([
 
     LoginPageController.prototype.render = function() {
         var loginPageView = new LoginPageView();
-        GosuApp.content.show(loginPageView);
+
+        vent.trigger('StartLoadingNewPage', {
+            title: 'Sign In',
+            page : 'login'
+        });
+
+        vent.trigger('FinishedLoadingNewPage', { view : loginPageView });
     };
 
     /**
@@ -30,27 +35,27 @@ define([
      *           fail with errors.
      */
     LoginPageController.prototype.doLogin = function(data) {
-        var usernameInput = $("#username");
-        var passwordInput = $("#password");
+        var usernameInput = $('#username');
+        var passwordInput = $('#password');
         var errors = false;
 
         // Clear out any error messages
-        $(".error-message").remove();
-        $("#error-segment").remove();
-        $("#login-form").removeClass("error");
-        usernameInput.removeClass("uk-form-danger");
-        passwordInput.removeClass("uk-form-danger");
+        $('.error-message').remove();
+        $('#error-segment').remove();
+        $('#login-form').removeClass('error');
+        usernameInput.removeClass('uk-form-danger');
+        passwordInput.removeClass('uk-form-danger');
 
         // Check if there's anything in username input
-        if (data.username === "") {
-            usernameInput.addClass("uk-form-danger");
+        if (data.username === '') {
+            usernameInput.addClass('uk-form-danger');
             usernameInput.parent().append('<p class="uk-form-help-block">Please enter a username.</p>');
             errors = true;
         }
 
         // Check if there's anything in password input
-        if (data.password === "") {
-            passwordInput.addClass("uk-form-danger");
+        if (data.password === '') {
+            passwordInput.addClass('uk-form-danger');
             passwordInput.parent().append('<p class="uk-form-help-block">Please enter a password.</p>');
             errors = true;
         }
@@ -59,22 +64,22 @@ define([
         if (!errors) {
             $.when(
                 ApiHelper.request(
-                    "POST",
-                    "auth",
+                    'POST',
+                    'auth',
                     {
                         username : data.username,
                         password : data.password
                     })
             ).then(function(data) {
-                localStorage.setItem("token", data.token);
+                localStorage.setItem('token', data.token);
                 // TODO: CHange so we don't have to reload the entire page...
                 //       Should just re render header view and update user model
-                window.location = "#/";
+                window.location = '#/';
                 window.location.reload();
             })
             .fail(function(data) {
-                $("#login-form").addClass("error");
-                $("#errors").prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
+                $('#login-form').addClass('error');
+                $('#errors').prepend('<div id="error-segment" class="uk-alert uk-alert-danger"><p>The username or password is not correct.</p></div>');
                 $('.uk-form-help-block').remove();
             });
         }

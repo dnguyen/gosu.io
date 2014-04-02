@@ -27,6 +27,10 @@
     .thumb {
         position: relative;
 
+        > a:first-of-type {
+            width: 100%;
+        }
+
         .uk-overlay-toggle {
             > a:first-of-type {
                 width: 100%;
