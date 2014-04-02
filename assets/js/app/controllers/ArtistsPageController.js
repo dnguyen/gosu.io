@@ -41,7 +41,9 @@ define([
     };
 
     ArtistsPageController.prototype.render = function(type) {
-        var that = this;
+        var artistsPageView = new ArtistsPageView({ model : this.model }),
+            that = this;
+
         vent.trigger("StartLoadingNewPage", {
             title: "Artists",
             page : "artists"
@@ -51,7 +53,6 @@ define([
             that.model.get('artistsCollection').reset(data.artists);
             that.model.set('pageCount', data.pageCount);
 
-            var artistsPageView = new ArtistsPageView({ model : that.model });
             vent.trigger("FinishedLoadingNewPage", { view : artistsPageView });
         });
 
