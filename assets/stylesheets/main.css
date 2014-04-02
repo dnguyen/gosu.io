@@ -370,8 +370,6 @@ a:hover {
 
 /* line 57, ../sass/layout/_mainContent.scss */
 .content {
-  overflow: hidden;
-  *zoom: 1;
   padding: 0 0 15px 15px;
 }
 /* line 61, ../sass/layout/_mainContent.scss */

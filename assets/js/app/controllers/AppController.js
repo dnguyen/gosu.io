@@ -16,15 +16,17 @@ define([
     };
 
     AppController.prototype.setup = function() {
+        var $sidebarNavigation = $('.sidebar .scrollable-navigation'),
+            $sidebarPlaylists = $('.sidebar .scrollable-navigation .playlists');
 
         // Create scrollbar for playlists list on sidebar
-        $('.sidebar .scrollable-navigation').css('height', $(document).height() - 610);
-        $('.sidebar .scrollable-navigation .playlists').css('height', $(document).height() - 610);
+        $sidebarNavigation.css('height', $(document).height() - 610);
+        $sidebarPlaylists.css('height', $(document).height() - 610);
 
         // Resize playlists list on sidebar when window is resized.
         $(window).on('resize', function() {
-            $('.sidebar .scrollable-navigation').css('height', $(this).height() - 610);
-            $('.sidebar .scrollable-navigation .playlists').css('height', $(this).height() - 610);
+            $sidebarNavigation.css('height', $(this).height() - 610);
+            $sidebarPlaylists.css('height', $(this).height() - 610);
         });
     };
 
@@ -83,11 +85,12 @@ define([
     };
 
     AppController.prototype.showAddToMenu = function(data) {
+        var newAddToMenuView = new AddToMenuView({ model : data.model }),
+            $clickedEl = $(data.event.target),
+            $documentEl = $(document),
+            offsetLeftAmt = 10;
+
         $('.AddToMenu').remove();
-        var newAddToMenuView = new AddToMenuView({ model : data.model });
-        var $clickedEl = $(data.event.target);
-        var $documentEl = $(document);
-        var offsetLeftAmt = 10;
 
         $('body').append(newAddToMenuView.render().el);
 
