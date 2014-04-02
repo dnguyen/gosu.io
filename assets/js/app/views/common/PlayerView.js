@@ -1,51 +1,51 @@
 define([
-    "helpers/vent",
-    "marionette",
-    "jqueryui",
-    "../PlayerQueueItemView",
-    "text!../../templates/PlayerTemplate.html"
+    'helpers/vent',
+    'marionette',
+    'jqueryui',
+    '../PlayerQueueItemView',
+    'text!../../templates/PlayerTemplate.html'
 ], function (vent, Marionette, jQueryUi, PlayerQueueItemView, PlayerTemplate) {
-    "use strict";
+    'use strict';
 
     var PlayerView = Backbone.Marionette.ItemView.extend({
         className: 'player-container',
         template: _.template(PlayerTemplate),
 
         events: {
-            "click .uk-progress" : "progressBarClicked",
-            "click .StepBackward" : "stepBackWardClicked",
-            "click .StepForward" : "stepForwardClicked",
-            "click .PausePlay" : "pausePlayBtnClicked",
-            "mousewheel .queueItems" : "scrollQueue"
+            'click .uk-progress' : 'progressBarClicked',
+            "click .StepBackward" : 'stepBackWardClicked',
+            'click .StepForward' : 'stepForwardClicked',
+            'click .PausePlay' : 'pausePlayBtnClicked',
+            'mousewheel .queueItems' : 'scrollQueue'
         },
 
         modelEvents: {
-            "change:currentTrackIndex" : "currentTrackIndexChanged",
-            "change:playing" : "playingStateChanged"
+            'change:currentTrackIndex' : 'currentTrackIndexChanged',
+            'change:playing' : 'playingStateChanged'
         },
 
         initialize: function () {
-            vent.on("player:ytPlayerReady", this.playerReady, this);
-            vent.on("player:changeTrack", this.changeTrack, this);
-            vent.on("player:trackEnded", this.changeToNextTrack, this);
-            vent.on("player:playing", this.playerPlaying, this);
-            vent.on("player:paused", this.playerPaused, this);
-            vent.on("player:incProgress", this.playerIncProgress, this);
-            vent.on("player:seekPlayer", this.seekPlayer, this);
-            vent.on("player:stepBack", this.changeToPrevTrack, this);
-            vent.on("player:stepForward", this.changeToNextTrack, this);
-            vent.on("player:pausePlay", this.pauseOrPlay, this);
-            vent.on("player:changeVolume", this.changeVolume, this);
-            vent.on("player:addToQueue", this.addToQueue, this);
-            vent.on("player:removeFromQueue", this.removeFromQueue, this);
-            vent.on("player:playTrackDirect", this.playTrackDirect, this);
+            vent.on('player:ytPlayerReady', this.playerReady, this);
+            vent.on('player:changeTrack', this.changeTrack, this);
+            vent.on('player:trackEnded', this.changeToNextTrack, this);
+            vent.on('player:playing', this.playerPlaying, this);
+            vent.on('player:paused', this.playerPaused, this);
+            vent.on('player:incProgress', this.playerIncProgress, this);
+            vent.on('player:seekPlayer', this.seekPlayer, this);
+            vent.on('player:stepBack', this.changeToPrevTrack, this);
+            vent.on('player:stepForward', this.changeToNextTrack, this);
+            vent.on('player:pausePlay', this.pauseOrPlay, this);
+            vent.on('player:changeVolume', this.changeVolume, this);
+            vent.on('player:addToQueue', this.addToQueue, this);
+            vent.on('player:removeFromQueue', this.removeFromQueue, this);
+            vent.on('player:playTrackDirect', this.playTrackDirect, this);
 
-            this.model.get("tracks").bind("add", this.addToQueueCollection, this);
-            this.model.get("tracks").bind("remove", this.removeFromQueueCollection, this);
-            this.model.get("tracks").bind("reset", this.resetQueueCollection, this);
+            this.model.get('tracks').bind('add', this.addToQueueCollection, this);
+            this.model.get('tracks').bind('remove', this.removeFromQueueCollection, this);
+            this.model.get('tracks').bind('reset', this.resetQueueCollection, this);
 
-            if (localStorage.getItem("playerVolume") === null) {
-                localStorage.setItem("playerVolume", 50);
+            if (localStorage.getItem('playerVolume') === null) {
+                localStorage.setItem('playerVolume', 50);
             }
         },
 
@@ -59,19 +59,19 @@ define([
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 // Load the player once the API is ready.
                 window.onYouTubeIframeAPIReady = function () {
-                    if (that.model.get("tracks").length <= 0) {
-                        that.loadPlayer("");
+                    if (that.model.get('tracks').length <= 0) {
+                        that.loadPlayer('');
                     } else {
-                        that.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
+                        that.loadPlayer(that.model.get('tracks').at(0).get('videoId'));
                     }
                 };
                 // Load YouTube API. When finished window.onYouTubeIframeAPIReady is called.
                 $.getScript('//www.youtube.com/iframe_api');
             } else {
-                if (this.get("tracks").length <= 0) {
-                    this.loadPlayer("");
+                if (this.get('tracks').length <= 0) {
+                    this.loadPlayer('');
                 } else {
-                    this.loadPlayer(that.model.get("tracks").at(0).get("videoId"));
+                    this.loadPlayer(that.model.get('tracks').at(0).get('videoId'));
                 }
             }
 
@@ -80,36 +80,36 @@ define([
                 index = 0,
                 that = this;
 
-            this.model.get("tracks").forEach(function (track) {
-                track.set("collectionIndex", index);
+            this.model.get('tracks').forEach(function (track) {
+                track.set('collectionIndex', index);
                 var playerQueueItem = new PlayerQueueItemView({ model: track });
                 queueFragment.appendChild(playerQueueItem.render().el);
                 index++;
             });
-            $(".queueItems").append(queueFragment);
+            $('.queueItems').append(queueFragment);
 
             this.setQueueItemsScrollbar();
 
             // Render volume slider
-            $(".Volume").slider({
+            $('.Volume').slider({
                 min: 0,
                 max: 100,
                 slide: function (event, ui) {
-                    vent.trigger("player:changeVolume", ui.value);
+                    vent.trigger('player:changeVolume', ui.value);
                 }
             });
         },
 
         changeVolume: function (audioLevel) {
             this.ytplayer.setVolume(audioLevel);
-            localStorage.setItem("playerVolume", audioLevel);
+            localStorage.setItem('playerVolume', audioLevel);
 
             if (audioLevel === 0) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-off .uk-icon-medium"></i>');
             } else if (audioLevel > 0 && audioLevel < 50) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-down .uk-icon-medium"></i>');
             } else if (audioLevel >= 50) {
-                $(".Volume-indicator").html('<i class="uk-icon-volume-up .uk-icon-medium"></i>');
+                $('.Volume-indicator').html('<i class="uk-icon-volume-up .uk-icon-medium"></i>');
             }
         },
 
@@ -129,20 +129,20 @@ define([
         },
 
         progressBarClicked: function (e) {
-            vent.trigger("player:seekPlayer", e);
+            vent.trigger('player:seekPlayer', e);
 
         },
 
         stepBackWardClicked: function (e) {
-            vent.trigger("player:stepBack");
+            vent.trigger('player:stepBack');
         },
 
         stepForwardClicked: function (e) {
-            vent.trigger("player:stepForward");
+            vent.trigger('player:stepForward');
         },
 
         pausePlayBtnClicked: function (e) {
-            vent.trigger("player:pausePlay");
+            vent.trigger('player:pausePlay');
         },
 
         scrollQueue: function (e) {
@@ -153,10 +153,10 @@ define([
         },
 
         seekPlayer: function (e) {
-            var fullProgressbarWidth = $(".handle").parent().css("width");
+            var fullProgressbarWidth = $('.handle').parent().css('width');
             fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             // leftAmt -> left % of handle
-            var leftAmt = ((e.pageX - $(".Progress").offset().left) / fullProgressbarWidth) * 100;
+            var leftAmt = ((e.pageX - $('.Progress').offset().left) / fullProgressbarWidth) * 100;
             // seekTo -> seconds to jump to in the video
             var seekTo = Math.floor((leftAmt / 100) * this.ytplayer.getDuration());
 
@@ -177,52 +177,52 @@ define([
             YouTube API events
             ============================================================================ */
         onPlayerReady: function () {
-            vent.trigger("player:ytPlayerReady");
+            vent.trigger('player:ytPlayerReady');
         },
 
         onPlayerStateChange: function (e) {
             if (e.data === YT.PlayerState.PLAYING) {
-                vent.trigger("player:playing");
+                vent.trigger('player:playing');
             } else if (e.data === YT.PlayerState.PAUSED) {
-                vent.trigger("player:paused");
+                vent.trigger('player:paused');
             } else if (e.data === YT.PlayerState.ENDED) {
-                vent.trigger("player:trackEnded");
+                vent.trigger('player:trackEnded');
             }
         },
         /*  ============================================================================ */
 
         playerReady: function() {
-            this.changeVolume(localStorage.getItem("playerVolume"));
-            $(".Volume").slider("value", localStorage.getItem("playerVolume"));
+            this.changeVolume(localStorage.getItem('playerVolume'));
+            $('.Volume').slider('value', localStorage.getItem('playerVolume'));
         },
 
         /*
             Event handler for when 'playing' model property changes
         */
         playingStateChanged: function () {
-            this.ytplayer.setPlaybackQuality("hd720");
+            this.ytplayer.setPlaybackQuality('hd720');
 
             // If player is playing something, show pause button, else show play button
-            if (this.model.get("playing")) {
-                $(".PausePlay").html('<i class="uk-icon-pause"></i>');
+            if (this.model.get('playing')) {
+                $('.PausePlay').html('<i class="uk-icon-pause"></i>');
             } else {
-                $(".PausePlay").html('<i class="uk-icon-play"></i>');
+                $('.PausePlay').html('<i class="uk-icon-play"></i>');
             }
         },
 
         playerPlaying: function () {
-            this.ytplayer.setPlaybackQuality("hd720");
-            this.model.set("playing", true);
-            this.model.set("progressInterval", setInterval(
+            this.ytplayer.setPlaybackQuality('hd720');
+            this.model.set('playing', true);
+            this.model.set('progressInterval', setInterval(
                 function() {
-                    vent.trigger("player:incProgress");
+                    vent.trigger('player:incProgress');
                 }, 250));
-            $(".duration").text(this.secsToMinSec(this.ytplayer.getDuration()));
+            $('.duration').text(this.secsToMinSec(this.ytplayer.getDuration()));
         },
 
         playerPaused: function () {
-            clearInterval(this.model.get("progressInterval"));
-            this.model.set("playing", false);
+            clearInterval(this.model.get('progressInterval'));
+            this.model.set('playing', false);
         },
 
         playerIncProgress: function () {
@@ -235,10 +235,10 @@ define([
             $('.Progress.uk-progress-bar').attr('style', 'width: ' + incrementAmount + '%');
 
             // Move handle with progress bar
-            var fullProgressbarWidth = $(".handle").parent().css("width");
+            var fullProgressbarWidth = $('.handle').parent().css('width');
                 fullProgressbarWidth = fullProgressbarWidth.substring(0, fullProgressbarWidth.length - 2);
             var leftAmount = fullProgressbarWidth * (this.ytplayer.getCurrentTime() / this.ytplayer.getDuration()) - 10;
-            $(".handle").css("left", leftAmount + "px");
+            $('.handle').css('left', leftAmount + "px");
 
             // Increment current time
             $(".time").text(this.secsToMinSec(this.ytplayer.getCurrentTime()));
@@ -248,15 +248,15 @@ define([
             When currentTrackIndex changes, load the new track into the Youtube player
         */
         currentTrackIndexChanged: function () {
-            var trackAtCurrentIndex = this.model.get("tracks").at(this.model.get("currentTrackIndex"));
-            this.ytplayer.loadVideoById(trackAtCurrentIndex.get("videoId"), 0, "hd720");
+            var trackAtCurrentIndex = this.model.get('tracks').at(this.model.get('currentTrackIndex'));
+            this.ytplayer.loadVideoById(trackAtCurrentIndex.get('videoId'), 0, 'hd720');
         },
 
         /*
             Click event for clicking a track on the queue
         */
         changeTrack: function (trackModel) {
-            this.model.set("currentTrackIndex", trackModel.get("collectionIndex"));
+            this.model.set('currentTrackIndex', trackModel.get('collectionIndex'));
         },
 
         /*
@@ -264,36 +264,36 @@ define([
             If we're on the last track in the queue reset the currentTrackIndex to 0
         */
         changeToNextTrack: function () {
-            console.log("changing to next track");
+            console.log('changing to next track');
 
             // Reset the progress bar and interval
-            clearInterval(this.model.get("progressInterval"));
-            $(".Progress.uk-progress-bar").attr("style", "width: 0%");
+            clearInterval(this.model.get('progressInterval'));
+            $('.Progress.uk-progress-bar').attr('style', 'width: 0%');
 
             // Change model's currentTrackIndex
-            var currentTrackIndex = this.model.get("currentTrackIndex");
-            if (currentTrackIndex + 1 >= this.model.get("tracks").length) {
-                console.log("reset queue to 0");
-                this.model.set("currentTrackIndex", 0);
+            var currentTrackIndex = this.model.get('currentTrackIndex');
+            if (currentTrackIndex + 1 >= this.model.get('tracks').length) {
+                console.log('reset queue to 0');
+                this.model.set('currentTrackIndex', 0);
             } else {
-                this.model.set("currentTrackIndex", currentTrackIndex + 1);
+                this.model.set('currentTrackIndex', currentTrackIndex + 1);
             }
         },
 
         changeToPrevTrack: function () {
-            clearInterval(this.model.get("progressInterval"));
-            $(".Progress.uk-progress-bar").attr("style", "width: 0%");
+            clearInterval(this.model.get('progressInterval'));
+            $('.Progress.uk-progress-bar').attr('style', 'width: 0%');
 
-            var currentTrackIndex = this.model.get("currentTrackIndex");
+            var currentTrackIndex = this.model.get('currentTrackIndex');
             if (currentTrackIndex - 1 < 0) {
-                this.model.set("currentTrackIndex", this.model.get("tracks").length - 1);
+                this.model.set('currentTrackIndex', this.model.get('tracks').length - 1);
             } else {
-                this.model.set("currentTrackIndex", currentTrackIndex - 1);
+                this.model.set('currentTrackIndex', currentTrackIndex - 1);
             }
         },
 
         pauseOrPlay: function () {
-            if (this.model.get("playing")) {
+            if (this.model.get('playing')) {
                 this.ytplayer.pauseVideo();
             } else {
                 this.ytplayer.playVideo();
@@ -301,19 +301,19 @@ define([
         },
 
         addToQueue: function(trackModel) {
-            this.model.get("tracks").add(trackModel);
+            this.model.get('tracks').add(trackModel);
             this.model.saveLocal();
         },
 
         removeFromQueue: function(trackModel) {
-            this.model.get("tracks").remove(trackModel);
+            this.model.get('tracks').remove(trackModel);
             this.model.saveLocal();
         },
 
         addToQueueCollection: function(trackModel) {
-            trackModel.set("collectionIndex", (this.model.get("tracks").length) >= 0 ? this.model.get("tracks").length - 1 : 0);
+            trackModel.set('collectionIndex', (this.model.get('tracks').length) >= 0 ? this.model.get('tracks').length - 1 : 0);
             var playerQueueItem = new PlayerQueueItemView({ model: trackModel });
-            $(".queueItems").append(playerQueueItem.render().el);
+            $('.queueItems').append(playerQueueItem.render().el);
 
             // Determine if we need to add a horizontal scrollbar to queue
             this.setQueueItemsScrollbar();
@@ -325,7 +325,7 @@ define([
         },
 
         resetQueueCollection: function() {
-            $(".queueItems").html("");
+            $('.queueItems').html("");
         },
 
         /*
@@ -333,17 +333,17 @@ define([
             Should clear queue, and add the track that was asked to be played to the new queue.
         */
         playTrackDirect: function(trackModel) {
-            this.model.get("tracks").reset();
-            this.model.get("tracks").add(trackModel);
-            this.model.set({ "currentTrackIndex" : 0 }, { silent: true });
-            this.ytplayer.loadVideoById(trackModel.get("videoId"), 0, "hd720");
+            this.model.get('tracks').reset();
+            this.model.get('tracks').add(trackModel);
+            this.model.set({ 'currentTrackIndex' : 0 }, { silent: true });
+            this.ytplayer.loadVideoById(trackModel.get('videoId'), 0, 'hd720');
         },
 
         setQueueItemsScrollbar: function() {
-            if ((75 * this.model.get("tracks").length) >= ($(".queue").width() - 75)) {
-                $(".queueItems").css("overflow-x", "scroll");
+            if ((75 * this.model.get('tracks').length) >= ($('.queue').width() - 75)) {
+                $('.queueItems').css('overflow-x', 'scroll');
             } else {
-                $(".queueItems").css("overflow-x", "hidden");
+                $('.queueItems').css('overflow-x', 'hidden');
             }
         }
 

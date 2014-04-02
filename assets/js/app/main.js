@@ -48,6 +48,6 @@ require.config({
     findNestedDependencies: true
 });
 
-require(["gosuApp"], function(GosuApp) {
+require(['gosuApp'], function(GosuApp) {
     GosuApp.start();
 });

@@ -1,9 +1,9 @@
 define([
-    "jquery",
-    "underscore",
-    "backbone",
-    "marionette",
-    "text!../../templates/RadioSideModuleTemplate.html"
+    'jquery',
+    'underscore',
+    'backbone',
+    'marionette',
+    'text!../../templates/RadioSideModuleTemplate.html'
 ], function($, _, Backbone, Marionette, RadioSideModuleTemplate) {
 
     var RadioSideModuleView = Backbone.Marionette.ItemView.extend({

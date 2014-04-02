@@ -1,44 +1,43 @@
 define([
-    "helpers/vent",
-    "namespace",
-    "marionette",
-    "text!../templates/PlayerQueueItemTemplate.html"
+    'helpers/vent',
+    'namespace',
+    'marionette',
+    'text!../templates/PlayerQueueItemTemplate.html'
 ], function(vent, namespace, Marionette, PlayerQueueItemTemplate) {
 
     var PlayerQueueItemView = Backbone.Marionette.ItemView.extend({
-        tagName: "div",
-        className: "small-item queueItem",
+        tagName: 'div',
+        className: 'small-item queueItem',
 
         events: {
-            "click .Play" : "play",
-            "click .Remove" : "removeEvent",
-            "click .AddTo" : "addTo"
+            'click .Play' : 'play',
+            'click .Remove' : 'removeEvent',
+            'click .AddTo' : 'addTo'
         },
 
         template: _.template(PlayerQueueItemTemplate),
 
         initialize: function() {
-            this.model.bind("destroy", this.destroyView, this);
+            this.model.bind('destroy', this.destroyView, this);
         },
 
         play: function(e) {
-            vent.trigger("player:changeTrack", this.model);
+            vent.trigger('player:changeTrack', this.model);
         },
 
         removeEvent: function(e) {
-            vent.trigger("player:removeFromQueue", this.model);
+            vent.trigger('player:removeFromQueue', this.model);
         },
 
         addTo: function(e) {
             e.stopPropagation();
-            vent.trigger("showTrackAddToMenu", {
+            vent.trigger('showTrackAddToMenu', {
                 model : this.model,
                 event : e
             });
         },
 
         destroyView: function(e) {
-            console.log("destroy view");
             this.remove();
         }
     });

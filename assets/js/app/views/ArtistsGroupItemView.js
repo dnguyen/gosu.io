@@ -1,8 +1,8 @@
 define([
-    "helpers/vent",
-    "marionette",
-    "text!../templates/ArtistGroupItemTemplate.html",
-    "text!../templates/ArtistGroupListItemTemplate.html"
+    'helpers/vent',
+    'marionette',
+    'text!../templates/ArtistGroupItemTemplate.html',
+    'text!../templates/ArtistGroupListItemTemplate.html'
 ], function(vent, Marionette, ArtistGroupItemTemplate, ArtistGroupListItemTemplate) {
 
     var ArtistsGroupItemView = Backbone.Marionette.ItemView.extend({
@@ -19,13 +19,13 @@ define([
         },
 
         onRender: function() {
-            if (this.options.renderType === "list") {
-                $(this.el).addClass("listItem");
+            if (this.options.renderType === 'list') {
+                $(this.el).addClass('listItem');
             }
         },
 
         getTemplate: function() {
-            if (this.options.renderType === "list") {
+            if (this.options.renderType === 'list') {
                 return _.template(ArtistGroupListItemTemplate);
             } else {
                 return _.template(ArtistGroupItemTemplate);

@@ -1,10 +1,10 @@
 define([
-    "marionette",
-    "text!../../templates/LoadingIconTemplate.html"
+    'marionette',
+    'text!../../templates/LoadingIconTemplate.html'
 ], function(Marionette, LoadingIconTemplate) {
 
     var LoadingIcon = Backbone.Marionette.ItemView.extend({
-        className : "row",
+        className : 'row',
         template: _.template(LoadingIconTemplate)
     });
 

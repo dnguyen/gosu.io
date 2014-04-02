@@ -1,6 +1,6 @@
 define([
-    "namespace",
-    "marionette"
+    'namespace',
+    'marionette'
 ], function(namespace, Marionette) {
 
     var PlayerModel = Backbone.Model.extend({
@@ -18,7 +18,7 @@ define([
             Loads model from localStorage
         */
         loadLocal: function() {
-            var data = JSON.parse(localStorage.getItem("playerData"));
+            var data = JSON.parse(localStorage.getItem('playerData'));
             var that = this;
 
             _.each(data.tracks, function(track) {
@@ -31,7 +31,7 @@ define([
                     uploaded: track.uploaded,
                     viewCount: track.viewCount
                 });
-                that.get("tracks").add(trackModel);
+                that.get('tracks').add(trackModel);
             });
         },
 
@@ -39,7 +39,7 @@ define([
             Saves model to localStorage
         */
         saveLocal: function() {
-            localStorage.setItem("playerData", JSON.stringify(this));
+            localStorage.setItem('playerData', JSON.stringify(this));
         }
 
     });

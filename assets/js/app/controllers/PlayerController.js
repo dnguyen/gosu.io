@@ -1,8 +1,8 @@
 define([
-    "helpers/vent",
-    "marionette",
-    "../models/Player",
-    "../views/common/PlayerView"
+    'helpers/vent',
+    'marionette',
+    '../models/Player',
+    '../views/common/PlayerView'
 ], function(vent, Marionette, PlayerModel, PlayerView) {
 
     var PlayerController = function() {
@@ -19,7 +19,7 @@ define([
         this.model = new PlayerModel();
 
         // If player_queue does not exist in localstorage, create it.
-        if (localStorage.getItem("playerData") === null) {
+        if (localStorage.getItem('playerData') === null) {
             this.model.saveLocal();
         } else {
             this.model.loadLocal();
@@ -27,7 +27,7 @@ define([
     };
 
     PlayerController.prototype.render = function() {
-        vent.trigger("renderPlayer", { view : new PlayerView({ model: this.model }) });
+        vent.trigger('renderPlayer', { view : new PlayerView({ model: this.model }) });
     };
 
     return PlayerController;

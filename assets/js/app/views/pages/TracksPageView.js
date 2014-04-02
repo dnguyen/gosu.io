@@ -1,52 +1,52 @@
 define([
-    "helpers/vent",
-    "marionette",
-    "../TrackGroupCollectionView",
-    "text!../../templates/TracksPageLayoutTemplate.html"
+    'helpers/vent',
+    'marionette',
+    '../TrackGroupCollectionView',
+    'text!../../templates/TracksPageLayoutTemplate.html'
 ], function(vent, Marionette, TrackGroupCollectionView, TracksPageTemplate) {
 
     var TracksPageView = Backbone.Marionette.ItemView.extend({
 
-        className : "app-region uk-animation-slide-left",
+        className : 'app-region uk-animation-slide-left',
         template : _.template(TracksPageTemplate),
 
         events : {
-            "keypress #filter-input" : "filterKeyPress",
-            "click .Remove" : "filterRemove",
-            "click .Filter" : "addFilter",
-            "change #sort-dropdown" : "applySort",
-            "change #order-dropdown" : "applyOrder",
-            "click .ThumbView" : "switchToThumbView",
-            "click .ListView" : "switchToListView"
+            'keypress #filter-input' : 'filterKeyPress',
+            'click .Remove' : 'filterRemove',
+            'click .Filter' : 'addFilter',
+            'change #sort-dropdown' : 'applySort',
+            'change #order-dropdown' : 'applyOrder',
+            'click .ThumbView' : 'switchToThumbView',
+            'click .ListView' : 'switchToListView'
         },
 
         initialize : function() {
         },
 
         onRender : function() {
-            if (localStorage.getItem("tracksPage:renderType") === null) {
-                localStorage.setItem("tracksPage:renderType", "thumb");
+            if (localStorage.getItem('tracksPage:renderType') === null) {
+                localStorage.setItem('tracksPage:renderType', 'thumb');
             }
 
             // After rendering entire layout, start rendering the tracks
             var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
-                renderType : localStorage.getItem("tracksPage:renderType")
+                collection : this.model.get('tracksCollection'),
+                renderType : localStorage.getItem('tracksPage:renderType')
             });
 
-            this.$el.find(".content").append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content').append(trackGroupCollectionView.render().$el);
         },
 
         applySort : function() {
-            var sort = $("#sort-dropdown").val();
-            this.model.set("sortType", sort);
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + sort + "&order=" + this.model.get("orderBy");
+            var sort = $('#sort-dropdown').val();
+            this.model.set('sortType', sort);
+            window.location = '#/tracks/' + this.model.get('page') + '?sort=' + sort + '&order=' + this.model.get('orderBy');
         },
 
         applyOrder : function() {
-            var order = $("#order-dropdown").val();
-            this.model.set("orderBy", order);
-            window.location = "#/tracks/" + this.model.get("page") + "?sort=" + this.model.get("sortType") + "&order=" + order;
+            var order = $('#order-dropdown').val();
+            this.model.set('orderBy', order);
+            window.location = '#/tracks/' + this.model.get('page') + '?sort=' + this.model.get('sortType') + '&order=' + order;
         },
 
         addFilter : function(e) {
@@ -57,33 +57,33 @@ define([
         filterKeyPress : function(e) {
             // If enter key is entered while filter input box is focused, do a filter.
             if (e.which === 13) {
-                var searchTerms = $("#filter-input").val();
-                vent.trigger("tracks:doFilter", { searchTerms : searchTerms });
+                var searchTerms = $('#filter-input').val();
+                vent.trigger('tracks:doFilter', { searchTerms : searchTerms });
             }
         },
 
         filterRemove : function(e) {
-            vent.trigger("tracks:removeFilter");
+            vent.trigger('tracks:removeFilter');
         },
 
         switchViewType : function(options) {
-            localStorage.setItem("tracksPage:renderType", options.viewType);
-            $(this.el).find(".content .item-group").empty();
+            localStorage.setItem('tracksPage:renderType', options.viewType);
+            $(this.el).find('.content .item-group').empty();
 
             var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get("tracksCollection"),
+                collection : this.model.get('tracksCollection'),
                 renderType : options.viewType
             });
 
-            this.$el.find(".content .item-group").append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content .item-group').append(trackGroupCollectionView.render().$el);
         },
 
         switchToThumbView : function(e) {
-            this.switchViewType({ viewType: "thumb" });
+            this.switchViewType({ viewType: 'thumb' });
         },
 
         switchToListView : function(e) {
-            this.switchViewType({ viewType: "list" });
+            this.switchViewType({ viewType: 'list' });
         }
 
     });

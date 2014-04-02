@@ -1,17 +1,17 @@
 define([
     'helpers/vent',
     'marionette',
-    "../../helpers/ApiHelper",
+    '../../helpers/ApiHelper',
     'text!../../templates/CreatePlaylistModal.html'
 ], function(vent, Marionette, Api, CreatePlaylistModalTemplate) {
 
     var CreatePlaylistModal = Marionette.ItemView.extend({
 
-        className: "modal-container",
+        className: 'modal-container',
         template: _.template(CreatePlaylistModalTemplate),
         events: {
-            "click .create" : "create",
-            "click .close" : "close"
+            'click .create' : 'create',
+            'click .close' : 'close'
         },
 
         initialize: function(options) {
@@ -25,9 +25,9 @@ define([
             setTimeout(function() {
                 // Close the menu if we click anywhere outside of the modal element.
                 $(document).click(function(e) {
-                    if ($(e.target).closest(".small-modal").length == 0) {
+                    if ($(e.target).closest('.small-modal').length == 0) {
                         that.close();
-                        $(document).unbind("click");
+                        $(document).unbind('click');
                     }
                 });
             }, 250);
@@ -36,16 +36,16 @@ define([
         create: function(e) {
             var that = this;
 
-            $.when(Api.request("POST", "playlists", {
-                token : localStorage.getItem("token"),
-                name : $("#name").val(),
-                private : $("#private").is(":checked") ? 1 : 0
+            $.when(Api.request('POST', 'playlists', {
+                token : localStorage.getItem('token'),
+                name : $('#name').val(),
+                private : $('#private').is(':checked') ? 1 : 0
             })).then(function(data) {
                 that.close();
-                vent.trigger("playlists:addPlaylist", data);
+                vent.trigger('playlists:addPlaylist', data);
             })
             .fail(function() {
-                console.log("failed to insert");
+                console.log('failed to insert');
             });
         }
 

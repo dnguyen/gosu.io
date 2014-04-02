@@ -1,12 +1,12 @@
 define([
-    "helpers/vent",
+    'helpers/vent',
     "marionette",
-    "../views/TrackGroupCollectionView",
-    "../views/side_modules/SOTWSideModuleView",
-    "../views/side_modules/RadioSideModuleView",
-    "../views/side_modules/ModuleListCompositeView",
-    "../layouts/SideModulesLayout",
-    "../layouts/MainPageLayout"
+    '../views/TrackGroupCollectionView',
+    '../views/side_modules/SOTWSideModuleView',
+    '../views/side_modules/RadioSideModuleView',
+    '../views/side_modules/ModuleListCompositeView',
+    '../layouts/SideModulesLayout',
+    '../layouts/MainPageLayout'
 ], function(vent, Marionette, TrackGroupCollectionView, SOTWSideModuleView, RadioSideModuleView, ModuleListCompositeView, SideModulesLayout, MainPageLayout) {
 
     var HomePageController = function(options) {
@@ -16,7 +16,7 @@ define([
     };
 
     HomePageController.prototype.render = function() {
-        console.log("Home page controller render");
+        console.log('Home page controller render');
 
         // Render popular tracks
         var popularTracksCompositeView = new TrackGroupCollectionView({
@@ -33,7 +33,7 @@ define([
         // Start rendering content region with our home page layout
         var newMainPageLayout = new MainPageLayout();
 
-        vent.trigger("FinishedLoadingNewPage", { view : newMainPageLayout });
+        vent.trigger('FinishedLoadingNewPage', { view : newMainPageLayout });
 
         newMainPageLayout.popular.show(popularTracksCompositeView);
         newMainPageLayout.newReleases.show(newReleasesCollectionView);

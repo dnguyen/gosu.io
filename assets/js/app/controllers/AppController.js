@@ -4,11 +4,11 @@
  */
 
 define([
-    "models/Client",
-    "helpers/vent",
-    "namespace",
-    "../views/common/AddToMenuView",
-    "../views/common/LoadingIcon"
+    'models/Client',
+    'helpers/vent',
+    'namespace',
+    '../views/common/AddToMenuView',
+    '../views/common/LoadingIcon'
 ], function(Client, vent, namespace, AddToMenuView, LoadingIconView) {
 
     var AppController = function() {
@@ -29,17 +29,17 @@ define([
     };
 
     AppController.prototype.loadNewPage = function(data) {
-        vent.trigger("UpdateTitle", data.title ? data.title : null);
+        vent.trigger('UpdateTitle', data.title ? data.title : null);
 
         // Add blue indicator to sidebar link for current page
-        $(".navigation").children().removeClass("selected");
-        $("#" + data.page +"-nav-item").addClass("selected");
+        $('.navigation').children().removeClass('selected');
+        $('#' + data.page +'-nav-item').addClass('selected');
 
         // Show the loading icon
         this.loadingIconView = new LoadingIconView();
 
         this.content.reset();
-        $("#content").append(this.loadingIconView.render().el);
+        $('#content').append(this.loadingIconView.render().el);
     };
 
     AppController.prototype.doneLoadingNewPage = function(data) {
@@ -49,10 +49,10 @@ define([
 
     AppController.prototype.handleSuccessfulAuthentication = function(data) {
         Client.set({
-            "loggedin" : true,
-            "id" : data.id,
-            "username" : data.username,
-            "token" : data.token
+            loggedin : true,
+            id : data.id,
+            username : data.username,
+            token : data.token
         });
 
         this.headerController.render();
@@ -64,7 +64,7 @@ define([
 
     AppController.prototype.handleFailedAuthentication = function(data) {
         Client.set({
-            "loggedin" : false
+            loggedin : false
         });
 
         this.headerController.render();
@@ -75,7 +75,7 @@ define([
     };
 
     AppController.prototype.updateTitle = function(title) {
-        document.title = title ? title + " – " + namespace.config.title : namespace.config.title;
+        document.title = title ? title + ' – ' + namespace.config.title : namespace.config.title;
     };
 
     AppController.prototype.showHeader = function(data) {
@@ -83,28 +83,28 @@ define([
     };
 
     AppController.prototype.showAddToMenu = function(data) {
-        $(".AddToMenu").remove();
+        $('.AddToMenu').remove();
         var newAddToMenuView = new AddToMenuView({ model : data.model });
         var $clickedEl = $(data.event.target);
         var $documentEl = $(document);
         var offsetLeftAmt = 10;
 
-        $("body").append(newAddToMenuView.render().el);
+        $('body').append(newAddToMenuView.render().el);
 
         // Calculate where to place menu. We want to make sure it doesn't open off screen.
         if ($clickedEl.offset().left + 150 > $documentEl.width()) {
             offsetLeftAmt = 150;
         }
 
-        $(".AddToMenu").css({
-            "left" : ($clickedEl.offset().left - offsetLeftAmt) + "px",
-            "top" : ($clickedEl.offset().top - 15) + "px"
+        $('.AddToMenu').css({
+            'left' : ($clickedEl.offset().left - offsetLeftAmt) + 'px',
+            'top' : ($clickedEl.offset().top - 15) + 'px'
         });
 
         // Close the menu if we click anywhere outside of the AddToMenu element.
         $documentEl.click(function(e) {
             if ($(e.target).closest('.AddToMenu').length == 0) {
-                $(".AddToMenu").remove();
+                $('.AddToMenu').remove();
                 $documentEl.unbind("click");
             }
         });
