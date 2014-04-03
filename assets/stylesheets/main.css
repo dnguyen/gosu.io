@@ -849,6 +849,12 @@ a:hover {
   margin: 3px 0 0 0;
 }
 /* line 137, ../sass/modules/_item-group.scss */
+.item-group .item.listItem .meta--artist, .item-group .listItem.small-item .meta--artist {
+  margin: 16px 15px 15px 15px;
+  float: left;
+  font-size: 16px;
+}
+/* line 143, ../sass/modules/_item-group.scss */
 .item-group .item.listItem .track-options, .item-group .listItem.small-item .track-options {
   float: right;
   margin: 10px 0 0 0;
