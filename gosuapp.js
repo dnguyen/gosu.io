@@ -3636,7 +3636,7 @@ define('controllers/TracksPageController',[
 define('text!templates/ArtistGroupItemTemplate.html',[],function () { return '<div class="thumb">\r\n    <a href="#/artist/<%= id %>/<%= name %>" class="uk-overlay">\r\n        <img src="assets/img/girlsday_thumb.png" />\r\n    </a>\r\n</div>\r\n\r\n<div class="meta">\r\n    <div class="caption">\r\n        <a href="#/artist/<%= id %>/<%= name %>" title="<%= name %>"><%= name %></a>\r\n    </div>\r\n</div>';});
 
 
-define('text!templates/ArtistGroupListItemTemplate.html',[],function () { return 'listitem';});
+define('text!templates/ArtistGroupListItemTemplate.html',[],function () { return '<div class="thumb">\r\n    <img src="assets/img/girlsday_thumb.png" />\r\n</div>\r\n<div class="meta--artist">\r\n    <div class="artist">\r\n        <a href="#/artist/<%= id %>/<%= name %>"><%= name %></a>\r\n    </div>\r\n</div>';});
 
 define('views/ArtistsGroupItemView',[
     'helpers/vent',
@@ -3747,12 +3747,12 @@ define('views/pages/ArtistsPageView',[
                 localStorage.setItem('artistsPage:renderType', "thumb");
             }
 
-            var trackGroupCollectionView = new ArtistsGroupCompositeView({
+            var arackGroupCollectionView = new ArtistsGroupCompositeView({
                 collection : this.model.get('artistsCollection'),
                 renderType : localStorage.getItem('artistsPage:renderType')
             });
 
-            this.$el.find('.content').append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content').append(arackGroupCollectionView.render().$el);
         },
 
         applySort : function() {
@@ -3785,15 +3785,15 @@ define('views/pages/ArtistsPageView',[
         },
 
         switchViewType : function(options) {
-            localStorage.setItem('tracksPage:renderType', options.viewType);
+            localStorage.setItem('artistsPage:renderType', options.viewType);
             $(this.el).find('.content .item-group').empty();
 
-            var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get('tracksCollection'),
+            var artistGroupCollectionView = new ArtistsGroupCompositeView({
+                collection : this.model.get('artistsCollection'),
                 renderType : options.viewType
             });
 
-            this.$el.find('.content .item-group').append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content .item-group').append(artistGroupCollectionView.render().$el);
         },
 
         switchToThumbView : function(e) {
