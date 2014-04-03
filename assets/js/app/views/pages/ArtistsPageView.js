@@ -28,12 +28,12 @@ define([
                 localStorage.setItem('artistsPage:renderType', "thumb");
             }
 
-            var trackGroupCollectionView = new ArtistsGroupCompositeView({
+            var arackGroupCollectionView = new ArtistsGroupCompositeView({
                 collection : this.model.get('artistsCollection'),
                 renderType : localStorage.getItem('artistsPage:renderType')
             });
 
-            this.$el.find('.content').append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content').append(arackGroupCollectionView.render().$el);
         },
 
         applySort : function() {
@@ -66,15 +66,15 @@ define([
         },
 
         switchViewType : function(options) {
-            localStorage.setItem('tracksPage:renderType', options.viewType);
+            localStorage.setItem('artistsPage:renderType', options.viewType);
             $(this.el).find('.content .item-group').empty();
 
-            var trackGroupCollectionView = new TrackGroupCollectionView({
-                collection : this.model.get('tracksCollection'),
+            var artistGroupCollectionView = new ArtistsGroupCompositeView({
+                collection : this.model.get('artistsCollection'),
                 renderType : options.viewType
             });
 
-            this.$el.find('.content .item-group').append(trackGroupCollectionView.render().$el);
+            this.$el.find('.content .item-group').append(artistGroupCollectionView.render().$el);
         },
 
         switchToThumbView : function(e) {
