@@ -3010,6 +3010,12 @@ define('views/common/PlayerView',[
         },
 
         pauseOrPlay: function () {
+            // Since currentTrackIndexChanged only fires when the index has changed,
+            // (index doesn't change when adding the first song to the queue)
+            // Fire track index changed manually when the queue has only 1 song.
+            if (this.model.get('tracks').length == 1) {
+                this.currentTrackIndexChanged();
+            }
             if (this.model.get('playing')) {
                 this.ytplayer.pauseVideo();
             } else {
